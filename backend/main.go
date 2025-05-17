@@ -7,6 +7,11 @@ import (
 	"github.com/Frosmin/backend/routes"
 )
 
+// @title API de Aprendizaje Python
+// @version 1.0
+// @description API para la plataforma de enseñanza de programación en Python
+// @host localhost:8080
+// @BasePath /api
 func main() {
 	// migraciones para la base de datos
 	db.Connect()

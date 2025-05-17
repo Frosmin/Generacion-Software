@@ -3,6 +3,8 @@ package routes
 import (
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
+	swaggerFiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
 )
 
 // SetupRouter configura el enrutador con middleware CORS y todas las rutas necesarias
@@ -16,6 +18,8 @@ func SetupRouter() *gin.Engine {
 	config.AllowHeaders = []string{"Origin", "Content-Type", "Accept", "Authorization"}
 
 	r.Use(cors.New(config))
+
+	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
 	// Configuración base
 	r.GET("/", func(c *gin.Context) {
