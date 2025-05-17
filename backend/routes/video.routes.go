@@ -14,8 +14,8 @@ import (
 // @Tags videos
 // @Accept json
 // @Produce json
-// @Success 200 {array} models.Video
-// @Router /videos [get]
+// @Success 200 {array} docs.Video
+// @Router /videos [get]]
 func GetVideosHandler(c *gin.Context) {
 	var videos []models.Video
 	db.DB.Find(&videos)
@@ -29,8 +29,8 @@ func GetVideosHandler(c *gin.Context) {
 // @Accept json
 // @Produce json
 // @Param id path string true "ID del video"
-// @Success 200 {object} models.Video
-// @Failure 404 {object} map[string]string "error"
+// @Success 200 {object} docs.Video
+// @Failure 404 {object} map[string]string
 // @Router /video/{id} [get]
 func GetVideoHandler(c *gin.Context) {
 	id := c.Param("id")
@@ -51,7 +51,7 @@ func GetVideoHandler(c *gin.Context) {
 // @Tags videos
 // @Accept json
 // @Produce json
-// @Success 200 {array} models.Video
+// @Success 200 {array} docs.Video
 // @Router /videos20 [get]
 func GetVideosHandler20(c *gin.Context) {
 	var videos []models.Video
@@ -65,9 +65,9 @@ func GetVideosHandler20(c *gin.Context) {
 // @Tags videos
 // @Accept json
 // @Produce json
-// @Param video body models.Video true "Datos del video"
-// @Success 201 {object} models.Video
-// @Failure 400 {object} map[string]string "error"
+// @Param video body docs.Video true "Datos del video"
+// @Success 201 {object} docs.Video
+// @Failure 400 {object} map[string]string
 // @Router /video [post]
 func PostVideoHandler(c *gin.Context) {
 	var video models.Video
