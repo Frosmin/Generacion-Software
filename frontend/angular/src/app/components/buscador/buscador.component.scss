@@ -8,10 +8,6 @@ $shadow-color: rgba(0, 0, 0, 0.05);
 .buscador-container {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 40px;
-  min-height: 100vh;
   background-color: $bg-color;
   font-family: Arial, sans-serif;
 
@@ -28,7 +24,7 @@ $shadow-color: rgba(0, 0, 0, 0.05);
 
     .buscador-input {
       padding: 10px;
-      width: 280px;
+      width: 620px;
       border: 1px solid $border-color;
       border-radius: 6px;
       font-size: 16px;
