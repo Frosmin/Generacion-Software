@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { CodemirrorModule } from '@ctrl/ngx-codemirror';
 
-// Importa lint y modo python para CodeMirror
+// Importacion de lint y modo python para CodeMirror
 import * as CodeMirrorNS from 'codemirror';
 import 'codemirror/addon/lint/lint';
 import 'codemirror/addon/lint/lint.css';
@@ -11,7 +11,7 @@ import 'codemirror/mode/python/python';
 (window as any).CodeMirror = CodeMirrorNS;
 declare const CodeMirror: any;
 
-// --- Lint global para CodeMirror y Pyodide ---
+// Lint global para CodeMirror y Pyodide 
 function pythonLint(code: string) {
   const pyodide = (window as any).pyodideInstance;
   if (!pyodide) {
@@ -24,19 +24,29 @@ function pythonLint(code: string) {
   } catch (error: any) {
     let message = error.message || error.toString();
     let line = 0;
-    const lineMatch = message.match(/line (\d+)/);
-    if (lineMatch) {
-      line = parseInt(lineMatch[1], 10) - 1;
+    // Buscar la línea del "<input>"
+    const inputLineMatch = message.match(/File "<input>", line (\d+)/);
+    if (inputLineMatch) {
+      line = parseInt(inputLineMatch[1], 10) - 1;
     }
-    console.log('[Editor] Error de sintaxis detectado:', message, 'en línea', line + 1);
+    // Mostrar mensaje
+    let userMessage = 'Error de sintaxis';
+    if (message.includes('SyntaxError')) {
+      userMessage = message.replace('SyntaxError:', '').trim();
+    } else if (message) {
+      userMessage = message;
+    }
+    console.log('[Editor] Error de sintaxis detectado:', userMessage, 'en línea', line + 1);
+    // Marca toda la línea
     return [{
       from: CodeMirror.Pos(line, 0),
       to: CodeMirror.Pos(line, 100),
-      message,
+      message: userMessage,
       severity: 'error'
     }];
   }
 }
+
 
 @Component({
   selector: 'app-editor',
@@ -74,7 +84,7 @@ export class EditorComponent implements OnInit {
     mode: 'text/plain',
     lineNumbers: false,
     placeholder: 'Escribe tus inputs…',
-    lint: false // ¡IMPORTANTE! No hacer lint en el input
+    lint: false 
   };
 
   pyodide: any;
@@ -89,12 +99,12 @@ export class EditorComponent implements OnInit {
     console.log('[Editor] Pyodide cargado desde CDN');
   }
 
-  // Vincula instancia de CodeMirror
+  // Vincular instancia de CodeMirror
   onEditorInit(instance: any) {
     this.codeMirrorInstance = instance;
   }
 
-  // Fuerza el lint en cada cambio de código
+  // Forzar el lint en cada cambio de código
   onCodigoChange() {
     if (this.codeMirrorInstance) {
       this.codeMirrorInstance.performLint();

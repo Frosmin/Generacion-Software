@@ -1,4 +1,29 @@
 
+/* CodeMirror Lint Styles - habilita subrayado de errores */
+.CodeMirror-lint-mark-error {
+  border-bottom: 2px wavy #ff0000;
+  background: none;
+}
+.CodeMirror-lint-mark-warning {
+  border-bottom: 2px dotted orange;
+  background: none;
+}
+.CodeMirror-lint-tooltip {
+  background: #ffd2d2;
+  color: #a33;
+  border: 1px solid #a33;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.9em;
+  z-index: 100;
+}
+.CodeMirror-lint-marker-error {
+  color: #ff0000;
+}
+.CodeMirror-lint-marker-warning {
+  color: orange;
+}
+
 /* Estilos globales y mobile-first */
 body {
     margin: 0;
