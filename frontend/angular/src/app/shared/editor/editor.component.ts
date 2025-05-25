@@ -2,6 +2,42 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { CodemirrorModule } from '@ctrl/ngx-codemirror';
+
+// Importa lint y modo python para CodeMirror
+import * as CodeMirrorNS from 'codemirror';
+import 'codemirror/addon/lint/lint';
+import 'codemirror/addon/lint/lint.css';
+import 'codemirror/mode/python/python';
+(window as any).CodeMirror = CodeMirrorNS;
+declare const CodeMirror: any;
+
+// --- Lint global para CodeMirror y Pyodide ---
+function pythonLint(code: string) {
+  const pyodide = (window as any).pyodideInstance;
+  if (!pyodide) {
+    console.log('[Editor] Lint: Pyodide no está listo');
+    return [];
+  }
+  try {
+    pyodide.runPython(`compile(${JSON.stringify(code)}, '<input>', 'exec')`);
+    return [];
+  } catch (error: any) {
+    let message = error.message || error.toString();
+    let line = 0;
+    const lineMatch = message.match(/line (\d+)/);
+    if (lineMatch) {
+      line = parseInt(lineMatch[1], 10) - 1;
+    }
+    console.log('[Editor] Error de sintaxis detectado:', message, 'en línea', line + 1);
+    return [{
+      from: CodeMirror.Pos(line, 0),
+      to: CodeMirror.Pos(line, 100),
+      message,
+      severity: 'error'
+    }];
+  }
+}
+
 @Component({
   selector: 'app-editor',
   standalone: true,
@@ -22,24 +58,47 @@ export class EditorComponent implements OnInit {
     styleActiveLine: true,
     matchBrackets: true,
     viewportMargin: Infinity,
-    placeholder: 'Escribe tu código…'
+    placeholder: 'Escribe tu código…',
+    gutters: ['CodeMirror-lint-markers'],
+    lint: {
+      getAnnotations: pythonLint,
+      async: false
+    },
+    extraKeys: {
+      'Ctrl-Space': 'autocomplete'
+    }
   };
-
 
   inputOptions = {
-    ...this.cmOptions,    
+    ...this.cmOptions,
     mode: 'text/plain',
     lineNumbers: false,
-    placeholder: 'Escribe tus inputs…'
+    placeholder: 'Escribe tus inputs…',
+    lint: false // ¡IMPORTANTE! No hacer lint en el input
   };
 
-
   pyodide: any;
+  pyodideReady: boolean = false;
+  codeMirrorInstance: any;
 
   async ngOnInit() {
     // @ts-ignore
     this.pyodide = await loadPyodide();
-    console.log('Pyodide cargado desde CDN');
+    this.pyodideReady = true;
+    (window as any).pyodideInstance = this.pyodide;
+    console.log('[Editor] Pyodide cargado desde CDN');
+  }
+
+  // Vincula instancia de CodeMirror
+  onEditorInit(instance: any) {
+    this.codeMirrorInstance = instance;
+  }
+
+  // Fuerza el lint en cada cambio de código
+  onCodigoChange() {
+    if (this.codeMirrorInstance) {
+      this.codeMirrorInstance.performLint();
+    }
   }
 
   async ejecutarCodigo() {

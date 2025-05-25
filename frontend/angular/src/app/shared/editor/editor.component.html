@@ -5,7 +5,8 @@
       <ngx-codemirror
         class="cm-panel"
         [(ngModel)]="codigo"
-        [options]="cmOptions">
+        [options]="cmOptions"
+        (editorInitialized)="onEditorInit($event)">
       </ngx-codemirror>
 
       <ngx-codemirror
