@@ -1,5 +1,6 @@
+@use "sass:color";
 $primary-color: #007bff;
-$primary-hover: darken($primary-color, 10%);
+$primary-hover: color.adjust($primary-color, $lightness: -10%);
 $bg-color: #f9f9f9;
 $text-color: #333;
 $border-color: #ccc;
@@ -60,7 +61,7 @@ $shadow-color: rgba(0, 0, 0, 0.05);
     .resultado-item {
       padding: 10px;
       background-color: white;
-      border: 1px solid lighten($border-color, 10%);
+      border: 1px solid color.adjust($border-color, $lightness: 10%);
       border-radius: 6px;
       margin-bottom: 10px;
       text-align: center;

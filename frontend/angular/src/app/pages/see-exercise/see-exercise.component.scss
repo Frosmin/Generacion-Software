@@ -1,3 +1,4 @@
+@use "sass:color";
 // Variables
 $primary-color: #83bdff;
 $secondary-color: transparent;
@@ -131,7 +132,7 @@ $runtime-error-color: #9c27b0;
               transition: all 0.2s ease;
 
               &:hover {
-                background-color: darken(white, 5%);
+                background-color: color.adjust(white, $lightness: -5%);
               }
             }
           }
@@ -278,7 +279,7 @@ $runtime-error-color: #9c27b0;
     .no-submissions {
       text-align: center;
       padding: 40px 0;
-      color: lighten($text-color, 30%);
+      color: color.adjust($text-color, $lightness: 30%);
     }
   }
 }
