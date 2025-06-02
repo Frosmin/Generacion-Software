@@ -12,6 +12,6 @@ export const routes: Routes = [
   // listas
   {path: "lista-videos", component: VideosListComponent},
   {path: "lista-ejercicios", component: ExercisesListComponent},
-  {path: "progreso-aprendizaje", component: LearningProgressComponent}
+  {path: "progreso-aprendizaje", component: LearningProgressComponent},
   {path: "lista-cursos", component: CoursesListComponent}
 ];
