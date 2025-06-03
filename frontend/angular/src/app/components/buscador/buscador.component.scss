@@ -11,8 +11,7 @@ $shadow-color: rgba(0, 0, 0, 0.05);
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 40px;
-  min-height: 100vh;
+  padding: 0px;
   font-family: Arial, sans-serif;
 
   .titulo {
@@ -33,12 +32,10 @@ $shadow-color: rgba(0, 0, 0, 0.05);
       border-radius: 6px;
       font-size: 16px;
       min-width: 500px;
-    }
 
-    @media screen and (max-width: 720px) {
-      .buscador-input {
+      @media screen and (max-width: 720px) {
         min-width: auto;
-        max-width: fit-content;
+        max-width: 100%;
       }
     }
 
@@ -73,6 +70,13 @@ $shadow-color: rgba(0, 0, 0, 0.05);
       margin-bottom: 10px;
       text-align: center;
       box-shadow: 0 2px 4px $shadow-color;
+
+      .curso {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        margin-left: 4px;
+      }
     }
   }
 
@@ -82,11 +86,12 @@ $shadow-color: rgba(0, 0, 0, 0.05);
     font-style: italic;
   }
 }
+
 .icono-curso {
   width: 24px;
   height: 24px;
   object-fit: contain;
-  margin-right: 6px;
-  vertical-align: middle;
+  margin-left: 6px;
   border-radius: 4px;
+  vertical-align: middle;
 }

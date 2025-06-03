@@ -3,8 +3,13 @@
     <img src="images/logo.png" alt="Logo Aprende Python" class="logo-navbar">
     <h1>Aprende Python</h1>
   </div>
+  <div>
+<app-buscador></app-buscador>
+  </div>
+    
   <button class="menu-toggle" (click)="toggleMenu()">☰</button>
-  <nav class="main-nav" [ngClass]="{'active': isMenuActive}">
+  <div>
+<nav class="main-nav" [ngClass]="{'active': isMenuActive}">
     <ul>
       <li><a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
           (click)="closeMenu()">Inicio</a></li>
@@ -12,8 +17,9 @@
       <li><a routerLink="/lista-ejercicios" routerLinkActive="active" (click)="closeMenu()">Ejercicios</a></li>
       <li><a routerLink="/lista-videos" routerLinkActive="active" (click)="closeMenu()">Videos</a></li>
       <li><a routerLink="/terminal" routerLinkActive="active" (click)="closeMenu()">Terminal</a></li>
-      <li><a routerLink="/buscador" routerLinkActive="active" (click)="closeMenu()">Buscador</a></li>
       <li><a routerLink="/progreso-aprendizaje" routerLinkActive="active" (click)="closeMenu()">Mi aprendizaje</a></li>
     </ul>
   </nav>
+  </div>
+  
 </header>
