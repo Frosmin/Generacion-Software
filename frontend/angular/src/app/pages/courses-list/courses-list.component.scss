@@ -1,25 +1,63 @@
-.lorem-ipsum-container{
-  min-height: 62dvh;
+.cursos-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 columnas exactas */
+  gap: 1.5rem;
+  padding: 1rem;
 }
+
+.curso-card {
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  text-align: center;
+  transition: transform 0.2s ease;
+}
+
+.curso-card:hover {
+  transform: translateY(-5px);
+}
+
+.curso-card img {
+  width: 100%;
+  max-width: 150px;
+  height: auto;
+  object-fit: contain;
+  margin-bottom: 1rem;
+  border-radius: 6px;
+}
+
 .buttons-container {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    margin-top: 20px;
-    
-  }
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
 
-  button {
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    border: none;
-    border-radius: 5px;
-    background-color: #000;
-    color: white;
-    transition: background-color 0.3s ease;
-  }
+button {
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
 
-  button:hover {
-    background-color: #444;
+button:hover {
+  background-color: #0056b3;
+}
+
+/* Responsive: cambia de 4 a 2 columnas en pantallas medianas */
+@media (max-width: 992px) {
+  .cursos-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
+}
+
+/* Responsive: 1 columna en móviles */
+@media (max-width: 600px) {
+  .cursos-grid {
+    grid-template-columns: 1fr;
+  }
+}

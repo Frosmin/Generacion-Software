@@ -1,14 +1,64 @@
 import { Component } from '@angular/core';
 import jsPDF from 'jspdf';
+import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-courses-list',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './courses-list.component.html',
   styleUrl: './courses-list.component.scss'
 })
 export class CoursesListComponent {
 
-
+  cursos = [
+  {
+    nombre: 'Carlos Gómez',
+    categoria: 'Lenguaje de programación',
+    curso: 'Python',
+    imagen: '/images/Python.svg.png',
+  },
+  {
+    nombre: 'Lucía Martínez',
+    categoria: 'Lenguaje de programación',
+    curso: 'JavaScript',
+    imagen: '/images/Unofficial_JavaScript_logo_2.svg.png',
+  },
+  {
+    nombre: 'Pedro López',
+    categoria: 'Lenguaje de programación',
+    curso: 'Java',
+    imagen: '/images/La-historia-de-JavaScript.jpg',
+  },
+  {
+    nombre: 'Ana Torres',
+    categoria: 'Lenguaje de programación',
+    curso: 'C#',
+    imagen: '/images/imsages.png',
+  },
+  {
+    nombre: 'Jorge Pérez',
+    categoria: 'Lenguaje de programación',
+    curso: 'C++',
+    imagen: '/images/ISO_C++_Logo.svg.png',
+  },
+  {
+    nombre: 'Laura Ruiz',
+    categoria: 'Lenguaje de programación',
+    curso: 'Ruby',
+    imagen: '/images/hq720.jpg',
+  },
+  {
+    nombre: 'Miguel Castro',
+    categoria: 'Lenguaje de programación',
+    curso: 'Go',
+    imagen: '/images/4d60ef81-2e58-457f-97c7-ee8847663985.jpg',
+  },
+  {
+    nombre: 'Sofía Ríos',
+    categoria: 'Lenguaje de programación',
+    curso: 'PHP',
+    imagen: '/images/Curso-gratis-de-PHP.png',
+  },
+];
    descargarComoTxt(): void {
     const texto = document.getElementById('lorem-ipsum-text')?.innerText;
     

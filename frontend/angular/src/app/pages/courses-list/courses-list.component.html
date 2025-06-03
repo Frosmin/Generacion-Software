@@ -1,27 +1,17 @@
+<div class="cursos-grid">
+  <div class="curso-card" *ngFor="let curso of cursos">
+    <img [src]="curso.imagen" [alt]="curso.curso" />
+    <h3>{{ curso.curso }}</h3>
+    <p><strong>Docente:</strong> {{ curso.nombre }}</p>
+    <p><em>{{ curso.categoria }}</em></p>
 
-<div class="lorem-ipsum-container" id="lorem-ipsum-text">
-  <h3>Curso basico para Python</h3>
-  <p>
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vitae metus non turpis scelerisque varius. Donec auctor
-    leo ac ante egestas, ac aliquet tortor congue. Cras vel nunc a velit tincidunt auctor. Etiam euismod metus vel quam
-    consectetur, sed condimentum ante vestibulum. Integer euismod nulla in dui feugiat, eget placerat elit iaculis. Donec
-    aliquam, tortor at efficitur sollicitudin, felis purus vehicula lorem, non fermentum felis nunc eu mi. Sed tempor
-    dolor sapien, non dictum nulla aliquam ac. Vivamus suscipit lorem non tincidunt laoreet. Mauris gravida libero et
-    posuere fringilla.
-  </p>
-  <p>
-    Sed et nisi sollicitudin, aliquet felis at, viverra ex. Sed dapibus eu urna ut hendrerit. Nulla facilisi. Mauris
-    tincidunt risus vel ante laoreet convallis. Quisque scelerisque nisl purus, eget eleifend sapien vehicula et. Cras sit
-    amet venenatis urna. Phasellus volutpat gravida ex. Integer sit amet augue est. Aenean fringilla, purus ac volutpat
-    gravida, lorem lorem tincidunt tortor, ut pretium velit urna ut elit. Aliquam malesuada turpis a nunc tempor, eu
-    volutpat libero luctus.
-  </p>
+    <button class="btn-ir">Ir al curso</button>
+  </div>
 </div>
 
-
-<br/>
+<br />
 <div class="buttons-container">
   <button (click)="descargarComoTxt()">Descargar como .txt</button>
   <button (click)="descargarComoPDF()">Descargar como .pdf</button>
 </div>
-<br/>
+<br />
