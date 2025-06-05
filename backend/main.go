@@ -10,6 +10,14 @@ import (
 func main() {
 	// migraciones para la base de datos
 	db.Connect()
+
+	// Cerrar la conexión cuando termine la aplicación
+	sqlDB, err := db.DB.DB()
+	if err != nil {
+		log.Fatalf("Error al obtener la conexión SQL: %v", err)
+	}
+	defer sqlDB.Close()
+
 	// db.DB.AutoMigrate(models.User{})
 	// db.DB.AutoMigrate(models.Exercise{})
 	// db.DB.AutoMigrate(models.Tutorial{})
@@ -17,9 +25,6 @@ func main() {
 
 	// Obtener el router configurado con CORS y rutas
 	r := routes.SetupRouter()
-
-	// No es necesario configurar rutas aquí, ya están en SetupRouter()
-	// ¡Elimina estas líneas!
 
 	log.Println("Servidor escuchando en :8080")
 	log.Fatal(r.Run(":8080"))

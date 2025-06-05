@@ -32,7 +32,7 @@ export class VideosListComponent implements OnInit {
 
   loadVideos(): void {
     // Usar la URL completa del backend
-    this.http.get<Video[]>('http://localhost:8080/api/videos').subscribe({
+    this.http.get<Video[]>('http://localhost:8080/api/videos20').subscribe({
       next: (response) => {
         console.log('Respuesta del API:', response);
 
