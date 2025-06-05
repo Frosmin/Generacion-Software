@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout'; // ✅ Importado
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-exercise',
@@ -11,17 +11,26 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout'; // ✅ Im
   styleUrl: './exercise.component.scss',
 })
 export class ExerciseComponent {
-  @Input() detail: { id: number; title: string; statement: string } = {
-    id: 0,
+  @Input() detail: {
+    id: string;
+    title: string;
+    statement: string;
+    rating?: number;
+    tags?: string[];
+    contestId?: number;
+    index?: string;
+  } = {
+    id: '0',
     title: '',
     statement: '',
+    
   };
 
-  sliceLength = 130; // ✅ Valor por defecto para pantallas grandes
+  sliceLength = 130;
 
   constructor(
     private router: Router,
-    private breakpointObserver: BreakpointObserver // ✅ Inyectado
+    private breakpointObserver: BreakpointObserver
   ) {
     this.breakpointObserver
       .observe([
