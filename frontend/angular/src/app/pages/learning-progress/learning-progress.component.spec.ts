@@ -22,7 +22,6 @@ describe('LearningProgressComponent', () => {
   });
 
   it('should calculate overall progress correctly', () => {
-    // Arrange
     component.courses = [
       {
         id: 1,
@@ -44,20 +43,17 @@ describe('LearningProgressComponent', () => {
       },
     ];
 
-    // Act
     component.calculateOverallProgress();
 
-    // Assert
-    expect(component.totalProgress).toBe(50); // Average of 60 and 40
+    expect(component.totalProgress).toBe(50);
   });
 
   it('should count active and completed courses correctly', () => {
-    // Arrange
     component.courses = [
       {
         id: 1,
         title: 'Test Course 1',
-        progress: 100, // Completed
+        progress: 100,
         modules: 10,
         completedModules: 10,
         image: 'test.png',
@@ -66,7 +62,7 @@ describe('LearningProgressComponent', () => {
       {
         id: 2,
         title: 'Test Course 2',
-        progress: 40, // Active
+        progress: 40,
         modules: 8,
         completedModules: 3,
         image: 'test.png',
@@ -75,7 +71,7 @@ describe('LearningProgressComponent', () => {
       {
         id: 3,
         title: 'Test Course 3',
-        progress: 70, // Active
+        progress: 70,
         modules: 5,
         completedModules: 3,
         image: 'test.png',
@@ -84,7 +80,7 @@ describe('LearningProgressComponent', () => {
       {
         id: 4,
         title: 'Test Course 4',
-        progress: 0, // Not started
+        progress: 0,
         modules: 12,
         completedModules: 0,
         image: 'test.png',
@@ -92,31 +88,23 @@ describe('LearningProgressComponent', () => {
       },
     ];
 
-    // Act
     component.countActiveCourses();
 
-    // Assert
-    expect(component.activeCourses).toBe(2); // Two courses with 0 < progress < 100
-    expect(component.completedCourses).toBe(1); // One course with progress = 100
+    expect(component.activeCourses).toBe(2);
+    expect(component.completedCourses).toBe(1);
   });
 
   it('should format date correctly', () => {
-    // Arrange
-    const testDate = new Date('2025-05-15');
+    const testDate = new Date(2025, 4, 15);
 
-    // Act
     const formattedDate = component.formatDate(testDate);
 
-    // Assert
-    // Adjust the expectation based on the locale specified in the formatDate method
     expect(formattedDate).toBe('15/05/2025');
   });
 
   it('should initialize with test data on ngOnInit', () => {
-    // Act
     component.ngOnInit();
 
-    // Assert
     expect(component.courses.length).toBeGreaterThan(0);
     expect(component.achievements.length).toBeGreaterThan(0);
     expect(component.username).toBe('Alex');

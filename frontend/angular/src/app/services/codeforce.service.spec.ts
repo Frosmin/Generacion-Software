@@ -79,8 +79,8 @@ describe('CodeforcesService', () => {
       'hard'
     );
 
-    expect(easy.length).toBe(0); // no hay rating < 0
-    expect(medium.length).toBe(1); // solo el de rating 800
-    expect(hard.length).toBe(2); // 1900 + sin rating
+    expect(easy.length).toBe(0);
+    expect(medium.length).toBe(1);
+    expect(hard.length).toBe(2);
   });
 });
