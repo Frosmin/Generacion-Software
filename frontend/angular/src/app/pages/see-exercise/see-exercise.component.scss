@@ -1,6 +1,5 @@
 @use "sass:color";
 
-// Variables
 $primary-color: #df881d;
 $secondary-color: #1e1e2e;
 $background-color: #120e23;
@@ -18,6 +17,66 @@ $runtime-error-color: #9c27b0;
   border: 1px solid $border-color;
   border-radius: 12px;
   padding: 20px;
+}
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 90vh;
+  text-align: center;
+}
+
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #ddd;
+  border-top: 4px solid #df881d;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 20px;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.error-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
+}
+
+.error-message {
+  text-align: center;
+  padding: 20px;
+  border: 1px solid #dc3545;
+  border-radius: 8px;
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.no-content {
+  color: #6c757d;
+  font-style: italic;
+  margin: 10px 0;
+}
+
+.examples-preview {
+  padding: 10px;
+  background-color: #f8f9fa;
+  border-radius: 4px;
+  margin-top: 10px;
+}
+
+.examples-preview small {
+  color: #6c757d;
 }
 .exercise-container {
   min-width: 100%;

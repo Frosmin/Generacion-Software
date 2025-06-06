@@ -1,6 +1,5 @@
 .container {
-  min-height: 100dvh;
-  color: white;
+  height: 100dvh;
   width: 100%;
 }
 .pill-radio-container {
@@ -98,7 +97,7 @@ label[for="pill-premium"]:hover {
   padding: 0.5rem;
   gap: 1rem;
   overflow-y: auto;
-  height: 100dvh;
+  height: 90dvh;
   &::-webkit-scrollbar {
     width: 8px;
   }

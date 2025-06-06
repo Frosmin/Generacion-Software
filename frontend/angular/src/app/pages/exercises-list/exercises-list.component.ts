@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ExerciseComponent } from '../../components/exercise/exercise.component';
-import { CodeforcesService, Exercise } from '../../services/codeforce.service';
+import {
+  CodeforcesService,
+  TransformedProblem,
+} from '../../services/codeforce.service';
 
 @Component({
   selector: 'app-exercises-list',
@@ -10,17 +13,17 @@ import { CodeforcesService, Exercise } from '../../services/codeforce.service';
   styleUrl: './exercises-list.component.scss',
 })
 export class ExercisesListComponent implements OnInit {
-  allExercises: Exercise[] = [];
-  filteredExercises: Exercise[] = [];
+  allExercises: TransformedProblem[] = [];
+  filteredExercises: TransformedProblem[] = [];
   selectedDifficulty: 'easy' | 'medium' | 'hard' = 'easy';
   isLoading = false;
   error: string | null = null;
   currentPage = 1;
   pageSize = 10;
   currentEndIndex = 10;
-  visibleExercises: Exercise[] = [];
+  visibleExercises: TransformedProblem[] = [];
 
-  mock = [
+  mock: TransformedProblem[] = [
     {
       id: '0',
       title: 'Trippi Troppi',
@@ -30,6 +33,7 @@ export class ExercisesListComponent implements OnInit {
       tags: ['implementation'],
       contestId: 1000,
       index: 'A',
+      difficulty: 'Easy',
     },
     {
       id: '1',
@@ -40,6 +44,7 @@ export class ExercisesListComponent implements OnInit {
       tags: ['math', 'implementation'],
       contestId: 1001,
       index: 'B',
+      difficulty: 'Medium',
     },
   ];
 
@@ -78,6 +83,7 @@ export class ExercisesListComponent implements OnInit {
       this.currentEndIndex
     );
   }
+
   onScroll(event: Event) {
     const target = event.target as HTMLElement;
     const atBottom =

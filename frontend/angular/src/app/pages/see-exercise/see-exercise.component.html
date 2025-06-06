@@ -1,6 +1,19 @@
-<div class="exercise-container">
+<div *ngIf="loading" class="loading-container">
+  <div class="loading-spinner"></div>
+  <p>Cargando ejercicio...</p>
+</div>
+
+<div *ngIf="!loading && error" class="error-container">
+  <div class="error-message">
+    <h2>❌ Error</h2>
+    <p>{{ error }}</p>
+    <button (click)="goBack()" class="btn-volver">← Volver a ejercicios</button>
+  </div>
+</div>
+
+<div *ngIf="!loading && !error && exercise" class="exercise-container">
   <div class="top-bar">
-    <button (click)="goBack()" class="btn-volver">< Volver a ejercicios</button>
+    <button (click)="goBack()" class="btn-volver">← Volver a ejercicios</button>
     <div class="title-section">
       <h1 class="exercise-title">{{ exercise.title }}</h1>
       <span
@@ -15,8 +28,8 @@
       </span>
     </div>
   </div>
+
   <div class="main-layout">
-    <!-- Contenido principal -->
     <div class="main-content">
       <div class="tabs" role="tablist">
         <div
@@ -65,7 +78,6 @@
           ></app-submit>
         </div>
 
-        <!-- Pestaña: Mis Envíos -->
         <div class="tab-content" *ngIf="activeTab === 'submissions'">
           <app-submissions [submissions]="submissions"></app-submissions>
         </div>
@@ -75,18 +87,24 @@
     <div class="sidebar">
       <div class="info-card topics-card">
         <h4>📚 Temas</h4>
-        <div class="topics-list">
+        <div
+          class="topics-list"
+          *ngIf="exercise.topics && exercise.topics.length > 0; else noTopics"
+        >
           <div class="topic-item" *ngFor="let topic of exercise.topics">
             <span class="topic-dot"></span>
             <div class="topic-content">
               <span class="topic-name">{{ topic }}</span>
-              <span class="topic-description"
-                >Concepto fundamental que necesitas dominar para resolver este
-                ejercicio</span
-              >
+              <span class="topic-description">
+                Concepto fundamental que necesitas dominar para resolver este
+                ejercicio
+              </span>
             </div>
           </div>
         </div>
+        <ng-template #noTopics>
+          <p class="no-content">No hay temas específicos definidos</p>
+        </ng-template>
       </div>
 
       <div class="info-card technical-card">
@@ -104,10 +122,24 @@
         class="info-card"
         *ngIf="exercise.materials && exercise.materials.length > 0"
       >
-        <h4>Material de estudio</h4>
+        <h4>📖 Material de estudio</h4>
         <ul class="materials-list">
           <li *ngFor="let material of exercise.materials">{{ material }}</li>
         </ul>
+      </div>
+
+      <div
+        class="info-card"
+        *ngIf="exercise.examples && exercise.examples.length > 0"
+      >
+        <h4>💡 Ejemplos</h4>
+        <div class="examples-preview">
+          <p>
+            Este problema incluye {{ exercise.examples.length }} ejemplo(s) para
+            ayudarte a entender el formato.
+          </p>
+          <small>Ver ejemplos completos en la pestaña "Problema"</small>
+        </div>
       </div>
     </div>
   </div>

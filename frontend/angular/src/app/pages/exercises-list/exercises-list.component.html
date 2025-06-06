@@ -38,6 +38,10 @@
   <div class="error-message">
     <p>{{ error }}</p>
   </div>
+  }@if (!isLoading && !error && visibleExercises.length === 0) {
+  <div class="no-exercises-message">
+    <p>No hay ejercicios disponibles para la dificultad seleccionada.</p>
+  </div>
   }
 
   <div class="questions" (scroll)="onScroll($event)">

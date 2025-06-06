@@ -23,7 +23,6 @@ export class ExerciseComponent {
     id: '0',
     title: '',
     statement: '',
-    
   };
 
   sliceLength = 130;
