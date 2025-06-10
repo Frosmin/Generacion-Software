@@ -42,20 +42,10 @@ jobs:
         run: npm install
 
       - name: Ejecutar Linter y guardar resultados
-        run: |
-          mkdir -p "$REPORT_DIR"
-          echo "## 🧹 Resultados de Linter - $(date)" > "$REPORT_DIR/lint-results.md"
-          echo '```' >> "$REPORT_DIR/lint-results.md"
-          npm run lint >> "$REPORT_DIR/lint-results.md" || echo "Linting completed with issues"
-          echo '```' >> "$REPORT_DIR/lint-results.md"
+        run: npm run lint
 
       - name: Ejecutar pruebas unitarias y guardar resultados
-        run: |
-          mkdir -p "$REPORT_DIR"
-          echo "## 🧪 Resultados de Pruebas - $(date)" > "$REPORT_DIR/test-results.md"
-          echo '```' >> "$REPORT_DIR/test-results.md"
-          npm run test -- --watch=false --browsers=ChromeHeadless --reporters=progress >> "$REPORT_DIR/test-results.md"
-          echo '```' >> "$REPORT_DIR/test-results.md"
+        run: npm run test -- --watch=false --browsers=ChromeHeadless --reporters=progress
 
       - name: Subir reportes como artefactos
         uses: actions/upload-artifact@v4
