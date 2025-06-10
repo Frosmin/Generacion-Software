@@ -17,6 +17,8 @@ describe('CardCursoComponent', () => {
 
     fixture = TestBed.createComponent(CardCursoComponent);
     component = fixture.componentInstance;
+    //Asignar un valor de prueba al input content
+    component.content = { id:10, goto: 'ruta-prueba', title: 'Curso de Prueba', description: 'Descripción del curso de prueba' };
     fixture.detectChanges();
   });
 
