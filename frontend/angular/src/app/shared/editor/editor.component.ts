@@ -7,7 +7,7 @@ import { CodemirrorModule } from '@ctrl/ngx-codemirror';
 // Importacion de lint y modo python para CodeMirror
 import * as CodeMirrorNS from 'codemirror';
 import 'codemirror/addon/lint/lint';
-import 'codemirror/addon/lint/lint.css';
+// import 'codemirror/addon/lint/lint.css';
 import 'codemirror/mode/python/python';
 (window as any).CodeMirror = CodeMirrorNS;
 declare const CodeMirror: any;
