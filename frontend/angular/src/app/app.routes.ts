@@ -9,6 +9,8 @@ import { TerminalComponent } from './pages/terminal/terminal.component';
 import { SeeExerciseComponent } from './pages/see-exercise/see-exercise.component';
 import { LoginComponent } from './pages/login/login.component';
 import { authGuard } from './guards/auth.guard';
+import { CursosComponent } from './pages/cursos/cursos.component';
+import { IntroductionComponent } from './pages/introduction/introduction.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -16,8 +18,9 @@ export const routes: Routes = [
 
 
 
-
+  { path: 'intro', component: IntroductionComponent},
   // rutas protegidas
+  { path: 'cursos', component: CursosComponent},
   { path: 'buscador', component: PaginaBuscadorComponent },
   { path: 'lista-videos', component: VideosListComponent },
   { path: 'lista-ejercicios', component: ExercisesListComponent },

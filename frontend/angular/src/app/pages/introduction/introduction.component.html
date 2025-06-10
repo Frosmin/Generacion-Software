@@ -1,0 +1,22 @@
+<div class="intro-template">
+    <div class="intro-left">
+        {{title}}
+    </div>
+
+  <div class="intro-right">
+    <div class="buttons-field">
+      <button mat-button [disabled]="initialSubject === 0" (click)="goback()">
+        Anterior
+      </button>
+      aqui puede venir el buscador
+      <button
+        mat-button
+        [disabled]="initialSubject === totalSubjects"
+        (click)="gonext()"
+      >
+        Siguiente
+      </button>
+    </div>
+    <div class="editor-field">espacio para el editor</div>
+  </div>
+</div>

@@ -1,0 +1,25 @@
+.card {
+  background-color: #222;
+  border-radius: 12px;
+  color: #ccc;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  width: 100%; 
+  box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+}
+
+.card-title {
+  font-size: 1.2rem;
+  margin: 0;
+}
+
+.card-description {
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+
+//poner buenos estilos :v 
