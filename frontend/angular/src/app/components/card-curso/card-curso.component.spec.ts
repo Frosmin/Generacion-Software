@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { CardCursoComponent } from './card-curso.component';
+import { ActivatedRoute } from '@angular/router';
 
 describe('CardCursoComponent', () => {
   let component: CardCursoComponent;
@@ -8,7 +8,10 @@ describe('CardCursoComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CardCursoComponent]
+      imports: [CardCursoComponent],
+      providers: [
+        { provide: ActivatedRoute, useValue: {} } // ActivatedRoute mockeado
+      ]
     })
     .compileComponents();
 
