@@ -8,17 +8,22 @@ import { CoursesListComponent } from './pages/courses-list/courses-list.componen
 import { TerminalComponent } from './pages/terminal/terminal.component';
 import { SeeExerciseComponent } from './pages/see-exercise/see-exercise.component';
 import { LoginComponent } from './pages/login/login.component';
+import { authGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
+  { path: 'login', component: LoginComponent },
 
-  // listas
+
+
+
+  // rutas protegidas
   { path: 'buscador', component: PaginaBuscadorComponent },
   { path: 'lista-videos', component: VideosListComponent },
   { path: 'lista-ejercicios', component: ExercisesListComponent },
   { path: 'exercise/:id', component: SeeExerciseComponent },
-  { path: 'progreso-aprendizaje', component: LearningProgressComponent },
+  { path: 'progreso-aprendizaje', component: LearningProgressComponent, canMatch: [authGuard] },
   { path: 'lista-cursos', component: CoursesListComponent },
   { path: 'terminal', component: TerminalComponent },
-  { path: 'login', component: LoginComponent },
+
 ];
