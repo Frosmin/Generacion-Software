@@ -30,6 +30,7 @@
               }
             ],
             "styles": [
+              "@angular/material/prebuilt-themes/azure-blue.css",
               "node_modules/codemirror/lib/codemirror.css",
               "node_modules/codemirror/theme/material.css",
               "src/styles.scss"
@@ -91,7 +92,10 @@
                 "input": "public"
               }
             ],
-            "styles": ["src/styles.scss"],
+            "styles": [
+              "@angular/material/prebuilt-themes/azure-blue.css",
+              "src/styles.scss"
+            ],
             "scripts": [],
             "karmaConfig": "karma.conf.js"
           }
