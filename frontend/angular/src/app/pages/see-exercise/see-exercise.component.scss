@@ -109,7 +109,6 @@ $runtime-error-color: #9c27b0;
           }
         }
       }
->>>>>>> 85a9a4bb59ecac44e839bcd780d6fc72c1090530
     }
   }
   .title-section {
@@ -132,7 +131,6 @@ $runtime-error-color: #9c27b0;
       font-weight: 500;
       text-transform: lowercase;
       text-align: center;
-<<<<<<< HEAD
       align-items: center;
       display: inline-flex;
       &.easy {
@@ -147,10 +145,8 @@ $runtime-error-color: #9c27b0;
         background-color: rgba($wrong-answer-color, 0.2);
         color: $wrong-answer-color;
       }
-=======
       padding: 40px 0;
       color: color.adjust($text-color, $lightness: 30%);
->>>>>>> 85a9a4bb59ecac44e839bcd780d6fc72c1090530
     }
   }
 }
