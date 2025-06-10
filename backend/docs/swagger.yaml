@@ -1,0 +1,224 @@
+definitions:
+  models.ErrorResponse:
+    properties:
+      error:
+        type: string
+    type: object
+  models.MessageResponse:
+    properties:
+      message:
+        type: string
+    type: object
+  models.User:
+    type: object
+  models.UserSwagger:
+    properties:
+      email:
+        example: juan@example.com
+        type: string
+      first_name:
+        example: Juan
+        type: string
+      id:
+        example: 1
+        type: integer
+      last_name:
+        example: Pérez
+        type: string
+      password:
+        example: securepass
+        type: string
+      username:
+        example: juan123
+        type: string
+    type: object
+  models.Video:
+    type: object
+  models.VideoSwagger:
+    properties:
+      id:
+        example: 1
+        type: integer
+      level:
+        example: 2
+        type: integer
+      link:
+        example: https://youtube.com/example
+        type: string
+      title:
+        example: Aprende Go en 10 minutos
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /api/user:
+    post:
+      consumes:
+      - application/json
+      description: Registra un nuevo usuario en la base de datos, con contraseña cifrada
+      parameters:
+      - description: Datos del usuario
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/models.User'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.UserSwagger'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      summary: Crea un nuevo usuario
+      tags:
+      - users
+  /api/user/{id}:
+    delete:
+      description: Elimina un usuario de forma definitiva mediante su ID
+      parameters:
+      - description: ID del usuario
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.MessageResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      summary: Elimina un usuario por ID
+      tags:
+      - users
+    get:
+      description: Retorna un usuario específico mediante su ID
+      parameters:
+      - description: ID del usuario
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.UserSwagger'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      summary: Obtiene un usuario por ID
+      tags:
+      - users
+  /api/users:
+    get:
+      description: Lista todos los usuarios registrados
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.UserSwagger'
+            type: array
+      summary: Obtiene todos los usuarios
+      tags:
+      - users
+  /api/video:
+    post:
+      consumes:
+      - application/json
+      description: Guarda un nuevo registro de video
+      parameters:
+      - description: Datos del video
+        in: body
+        name: video
+        required: true
+        schema:
+          $ref: '#/definitions/models.Video'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.VideoSwagger'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      summary: Crea un nuevo video
+      tags:
+      - videos
+  /api/video/{id}:
+    get:
+      description: Retorna un video específico por ID
+      parameters:
+      - description: ID del video
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.VideoSwagger'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      summary: Obtiene un video por ID
+      tags:
+      - videos
+  /api/videos:
+    get:
+      description: Obtiene todos los videos disponibles
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.VideoSwagger'
+            type: array
+      summary: Lista todos los videos
+      tags:
+      - videos
+  /api/videos20:
+    get:
+      description: Obtiene un máximo de 20 videos
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.VideoSwagger'
+            type: array
+      summary: Lista hasta 20 videos
+      tags:
+      - videos
+swagger: "2.0"
