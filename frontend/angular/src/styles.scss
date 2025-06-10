@@ -1,8 +1,7 @@
-
 /* CodeMirror Lint Styles - habilita subrayado de errores */
 .CodeMirror-lint-mark-error {
-  border-bottom: 2px wavy #ff0000;
-  background: none;
+  border-bottom: 2px solid #ff5370 !important;
+  background: rgba(255, 83, 112, 0.15) !important;
 }
 .CodeMirror-lint-mark-warning {
   border-bottom: 2px dotted orange;
@@ -84,4 +83,8 @@ html {
   .btn-primary {
     width: 100%;
   }
+}
+
+.CodeMirror-activeline-background {
+  background: rgba(120, 130, 180, 0.18) !important;
 }

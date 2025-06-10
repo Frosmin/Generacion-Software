@@ -9,6 +9,7 @@ import * as CodeMirrorNS from 'codemirror';
 import 'codemirror/addon/lint/lint';
 // import 'codemirror/addon/lint/lint.css';
 import 'codemirror/mode/python/python';
+import 'codemirror/addon/selection/active-line';
 (window as any).CodeMirror = CodeMirrorNS;
 declare const CodeMirror: any;
 
