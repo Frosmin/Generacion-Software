@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "title": "Comentarios en Python",
+    "parrafos": [
+      "Los comentarios pueden ser usados para explicar código Python.",
+      "Los comentarios pueden ser usados para hacer el código más legible.",
+      "Los comentarios pueden ser usados para prevenir ejecución cuando se prueba código."
+    ],
+    "subtitulo": "Creando un Comentario",
+    "subparrafos": "Los comentarios comienzan con un #, y Python los ignorará",
+    "ejemplo": "# Esto es un comentario \nprint('¡Hola, Mundo!')",
+    "next": "variables"
+  },
+  {
+    "id": 2,
+    "title": "Variables"
+  },
+  {
+    "id": 3,
+    "title": "algo"
+  }
+]
