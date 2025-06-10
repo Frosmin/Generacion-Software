@@ -1,19 +1,11 @@
-
-
-@use 'sass:color';
-
 .main-header {
-  background: linear-gradient(
-    to bottom,
-    #120e23 0%,
-    #120e23a9 60%,
-    rgba(0, 0, 0, 0) 100%
-  );
+  background-color: #040504;
   color: white;
-  padding: 0.5rem 1.5rem;
+  padding: 1rem 2.5rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
 }
 
 .logo {

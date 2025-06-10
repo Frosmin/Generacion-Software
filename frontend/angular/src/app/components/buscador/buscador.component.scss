@@ -1,24 +1,21 @@
-@use "sass:color";
-
 $primary-color: #007bff;
-$primary-hover: color.adjust($primary-color, $lightness: -10%);
-$text-color: #dddddd;
+$primary-hover: darken($primary-color, 10%);
+$bg-color: #f9f9f9;
+$text-color: #333;
 $border-color: #ccc;
 $shadow-color: rgba(0, 0, 0, 0.05);
 
 .buscador-container {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 40px;
-  min-height: 100vh;
+  background-color: $bg-color;
   font-family: Arial, sans-serif;
+  background-color: black;
 
   .titulo {
     margin-bottom: 20px;
     font-size: 24px;
-    color: $text-color;
+    color: rgb(0, 0, 0);
   }
 
   .buscador-box {
@@ -28,18 +25,10 @@ $shadow-color: rgba(0, 0, 0, 0.05);
 
     .buscador-input {
       padding: 10px;
-      width: 280px;
+      width: 620px;
       border: 1px solid $border-color;
       border-radius: 6px;
       font-size: 16px;
-      min-width: 500px;
-    }
-
-    @media screen and (max-width: 720px) {
-      .buscador-input {
-        min-width: auto;
-        max-width: fit-content;
-      }
     }
 
     .buscador-boton {
@@ -67,12 +56,13 @@ $shadow-color: rgba(0, 0, 0, 0.05);
 
     .resultado-item {
       padding: 10px;
-      color: $text-color;
-      border: 1px solid color.adjust($border-color, $lightness: 10%);
+      background-color: white;
+      border: 1px solid lighten($border-color, 10%);
       border-radius: 6px;
       margin-bottom: 10px;
       text-align: center;
       box-shadow: 0 2px 4px $shadow-color;
+      color: black;
     }
   }
 
@@ -83,7 +73,7 @@ $shadow-color: rgba(0, 0, 0, 0.05);
   }
 }
 .icono-curso {
-  width: 24px;
+  width: 24px;         // o 20px si prefieres más pequeño
   height: 24px;
   object-fit: contain;
   margin-right: 6px;
