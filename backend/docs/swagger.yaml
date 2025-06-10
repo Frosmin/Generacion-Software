@@ -4,9 +4,42 @@ definitions:
       error:
         type: string
     type: object
+  models.ExerciseSwagger:
+    properties:
+      exercise:
+        example: Escribe una función que sume dos números
+        type: string
+      id:
+        example: 1
+        type: integer
+      level:
+        example: 1
+        type: integer
+      solution:
+        example: 'def sumar(a, b): return a + b'
+        type: string
+      title:
+        example: Sumar dos números
+        type: string
+    type: object
   models.MessageResponse:
     properties:
       message:
+        type: string
+    type: object
+  models.TutorialSwagger:
+    properties:
+      description:
+        example: Un curso básico para empezar con Python
+        type: string
+      id:
+        example: 1
+        type: integer
+      level:
+        example: 1
+        type: integer
+      title:
+        example: Introducción a Python
         type: string
     type: object
   models.User:
@@ -49,9 +82,48 @@ definitions:
         example: Aprende Go en 10 minutos
         type: string
     type: object
+  routes.SearchResult:
+    properties:
+      exercises:
+        items:
+          $ref: '#/definitions/models.ExerciseSwagger'
+        type: array
+      tutorials:
+        items:
+          $ref: '#/definitions/models.TutorialSwagger'
+        type: array
+      videos:
+        items:
+          $ref: '#/definitions/models.VideoSwagger'
+        type: array
+    type: object
 info:
   contact: {}
 paths:
+  /api/search:
+    get:
+      description: Busca coincidencias en videos, ejercicios y tutoriales por nombre
+        parcial (case insensitive)
+      parameters:
+      - description: Nombre para búsqueda
+        in: query
+        name: name
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/routes.SearchResult'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      summary: Buscar por nombre en videos, ejercicios y tutoriales
+      tags:
+      - search
   /api/user:
     post:
       consumes:

@@ -4,6 +4,41 @@
         "contact": {}
     },
     "paths": {
+        "/api/search": {
+            "get": {
+                "description": "Busca coincidencias en videos, ejercicios y tutoriales por nombre parcial (case insensitive)",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "search"
+                ],
+                "summary": "Buscar por nombre en videos, ejercicios y tutoriales",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Nombre para búsqueda",
+                        "name": "name",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/routes.SearchResult"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
         "/api/user": {
             "post": {
                 "description": "Registra un nuevo usuario en la base de datos, con contraseña cifrada",
@@ -272,11 +307,57 @@
                 }
             }
         },
+        "models.ExerciseSwagger": {
+            "type": "object",
+            "properties": {
+                "exercise": {
+                    "type": "string",
+                    "example": "Escribe una función que sume dos números"
+                },
+                "id": {
+                    "type": "integer",
+                    "example": 1
+                },
+                "level": {
+                    "type": "integer",
+                    "example": 1
+                },
+                "solution": {
+                    "type": "string",
+                    "example": "def sumar(a, b): return a + b"
+                },
+                "title": {
+                    "type": "string",
+                    "example": "Sumar dos números"
+                }
+            }
+        },
         "models.MessageResponse": {
             "type": "object",
             "properties": {
                 "message": {
                     "type": "string"
+                }
+            }
+        },
+        "models.TutorialSwagger": {
+            "type": "object",
+            "properties": {
+                "description": {
+                    "type": "string",
+                    "example": "Un curso básico para empezar con Python"
+                },
+                "id": {
+                    "type": "integer",
+                    "example": 1
+                },
+                "level": {
+                    "type": "integer",
+                    "example": 1
+                },
+                "title": {
+                    "type": "string",
+                    "example": "Introducción a Python"
                 }
             }
         },
@@ -333,6 +414,29 @@
                 "title": {
                     "type": "string",
                     "example": "Aprende Go en 10 minutos"
+                }
+            }
+        },
+        "routes.SearchResult": {
+            "type": "object",
+            "properties": {
+                "exercises": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.ExerciseSwagger"
+                    }
+                },
+                "tutorials": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.TutorialSwagger"
+                    }
+                },
+                "videos": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.VideoSwagger"
+                    }
                 }
             }
         }
