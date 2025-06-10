@@ -32,6 +32,7 @@
             "styles": [
               "node_modules/codemirror/lib/codemirror.css",
               "node_modules/codemirror/theme/material.css",
+              "node_modules/codemirror/addon/lint/lint.css",
               "src/styles.scss"
             ],
             "scripts": [
@@ -45,7 +46,7 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "800kB",
+                  "maximumWarning": "1.5MB",
                   "maximumError": "2MB"
                 },
                 {
@@ -91,7 +92,12 @@
                 "input": "public"
               }
             ],
-            "styles": ["src/styles.scss"],
+            "styles": [
+              "node_modules/codemirror/lib/codemirror.css",
+              "node_modules/codemirror/theme/material.css",
+              "node_modules/codemirror/addon/lint/lint.css",
+              "src/styles.scss"
+            ],
             "scripts": [],
             "karmaConfig": "karma.conf.js"
           }
