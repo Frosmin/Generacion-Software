@@ -2,7 +2,9 @@ import { inject } from '@angular/core';
 import { CanMatchFn, Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 
-export const authGuard: CanMatchFn = (route, segments) => {
+//elminado route y segments para evitar advertencias de variables no utilizadas
+//export const authGuard: CanMatchFn = (route, segments) => {
+export const authGuard: CanMatchFn = () => {
   const authService = inject(AuthService);
   const router = inject(Router);
 
