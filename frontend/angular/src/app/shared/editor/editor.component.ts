@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // EditorComponent.ts
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -94,7 +95,7 @@ export class EditorComponent implements OnInit {
   codeMirrorInstance: any;
 
   async ngOnInit() {
-    // @ts-ignore
+    // @ts-expect-error: loadPyodide no está definido en el contexto de TypeScript
     this.pyodide = await loadPyodide();
     this.pyodideReady = true;
     (window as any).pyodideInstance = this.pyodide;
