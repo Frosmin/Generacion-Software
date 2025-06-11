@@ -147,10 +147,4 @@ export class EditorComponent implements OnInit {
   }
 }
 
-interface PyodideInterface {
-  globals: {
-    set: (key: string, value: unknown) => void;
-  };
-  setStdout: (options: { batched: (text: string) => void }) => void;
-  runPythonAsync: (code: string) => Promise<void>;
-}
+
