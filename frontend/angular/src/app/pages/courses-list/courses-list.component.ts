@@ -3,6 +3,11 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import jsPDF from 'jspdf';
 
+interface SectionContent {
+  title: string;
+  content: string;
+}
+
 @Component({
   selector: 'app-courses-list',
   standalone: true,
@@ -141,7 +146,7 @@ print(mi_diccionario["nombre"])  # Resultado: Juan` ,
 };
 
 // Mapeo del contenido de cada sección para exportación
-  private sectionContent: Record<string, any> = {
+  private sectionContent: Record<string, SectionContent> = {
     intro: {
       title: '¿Qué es Python?',
       content: `Python es un lenguaje de programación popular.
@@ -419,19 +424,19 @@ mi_funcion()`
       const pageHeight = doc.internal.pageSize.height;
       const marginBottom = 20;
       
-      for (const [i,_] of lines.entries()) {
+      for (const line of lines) {
         if (yPosition > pageHeight - marginBottom) {
           doc.addPage();
           yPosition = 30;
         }
         
-        doc.text(lines[i], 20, yPosition);
+        doc.text(line, 20, yPosition);
         yPosition += 6;
       }
       
       // Footer
        // Footer
-      const pageCount = (doc as any).internal.pages.length - 1; // -1 porque el primer elemento es metadata
+      const pageCount = doc.getNumberOfPages(); 
       for (let i = 1; i <= pageCount; i++) {
         doc.setPage(i);
         doc.setFontSize(8);
