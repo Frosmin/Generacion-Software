@@ -1,6 +1,5 @@
 // courses-list.component.ts
 import { Component } from '@angular/core';
-import { HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import jsPDF from 'jspdf';
 
@@ -420,7 +419,7 @@ mi_funcion()`
       const pageHeight = doc.internal.pageSize.height;
       const marginBottom = 20;
       
-      for (let i = 0; i < lines.length; i++) {
+      for (const [i,_] of lines.entries()) {
         if (yPosition > pageHeight - marginBottom) {
           doc.addPage();
           yPosition = 30;
