@@ -24,7 +24,7 @@ function pythonLint(code: string) {
     pyodide.runPython(`compile(${JSON.stringify(code)}, '<input>', 'exec')`);
     return [];
   } catch (error: any) {
-    let message = error.message || error.toString();
+    const message = error.message || error.toString();
     let line = 0;
     // Buscar la línea del "<input>"
     const inputLineMatch = message.match(/File "<input>", line (\d+)/);
@@ -90,7 +90,7 @@ export class EditorComponent implements OnInit {
   };
 
   pyodide: any;
-  pyodideReady: boolean = false;
+  pyodideReady = false;
   codeMirrorInstance: any;
 
   async ngOnInit() {

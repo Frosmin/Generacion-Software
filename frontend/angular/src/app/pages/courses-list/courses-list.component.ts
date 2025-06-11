@@ -12,7 +12,7 @@ import jsPDF from 'jspdf';
   styleUrl: './courses-list.component.scss'
 })
 export class CoursesListComponent {
-  currentSection: string = 'intro';
+  currentSection = 'intro';
   
   // Array con todas las lecciones en orden
   sections: string[] = [
@@ -32,7 +32,7 @@ export class CoursesListComponent {
   ];
 
   // Ejemplos de código para secciones especiales
-examples: { [key: string]: { title: string, code: string, description: string, tips: string[], operations: string[] } } = {
+examples: Record<string, { title: string, code: string, description: string, tips: string[], operations: string[] }> = {
   lists: {
     title: 'Listas en Python',
     description: 'Las listas son colecciones ordenadas y mutables que permiten elementos duplicados. Son ideales para almacenar secuencias de datos.',
@@ -142,7 +142,7 @@ print(mi_diccionario["nombre"])  # Resultado: Juan` ,
 };
 
 // Mapeo del contenido de cada sección para exportación
-  private sectionContent: { [key: string]: any } = {
+  private sectionContent: Record<string, any> = {
     intro: {
       title: '¿Qué es Python?',
       content: `Python es un lenguaje de programación popular.
