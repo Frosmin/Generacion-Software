@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // EditorComponent.ts
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -24,7 +25,7 @@ function pythonLint(code: string) {
     pyodide.runPython(`compile(${JSON.stringify(code)}, '<input>', 'exec')`);
     return [];
   } catch (error: any) {
-    let message = error.message || error.toString();
+    const message = error.message || error.toString();
     let line = 0;
     // Buscar la línea del "<input>"
     const inputLineMatch = message.match(/File "<input>", line (\d+)/);
@@ -90,11 +91,11 @@ export class EditorComponent implements OnInit {
   };
 
   pyodide: any;
-  pyodideReady: boolean = false;
+  pyodideReady = false;
   codeMirrorInstance: any;
 
   async ngOnInit() {
-    // @ts-ignore
+    // @ts-expect-error: loadPyodide no está definido en el contexto de TypeScript
     this.pyodide = await loadPyodide();
     this.pyodideReady = true;
     (window as any).pyodideInstance = this.pyodide;
@@ -145,12 +146,4 @@ export class EditorComponent implements OnInit {
       this.output = `Error: ${String(error)}`;
     }
   }
-}
-
-interface PyodideInterface {
-  globals: {
-    set: (key: string, value: unknown) => void;
-  };
-  setStdout: (options: { batched: (text: string) => void }) => void;
-  runPythonAsync: (code: string) => Promise<void>;
 }
