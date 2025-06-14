@@ -151,6 +151,8 @@ export class EditorComponent implements OnInit {
   }
 
 
+
+  
   constructor(private http: HttpClient) {}
 
   chat(): void{
