@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { CodemirrorModule } from '@ctrl/ngx-codemirror';
+import { HttpClient } from '@angular/common/http';
 
 // Importacion de lint y modo python para CodeMirror
 import * as CodeMirrorNS from 'codemirror';
@@ -61,6 +62,8 @@ export class EditorComponent implements OnInit {
   codigo = '';
   inputs = '';
   output = '';
+  inputChat = '';
+  outputChat = '';
 
   cmOptions = {
     mode: 'python',
@@ -145,5 +148,29 @@ export class EditorComponent implements OnInit {
     } catch (error) {
       this.output = `Error: ${String(error)}`;
     }
+  }
+
+
+
+  
+  constructor(private http: HttpClient) {}
+
+  chat(): void{
+    if (!this.inputChat.trim()) {
+      this.outputChat = 'Por favor, escribe un mensaje.';
+      return;
+    }
+
+    this.http.post<any>('http://localhost:8080/api/gemini', {
+      prompt: this.inputChat
+    }).subscribe({
+      next: (response) => {
+        this.outputChat = response.text;
+      },
+      error: (error) => {
+        console.error('Error al conectar con Gemini:', error);
+        this.outputChat = 'Error al conectar con el servicio. Por favor, intenta más tarde.';
+      }
+    });
   }
 }

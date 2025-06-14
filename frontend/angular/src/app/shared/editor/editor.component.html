@@ -27,4 +27,24 @@
   <button class="btn-ejecutar" (click)="ejecutarCodigo()">
     <span>Ejecutar</span>
   </button>
+
+    <button class="btn-ejecutar" (click)="chat()">
+    <span>chat</span>
+  </button>
+
+
+<!-- parte de simon  -->
+  <div class="section">
+        <h3>Input:</h3>
+        <ngx-codemirror
+          class="cm-panel"
+          [(ngModel)]="inputChat"
+          [options]="inputOptions">
+        </ngx-codemirror>
+      </div>
+
+  <div class="section">
+        <h3>Output:</h3>
+        <pre>{{ outputChat }}</pre>
+      </div>
 </div>

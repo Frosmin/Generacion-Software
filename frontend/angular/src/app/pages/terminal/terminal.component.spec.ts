@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { TerminalComponent } from './terminal.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('TerminalComponent', () => {
   let component: TerminalComponent;
@@ -8,10 +8,9 @@ describe('TerminalComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TerminalComponent]
-    })
-    .compileComponents();
-
+      imports: [TerminalComponent, HttpClientTestingModule]
+    }).compileComponents();
+    
     fixture = TestBed.createComponent(TerminalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
