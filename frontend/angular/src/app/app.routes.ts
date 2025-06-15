@@ -29,4 +29,5 @@ export const routes: Routes = [
   { path: 'lista-cursos', component: CoursesListComponent },
   { path: 'terminal', component: TerminalComponent },
 
+  { path: 'cursos/:id', component: IntroductionComponent }
 ];
