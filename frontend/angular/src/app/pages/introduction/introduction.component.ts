@@ -8,7 +8,9 @@ import { MatButtonModule } from '@angular/material/button';
   templateUrl: './introduction.component.html',
   styleUrl: './introduction.component.scss',
 })
+
 export class IntroductionComponent {
+  curso: any = null;
   intro = introductionMock;
   initialSubject = 0;
   totalSubjects = this.intro.length - 1;

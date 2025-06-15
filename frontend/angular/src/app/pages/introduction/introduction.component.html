@@ -17,6 +17,12 @@
         Siguiente
       </button>
     </div>
-    <div class="editor-field">espacio para el editor</div>
+    <div class="editor-field">
+      <!-- 1. Instrucciones -->
+      <div class="editor-block">
+        <h3>Instrucciones del ejercicio</h3>
+        <p>{{ curso?.instrucciones || 'Realiza el ejercicio según lo aprendido en esta lección.' }}</p>
+      </div>
+    </div>
   </div>
 </div>
