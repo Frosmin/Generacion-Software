@@ -1,11 +1,13 @@
+import { CommonModule } from '@angular/common';
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CodemirrorModule } from '@ctrl/ngx-codemirror';
+declare var loadPyodide: any;
 
 @Component({
   selector: 'app-editor-actividad',
   standalone: true,
-  imports: [FormsModule, CodemirrorModule],
+  imports: [FormsModule, CodemirrorModule,CommonModule],
   templateUrl: './editor-actividad.component.html',
   styleUrls: ['./editor-actividad.component.scss']
 })
@@ -15,8 +17,8 @@ export class EditorActividadComponent implements OnInit {
   @Output() salida = new EventEmitter<string>();
   @Output() salidaCodigo = new EventEmitter<string>();
   codigo: string = '';
-  resultado: string = '';
-
+  pyodide: any = null;
+  veredicto: string = '';
   cmOptions = {
     theme: 'material',
     lineNumbers: true,
@@ -25,35 +27,45 @@ export class EditorActividadComponent implements OnInit {
 
   // ngOnInit(): void {
   //   this.codigo = this.base;
+  // if (!this.pyodide) {
+  //     this.pyodide = await loadPyodide();
+  //   }
   // }
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     this.codigo = this.base || 'print("hola")  # completa el código';
     this.solucion = this.solucion || 'print("hola mundo")';
+    if (!this.pyodide) {
+      this.pyodide = await loadPyodide();
+    }
   }
 
-  enviar(): void {
+  async enviar() {
     if (!this.codigo.trim()) {
-      this.resultado = 'Ingresa una solución primero.';
-      this.salida.emit(this.resultado);
+      this.veredicto = '⚠️ Ingresa una solución primero.';
+      this.salidaCodigo.emit('');
       return;
     }
 
-    const normalizadoUser = this.normalizar(this.codigo);
-    const normalizadoSol = this.normalizar(this.solucion);
+    // Veredicto lógico
+    const correcto = this.normalizar(this.codigo) === this.normalizar(this.solucion);
+    this.veredicto = correcto
+      ? '✅ Tu solución es correcta.'
+      : '❌ Tu solución es incorrecta.';
 
-    if (normalizadoUser === normalizadoSol) {
-      this.resultado = '¡Correcto!';
-    } else {
-      this.resultado = 'Tu solución no coincide. Intenta de nuevo.';
+    // Ejecutar código
+    try {
+      const resultado = await this.pyodide.runPythonAsync(this.codigo);
+      this.salidaCodigo.emit(resultado?.toString() ?? '(sin salida)');
+    } catch (e) {
+      this.salidaCodigo.emit(`Error: ${e}`);
     }
-
-    this.salida.emit(this.resultado);
   }
+
 
   resetear(): void {
     this.codigo = this.base;
-    this.resultado = '';
-    this.salida.emit('');
+    this.veredicto = '';
+    this.salidaCodigo.emit('');
   }
 
   private normalizar(texto: string): string {

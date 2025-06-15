@@ -12,7 +12,7 @@
     <button mat-button (click)="resetear()">Restablecer</button>
   </div>
 
-  <div class="resultado">
-    {{ resultado }}
+  <div class="resultado" *ngIf="veredicto">
+    {{ veredicto }}
   </div>
 </div>
