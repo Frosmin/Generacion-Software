@@ -2,7 +2,11 @@
   <h2>Editor de Código Python</h2>
 
   <div class="editor">
-    <ngx-codemirror class="cm-panel" [(ngModel)]="codigo" [options]="cmOptions">
+    <ngx-codemirror
+      class="cm-panel"
+      [(ngModel)]="codigo"
+      [options]="cmOptions"
+      (editorInitialized)="onEditorInit($event)">
     </ngx-codemirror>
     <div class="output-panel">
       <div class="section">
@@ -10,8 +14,7 @@
         <ngx-codemirror
           class="cm-panel"
           [(ngModel)]="inputs"
-          [options]="inputOptions"
-        >
+          [options]="inputOptions">
         </ngx-codemirror>
       </div>
       <div class="section">
