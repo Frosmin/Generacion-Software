@@ -1,0 +1,34 @@
+.intro-template{
+    // background-color: red;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: 
+        "left right"
+        "left right"
+    ;
+}
+
+.intro-left{
+    grid-area: left;
+    padding: 1rem;
+}
+
+
+.intro-right{
+    grid-area: right;
+    padding: 1rem;
+}
+
+.intro-right .buttons-field{
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+}
+
+.editor-block {
+  background: #2c2c2c;
+  padding: 1rem;
+  border-radius: 8px;
+}
