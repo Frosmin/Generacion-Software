@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, EventEmitter, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CodemirrorModule } from '@ctrl/ngx-codemirror';
 
@@ -12,6 +12,7 @@ import { CodemirrorModule } from '@ctrl/ngx-codemirror';
 export class EditorActividadComponent implements OnInit {
   @Input() base: string = '';
   @Input() solucion: string = '';
+  @Output() salida = new EventEmitter<string>();
   codigo: string = '';
   resultado: string = '';
 
@@ -25,6 +26,7 @@ export class EditorActividadComponent implements OnInit {
     this.codigo = this.base;
   }
 
+  
   enviar(): void {
     if (this.normalizar(this.codigo) === this.normalizar(this.solucion)) {
       this.resultado = '¡Correcto!';

@@ -15,7 +15,7 @@ export class IntroductionComponent {
   intro = introductionMock;
   initialSubject = 0;
   totalSubjects = this.intro.length - 1;
-
+  salidaCodigo: string = '';
   title = this.intro[this.initialSubject].title;
 
   gonext() {

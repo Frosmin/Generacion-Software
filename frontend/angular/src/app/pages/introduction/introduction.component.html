@@ -22,12 +22,16 @@
         <h3>Instrucciones del ejercicio</h3>
         <p>{{ curso?.instrucciones || 'Realiza el ejercicio según lo aprendido en esta lección.' }}</p>
       </div>
-      
+
+      <app-editor-actividad
+        [base]="curso?.codigo_incompleto"
+        [solucion]="curso?.solucion_correcta"
+        (salida)="salidaCodigo = $event">
+      </app-editor-actividad>
+
       <div class="editor-block">
-        <app-editor-actividad
-          [base]="curso?.codigo_incompleto"
-          [solucion]="curso?.solucion_correcta">
-        </app-editor-actividad>
+        <h3>Salida</h3>
+        <pre class="code-output">{{ salidaCodigo || 'Ejecuta el código para ver el resultado.' }}</pre>
       </div>
     </div>
   </div>
