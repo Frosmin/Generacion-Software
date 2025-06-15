@@ -24,7 +24,8 @@ export class EditorActividadComponent implements OnInit {
     lineNumbers: true,
     mode: 'python'
   };
-
+  //cuando ya haya conexión o atributos con la bd recien cambiamos eso por eso
+  //por el momento con ese mock
   // ngOnInit(): void {
   //   this.codigo = this.base;
   // if (!this.pyodide) {
@@ -32,7 +33,8 @@ export class EditorActividadComponent implements OnInit {
   //   }
   // }
   async ngOnInit(): Promise<void> {
-    this.codigo = this.base || 'print("hola")  # completa el código "hola mundo" y borra todo el comentario';
+    this.base = 'print("hola")  # completa el código "hola mundo" y borra todo el comentario';
+    this.codigo = this.base;
     this.solucion = this.solucion || 'print("hola mundo")';
     if (!this.pyodide) {
       this.pyodide = await loadPyodide();
