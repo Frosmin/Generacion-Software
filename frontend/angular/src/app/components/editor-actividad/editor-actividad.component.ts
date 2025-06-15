@@ -12,8 +12,8 @@ declare var loadPyodide: any;
   styleUrls: ['./editor-actividad.component.scss']
 })
 export class EditorActividadComponent implements OnInit {
-  @Input() base: string = 'print("hola")  # completa el código';
-  @Input() solucion: string = 'print("hola mundo")';
+  @Input() base: string = '';
+  @Input() solucion: string = '';
   @Output() salida = new EventEmitter<string>();
   @Output() salidaCodigo = new EventEmitter<string>();
   codigo: string = '';
@@ -32,7 +32,7 @@ export class EditorActividadComponent implements OnInit {
   //   }
   // }
   async ngOnInit(): Promise<void> {
-    this.codigo = this.base || 'print("hola")  # completa el código';
+    this.codigo = this.base || 'print("hola")  # completa el código "hola mundo" y borra todo el comentario';
     this.solucion = this.solucion || 'print("hola mundo")';
     if (!this.pyodide) {
       this.pyodide = await loadPyodide();
@@ -41,21 +41,26 @@ export class EditorActividadComponent implements OnInit {
 
   async enviar() {
     if (!this.codigo.trim()) {
-      this.veredicto = '⚠️ Ingresa una solución primero.';
+      this.veredicto = 'Ingresa una solución primero.';
       this.salidaCodigo.emit('');
       return;
     }
 
-    // Veredicto lógico
     const correcto = this.normalizar(this.codigo) === this.normalizar(this.solucion);
     this.veredicto = correcto
-      ? '✅ Tu solución es correcta.'
-      : '❌ Tu solución es incorrecta.';
+      ? 'Tu solución es correcta.'
+      : 'Tu solución es incorrecta.';
 
-    // Ejecutar código
     try {
-      const resultado = await this.pyodide.runPythonAsync(this.codigo);
-      this.salidaCodigo.emit(resultado?.toString() ?? '(sin salida)');
+      let salidaTemporal = '';
+      this.pyodide.setStdout({
+        batched: (text: string) => {
+          salidaTemporal += text;
+        }
+      });
+
+      await this.pyodide.runPythonAsync(this.codigo);
+      this.salidaCodigo.emit(salidaTemporal || '(sin salida)');
     } catch (e) {
       this.salidaCodigo.emit(`Error: ${e}`);
     }
