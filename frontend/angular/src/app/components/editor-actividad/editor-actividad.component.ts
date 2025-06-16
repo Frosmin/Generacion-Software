@@ -2,8 +2,11 @@ import { CommonModule } from '@angular/common';
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CodemirrorModule } from '@ctrl/ngx-codemirror';
-declare var loadPyodide: any;
-
+declare let loadPyodide: any;
+interface Pyodide {
+  runPythonAsync: (code: string) => Promise<any>;
+  setStdout: (config: { batched: (text: string) => void }) => void;
+}
 @Component({
   selector: 'app-editor-actividad',
   standalone: true,
@@ -12,13 +15,13 @@ declare var loadPyodide: any;
   styleUrls: ['./editor-actividad.component.scss']
 })
 export class EditorActividadComponent implements OnInit {
-  @Input() base: string = '';
-  @Input() solucion: string = '';
+  @Input() base = '';
+  @Input() solucion = '';
   @Output() salida = new EventEmitter<string>();
   @Output() salidaCodigo = new EventEmitter<string>();
-  codigo: string = '';
-  pyodide: any = null;
-  veredicto: string = '';
+  codigo = '';
+  pyodide: Pyodide | null = null;
+  veredicto = '';
   cmOptions = {
     theme: 'material',
     lineNumbers: true,
@@ -54,14 +57,16 @@ export class EditorActividadComponent implements OnInit {
       : 'Tu solución es incorrecta.';
 
     try {
+      const pyodide = this.pyodide!;
       let salidaTemporal = '';
-      this.pyodide.setStdout({
+
+      pyodide.setStdout({
         batched: (text: string) => {
           salidaTemporal += text;
         }
       });
 
-      await this.pyodide.runPythonAsync(this.codigo);
+      await pyodide.runPythonAsync(this.codigo);
       this.salidaCodigo.emit(salidaTemporal || '(sin salida)');
     } catch (e) {
       this.salidaCodigo.emit(`Error: ${e}`);
