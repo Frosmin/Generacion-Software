@@ -40,18 +40,153 @@
         "example": ["x = 5\ny = 'Juan'\nprint(x)\nprint(y)"]
       },
       {
-        "subtitle": "",
+        "subtitle": "Tipos de variables dinámicos",
         "subparagraph": [
           "Las variables no necesitan ser declaradas con ningún tipo particular, e incluso pueden cambiar de tipo después de haber sido establecidas."
         ],
-        "example":[
+        "example": [
           "x = 4\t\t# x es de tipo int\nx = 'Sally'\t# x es ahora de tipo str\nprint(x)"
         ]
+      },
+      {
+        "subtitle": "Nombres de variables",
+        "subparagraph": [
+          "Los nombres de variables deben comenzar con una letra o guión bajo, pueden contener letras, números y guiones bajos, y son sensibles a mayúsculas y minúsculas."
+        ],
+        "example": [
+          "# Nombres válidos\nnombre = 'Ana'\n_edad = 25\nnombre2 = 'Pedro'\n\n# Nombres inválidos (causan error)\n# 2nombre = 'error'\n# nombre-usuario = 'error'"
+        ]
       }
-    ]
+    ],
+    "next": "tipos_datos"
   },
   {
     "id": 3,
-    "title": "algo"
+    "title": "Tipos de datos básicos",
+    "paragraph": [
+      "Python tiene varios tipos de datos incorporados que se usan para almacenar diferentes tipos de información."
+    ],
+    "subcontent": [
+      {
+        "subtitle": "Números enteros (int)",
+        "subparagraph": [
+          "Los números enteros son números sin decimales, pueden ser positivos o negativos."
+        ],
+        "example": [
+          "edad = 25\ntemperatura = -10\nanio = 2024\nprint(type(edad))  # <class 'int'>"
+        ]
+      },
+      {
+        "subtitle": "Números decimales (float)",
+        "subparagraph": [
+          "Los números de punto flotante son números con decimales."
+        ],
+        "example": [
+          "altura = 1.75\nprecio = 29.99\npi = 3.14159\nprint(type(altura))  # <class 'float'>"
+        ]
+      },
+      {
+        "subtitle": "Cadenas de texto (str)",
+        "subparagraph": [
+          "Las cadenas son secuencias de caracteres, se escriben entre comillas simples o dobles."
+        ],
+        "example": [
+          "nombre = 'María'\napellido = \"González\"\nmensaje = 'Hola, soy programador'\nprint(type(nombre))  # <class 'str'>"
+        ]
+      },
+      {
+        "subtitle": "Valores booleanos (bool)",
+        "subparagraph": [
+          "Los booleanos representan valores de verdad: True (verdadero) o False (falso)."
+        ],
+        "example": [
+          "es_estudiante = True\ntiene_trabajo = False\nprint(type(es_estudiante))  # <class 'bool'>\nprint(5 > 3)  # True"
+        ]
+      }
+    ],
+    "next": "operadores"
+  },
+  {
+    "id": 4,
+    "title": "Operadores básicos",
+    "paragraph": [
+      "Los operadores son símbolos que realizan operaciones sobre variables y valores."
+    ],
+    "subcontent": [
+      {
+        "subtitle": "Operadores aritméticos",
+        "subparagraph": [
+          "Se usan para realizar operaciones matemáticas básicas."
+        ],
+        "example": [
+          "a = 10\nb = 3\n\nprint(a + b)  # Suma: 13\nprint(a - b)  # Resta: 7\nprint(a * b)  # Multiplicación: 30\nprint(a / b)  # División: 3.333...\nprint(a // b) # División entera: 3\nprint(a % b)  # Módulo: 1\nprint(a ** b) # Potencia: 1000"
+        ]
+      },
+      {
+        "subtitle": "Operadores de comparación",
+        "subparagraph": [
+          "Se usan para comparar valores y devuelven True o False."
+        ],
+        "example": [
+          "x = 5\ny = 10\n\nprint(x == y)  # Igual: False\nprint(x != y)  # Diferente: True\nprint(x < y)   # Menor que: True\nprint(x > y)   # Mayor que: False\nprint(x <= y)  # Menor o igual: True\nprint(x >= y)  # Mayor o igual: False"
+        ]
+      }
+    ],
+    "next": "entrada_salida"
+  },
+  {
+    "id": 5,
+    "title": "Entrada y salida de datos",
+    "paragraph": [
+      "La interacción con el usuario es fundamental en la programación. Python proporciona funciones para mostrar información y recibir datos del usuario."
+    ],
+    "subcontent": [
+      {
+        "subtitle": "Función print()",
+        "subparagraph": [
+          "La función print() se usa para mostrar información en la pantalla."
+        ],
+        "example": [
+          "print('Hola mundo')\nprint('Mi edad es:', 25)\nprint('Resultado:', 10 + 5)\n\n# Múltiples valores\nnombre = 'Ana'\nedad = 30\nprint('Me llamo', nombre, 'y tengo', edad, 'años')"
+        ]
+      },
+      {
+        "subtitle": "Función input()",
+        "subparagraph": [
+          "La función input() permite al usuario introducir datos desde el teclado. Siempre devuelve una cadena de texto."
+        ],
+        "example": [
+          "nombre = input('¿Cómo te llamas? ')\nprint('Hola', nombre)\n\n# Convertir a número\nedad_str = input('¿Cuál es tu edad? ')\nedad = int(edad_str)\nprint('El próximo año tendrás', edad + 1, 'años')"
+        ]
+      }
+    ],
+    "next": "strings"
+  },
+  {
+    "id": 6,
+    "title": "Trabajando con cadenas de texto",
+    "paragraph": [
+      "Las cadenas de texto son uno de los tipos de datos más utilizados en programación. Python ofrece muchas herramientas para trabajar con ellas."
+    ],
+    "subcontent": [
+      {
+        "subtitle": "Concatenación de cadenas",
+        "subparagraph": [
+          "Puedes unir cadenas usando el operador + o comas en print()."
+        ],
+        "example": [
+          "nombre = 'Juan'\napellido = 'Pérez'\nnombre_completo = nombre + ' ' + apellido\nprint(nombre_completo)  # Juan Pérez\n\n# Usando f-strings (recomendado)\nedad = 25\nmensaje = f'Me llamo {nombre} y tengo {edad} años'\nprint(mensaje)"
+        ]
+      },
+      {
+        "subtitle": "Métodos útiles de cadenas",
+        "subparagraph": [
+          "Las cadenas tienen métodos incorporados para manipular texto."
+        ],
+        "example": [
+          "texto = 'Hola Mundo'\n\nprint(texto.upper())    # HOLA MUNDO\nprint(texto.lower())    # hola mundo\nprint(texto.title())    # Hola Mundo\nprint(len(texto))       # 10 (longitud)\nprint(texto.replace('Mundo', 'Python'))  # Hola Python"
+        ]
+      }
+    ]
   }
 ]
