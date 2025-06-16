@@ -2,11 +2,11 @@ import { CommonModule } from '@angular/common';
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CodemirrorModule } from '@ctrl/ngx-codemirror';
-declare let loadPyodide: any;
 interface Pyodide {
-  runPythonAsync: (code: string) => Promise<any>;
+  runPythonAsync: (code: string) => Promise<unknown>;
   setStdout: (config: { batched: (text: string) => void }) => void;
 }
+declare function loadPyodide(): Promise<Pyodide>;
 @Component({
   selector: 'app-editor-actividad',
   standalone: true,

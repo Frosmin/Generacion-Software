@@ -11,7 +11,7 @@ import { EditorActividadComponent } from '../../components/editor-actividad/edit
 })
 
 export class IntroductionComponent {
-  curso: any = null;
+  curso: unknown = null;
   intro = introductionMock;
   initialSubject = 0;
   totalSubjects = this.intro.length - 1;
