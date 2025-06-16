@@ -16,7 +16,7 @@ export class IntroductionComponent {
   initialSubject = 0;
   totalSubjects = this.intro.length - 1;
   salidaCodigo: string = '';
-  title = this.intro[this.initialSubject].title;
+  content = this.intro[this.initialSubject];
 
   gonext() {
     this.initialSubject++;
@@ -29,6 +29,6 @@ export class IntroductionComponent {
   }
 
   update() {
-    this.title = this.intro[this.initialSubject].title;
+    this.content = this.intro[this.initialSubject];
   }
 }
