@@ -1,9 +1,12 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { AsyncPipe } from '@angular/common';
-import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import {
+  MatAutocompleteActivatedEvent,
+  MatAutocompleteModule,
+} from '@angular/material/autocomplete';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 
@@ -25,31 +28,51 @@ export interface User {
   templateUrl: './search.component.html',
   styleUrl: './search.component.scss',
 })
-export class SearchComponent implements OnInit{
-  myControl = new FormControl<string | User>('');
-  @Input() courses: string[]=[];
-  options: User[] = [{ name: 'Mary' }, { name: 'Shelley' }, { name: 'Igor' }];
-  filteredOptions!: Observable<User[]>;
+export class SearchComponent implements OnInit {
+  private _resetTrigger = 0;
+
+  @Input() courses: string[] = [];
+  @Input()
+  set resetTrigger(value: number) {
+    if (value !== 0) {
+      this.reset();
+    }
+  }
+  @Output() selectedIndex = new EventEmitter<number>();
+  myControl = new FormControl<string>('');
+  // options: string[] = ['Mary', 'Shelley', 'Igor'];
+  filteredOptions!: Observable<string[]>;
 
   ngOnInit() {
     this.filteredOptions = this.myControl.valueChanges.pipe(
       startWith(''),
       map((value) => {
-        const name = typeof value === 'string' ? value : value?.name;
-        return name ? this._filter(name as string) : this.options.slice();
+        return this._filter(value as string);
       })
     );
   }
 
-  displayFn(user: User): string {
-    return user && user.name ? user.name : '';
+  displayFn(name: string): string {
+    return name ? name : '';
   }
 
-  private _filter(name: string): User[] {
+  private _filter(name: string): string[] {
     const filterValue = name.toLowerCase();
 
-    return this.options.filter((option) =>
-      option.name.toLowerCase().includes(filterValue)
+    return this.courses.filter((option) =>
+      option.toLowerCase().includes(filterValue)
     );
+  }
+
+  onOptionSelected(event: MatAutocompleteActivatedEvent) {
+    const selectedValue = event.option?.value;
+    const index = this.courses.indexOf(selectedValue);
+    if (index !== -1) {
+      this.selectedIndex.emit(index);
+    }
+  }
+
+  reset() {
+    this.myControl.setValue('');
   }
 }
