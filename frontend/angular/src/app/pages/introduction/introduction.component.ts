@@ -2,10 +2,11 @@ import { Component } from '@angular/core';
 import introductionMock from './introduccionMock.json';
 import { MatButtonModule } from '@angular/material/button';
 import { EditorActividadComponent } from '../../components/editor-actividad/editor-actividad.component';
+import { SearchComponent } from '../../components/search/search.component';
 
 @Component({
   selector: 'app-introduction',
-  imports: [MatButtonModule, EditorActividadComponent],
+  imports: [MatButtonModule, EditorActividadComponent, SearchComponent],
   templateUrl: './introduction.component.html',
   styleUrl: './introduction.component.scss',
 })
