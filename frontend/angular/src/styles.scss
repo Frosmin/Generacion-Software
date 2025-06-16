@@ -1,3 +1,28 @@
+/* CodeMirror Lint Styles - habilita subrayado de errores */
+.CodeMirror-lint-mark-error {
+  border-bottom: 2px solid #ff5370 !important;
+  background: rgba(255, 83, 112, 0.15) !important;
+}
+.CodeMirror-lint-mark-warning {
+  border-bottom: 2px dotted orange;
+  background: none;
+}
+.CodeMirror-lint-tooltip {
+  background: #ffd2d2;
+  color: #a33;
+  border: 1px solid #a33;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.9em;
+  z-index: 100;
+}
+.CodeMirror-lint-marker-error {
+  color: #ff0000;
+}
+.CodeMirror-lint-marker-warning {
+  color: orange;
+}
+
 /* Estilos globales y mobile-first */
 body {
   margin: 0;
@@ -60,5 +85,6 @@ html {
   }
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.CodeMirror-activeline-background {
+  background: rgba(120, 130, 180, 0.18) !important;
+}

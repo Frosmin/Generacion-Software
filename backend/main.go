@@ -5,9 +5,14 @@ import (
 
 	"github.com/Frosmin/backend/db"
 	"github.com/Frosmin/backend/routes"
+	"github.com/joho/godotenv"
 )
 
 func main() {
+
+	if err := godotenv.Load(); err != nil {
+		log.Println("Archivo .env no encontrado, usando variables de entorno del sistema")
+	}
 	// migraciones para la base de datos
 	db.Connect()
 	// db.DB.AutoMigrate(models.User{})

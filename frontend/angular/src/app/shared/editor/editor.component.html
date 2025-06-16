@@ -2,7 +2,11 @@
   <h2>Editor de Código Python</h2>
 
   <div class="editor">
-    <ngx-codemirror class="cm-panel" [(ngModel)]="codigo" [options]="cmOptions">
+    <ngx-codemirror
+      class="cm-panel"
+      [(ngModel)]="codigo"
+      [options]="cmOptions"
+      (editorInitialized)="onEditorInit($event)">
     </ngx-codemirror>
     <div class="output-panel">
       <div class="section">
@@ -10,8 +14,7 @@
         <ngx-codemirror
           class="cm-panel"
           [(ngModel)]="inputs"
-          [options]="inputOptions"
-        >
+          [options]="inputOptions">
         </ngx-codemirror>
       </div>
       <div class="section">
@@ -24,4 +27,24 @@
   <button class="btn-ejecutar" (click)="ejecutarCodigo()">
     <span>Ejecutar</span>
   </button>
+
+    <button class="btn-ejecutar" (click)="chat()">
+    <span>chat</span>
+  </button>
+
+
+<!-- parte de simon  -->
+  <div class="section">
+        <h3>Input:</h3>
+        <ngx-codemirror
+          class="cm-panel"
+          [(ngModel)]="inputChat"
+          [options]="inputOptions">
+        </ngx-codemirror>
+      </div>
+
+  <div class="section">
+        <h3>Output:</h3>
+        <pre>{{ outputChat }}</pre>
+      </div>
 </div>

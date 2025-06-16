@@ -40,5 +40,8 @@ func SetupRouter() *gin.Engine {
 	//login
 	api.POST("/login", LoginHandler)
 
+	// Rutas de AI
+	api.POST("/openia", OpenAIHandler)
+	api.POST("/gemini", GeminiHandler)
 	return r
 }
