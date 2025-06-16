@@ -1,191 +1,203 @@
 [
   {
     "id": 1,
-    "title": "Comentarios en Python",
+    "title": "¿Qué es Python?",
     "paragraph": [
-      "Los comentarios pueden ser usados para explicar código Python, los comentarios pueden ser usados para hacer el código más legible, los comentarios pueden ser usados para prevenir ejecución cuando se prueba código."
+      "Python es un lenguaje de programación fácil de aprender y muy poderoso. Se usa para crear sitios web, aplicaciones, inteligencia artificial y mucho más."
     ],
     "subcontent": [
       {
-        "subtitle": "Creando un comentario",
+        "subtitle": "Tu primer programa",
         "subparagraph": [
-          "Los comentarios comienzan con un #, y Python los ignorará"
+          "Empecemos con el programa más famoso en programación: '¡Hola mundo!'. Este programa simplemente muestra un mensaje en la pantalla."
         ],
-        "example": ["# Esto es un comentario \nprint('Hola mundo')"]
+        "example": ["print('¡Hola mundo!')\nprint('Bienvenido a Python')"]
       },
       {
-        "subtitle": "Comentarios multilínea",
+        "subtitle": "¿Qué hace print()?",
         "subparagraph": [
-          "Python realmente no tiene una sintaxis para comentarios multilínea. Para agregar un comentario multilínea puedes agregar un # para cada línea"
+          "La función print() muestra texto en la pantalla. Es como hablar con la computadora y pedirle que nos muestre algo."
         ],
-        "example": [
-          "# Esto es un comentario\n# escrito en\n# más de una línea \nprint('Hola mundo')"
-        ]
+        "example": ["print('Mi nombre es Python')\nprint('Soy un lenguaje de programación')\nprint('¡Es genial conocerte!')"]
       }
     ],
     "next": "variables"
   },
   {
     "id": 2,
-    "title": "Variables",
+    "title": "Variables - Guardar información",
     "paragraph": [
-      "Las variables son contenedores para almacenar valores de datos."
+      "Las variables son como cajas donde guardamos información que queremos usar después. Imagina que tienes cajas etiquetadas donde guardas diferentes cosas."
     ],
     "subcontent": [
       {
-        "subtitle": "Creando Variables",
+        "subtitle": "Creando tu primera variable",
         "subparagraph": [
-          "Python no tiene comando para declarar una variable, las variable se crean en el momento que le asignas un valor por primera vez."
+          "Para crear una variable, simplemente le das un nombre y le asignas un valor usando el signo =."
         ],
-        "example": ["x = 5\ny = 'Juan'\nprint(x)\nprint(y)"]
+        "example": ["nombre = 'María'\nedad = 25\nprint('Hola, soy', nombre)\nprint('Tengo', edad, 'años')"]
       },
       {
-        "subtitle": "Tipos de variables dinámicos",
+        "subtitle": "Las variables pueden cambiar",
         "subparagraph": [
-          "Las variables no necesitan ser declaradas con ningún tipo particular, e incluso pueden cambiar de tipo después de haber sido establecidas."
+          "Una variable puede cambiar su valor en cualquier momento. Es como cambiar lo que hay dentro de la caja."
         ],
-        "example": [
-          "x = 4\t\t# x es de tipo int\nx = 'Sally'\t# x es ahora de tipo str\nprint(x)"
-        ]
-      },
-      {
-        "subtitle": "Nombres de variables",
-        "subparagraph": [
-          "Los nombres de variables deben comenzar con una letra o guión bajo, pueden contener letras, números y guiones bajos, y son sensibles a mayúsculas y minúsculas."
-        ],
-        "example": [
-          "# Nombres válidos\nnombre = 'Ana'\n_edad = 25\nnombre2 = 'Pedro'\n\n# Nombres inválidos (causan error)\n# 2nombre = 'error'\n# nombre-usuario = 'error'"
-        ]
+        "example": ["puntos = 0\nprint('Puntos actuales:', puntos)\n\npuntos = 10\nprint('Nuevos puntos:', puntos)\n\npuntos = puntos + 5\nprint('Puntos finales:', puntos)"]
       }
     ],
     "next": "tipos_datos"
   },
   {
     "id": 3,
-    "title": "Tipos de datos básicos",
+    "title": "Tipos de información",
     "paragraph": [
-      "Python tiene varios tipos de datos incorporados que se usan para almacenar diferentes tipos de información."
+      "Python puede trabajar con diferentes tipos de información: números, texto, y valores de verdadero o falso."
     ],
     "subcontent": [
       {
-        "subtitle": "Números enteros (int)",
+        "subtitle": "Números enteros",
         "subparagraph": [
-          "Los números enteros son números sin decimales, pueden ser positivos o negativos."
+          "Los números enteros son números sin decimales: 1, 2, 100, -5."
         ],
-        "example": [
-          "edad = 25\ntemperatura = -10\nanio = 2024\nprint(type(edad))  # <class 'int'>"
-        ]
+        "example": ["edad = 20\ntemp_max = 35\ntemp_min = -10\n\nprint('Edad:', edad)\nprint('Temperatura máxima:', temp_max)\nprint('Temperatura mínima:', temp_min)"]
       },
       {
-        "subtitle": "Números decimales (float)",
+        "subtitle": "Números con decimales",
         "subparagraph": [
-          "Los números de punto flotante son números con decimales."
+          "Los números decimales tienen punto: 3.14, 1.75, 29.99."
         ],
-        "example": [
-          "altura = 1.75\nprecio = 29.99\npi = 3.14159\nprint(type(altura))  # <class 'float'>"
-        ]
+        "example": ["altura = 1.75\nprecio = 29.99\npi = 3.14159\n\nprint('Mi altura es', altura, 'metros')\nprint('El precio es $', precio)\nprint('El valor de pi es aproximadamente', pi)"]
       },
       {
-        "subtitle": "Cadenas de texto (str)",
+        "subtitle": "Texto (cadenas)",
         "subparagraph": [
-          "Las cadenas son secuencias de caracteres, se escriben entre comillas simples o dobles."
+          "El texto va entre comillas simples ' ' o dobles \" \"."
         ],
-        "example": [
-          "nombre = 'María'\napellido = \"González\"\nmensaje = 'Hola, soy programador'\nprint(type(nombre))  # <class 'str'>"
-        ]
-      },
-      {
-        "subtitle": "Valores booleanos (bool)",
-        "subparagraph": [
-          "Los booleanos representan valores de verdad: True (verdadero) o False (falso)."
-        ],
-        "example": [
-          "es_estudiante = True\ntiene_trabajo = False\nprint(type(es_estudiante))  # <class 'bool'>\nprint(5 > 3)  # True"
-        ]
+        "example": ["nombre = 'Ana'\nciudad = \"Madrid\"\nhobby = 'leer libros'\n\nprint('Me llamo', nombre)\nprint('Vivo en', ciudad)\nprint('Me gusta', hobby)"]
       }
     ],
-    "next": "operadores"
+    "next": "entrada_usuario"
   },
   {
     "id": 4,
-    "title": "Operadores básicos",
+    "title": "Hablar con el usuario",
     "paragraph": [
-      "Los operadores son símbolos que realizan operaciones sobre variables y valores."
+      "Los programas son más interesantes cuando pueden hablar con las personas. Podemos mostrar mensajes y recibir respuestas."
     ],
     "subcontent": [
       {
-        "subtitle": "Operadores aritméticos",
+        "subtitle": "Mostrar información - print()",
         "subparagraph": [
-          "Se usan para realizar operaciones matemáticas básicas."
+          "Ya conoces print(), pero veamos más formas de usarlo."
         ],
-        "example": [
-          "a = 10\nb = 3\n\nprint(a + b)  # Suma: 13\nprint(a - b)  # Resta: 7\nprint(a * b)  # Multiplicación: 30\nprint(a / b)  # División: 3.333...\nprint(a // b) # División entera: 3\nprint(a % b)  # Módulo: 1\nprint(a ** b) # Potencia: 1000"
-        ]
+        "example": ["nombre = 'Carlos'\nedad = 30\nciudad = 'Barcelona'\n\n# Forma simple\nprint('Hola', nombre)\n\n# Forma moderna (f-strings)\nprint(f'Hola {nombre}, tienes {edad} años')\nprint(f'Vives en {ciudad}')"]
       },
       {
-        "subtitle": "Operadores de comparación",
+        "subtitle": "Recibir información - input()",
         "subparagraph": [
-          "Se usan para comparar valores y devuelven True o False."
+          "Con input() podemos pedirle al usuario que escriba algo."
         ],
-        "example": [
-          "x = 5\ny = 10\n\nprint(x == y)  # Igual: False\nprint(x != y)  # Diferente: True\nprint(x < y)   # Menor que: True\nprint(x > y)   # Mayor que: False\nprint(x <= y)  # Menor o igual: True\nprint(x >= y)  # Mayor o igual: False"
-        ]
+        "example": ["nombre = input('¿Cómo te llamas? ')\nprint(f'¡Hola {nombre}!')\n\ncolor = input('¿Cuál es tu color favorito? ')\nprint(f'¡Qué bonito el color {color}!')"]
+      },
+      {
+        "subtitle": "Trabajar con números del usuario",
+        "subparagraph": [
+          "input() siempre da texto. Para números, debemos convertir usando int() o float()."
+        ],
+        "example": ["edad_texto = input('¿Cuántos años tienes? ')\nedad = int(edad_texto)  # Convertir a número\n\nprint(f'Tienes {edad} años')\nprint(f'El próximo año tendrás {edad + 1} años')"]
       }
     ],
-    "next": "entrada_salida"
+    "next": "operaciones"
   },
   {
     "id": 5,
-    "title": "Entrada y salida de datos",
+    "title": "Operaciones matemáticas",
     "paragraph": [
-      "La interacción con el usuario es fundamental en la programación. Python proporciona funciones para mostrar información y recibir datos del usuario."
+      "Python puede hacer matemáticas como una calculadora muy inteligente."
     ],
     "subcontent": [
       {
-        "subtitle": "Función print()",
+        "subtitle": "Operaciones básicas",
         "subparagraph": [
-          "La función print() se usa para mostrar información en la pantalla."
+          "Suma (+), resta (-), multiplicación (*) y división (/)."
         ],
-        "example": [
-          "print('Hola mundo')\nprint('Mi edad es:', 25)\nprint('Resultado:', 10 + 5)\n\n# Múltiples valores\nnombre = 'Ana'\nedad = 30\nprint('Me llamo', nombre, 'y tengo', edad, 'años')"
-        ]
+        "example": ["a = 10\nb = 3\n\nprint(f'{a} + {b} = {a + b}')  # Suma\nprint(f'{a} - {b} = {a - b}')  # Resta\nprint(f'{a} * {b} = {a * b}')  # Multiplicación\nprint(f'{a} / {b} = {a / b}')  # División"]
       },
       {
-        "subtitle": "Función input()",
+        "subtitle": "Operaciones especiales",
         "subparagraph": [
-          "La función input() permite al usuario introducir datos desde el teclado. Siempre devuelve una cadena de texto."
+          "División entera (//) y resto de división (%)."
         ],
-        "example": [
-          "nombre = input('¿Cómo te llamas? ')\nprint('Hola', nombre)\n\n# Convertir a número\nedad_str = input('¿Cuál es tu edad? ')\nedad = int(edad_str)\nprint('El próximo año tendrás', edad + 1, 'años')"
-        ]
+        "example": ["dividendo = 17\ndivisor = 5\n\nprint(f'{dividendo} / {divisor} = {dividendo / divisor}')\nprint(f'{dividendo} // {divisor} = {dividendo // divisor}')  # Parte entera\nprint(f'{dividendo} % {divisor} = {dividendo % divisor}')    # Resto"]
+      },
+      {
+        "subtitle": "Calculadora simple",
+        "subparagraph": [
+          "Vamos a crear una calculadora que pida dos números al usuario."
+        ],
+        "example": ["print('=== CALCULADORA SIMPLE ===')\nnum1 = float(input('Primer número: '))\nnum2 = float(input('Segundo número: '))\n\nprint(f'\\nResultados:')\nprint(f'{num1} + {num2} = {num1 + num2}')\nprint(f'{num1} - {num2} = {num1 - num2}')\nprint(f'{num1} * {num2} = {num1 * num2}')\nprint(f'{num1} / {num2} = {num1 / num2}')"]
       }
     ],
     "next": "strings"
   },
   {
     "id": 6,
-    "title": "Trabajando con cadenas de texto",
+    "title": "Trabajando con texto",
     "paragraph": [
-      "Las cadenas de texto son uno de los tipos de datos más utilizados en programación. Python ofrece muchas herramientas para trabajar con ellas."
+      "El texto es muy importante en programación. Python tiene herramientas geniales para trabajar con palabras y frases."
     ],
     "subcontent": [
       {
-        "subtitle": "Concatenación de cadenas",
+        "subtitle": "Unir texto",
         "subparagraph": [
-          "Puedes unir cadenas usando el operador + o comas en print()."
+          "Podemos unir palabras y frases de diferentes formas."
         ],
-        "example": [
-          "nombre = 'Juan'\napellido = 'Pérez'\nnombre_completo = nombre + ' ' + apellido\nprint(nombre_completo)  # Juan Pérez\n\n# Usando f-strings (recomendado)\nedad = 25\nmensaje = f'Me llamo {nombre} y tengo {edad} años'\nprint(mensaje)"
-        ]
+        "example": ["nombre = 'Ana'\napellido = 'García'\n\n# Forma clásica\nnombre_completo = nombre + ' ' + apellido\nprint(nombre_completo)\n\n# Forma moderna\nmensaje = f'Hola, soy {nombre} {apellido}'\nprint(mensaje)"]
       },
       {
-        "subtitle": "Métodos útiles de cadenas",
+        "subtitle": "Cambiar texto",
         "subparagraph": [
-          "Las cadenas tienen métodos incorporados para manipular texto."
+          "Python puede cambiar texto a mayúsculas, minúsculas y más."
         ],
-        "example": [
-          "texto = 'Hola Mundo'\n\nprint(texto.upper())    # HOLA MUNDO\nprint(texto.lower())    # hola mundo\nprint(texto.title())    # Hola Mundo\nprint(len(texto))       # 10 (longitud)\nprint(texto.replace('Mundo', 'Python'))  # Hola Python"
-        ]
+        "example": ["frase = 'Hola Mundo'\n\nprint(frase.upper())        # HOLA MUNDO\nprint(frase.lower())        # hola mundo\nprint(frase.title())        # Hola Mundo\nprint(len(frase))           # 10 (cuenta las letras)\nprint(frase.replace('Mundo', 'Python'))  # Hola Python"]
+      },
+      {
+        "subtitle": "Generador de saludos",
+        "subparagraph": [
+          "Creemos un programa que genere diferentes tipos de saludos."
+        ],
+        "example": ["nombre = input('¿Cómo te llamas? ')\n\nprint(f'Hola {nombre}')\nprint(f'HOLA {nombre.upper()}')\nprint(f'hola {nombre.lower()}')\nprint(f'¡Bienvenido/a {nombre.title()}!')\nprint(f'Tu nombre tiene {len(nombre)} letras')"]
+      }
+    ],
+    "next": "comentarios"
+  },
+  {
+    "id": 7,
+    "title": "Comentarios - Documentar tu código",
+    "paragraph": [
+      "Los comentarios son notas que escribimos para explicar qué hace nuestro código. Son súper importantes cuando trabajas con otros programadores o cuando vuelves a ver tu código después de tiempo."
+    ],
+    "subcontent": [
+      {
+        "subtitle": "¿Por qué usar comentarios?",
+        "subparagraph": [
+          "Los comentarios explican qué hace cada parte del código, hacen el código más fácil de entender y ayudan a otros programadores (¡y a ti mismo en el futuro!)."
+        ],
+        "example": ["# Este programa calcula el área de un rectángulo\nbase = 5      # ancho del rectángulo\naltura = 3    # alto del rectángulo\narea = base * altura  # fórmula: base × altura\nprint(f'El área es: {area}')"]
+      },
+      {
+        "subtitle": "Comentarios simples",
+        "subparagraph": [
+          "Los comentarios comienzan con # y Python los ignora al ejecutar el programa."
+        ],
+        "example": ["# Esto es un comentario\nprint('Hola mundo')  # Esto también es un comentario\n\n# Puedes usar comentarios para explicar código complejo\nnumero = int(input('Dame un número: '))\nresultado = numero * 2  # Multiplicamos por 2\nprint(f'El doble es: {resultado}')"]
+      },
+      {
+        "subtitle": "Comentarios multilínea",
+        "subparagraph": [
+          "Para comentarios largos, puedes usar # en cada línea o comillas triples \"\"\"."
+        ],
+        "example": ["# Este es un comentario\n# que ocupa varias líneas\n# para explicar algo complejo\n\n\"\"\"\nEste también es un comentario multilínea.\nEs útil para explicaciones largas\no documentación de funciones.\n\"\"\"\n\nprint('¡Hola desde Python!')"]
       }
     ]
   }
