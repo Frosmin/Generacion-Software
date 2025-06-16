@@ -33,7 +33,14 @@
         >
         Anterior
       </button>
-      aqui puede venir el buscador
+      <!-- aqui puede venir el buscador -->
+
+      <app-search 
+        [courses]="allCursos"
+        [resetTrigger]="resetCnt"
+        (selectedIndex)="handleSelection($event)"    
+      ></app-search>
+
       <button
         mat-button
         class="btn"
