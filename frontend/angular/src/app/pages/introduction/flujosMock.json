@@ -1,0 +1,113 @@
+{
+  "flujos": [
+    {
+      "id": 1,
+      "title": "Introducción al control de flujo",
+      "paragraph": [
+        "El control de flujo permite que tus programas tomen decisiones y repitan acciones. Es lo que hace que los programas sean inteligentes y útiles."
+      ],
+      "subcontent": [
+        {
+          "subtitle": "¿Qué es el control de flujo?",
+          "subparagraph": [
+            "Imagina que le das instrucciones a alguien: 'Si llueve, lleva paraguas. Si no llueve, usa gafas de sol.' Eso es control de flujo: tomar decisiones basadas en condiciones."
+          ],
+          "example": ["# Programa simple sin control de flujo\nprint('Buenos días')\nprint('Que tengas buen día')\n\n# Programa con control de flujo\nhora = 14\nif hora < 12:\n    print('Buenos días')\nelse:\n    print('Buenas tardes')\nprint('Que tengas buen día')"]
+        }
+      ],
+      "next": "condicionales"
+    },
+    {
+      "id": 2,
+      "title": "Condicionales - Tomar decisiones",
+      "paragraph": [
+        "Las condicionales permiten que tu programa tome diferentes caminos según las condiciones. Usan las palabras clave if, elif y else."
+      ],
+      "subcontent": [
+        {
+          "subtitle": "La declaración if",
+          "subparagraph": [
+            "if significa 'si' en inglés. Ejecuta código solo si una condición es verdadera."
+          ],
+          "example": ["edad = 18\n\nif edad >= 18:\n    print('Eres mayor de edad')\n    print('Puedes votar')\n\nprint('Este mensaje siempre aparece')"]
+        },
+        {
+          "subtitle": "if-else: dos caminos",
+          "subparagraph": [
+            "else significa 'si no'. Proporciona una alternativa cuando la condición if es falsa."
+          ],
+          "example": ["temperatura = 25\n\nif temperatura > 30:\n    print('Hace mucho calor')\n    print('Mejor quedarse en casa')\nelse:\n    print('El clima está agradable')\n    print('Perfecto para salir')\n\nprint('¡Que disfrutes el día!')"]
+        },
+        {
+          "subtitle": "elif: múltiples opciones",
+          "subparagraph": [
+            "elif (else if) permite verificar múltiples condiciones en secuencia."
+          ],
+          "example": ["nota = 85\n\nif nota >= 90:\n    print('¡Excelente! Calificación A')\nelif nota >= 80:\n    print('Muy bien! Calificación B')\nelif nota >= 70:\n    print('Bien! Calificación C')\nelif nota >= 60:\n    print('Aprobado! Calificación D')\nelse:\n    print('Reprobado. Calificación F')\n\nprint(f'Tu nota fue: {nota}')"]
+        },
+        {
+          "subtitle": "Proyecto: Calculadora de edad",
+          "subparagraph": [
+            "Vamos a crear un programa que determine la etapa de vida según la edad."
+          ],
+          "example": ["edad = int(input('¿Cuántos años tienes? '))\n\nif edad < 0:\n    print('La edad no puede ser negativa')\nelif edad <= 2:\n    print('Eres un bebé')\nelif edad <= 12:\n    print('Eres un niño/a')\nelif edad <= 17:\n    print('Eres un adolescente')\nelif edad <= 64:\n    print('Eres un adulto')\nelse:\n    print('Eres un adulto mayor')\n\nprint('¡Gracias por usar el programa!')"]
+        }
+      ],
+      "next": "bucles"
+    },
+    {
+      "id": 3,
+      "title": "Bucles - Repetir acciones",
+      "paragraph": [
+        "Los bucles permiten repetir código automáticamente. En lugar de escribir lo mismo 100 veces, el bucle lo hace por ti."
+      ],
+      "subcontent": [
+        {
+          "subtitle": "Bucle for con range()",
+          "subparagraph": [
+            "El bucle for repite código un número específico de veces usando range()."
+          ],
+          "example": ["# Contar del 1 al 5\nprint('Contando del 1 al 5:')\nfor i in range(1, 6):\n    print(f'Número: {i}')\n\n# Repetir una acción\nprint('\\n¡Celebrando!')\nfor i in range(3):\n    print('¡Hurra!')\n\nprint('\\nCuenta regresiva:')\nfor i in range(5, 0, -1):\n    print(f'{i}...')\nprint('¡Despegue!')"]
+        },
+        {
+          "subtitle": "Bucle for con listas",
+          "subparagraph": [
+            "Puedes usar for para recorrer todos los elementos de una lista."
+          ],
+          "example": ["frutas = ['manzana', 'banana', 'naranja', 'pera']\n\nprint('Me gustan estas frutas:')\nfor fruta in frutas:\n    print(f'- {fruta.title()}')\n\n# Con números\nprecios = [10.50, 25.30, 15.75, 8.20]\ntotal = 0\n\nfor precio in precios:\n    total += precio\n    print(f'Precio: ${precio}')\n\nprint(f'\\nTotal: ${total:.2f}')"]
+        },
+        {
+          "subtitle": "Bucle while - repetir mientras",
+          "subparagraph": [
+            "while repite código mientras una condición sea verdadera. ¡Cuidado con los bucles infinitos!"
+          ],
+          "example": ["# Contador simple\ncontador = 1\nwhile contador <= 5:\n    print(f'Vuelta número {contador}')\n    contador += 1  # ¡Importante! Actualizar el contador\n\n# Juego de adivinanza\nimport random\nnumero_secreto = random.randint(1, 10)\nintento = 0\n\nprint('¡Adivina el número del 1 al 10!')\nwhile intento != numero_secreto:\n    intento = int(input('Tu intento: '))\n    if intento < numero_secreto:\n        print('Muy bajo')\n    elif intento > numero_secreto:\n        print('Muy alto')\n    else:\n        print('¡Correcto! ¡Ganaste!')"]
+        }
+      ],
+      "next": "break_continue"
+    },
+    {
+      "id": 4,
+      "title": "Controlar bucles: break y continue",
+      "paragraph": [
+        "A veces necesitas más control sobre tus bucles. break los detiene completamente, continue salta a la siguiente iteración."
+      ],
+      "subcontent": [
+        {
+          "subtitle": "break - salir del bucle",
+          "subparagraph": [
+            "break detiene el bucle inmediatamente, sin importar la condición."
+          ],
+          "example": ["# Buscar un número específico\nnumeros = [1, 5, 3, 8, 2, 7, 4]\nbuscado = 8\n\nprint(f'Buscando el número {buscado}...')\nfor i, numero in enumerate(numeros):\n    print(f'Revisando posición {i}: {numero}')\n    if numero == buscado:\n        print(f'¡Encontrado en la posición {i}!')\n        break\nelse:\n    print('Número no encontrado')"]
+        },
+        {
+          "subtitle": "continue - saltar iteración",
+          "subparagraph": [
+            "continue salta el resto del código en la iteración actual y continúa con la siguiente."
+          ],
+          "example": ["# Imprimir solo números pares\nprint('Números pares del 1 al 10:')\nfor numero in range(1, 11):\n    if numero % 2 != 0:  # Si es impar\n        continue  # Saltar esta iteración\n    print(numero)\n\n# Procesar lista saltando elementos específicos\npalabras = ['python', 'java', 'javascript', 'c++', 'go']\nprint('\\nLenguajes (excluyendo java):')\nfor palabra in palabras:\n    if palabra == 'java':\n        continue\n    print(f'- {palabra.title()}')"]
+        }
+      ]
+    }
+  ]
+}
