@@ -11,5 +11,4 @@ import cursosMock from './cursosMock.json';
 })
 export class CursosComponent {
   cursos: ICardCurso[] = cursosMock;
-  
 }

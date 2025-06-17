@@ -1,5 +1,4 @@
-{
-  "flujos": [
+[
     {
       "id": 1,
       "title": "Introducción al control de flujo",
@@ -110,4 +109,3 @@
       ]
     }
   ]
-}
