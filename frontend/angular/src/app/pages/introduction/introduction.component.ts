@@ -27,7 +27,6 @@ export class IntroductionComponent {
   content: ContenidoCurso | null = null;
   allCursos: string[] = [];
 
-  // Si necesitas cursosDisponibles para el template
   cursosDisponibles: CursoDisponible[] = [
     { nombre: 'Introducción', mock: introductionMock as ContenidoCurso[] },
     { nombre: 'Flujos de Control', mock: flujosMock as ContenidoCurso[] },
