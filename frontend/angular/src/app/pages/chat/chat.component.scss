@@ -1,0 +1,192 @@
+// Inspirado en los colores y estilos de la aplicación
+$primary-color: #df881d; // Naranja principal de la app
+$secondary-color: #8a63d2; // Morado/Lavanda de la app
+$background-dark: #120e23; // Fondo oscuro principal, similar al de la app
+$background-medium: #181335; // Un tono intermedio para el contenedor del chat
+$card-background: #2e2143; // Fondo para burbujas de chat recibidas
+$text-light: #ffffff;
+$text-muted: #dddddd;
+$border-color: rgba(255, 255, 255, 0.1); // Borde sutil
+
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  // Ajusta la altura según sea necesario. Considera la altura del navbar y footer.
+  // Por ejemplo, si navbar+footer son ~100px, podrías usar calc(100vh - 100px - 40px de margen).
+  // O simplemente déjalo crecer con el contenido dentro del .content-container de app.component.
+  height: calc(100vh - 140px); // Estimación, ajustar si es necesario
+  max-width: 800px; // O el ancho que prefieras
+  margin: 20px auto;
+  background-color: $background-medium;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4); // Sombra más pronunciada
+  overflow: hidden;
+  border: 1px solid $border-color;
+}
+
+.chat-header {
+  background: linear-gradient(135deg, $primary-color, $secondary-color);
+  color: $text-light;
+  padding: 15px 20px;
+  text-align: center;
+  border-bottom: 1px solid darken($border-color, 5%); // Borde ligeramente más oscuro
+  h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+}
+
+.chat-messages {
+  flex-grow: 1;
+  padding: 20px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: $primary-color;
+    border-radius: 4px;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: $background-dark; // Track más oscuro
+  }
+}
+
+.message {
+  padding: 12px 18px; // Un poco más de padding
+  border-radius: 18px; // Bordes más redondeados
+  max-width: 75%;
+  word-wrap: break-word;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); // Sombra sutil a las burbujas
+
+  p {
+    margin: 0 0 5px 0;
+    line-height: 1.6; // Mejor legibilidad
+    font-size: 0.95rem;
+  }
+
+  .timestamp {
+    font-size: 0.7rem; // Más pequeño
+    color: $text-muted;
+    opacity: 0.6;
+    display: block;
+  }
+}
+
+.message.sent {
+  background: linear-gradient(135deg, darken($primary-color, 5%), $primary-color); // Degradado sutil
+  color: $text-light;
+  align-self: flex-end;
+  border-bottom-right-radius: 6px; // Detalle en la esquina
+  .timestamp {
+    text-align: right;
+  }
+}
+
+.message.received {
+  background-color: $card-background;
+  color: $text-light;
+  align-self: flex-start;
+  border-bottom-left-radius: 6px; // Detalle en la esquina
+  .timestamp {
+    text-align: left;
+  }
+}
+
+.chat-input-area {
+  display: flex;
+  align-items: center;
+  padding: 15px 20px;
+  border-top: 1px solid darken($border-color, 5%);
+  background-color: $background-dark;
+
+  input[type="text"] {
+    flex-grow: 1;
+    padding: 12px 18px;
+    border: 1px solid $border-color;
+    border-radius: 25px; // Input redondeado
+    background-color: $background-medium;
+    color: $text-light;
+    font-size: 1rem;
+    margin-right: 12px;
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+
+    &::placeholder {
+      color: $text-muted;
+      opacity: 0.5;
+    }
+
+    &:focus {
+      border-color: $primary-color;
+      box-shadow: 0 0 0 3px rgba($primary-color, 0.25);
+    }
+  }
+
+  button {
+    padding: 12px 22px;
+    background-color: $primary-color;
+    color: $text-light;
+    border: none;
+    border-radius: 25px; // Botón redondeado
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+
+    &:hover {
+      background-color: lighten($primary-color, 5%);
+      transform: translateY(-1px);
+    }
+    &:active {
+      transform: translateY(0px);
+      background-color: darken($primary-color, 5%);
+    }
+  }
+}
+
+// Diseño responsivo
+@media (max-width: 768px) {
+  .chat-container {
+    margin: 0; // Sin margen en móviles
+    border-radius: 0; // Sin bordes redondeados en el contenedor principal
+    height: 100vh; // Ocupar toda la altura de la vista
+    border: none; // Sin borde en móviles
+  }
+
+  .chat-header {
+    padding: 12px 15px;
+    h2 {
+      font-size: 1.3rem;
+    }
+  }
+
+  .chat-messages {
+    padding: 15px;
+    gap: 12px;
+  }
+
+  .message {
+    max-width: 85%;
+    padding: 10px 15px;
+    font-size: 0.9rem;
+  }
+
+  .chat-input-area {
+    padding: 12px 15px;
+    input[type="text"] {
+      padding: 10px 15px;
+      font-size: 0.9rem;
+      margin-right: 8px;
+    }
+    button {
+      padding: 10px 18px;
+      font-size: 0.9rem;
+    }
+  }
+}
