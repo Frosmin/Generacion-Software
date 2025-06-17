@@ -1,0 +1,195 @@
+// Estilos para el componente de búsqueda
+.autocomplete {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  position: relative;
+
+  .formfield {
+    width: 100%;
+    
+    // Estilos del contenedor del mat-form-field
+    ::ng-deep .mat-mdc-form-field {
+      background: transparent;
+      border-radius: 10px;
+      border: none;
+      transition: all 0.3s ease;
+      overflow: hidden;
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.05);
+      }
+
+      &.mat-focused {
+        background: rgba(255, 255, 255, 0.08);
+        box-shadow: 0 0 15px rgba(255, 110, 196, 0.2);
+      }
+    }
+
+    // Estilos del input
+    ::ng-deep .mat-mdc-input-element {
+      color: #333;
+      font-size: 16px;
+      padding: 12px 16px;
+      background: transparent;
+      border: none;
+      outline: none;
+
+      &::placeholder {
+        color: #999;
+        font-style: normal;
+      }
+    }
+
+    // Estilos del label
+    ::ng-deep .mat-mdc-form-field-label {
+      color: #666 !important;
+      font-size: 16px;
+      left: 16px;
+      transition: all 0.3s ease;
+    }
+
+    ::ng-deep .mat-mdc-form-field-label.mdc-floating-label--float-above {
+      color: #ff6ec4 !important;
+      font-size: 12px;
+      transform: translateY(-24px) scale(0.85);
+    }
+
+    // Remover underline de Material
+    ::ng-deep .mat-mdc-form-field-underline,
+    ::ng-deep .mdc-line-ripple,
+    ::ng-deep .mat-mdc-form-field-subscript-wrapper {
+      display: none;
+    }
+
+    // Estilos para el estado focused
+    ::ng-deep .mat-mdc-form-field-focus-overlay {
+      display: none;
+    }
+
+    // Remover cualquier padding extra
+    ::ng-deep .mat-mdc-form-field-flex {
+      padding: 0;
+    }
+
+    ::ng-deep .mat-mdc-form-field-infix {
+      border: none;
+      padding: 8px 0;
+      min-height: auto;
+    }
+  }
+}
+
+// Estilos para el panel de autocomplete
+::ng-deep .mat-mdc-autocomplete-panel {
+  background: white;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  margin-top: 4px;
+  max-height: 300px;
+  overflow-y: auto;
+
+  // Scrollbar personalizado
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 3px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
+
+    &:hover {
+      background: rgba(0, 0, 0, 0.3);
+    }
+  }
+}
+
+// Estilos para las opciones del autocomplete
+::ng-deep .mat-mdc-option {
+  color: #333;
+  padding: 12px 16px;
+  font-size: 14px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &:hover,
+  &.mat-mdc-option-active {
+    background: linear-gradient(135deg, rgba(255, 110, 196, 0.1), rgba(120, 115, 245, 0.1));
+    color: #333;
+  }
+
+  &.mat-selected {
+    background: linear-gradient(135deg, rgba(255, 110, 196, 0.2), rgba(120, 115, 245, 0.2));
+    color: #333;
+  }
+
+  // Efecto de resaltado para texto que coincide
+  .highlight {
+    background: linear-gradient(135deg, #ff6ec4, #7873f5);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: bold;
+  }
+}
+
+// Estilos responsive
+@media (max-width: 768px) {
+  .autocomplete {
+    .formfield ::ng-deep .mat-mdc-input-element {
+      font-size: 16px; // Evita zoom en iOS
+      padding: 12px 16px;
+    }
+
+    .formfield ::ng-deep .mat-mdc-form-field-label {
+      left: 16px;
+    }
+  }
+
+  ::ng-deep .mat-mdc-autocomplete-panel {
+    border-radius: 6px;
+  }
+}
+
+// Variante con gradiente de fondo (opcional)
+.autocomplete.gradient-variant {
+  .formfield ::ng-deep .mat-mdc-form-field {
+    background: linear-gradient(135deg, rgba(255, 110, 196, 0.1), rgba(120, 115, 245, 0.1));
+    
+    &:hover {
+      background: linear-gradient(135deg, rgba(255, 110, 196, 0.15), rgba(120, 115, 245, 0.15));
+    }
+
+    &.mat-focused {
+      background: linear-gradient(135deg, rgba(255, 110, 196, 0.2), rgba(120, 115, 245, 0.2));
+    }
+  }
+}
+
+// Variante minimalista (opcional)
+.autocomplete.minimal-variant {
+  .formfield ::ng-deep .mat-mdc-form-field {
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+
+    &:hover {
+      border-color: rgba(255, 255, 255, 0.4);
+    }
+
+    &.mat-focused {
+      border-color: #ff6ec4;
+      background: rgba(255, 255, 255, 0.05);
+    }
+  }
+}

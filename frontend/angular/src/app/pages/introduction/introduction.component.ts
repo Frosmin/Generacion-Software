@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import introductionMock from './introduccionMock.json';
-import flujosMock from './flujosMock.json';
-import funcionesMock from './funcionesMock.json';
-import estructurasMock from './estructurasMock.json';
-import pooMock from './pooMock.json';
-import archivosMock from './archivosMock.json';
+import introductionMock from './dataCursos/introduccionMock.json';
+import flujosMock from './dataCursos/flujosMock.json';
+import funcionesMock from './dataCursos/funcionesMock.json';
+import estructurasMock from './dataCursos/estructurasMock.json';
+import pooMock from './dataCursos/pooMock.json';
+import archivosMock from './dataCursos/archivosMock.json';
 import { MatButtonModule } from '@angular/material/button';
 import { EditorActividadComponent } from '../../components/editor-actividad/editor-actividad.component';
 import { SearchComponent } from '../../components/search/search.component';
@@ -27,6 +27,7 @@ export class IntroductionComponent {
   content: ContenidoCurso | null = null;
   allCursos: string[] = [];
 
+  
   cursosDisponibles: CursoDisponible[] = [
     { nombre: 'Introducción', mock: introductionMock as ContenidoCurso[] },
     { nombre: 'Flujos de Control', mock: flujosMock as ContenidoCurso[] },
