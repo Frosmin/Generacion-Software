@@ -3,6 +3,13 @@ import introductionMock from './introduccionMock.json';
 import { MatButtonModule } from '@angular/material/button';
 import { EditorActividadComponent } from '../../components/editor-actividad/editor-actividad.component';
 import { SearchComponent } from '../../components/search/search.component';
+interface Curso {
+  instrucciones: string;
+  codigo_incompleto: string;
+  solucion_correcta: string;
+}
+
+
 
 @Component({
   selector: 'app-introduction',
@@ -11,8 +18,8 @@ import { SearchComponent } from '../../components/search/search.component';
   styleUrl: './introduction.component.scss',
 })
 export class IntroductionComponent {
+  curso: Curso | null = null;
   resetCnt = 0;
-  curso: any = null;  
   intro = introductionMock;
   initialSubject = 0;
   totalSubjects = this.intro.length - 1;
@@ -22,6 +29,7 @@ export class IntroductionComponent {
   allCursos = this.intro.map((e) => {
     return e.title;
   });
+
 
   gonext() {
     this.initialSubject++;

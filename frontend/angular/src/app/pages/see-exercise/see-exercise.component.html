@@ -1,55 +1,35 @@
 <div class="exercise-container">
   <div class="top-bar">
-    <button (click)="goBack()" class="btn-volver">< Volver a ejercicios</button>
-    <div class="title-section">
-      <h1 class="exercise-title">{{ exercise.title }}</h1>
-      <span
-        class="difficulty-badge"
-        [ngClass]="{
+    <button (click)="goBack()" class="btn-volver">
+      < Volver a ejercicios</button>
+        <div class="title-section">
+          <h1 class="exercise-title">{{ exercise.title }}</h1>
+          <span class="difficulty-badge" [ngClass]="{
           easy: exercise.difficulty === 'Easy',
           medium: exercise.difficulty === 'Medium',
           hard: exercise.difficulty === 'Hard'
-        }"
-      >
-        {{ exercise.difficulty }}
-      </span>
-    </div>
+        }">
+            {{ exercise.difficulty }}
+          </span>
+        </div>
   </div>
   <div class="main-layout">
     <!-- Contenido principal -->
     <div class="main-content">
       <div class="tabs" role="tablist">
-        <div
-          class="tab"
-          [class.active]="activeTab === 'problem'"
-          role="tab"
-          tabindex="0"
-          [attr.aria-selected]="activeTab === 'problem'"
-          (click)="setActiveTab('problem')"
-          (keydown)="handleKeydown($event, 'problem')"
-        >
+        <div class="tab" [class.active]="activeTab === 'problem'" role="tab" tabindex="0"
+          [attr.aria-selected]="activeTab === 'problem'" (click)="setActiveTab('problem')"
+          (keydown)="handleKeydown($event, 'problem')">
           Problema
         </div>
-        <div
-          class="tab"
-          [class.active]="activeTab === 'submit'"
-          role="tab"
-          tabindex="0"
-          [attr.aria-selected]="activeTab === 'submit'"
-          (click)="setActiveTab('submit')"
-          (keydown)="handleKeydown($event, 'submit')"
-        >
+        <div class="tab" [class.active]="activeTab === 'submit'" role="tab" tabindex="0"
+          [attr.aria-selected]="activeTab === 'submit'" (click)="setActiveTab('submit')"
+          (keydown)="handleKeydown($event, 'submit')">
           Enviar
         </div>
-        <div
-          class="tab"
-          [class.active]="activeTab === 'submissions'"
-          role="tab"
-          tabindex="0"
-          [attr.aria-selected]="activeTab === 'submissions'"
-          (click)="setActiveTab('submissions')"
-          (keydown)="handleKeydown($event, 'submissions')"
-        >
+        <div class="tab" [class.active]="activeTab === 'submissions'" role="tab" tabindex="0"
+          [attr.aria-selected]="activeTab === 'submissions'" (click)="setActiveTab('submissions')"
+          (keydown)="handleKeydown($event, 'submissions')">
           Mis Envíos
         </div>
       </div>
@@ -60,9 +40,7 @@
         </div>
 
         <div class="tab-content" *ngIf="activeTab === 'submit'">
-          <app-submit
-            (solutionSubmitted)="onSolutionSubmitted($event)"
-          ></app-submit>
+          <app-submit (solutionSubmitted)="onSolutionSubmitted($event)"></app-submit>
         </div>
 
         <!-- Pestaña: Mis Envíos -->
@@ -72,18 +50,16 @@
       </div>
     </div>
 
-    <div class="sidebar">
+    <div class="sidebar" *ngIf="activeTab !== 'submissions'">
       <div class="info-card topics-card">
-        <h4>📚 Temas</h4>
+        <h4 title="Icono para la sección de Temas">📚 Temas</h4>
         <div class="topics-list">
           <div class="topic-item" *ngFor="let topic of exercise.topics">
             <span class="topic-dot"></span>
             <div class="topic-content">
               <span class="topic-name">{{ topic }}</span>
-              <span class="topic-description"
-                >Concepto fundamental que necesitas dominar para resolver este
-                ejercicio</span
-              >
+              <span class="topic-description">Concepto fundamental que necesitas dominar para resolver este
+                ejercicio</span>
             </div>
           </div>
         </div>
@@ -100,10 +76,7 @@
         </div>
       </div>
 
-      <div
-        class="info-card"
-        *ngIf="exercise.materials && exercise.materials.length > 0"
-      >
+      <div class="info-card" *ngIf="exercise.materials && exercise.materials.length > 0">
         <h4>Material de estudio</h4>
         <ul class="materials-list">
           <li *ngFor="let material of exercise.materials">{{ material }}</li>

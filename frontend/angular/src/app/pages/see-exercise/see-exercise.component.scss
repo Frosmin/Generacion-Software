@@ -145,7 +145,7 @@ $runtime-error-color: #9c27b0;
         background-color: rgba($wrong-answer-color, 0.2);
         color: $wrong-answer-color;
       }
-      padding: 40px 0;
+      // padding: 40px 0;
       color: color.adjust($text-color, $lightness: 30%);
     }
   }
@@ -301,10 +301,13 @@ $runtime-error-color: #9c27b0;
     }
   }
   .main-content .content-area {
-    padding: 20px;
+    padding: 10px;
   }
   .sidebar {
     padding: 20px 15px;
     height: 100%;
+  }
+  .main-content .tabs {
+    padding: 0;
   }
 }
