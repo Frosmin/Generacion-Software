@@ -2,7 +2,8 @@
 
 $primary-color: #007bff;
 $primary-hover: color.adjust($primary-color, $lightness: -10%);
-$text-color: #dddddd;
+$bg-color: #f9f9f9;
+$text-color: #333;
 $border-color: #ccc;
 $shadow-color: rgba(0, 0, 0, 0.05);
 
@@ -67,6 +68,7 @@ $shadow-color: rgba(0, 0, 0, 0.05);
 
     .resultado-item {
       padding: 10px;
+      background-color: white;
       color: $text-color;
       border: 1px solid color.adjust($border-color, $lightness: 10%);
       border-radius: 6px;

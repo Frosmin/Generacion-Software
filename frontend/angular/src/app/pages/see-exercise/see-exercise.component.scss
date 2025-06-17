@@ -1,5 +1,4 @@
 @use "sass:color";
-
 // Variables
 $primary-color: #df881d;
 $secondary-color: #1e1e2e;
@@ -37,8 +36,79 @@ $runtime-error-color: #9c27b0;
     margin-bottom: 20px;
     display: flex;
     align-items: center;
+    gap: 30px;
     &:hover {
       opacity: 0.8;
+    }
+  }
+
+  // Pestaña de problema
+  .main-content {
+    flex: 1;
+
+    .problem-statement {
+      .section {
+        margin-bottom: 30px;
+
+        h3 {
+          font-size: 20px;
+          margin-bottom: 10px;
+          font-weight: 500;
+          color: $primary-color;
+        }
+      }
+
+      .examples {
+        .example {
+          background-color: $secondary-color;
+          border-radius: 8px;
+          padding: 15px;
+          margin-bottom: 20px;
+
+          .example-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            font-weight: 500;
+          }
+
+          .example-actions {
+            .copy-btn {
+              background-color: white;
+              border: 1px solid $border-color;
+              border-radius: 4px;
+              padding: 5px 10px;
+              cursor: pointer;
+              transition: all 0.2s ease;
+
+              &:hover {
+                background-color: color.adjust(white, $lightness: -5%);
+              }
+            }
+          }
+
+          .example-input,
+          .example-output,
+          .example-explanation {
+            margin-bottom: 10px;
+
+            .label {
+              font-weight: 500;
+              margin-bottom: 5px;
+            }
+
+            pre {
+              background-color: rgb(19, 19, 19);
+              border-radius: 4px;
+              padding: 10px;
+              margin: 0;
+              overflow-x: auto;
+              font-family: "Consolas", "Monaco", monospace;
+            }
+          }
+        }
+      }
     }
   }
   .title-section {
@@ -75,6 +145,8 @@ $runtime-error-color: #9c27b0;
         background-color: rgba($wrong-answer-color, 0.2);
         color: $wrong-answer-color;
       }
+      padding: 40px 0;
+      color: color.adjust($text-color, $lightness: 30%);
     }
   }
 }

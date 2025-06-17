@@ -1,16 +1,49 @@
 <div class="intro-template">
     <div class="intro-left">
-        {{title}}
+      
+      <h1>{{content.title}}</h1>
+      @for (line of content.paragraph; track $index) {
+        <p>{{line}}</p>
+      }
+
+      @for (subcontent of content.subcontent; track $index) {
+        <h2>{{subcontent.subtitle}}</h2>
+        @for (subpar of subcontent.subparagraph; track $index) {
+          <p>{{subpar}}</p>
+        }
+        @if (subcontent.example.length>0) {
+          <div class="example-box">
+            <h3>Ejemplo</h3>
+            <div class="code-block">
+              <pre>{{subcontent.example[0]}}</pre>
+            </div>
+          </div>
+        }
+      }
+      
     </div>
 
   <div class="intro-right">
     <div class="buttons-field">
-      <button mat-button [disabled]="initialSubject === 0" (click)="goback()">
+      <button 
+        mat-button
+        class="btn"
+        [disabled]="initialSubject === 0" 
+        (click)="goback()"
+        >
         Anterior
       </button>
-      aqui puede venir el buscador
+      <!-- aqui puede venir el buscador -->
+
+      <app-search 
+        [courses]="allCursos"
+        [resetTrigger]="resetCnt"
+        (selectedIndex)="handleSelection($event)"    
+      ></app-search>
+
       <button
         mat-button
+        class="btn"
         [disabled]="initialSubject === totalSubjects"
         (click)="gonext()"
       >
