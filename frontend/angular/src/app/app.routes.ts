@@ -28,6 +28,6 @@ export const routes: Routes = [
   { path: 'progreso-aprendizaje', component: LearningProgressComponent, canMatch: [authGuard] },
   { path: 'lista-cursos', component: CoursesListComponent },
   { path: 'terminal', component: TerminalComponent },
-
-  { path: 'cursos/:id', component: IntroductionComponent }
+  { path: 'cursos/:id', component: IntroductionComponent },
+  // { path: '/chat', }
 ];
