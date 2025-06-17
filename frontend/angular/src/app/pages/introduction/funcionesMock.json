@@ -1,0 +1,142 @@
+ [
+      {
+        "id": 1,
+        "title": "¿Qué son las funciones?",
+        "paragraph": [
+          "Las funciones son bloques de código reutilizable que realizan una tarea específica. Son como pequeñas máquinas que reciben entrada, procesan y devuelven resultado."
+        ],
+        "subcontent": [
+          {
+            "subtitle": "¿Por qué usar funciones?",
+            "subparagraph": [
+              "Imagina que necesitas calcular el área de un rectángulo en 10 lugares diferentes de tu programa. Sin funciones, tendrías que escribir la misma fórmula 10 veces."
+            ],
+            "example": [
+              "# Sin funciones (repetitivo)\nbase1, altura1 = 5, 3\narea1 = base1 * altura1\nprint(f'Área 1: {area1}')\n\nbase2, altura2 = 8, 4\narea2 = base2 * altura2\nprint(f'Área 2: {area2}')\n\n# Con funciones (mejor)\ndef calcular_area(base, altura):\n    return base * altura\n\narea1 = calcular_area(5, 3)\narea2 = calcular_area(8, 4)\nprint(f'Área 1: {area1}')\nprint(f'Área 2: {area2}')"
+            ]
+          }
+        ],
+        "next": "crear_funciones"
+      },
+      {
+        "id": 2,
+        "title": "Crear y usar funciones",
+        "paragraph": [
+          "Para crear una función usamos la palabra clave 'def', seguida del nombre de la función y paréntesis."
+        ],
+        "subcontent": [
+          {
+            "subtitle": "Función básica sin parámetros",
+            "subparagraph": [
+              "La función más simple no recibe parámetros y solo ejecuta código."
+            ],
+            "example": [
+              "def saludar():\n    print('¡Hola!')\n    print('¡Bienvenido a Python!')\n    print('¡Que tengas un gran día!')\n\n# Llamar (usar) la función\nprint('Antes de la función')\nsaludar()  # Ejecuta todo el código de la función\nprint('Después de la función')\n\n# Puedes llamarla muchas veces\nprint('\\nSaludando varias veces:')\nsaludar()\nsaludar()"
+            ]
+          },
+          {
+            "subtitle": "Funciones con parámetros",
+            "subparagraph": [
+              "Los parámetros son valores que le pasas a la función para que trabaje con ellos."
+            ],
+            "example": [
+              "def saludar_persona(nombre):\n    print(f'¡Hola {nombre}!')\n    print(f'Es un placer conocerte, {nombre}')\n\ndef presentar(nombre, edad, ciudad):\n    print(f'Me llamo {nombre}')\n    print(f'Tengo {edad} años')\n    print(f'Vivo en {ciudad}')\n\n# Usar las funciones\nsaludar_persona('Ana')\nprint()\npresentar('Carlos', 25, 'Madrid')\nprint()\npresentar('María', 30, 'Barcelona')"
+            ]
+          },
+          {
+            "subtitle": "Funciones que devuelven valores",
+            "subparagraph": [
+              "Las funciones pueden devolver resultados usando 'return'. Esto te permite usar el resultado en otros lugares."
+            ],
+            "example": [
+              "def sumar(a, b):\n    resultado = a + b\n    return resultado\n\ndef calcular_cuadrado(numero):\n    return numero * numero\n\ndef crear_saludo(nombre):\n    return f'¡Hola {nombre}, que tengas un excelente día!'\n\n# Usar funciones que devuelven valores\ntotal = sumar(5, 3)\nprint(f'5 + 3 = {total}')\n\ncuadrado = calcular_cuadrado(4)\nprint(f'4 al cuadrado = {cuadrado}')\n\nmensaje = crear_saludo('Pedro')\nprint(mensaje)"
+            ]
+          }
+        ],
+        "next": "parametros_avanzados"
+      },
+      {
+        "id": 3,
+        "title": "Parámetros avanzados",
+        "paragraph": [
+          "Python ofrece formas flexibles de trabajar con parámetros: valores por defecto, argumentos nombrados y más."
+        ],
+        "subcontent": [
+          {
+            "subtitle": "Parámetros con valores por defecto",
+            "subparagraph": [
+              "Puedes dar valores por defecto a los parámetros. Si no se proporciona un valor, se usa el por defecto."
+            ],
+            "example": [
+              "def saludar(nombre, saludo='Hola', signo='!'):\n    return f'{saludo} {nombre}{signo}'\n\n# Diferentes formas de llamar la función\nprint(saludar('Ana'))  # Usa valores por defecto\nprint(saludar('Carlos', 'Buenos días'))  \nprint(saludar('María', 'Hola', '!!!'))\n\ndef crear_perfil(nombre, edad, ciudad='No especificada', profesion='Estudiante'):\n    return f'{nombre}, {edad} años, vive en {ciudad}, trabaja como {profesion}'\n\nprint(crear_perfil('Luis', 22))\nprint(crear_perfil('Sofia', 28, 'Valencia', 'Doctora'))"
+            ]
+          },
+          {
+            "subtitle": "Argumentos nombrados",
+            "subparagraph": [
+              "Puedes especificar los parámetros por nombre, lo que hace el código más claro."
+            ],
+            "example": [
+              "def hacer_pedido(producto, cantidad, precio, descuento=0):\n    subtotal = cantidad * precio\n    total = subtotal - (subtotal * descuento / 100)\n    return f'Pedido: {cantidad} {producto}(s) - Total: ${total:.2f}'\n\n# Argumentos posicionales\nprint(hacer_pedido('Pizza', 2, 15.99, 10))\n\n# Argumentos nombrados (más claro)\nprint(hacer_pedido(\n    producto='Hamburguesa',\n    cantidad=3,\n    precio=12.50,\n    descuento=15\n))\n\n# Mezclando ambos\nprint(hacer_pedido('Pasta', 1, precio=18.75, descuento=5))"
+            ]
+          }
+        ],
+        "next": "scope"
+      },
+      {
+        "id": 4,
+        "title": "Alcance de variables (Scope)",
+        "paragraph": [
+          "El alcance determina dónde puedes usar una variable. Las variables pueden ser locales (dentro de una función) o globales (en todo el programa)."
+        ],
+        "subcontent": [
+          {
+            "subtitle": "Variables locales vs globales",
+            "subparagraph": [
+              "Las variables creadas dentro de una función son locales. Las creadas fuera son globales."
+            ],
+            "example": [
+              "# Variable global\nnombre_juego = 'Adventure Quest'\npuntos_totales = 0\n\ndef jugar_nivel(nivel, puntos_nivel):\n    # Variables locales\n    enemigos = 5\n    vida = 100\n    \n    print(f'Jugando {nombre_juego} - Nivel {nivel}')\n    print(f'Vida: {vida}, Enemigos: {enemigos}')\n    \n    # Podemos leer variables globales\n    global puntos_totales\n    puntos_totales += puntos_nivel\n    \n    return f'Nivel completado. Puntos totales: {puntos_totales}'\n\n# Usar la función\nprint(jugar_nivel(1, 100))\nprint(jugar_nivel(2, 150))\nprint(f'Puntos finales: {puntos_totales}')"
+            ]
+          },
+          {
+            "subtitle": "Buenas prácticas con el scope",
+            "subparagraph": [
+              "Es mejor evitar variables globales cuando sea posible. Las funciones son más predecibles cuando trabajan solo con sus parámetros."
+            ],
+            "example": [
+              "# Mejor práctica: evitar variables globales\ndef calcular_descuento(precio, porcentaje_descuento):\n    descuento = precio * (porcentaje_descuento / 100)\n    precio_final = precio - descuento\n    return precio_final, descuento\n\ndef procesar_compra(productos):\n    total = 0\n    detalles = []\n    \n    for producto, precio in productos:\n        precio_con_descuento, ahorro = calcular_descuento(precio, 10)\n        total += precio_con_descuento\n        detalles.append(f'{producto}: ${precio_con_descuento:.2f} (ahorras ${ahorro:.2f})')\n    \n    return total, detalles\n\n# Usar las funciones\ncompras = [('Laptop', 1000), ('Mouse', 50), ('Teclado', 100)]\ntotal_compra, detalle_compra = procesar_compra(compras)\n\nprint('Detalle de compra:')\nfor detalle in detalle_compra:\n    print(detalle)\nprint(f'Total: ${total_compra:.2f}')"
+            ]
+          }
+        ],
+        "next": "funciones_lambda"
+      },
+      {
+        "id": 5,
+        "title": "Funciones lambda y avanzadas",
+        "paragraph": [
+          "Las funciones lambda son funciones pequeñas y anónimas. También veremos funciones como map, filter y reduce."
+        ],
+        "subcontent": [
+          {
+            "subtitle": "Funciones lambda",
+            "subparagraph": [
+              "Las funciones lambda son útiles para operaciones simples que se pueden escribir en una línea."
+            ],
+            "example": [
+              "# Función normal\ndef cuadrado(x):\n    return x ** 2\n\n# Función lambda equivalente\ncuadrado_lambda = lambda x: x ** 2\n\nprint(cuadrado(5))  # 25\nprint(cuadrado_lambda(5))  # 25\n\n# Más ejemplos de lambda\nsumar = lambda a, b: a + b\nes_par = lambda x: x % 2 == 0\nsaludo = lambda nombre: f'¡Hola {nombre}!'\n\nprint(sumar(3, 7))  # 10\nprint(es_par(4))    # True\nprint(saludo('Ana'))  # ¡Hola Ana!"
+            ]
+          },
+          {
+            "subtitle": "Usando lambda con map, filter y sorted",
+            "subparagraph": [
+              "Las funciones lambda son muy útiles con funciones como map() y filter()."
+            ],
+            "example": [
+              "numeros = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]\n\n# map(): aplica una función a cada elemento\ncuadrados = list(map(lambda x: x**2, numeros))\nprint(f'Cuadrados: {cuadrados}')\n\n# filter(): filtra elementos que cumplen una condición\npares = list(filter(lambda x: x % 2 == 0, numeros))\nprint(f'Números pares: {pares}')\n\n# sorted(): ordena con una función personalizada\nestudiantes = [('Ana', 85), ('Carlos', 92), ('María', 78), ('Luis', 96)]\nestudiantes_por_nota = sorted(estudiantes, key=lambda x: x[1], reverse=True)\nprint(f'Estudiantes por nota: {estudiantes_por_nota}')\n\n# Ejemplo más complejo\nproductos = [\n    {'nombre': 'Laptop', 'precio': 1000, 'categoria': 'Electrónicos'},\n    {'nombre': 'Mesa', 'precio': 200, 'categoria': 'Muebles'},\n    {'nombre': 'Teléfono', 'precio': 500, 'categoria': 'Electrónicos'}\n]\n\n# Filtrar electrónicos caros\nelectronicos_caros = list(filter(\n    lambda p: p['categoria'] == 'Electrónicos' and p['precio'] > 600, \n    productos\n))\nprint(f'Electrónicos caros: {electronicos_caros}')"
+            ]
+          }
+        ],
+        "next": null
+      }
+    ]
