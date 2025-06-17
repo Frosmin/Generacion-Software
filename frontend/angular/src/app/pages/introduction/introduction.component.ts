@@ -1,5 +1,10 @@
 import { Component } from '@angular/core';
 import introductionMock from './introduccionMock.json';
+import flujosMock from './flujosMock.json';
+import funcionesMock from './funcionesMock.json';
+import estructurasMock from './estructurasMock.json';
+import pooMock from './pooMock.json';
+import archivosMock from './archivosMock.json';
 import { MatButtonModule } from '@angular/material/button';
 import { EditorActividadComponent } from '../../components/editor-actividad/editor-actividad.component';
 import { SearchComponent } from '../../components/search/search.component';
