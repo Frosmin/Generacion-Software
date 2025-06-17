@@ -1,3 +1,6 @@
+// filepath: frontend/angular/src/app/pages/chat/chat.component.scss
+@use 'sass:color'; // Importa el módulo sass:color
+
 // Inspirado en los colores y estilos de la aplicación
 $primary-color: #df881d; // Naranja principal de la app
 $secondary-color: #8a63d2; // Morado/Lavanda de la app
@@ -14,7 +17,7 @@ $border-color: rgba(255, 255, 255, 0.1); // Borde sutil
   // Ajusta la altura según sea necesario. Considera la altura del navbar y footer.
   // Por ejemplo, si navbar+footer son ~100px, podrías usar calc(100vh - 100px - 40px de margen).
   // O simplemente déjalo crecer con el contenido dentro del .content-container de app.component.
-  height: calc(100vh - 140px); // Estimación, ajustar si es necesario
+  height: calc(100vh - 140px); // Estimación, ajustar si es necesario. Asume 70px navbar + 70px footer/espacio
   max-width: 800px; // O el ancho que prefieras
   margin: 20px auto;
   background-color: $background-medium;
@@ -29,7 +32,7 @@ $border-color: rgba(255, 255, 255, 0.1); // Borde sutil
   color: $text-light;
   padding: 15px 20px;
   text-align: center;
-  border-bottom: 1px solid darken($border-color, 5%); // Borde ligeramente más oscuro
+  border-bottom: 1px solid color.adjust($border-color, $lightness: -5%); // Borde ligeramente más oscuro
   h2 {
     margin: 0;
     font-size: 1.5rem;
@@ -40,7 +43,7 @@ $border-color: rgba(255, 255, 255, 0.1); // Borde sutil
 .chat-messages {
   flex-grow: 1;
   padding: 20px;
-  overflow-y: auto;
+  overflow-y: auto; // Permite scroll solo en esta área
   display: flex;
   flex-direction: column;
   gap: 15px;
@@ -79,7 +82,7 @@ $border-color: rgba(255, 255, 255, 0.1); // Borde sutil
 }
 
 .message.sent {
-  background: linear-gradient(135deg, darken($primary-color, 5%), $primary-color); // Degradado sutil
+  background: linear-gradient(135deg, color.adjust($primary-color, $lightness: -5%), $primary-color); // Degradado sutil
   color: $text-light;
   align-self: flex-end;
   border-bottom-right-radius: 6px; // Detalle en la esquina
@@ -102,7 +105,7 @@ $border-color: rgba(255, 255, 255, 0.1); // Borde sutil
   display: flex;
   align-items: center;
   padding: 15px 20px;
-  border-top: 1px solid darken($border-color, 5%);
+  border-top: 1px solid color.adjust($border-color, $lightness: -5%);
   background-color: $background-dark;
 
   input[type="text"] {
@@ -124,7 +127,7 @@ $border-color: rgba(255, 255, 255, 0.1); // Borde sutil
 
     &:focus {
       border-color: $primary-color;
-      box-shadow: 0 0 0 3px rgba($primary-color, 0.25);
+      box-shadow: 0 0 0 3px rgba(color.adjust($primary-color, $alpha: -0.75), 0.25);
     }
   }
 
@@ -140,12 +143,12 @@ $border-color: rgba(255, 255, 255, 0.1); // Borde sutil
     transition: background-color 0.3s ease, transform 0.2s ease;
 
     &:hover {
-      background-color: lighten($primary-color, 5%);
+      background-color: color.adjust($primary-color, $lightness: 5%);
       transform: translateY(-1px);
     }
     &:active {
       transform: translateY(0px);
-      background-color: darken($primary-color, 5%);
+      background-color: color.adjust($primary-color, $lightness: -5%);
     }
   }
 }
@@ -155,7 +158,7 @@ $border-color: rgba(255, 255, 255, 0.1); // Borde sutil
   .chat-container {
     margin: 0; // Sin margen en móviles
     border-radius: 0; // Sin bordes redondeados en el contenedor principal
-    height: 100vh; // Ocupar toda la altura de la vista
+    height: calc(100vh - 70px); // Asumiendo solo navbar en móvil, ajustar si hay footer
     border: none; // Sin borde en móviles
   }
 
