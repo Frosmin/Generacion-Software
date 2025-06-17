@@ -4,7 +4,7 @@
   min-height: 100dvh;
   background: #0a0a0a;
   color: white;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 // Sidebar Styles
@@ -20,11 +20,12 @@
   overflow-y: auto;
   position: fixed;
   height: 100vh;
+  padding-bottom: 50px;
   left: 0;
   top: 8vh;
   z-index: 1000;
   box-shadow: 2px 0 10px rgba(0, 0, 0, 0.3);
- &::-webkit-scrollbar {
+  &::-webkit-scrollbar {
     width: 8px;
   }
 
@@ -44,8 +45,8 @@
   .sidebar-header {
     padding: 2rem 1.5rem 1rem;
     border-bottom: 2px solid #333;
-      background: linear-gradient(to bottom, #120e23, #1e1b3a);
-    
+    background: linear-gradient(to bottom, #120e23, #1e1b3a);
+
     h2 {
       margin: 0;
       color: white;
@@ -94,7 +95,11 @@
         }
 
         &.active {
-          background: linear-gradient(90deg, rgba(255, 110, 196, 0.2), rgba(120, 115, 245, 0.2));
+          background: linear-gradient(
+            90deg,
+            rgba(255, 110, 196, 0.2),
+            rgba(120, 115, 245, 0.2)
+          );
           color: white;
           border-left-color: #ff6ec4;
           font-weight: 600;
@@ -123,13 +128,13 @@
 }
 
 @keyframes fadeIn {
-  from { 
-    opacity: 0; 
-    transform: translateY(10px); 
+  from {
+    opacity: 0;
+    transform: translateY(10px);
   }
-  to { 
-    opacity: 1; 
-    transform: translateY(0); 
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
@@ -168,7 +173,7 @@ ul {
   color: #ccc;
   line-height: 1.7;
   margin-bottom: 1rem;
-  
+
   li {
     margin-bottom: 0.5rem;
   }
@@ -179,7 +184,7 @@ code {
   color: #ff6ec4;
   padding: 0.2rem 0.4rem;
   border-radius: 0.3rem;
-  font-family: 'Courier New', monospace;
+  font-family: "Courier New", monospace;
   font-size: 0.9rem;
 }
 
@@ -209,7 +214,7 @@ code {
   position: relative;
 
   &::before {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     left: 0;
@@ -221,7 +226,7 @@ code {
 
   pre {
     color: #c9d1d9;
-    font-family: 'Courier New', monospace;
+    font-family: "Courier New", monospace;
     margin: 0;
     white-space: pre-wrap;
     font-size: 0.95rem;
@@ -269,7 +274,6 @@ code {
   &:hover:not(:disabled) {
     box-shadow: 0 8px 25px rgba(102, 102, 102, 0.4);
   }
-  
 }
 
 .download-buttons {
@@ -304,7 +308,7 @@ code {
   .sidebar {
     width: 250px;
   }
-  
+
   .main-content {
     margin-left: 250px;
     padding: 1.5rem;
@@ -317,25 +321,25 @@ code {
     position: fixed;
     transform: translateX(-100%);
     transition: transform 0.3s ease;
-    
+
     &.sidebar-open {
       transform: translateX(0);
     }
   }
-  
+
   .main-content {
     margin-left: 0;
     padding: 1rem;
   }
-  
+
   h1 {
     font-size: 2rem;
   }
-  
+
   .navigation-buttons {
     flex-direction: column;
   }
-  
+
   .download-buttons {
     flex-direction: column;
     align-items: center;
@@ -351,15 +355,15 @@ code {
   .main-content {
     padding: 0.5rem;
   }
-  
+
   h1 {
     font-size: 1.8rem;
   }
-  
+
   .example-box {
     padding: 1rem;
   }
-  
+
   .code-block {
     padding: 1rem;
     font-size: 0.85rem;
