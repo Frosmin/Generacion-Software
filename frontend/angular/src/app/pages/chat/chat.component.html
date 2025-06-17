@@ -3,22 +3,18 @@
     <h2>Asistente Virtual</h2>
   </div>
   <div class="chat-messages">
-    <div class="message received">
-      <p>Hola, ¿en qué puedo ayudarte hoy?</p>
-      <span class="timestamp">10:00 AM</span>
+    <div *ngFor="let message of messages" class="message" [ngClass]="message.type">
+      <p>{{ message.text }}</p>
+      <span class="timestamp">{{ message.timestamp }}</span>
     </div>
-    <div class="message sent">
-      <p>Quisiera saber más sobre los bucles 'for' en Python.</p>
-      <span class="timestamp">10:01 AM</span>
-    </div>
-    <div class="message received">
-      <p>Claro, los bucles 'for' se utilizan para iterar sobre una secuencia (como una lista, tupla, diccionario, conjunto o cadena).</p>
-      <span class="timestamp">10:02 AM</span>
-    </div>
-     <!-- Puedes agregar más mensajes aquí para probar -->
   </div>
   <div class="chat-input-area">
-    <input type="text" placeholder="Escribe tu mensaje aquí..." aria-label="Campo de entrada para el mensaje de chat">
-    <button aria-label="Botón para enviar mensaje">Enviar</button>
+    <input 
+      type="text" 
+      placeholder="Escribe tu mensaje aquí..." 
+      aria-label="Campo de entrada para el mensaje de chat"
+      [(ngModel)]="inputChat"
+      (keyup.enter)="chat()">
+    <button (click)="chat()" aria-label="Botón para enviar mensaje">Enviar</button>
   </div>
 </div>
