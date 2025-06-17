@@ -1,9 +1,11 @@
 .login-container {
+  position: absolute;
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 20px;
+  z-index: 10;
 }
 
 .login-card {
@@ -279,3 +281,58 @@ button.submit-button {
     font-size: 24px;
   }
 }
+
+
+/* prueba mia */
+
+
+/* Section styles */
+    section {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 2px;
+      flex-wrap: wrap;
+      overflow: hidden;
+    }
+
+    /* Animated gradient effect */
+    section::before {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(#000, #f00, #000);
+      animation: animate 5s linear infinite;
+    }
+
+    /* Animation keyframes */
+    @keyframes animate {
+      0% {
+        transform: translateY(-100%);
+      }
+      100% {
+        transform: translateY(100%);
+      }
+    }
+
+
+    
+section span:not(.button-text) {
+  position: relative;
+  display: block;
+  width: calc(6.25vw - 2px);
+  height: calc(6.25vw - 2px);
+  background: #181818;
+  z-index: 2;
+  transition: 1.5s;
+}
+
+section span:not(.button-text):hover {
+  background: #f00;
+  transition: 0s;
+}
+
