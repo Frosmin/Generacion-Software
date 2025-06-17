@@ -8,13 +8,12 @@ import archivosMock from './archivosMock.json';
 import { MatButtonModule } from '@angular/material/button';
 import { EditorActividadComponent } from '../../components/editor-actividad/editor-actividad.component';
 import { SearchComponent } from '../../components/search/search.component';
+
 interface Curso {
   instrucciones: string;
   codigo_incompleto: string;
   solucion_correcta: string;
 }
-
-
 
 @Component({
   selector: 'app-introduction',
@@ -25,31 +24,51 @@ interface Curso {
 export class IntroductionComponent {
   curso: Curso | null = null;
   resetCnt = 0;
-  intro = introductionMock;
-  initialSubject = 0;
-  totalSubjects = this.intro.length - 1;
   salidaCodigo = '';
-  content = this.intro[this.initialSubject];
 
-  allCursos = this.intro.map((e) => {
-    return e.title;
-  });
+  currentMock: any[] = introductionMock;
+  initialSubject = 0;
+  totalSubjects = this.currentMock.length - 1;
+  content = this.currentMock[this.initialSubject];
 
+  allCursos = this.currentMock.map((e) => e.title);
+
+  cursosDisponibles = [
+    { nombre: 'Introducción', mock: introductionMock },
+    { nombre: 'Flujos', mock: flujosMock },
+    { nombre: 'Funciones', mock: funcionesMock },
+    { nombre: 'Estructuras', mock: estructurasMock },
+    { nombre: 'POO', mock: pooMock },
+    { nombre: 'Archivos', mock: archivosMock },
+  ];
+
+  cambiarCurso(mockSeleccionado: any[]) {
+    this.currentMock = mockSeleccionado;
+    this.initialSubject = 0;
+    this.totalSubjects = this.currentMock.length - 1;
+    this.content = this.currentMock[this.initialSubject];
+    this.allCursos = this.currentMock.map((e) => e.title);
+    this.resetCnt++;
+  }
 
   gonext() {
-    this.initialSubject++;
-    this.resetCnt++;
-    this.update();
+    if (this.initialSubject < this.totalSubjects) {
+      this.initialSubject++;
+      this.resetCnt++;
+      this.update();
+    }
   }
 
   goback() {
-    this.initialSubject--;
-    this.resetCnt++;
-    this.update();
+    if (this.initialSubject > 0) {
+      this.initialSubject--;
+      this.resetCnt++;
+      this.update();
+    }
   }
 
   update() {
-    this.content = this.intro[this.initialSubject];
+    this.content = this.currentMock[this.initialSubject];
   }
 
   handleSelection(index: number) {
