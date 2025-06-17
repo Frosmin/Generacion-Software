@@ -1,29 +1,22 @@
-
-
 <div class="buscador-container">
   <h2 class="titulo">Buscar Curso</h2>
 
   <div class="buscador-box">
-    <input
-      type="text"
-      [(ngModel)]="filtro"
-      placeholder="Buscar por nombre, categoría o curso"
-      class="buscador-input"
-    />
+    <input type="text" [(ngModel)]="filtro" placeholder="Buscar por nombre, categoría o curso" class="buscador-input" />
 
   </div>
 
-<ul class="resultados-lista" *ngIf="filtro && resultadosFiltrados.length > 0">
-  <li class="resultado-item" *ngFor="let p of resultadosFiltrados">
-   {{ p.categoria }} —
-    <span class="curso"> Curso -
-         {{ p.curso }}
-      <img [src]="p.imagen" [alt]="p.curso" class="icono-curso" />
-     
-    </span>
-     <strong>- Docente {{ p.nombre }}</strong> 
-  </li>
-</ul>
+  <ul class="resultados-lista" *ngIf="filtro && resultadosFiltrados.length > 0">
+    <li class="resultado-item" *ngFor="let p of resultadosFiltrados">
+      {{ p.categoria }} —
+      <span class="curso"> Curso -
+        {{ p.curso }}
+        <img [src]="p.imagen" [alt]="p.curso" class="icono-curso" title="icono representativo del curso {{p.curso}}" />
+
+      </span>
+      <strong>- Docente {{ p.nombre }}</strong>
+    </li>
+  </ul>
 
   <div *ngIf="filtro && resultadosFiltrados.length === 0" class="no-resultados">
     No se encontraron programadores.
