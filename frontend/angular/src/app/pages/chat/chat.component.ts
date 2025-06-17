@@ -1,11 +1,6 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { CodemirrorModule } from '@ctrl/ngx-codemirror';
 import { HttpClient } from '@angular/common/http';
-import * as CodeMirrorNS from 'codemirror';
 import 'codemirror/addon/lint/lint';
-// import 'codemirror/addon/lint/lint.css';
 import 'codemirror/mode/python/python';
 import 'codemirror/addon/selection/active-line';
 
