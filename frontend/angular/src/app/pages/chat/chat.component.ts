@@ -1,13 +1,18 @@
-import { Component, OnInit } from '@angular/core'; // Se añade OnInit
+import { Component, OnInit } from '@angular/core'; 
 import { HttpClient } from '@angular/common/http';
-import { CommonModule } from '@angular/common'; // Necesario para *ngFor, etc.
-import { FormsModule } from '@angular/forms'; // Necesario para [(ngModel)]
+import { CommonModule } from '@angular/common'; 
+import { FormsModule } from '@angular/forms'; 
 
 // Interfaz para tipar los mensajes
 interface ChatMessage {
   text: string;
   type: 'sent' | 'received';
   timestamp: string;
+}
+
+interface GeminiResponse {
+  text: string;
+  // Puedes añadir más propiedades aquí si el backend devuelve más datos
 }
 
 @Component({
@@ -53,7 +58,7 @@ export class ChatComponent implements OnInit {
     this.inputChat = ''; // Limpiar el campo de entrada
 
     // Llamada al backend
-    this.http.post<any>('http://localhost:8080/api/gemini', {
+    this.http.post<GeminiResponse>('http://localhost:8080/api/gemini', {
       prompt: messageToSend
     }).subscribe({
       next: (response) => {
