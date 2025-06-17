@@ -1,0 +1,177 @@
+ [
+    {
+      "id": 1,
+      "title": "Introducción a las estructuras de datos",
+      "paragraph": [
+        "Las estructuras de datos son formas de organizar y almacenar información para usarla de manera eficiente. Son como diferentes tipos de contenedores para tus datos."
+      ],
+      "subcontent": [
+        {
+          "subtitle": "¿Por qué son importantes?",
+          "subparagraph": [
+            "Imagina que tienes 100 números y quieres guardarlos. ¿Crearías 100 variables diferentes? ¡Sería un caos! Las estructuras de datos nos ayudan a organizar esta información."
+          ],
+          "example": ["# Forma ineficiente\nnumero1 = 10\nnumero2 = 20\nnumero3 = 30\n# ... ¡100 variables!\n\n# Forma eficiente con listas\nnumeros = [10, 20, 30, 40, 50]\nprint('Todos los números:', numeros)"]
+        },
+        {
+          "subtitle": "Tipos principales de estructuras",
+          "subparagraph": [
+            "Python ofrece cuatro estructuras principales: listas (ordenadas y modificables), tuplas (ordenadas e inmutables), diccionarios (clave-valor) y conjuntos (únicos sin orden)."
+          ],
+          "example": ["# Lista: ordenada y modificable\nfrutas_lista = ['manzana', 'banana', 'naranja']\n\n# Tupla: ordenada e inmutable\ncoordenadas = (10, 20)\n\n# Diccionario: pares clave-valor\npersona = {'nombre': 'Ana', 'edad': 25}\n\n# Conjunto: elementos únicos\ncolores = {'rojo', 'verde', 'azul'}\n\nprint('Lista:', frutas_lista)\nprint('Tupla:', coordenadas)\nprint('Diccionario:', persona)\nprint('Conjunto:', colores)"]
+        }
+      ],
+      "next": "listas"
+    },
+    {
+      "id": 2,
+      "title": "Listas - Colecciones ordenadas",
+      "paragraph": [
+        "Las listas son como cajas que pueden contener varios elementos en orden. Puedes agregar, quitar y modificar elementos fácilmente."
+      ],
+      "subcontent": [
+        {
+          "subtitle": "Creando listas",
+          "subparagraph": [
+            "Las listas se crean con corchetes [] y los elementos se separan con comas."
+          ],
+          "example": ["frutas = ['manzana', 'banana', 'naranja']\nnumeros = [1, 2, 3, 4, 5]\nmixta = ['Ana', 25, True, 3.14]\n\nprint('Frutas:', frutas)\nprint('Números:', numeros)\nprint('Lista mixta:', mixta)"]
+        },
+        {
+          "subtitle": "Acceder a elementos",
+          "subparagraph": [
+            "Usamos índices (posiciones) para acceder a elementos. El primer elemento está en la posición 0."
+          ],
+          "example": ["colores = ['rojo', 'verde', 'azul', 'amarillo']\n\nprint('Primer color:', colores[0])   # rojo\nprint('Segundo color:', colores[1])  # verde\nprint('Último color:', colores[-1])  # amarillo\nprint('Penúltimo:', colores[-2])     # azul"]
+        },
+        {
+          "subtitle": "Modificar listas",
+          "subparagraph": [
+            "Puedes agregar, quitar y cambiar elementos de una lista."
+          ],
+          "example": ["animales = ['perro', 'gato']\nprint('Lista inicial:', animales)\n\n# Agregar elementos\nanimales.append('pájaro')  # al final\nanimales.insert(1, 'pez')  # en posición específica\nprint('Después de agregar:', animales)\n\n# Quitar elementos\nanimales.remove('gato')  # quitar por valor\nultimo = animales.pop()  # quitar el último\nprint('Después de quitar:', animales)\nprint('Elemento quitado:', ultimo)"]
+        },
+        {
+          "subtitle": "Operaciones útiles con listas",
+          "subparagraph": [
+            "Las listas tienen muchos métodos útiles para trabajar con los datos."
+          ],
+          "example": ["numeros = [3, 1, 4, 1, 5, 9, 2, 6]\nprint('Lista original:', numeros)\nprint('Longitud:', len(numeros))\nprint('Máximo:', max(numeros))\nprint('Mínimo:', min(numeros))\nprint('Suma:', sum(numeros))\n\n# Ordenar\nnumeros_ordenados = sorted(numeros)\nprint('Ordenados:', numeros_ordenados)\n\n# Contar elementos\nprint('Cuántas veces aparece 1:', numeros.count(1))\n\n# Buscar posición\nprint('Posición del 4:', numeros.index(4))"]
+        }
+      ],
+      "next": "tuplas"
+    },
+    {
+      "id": 3,
+      "title": "Tuplas - Colecciones inmutables",
+      "paragraph": [
+        "Las tuplas son como listas, pero no se pueden modificar después de crearlas. Son perfectas para datos que no deben cambiar."
+      ],
+      "subcontent": [
+        {
+          "subtitle": "Creando tuplas",
+          "subparagraph": [
+            "Las tuplas se crean con paréntesis () o simplemente separando valores con comas."
+          ],
+          "example": ["coordenadas = (10, 20)\ncolores_rgb = (255, 128, 0)\npersona = ('Ana', 25, 'Madrid')\n\nprint('Coordenadas:', coordenadas)\nprint('Color RGB:', colores_rgb)\nprint('Persona:', persona)"]
+        },
+        {
+          "subtitle": "Diferencias con las listas",
+          "subparagraph": [
+            "Las tuplas no se pueden modificar, lo que las hace más rápidas y seguras para ciertos datos."
+          ],
+          "example": ["# Lista (modificable)\nlista = [1, 2, 3]\nlista[0] = 10  # ✓ Funciona\nprint('Lista modificada:', lista)\n\n# Tupla (inmutable)\ntupla = (1, 2, 3)\n# tupla[0] = 10  # ✗ Error!\nprint('Tupla original:', tupla)\n\n# Pero puedes acceder a elementos\nprint('Primer elemento de la tupla:', tupla[0])"]
+        },
+        {
+          "subtitle": "Desempaquetado de tuplas",
+          "subparagraph": [
+            "Puedes asignar los elementos de una tupla a variables individuales de forma elegante."
+          ],
+          "example": ["# Información de una persona\npersona = ('Carlos', 30, 'Ingeniero', 'Madrid')\n\n# Desempaquetado\nnombre, edad, profesion, ciudad = persona\n\nprint(f'Nombre: {nombre}')\nprint(f'Edad: {edad}')\nprint(f'Profesión: {profesion}')\nprint(f'Ciudad: {ciudad}')\n\n# También funciona con coordenadas\npunto = (15, 25)\nx, y = punto\nprint(f'Coordenada X: {x}, Coordenada Y: {y}')"]
+        },
+        {
+          "subtitle": "Cuándo usar tuplas",
+          "subparagraph": [
+            "Usa tuplas cuando los datos no deben cambiar: coordenadas, fechas, configuraciones, etc."
+          ],
+          "example": ["# Configuración de una aplicación\nCONFIG = (\n    'localhost',  # servidor\n    8080,         # puerto\n    'myapp',      # nombre de la app\n    True          # modo debug\n)\n\nservidor, puerto, nombre_app, debug = CONFIG\nprint(f'Conectando a {servidor}:{puerto}')\nprint(f'Aplicación: {nombre_app}')\nprint(f'Debug activado: {debug}')\n\n# Coordenadas de un mapa\nubicaciones = [\n    ('Madrid', 40.4168, -3.7038),\n    ('Barcelona', 41.3851, 2.1734),\n    ('Valencia', 39.4699, -0.3763)\n]\n\nfor ciudad, lat, lon in ubicaciones:\n    print(f'{ciudad}: {lat}, {lon}')"]
+        }
+      ],
+      "next": "diccionarios"
+    },
+    {
+      "id": 4,
+      "title": "Diccionarios - Datos con etiquetas",
+      "paragraph": [
+        "Los diccionarios guardan información en pares clave-valor. Es como un diccionario real donde buscas una palabra (clave) y encuentras su definición (valor)."
+      ],
+      "subcontent": [
+        {
+          "subtitle": "Creando diccionarios",
+          "subparagraph": [
+            "Los diccionarios se crean con llaves {} y cada elemento tiene una clave y un valor separados por :"
+          ],
+          "example": ["persona = {\n    'nombre': 'Carlos',\n    'edad': 30,\n    'ciudad': 'Barcelona',\n    'profesion': 'Programador'\n}\n\nprint('Información de la persona:')\nprint('Nombre:', persona['nombre'])\nprint('Edad:', persona['edad'])\nprint('Vive en:', persona['ciudad'])"]
+        },
+        {
+          "subtitle": "Modificar diccionarios",
+          "subparagraph": [
+            "Puedes agregar, modificar y eliminar elementos del diccionario."
+          ],
+          "example": ["estudiante = {'nombre': 'María', 'edad': 20}\nprint('Inicial:', estudiante)\n\n# Agregar nueva información\nestudiante['carrera'] = 'Ingeniería'\nestudiante['universidad'] = 'UCM'\nprint('Después de agregar:', estudiante)\n\n# Modificar información existente\nestudiante['edad'] = 21\nprint('Después de modificar:', estudiante)\n\n# Eliminar información\ndel estudiante['universidad']\nprint('Después de eliminar:', estudiante)"]
+        },
+        {
+          "subtitle": "Métodos útiles de diccionarios",
+          "subparagraph": [
+            "Los diccionarios tienen métodos para trabajar con claves, valores y elementos."
+          ],
+          "example": ["inventario = {\n    'manzanas': 50,\n    'bananas': 30,\n    'naranjas': 25,\n    'peras': 40\n}\n\nprint('Productos disponibles:')\nfor producto in inventario.keys():\n    print(f'- {producto}')\n\nprint('\\nCantidades:')\nfor cantidad in inventario.values():\n    print(f'- {cantidad} unidades')\n\nprint('\\nInventario completo:')\nfor producto, cantidad in inventario.items():\n    print(f'{producto}: {cantidad} unidades')\n\n# Verificar si existe una clave\nif 'manzanas' in inventario:\n    print(f'\\nTenemos {inventario[\"manzanas\"]} manzanas')"]
+        },
+        {
+          "subtitle": "Diccionarios anidados",
+          "subparagraph": [
+            "Los diccionarios pueden contener otros diccionarios, permitiendo estructuras de datos complejas."
+          ],
+          "example": ["empresa = {\n    'nombre': 'TechCorp',\n    'empleados': {\n        'ana': {\n            'puesto': 'Desarrolladora',\n            'salario': 50000,\n            'departamento': 'IT'\n        },\n        'carlos': {\n            'puesto': 'Designer',\n            'salario': 45000,\n            'departamento': 'Diseño'\n        }\n    },\n    'ubicacion': 'Madrid'\n}\n\nprint(f'Empresa: {empresa[\"nombre\"]}')\nprint(f'Ubicación: {empresa[\"ubicacion\"]}')\nprint('\\nEmpleados:')\nfor nombre, info in empresa['empleados'].items():\n    print(f'{nombre.title()}: {info[\"puesto\"]} - ${info[\"salario\"]}')"]
+        }
+      ],
+      "next": "conjuntos"
+    },
+    {
+      "id": 5,
+      "title": "Conjuntos - Elementos únicos",
+      "paragraph": [
+        "Los conjuntos son colecciones de elementos únicos sin orden específico. Son perfectos para eliminar duplicados y hacer operaciones matemáticas."
+      ],
+      "subcontent": [
+        {
+          "subtitle": "Creando conjuntos",
+          "subparagraph": [
+            "Los conjuntos se crean con llaves {} o la función set(). Automáticamente eliminan elementos duplicados."
+          ],
+          "example": ["# Crear conjuntos\ncolores = {'rojo', 'verde', 'azul', 'rojo'}  # 'rojo' duplicado\nprint('Colores únicos:', colores)  # Solo aparece 'rojo' una vez\n\n# Desde una lista con duplicados\nnumeros_lista = [1, 2, 2, 3, 3, 3, 4]\nnumeros_unicos = set(numeros_lista)\nprint('Números únicos:', numeros_unicos)"]
+        },
+        {
+          "subtitle": "Operaciones con conjuntos",
+          "subparagraph": [
+            "Puedes hacer operaciones matemáticas como unión, intersección y diferencia."
+          ],
+          "example": ["frutas_ana = {'manzana', 'banana', 'naranja'}\nfrutas_luis = {'banana', 'pera', 'manzana'}\n\n# Frutas que les gustan a ambos\ncomunes = frutas_ana & frutas_luis\nprint('Frutas comunes:', comunes)\n\n# Todas las frutas que les gustan\ntodas = frutas_ana | frutas_luis\nprint('Todas las frutas:', todas)\n\n# Frutas que solo le gustan a Ana\nsolo_ana = frutas_ana - frutas_luis\nprint('Solo le gustan a Ana:', solo_ana)"]
+        },
+        {
+          "subtitle": "Métodos de conjuntos",
+          "subparagraph": [
+            "Los conjuntos tienen métodos para agregar, quitar y verificar elementos."
+          ],
+          "example": ["# Crear conjunto vacío\nlenguajes = set()\nprint('Conjunto inicial:', lenguajes)\n\n# Agregar elementos\nlenguajes.add('Python')\nlenguajes.add('JavaScript')\nlenguajes.add('Java')\nprint('Después de agregar:', lenguajes)\n\n# Agregar múltiples elementos\nlenguajes.update(['C++', 'Go', 'Rust'])\nprint('Después de update:', lenguajes)\n\n# Verificar si un elemento existe\nif 'Python' in lenguajes:\n    print('Python está en el conjunto')\n\n# Quitar elementos\nlenguajes.remove('Java')  # Error si no existe\nlenguajes.discard('PHP')  # No error si no existe\nprint('Después de quitar:', lenguajes)"]
+        },
+        {
+          "subtitle": "Aplicaciones prácticas",
+          "subparagraph": [
+            "Los conjuntos son muy útiles para eliminar duplicados y verificar membresía rápidamente."
+          ],
+          "example": ["# Eliminar emails duplicados\nemails = [\n    'ana@email.com', 'carlos@email.com', \n    'ana@email.com', 'maria@email.com',\n    'carlos@email.com', 'pedro@email.com'\n]\n\nemails_unicos = list(set(emails))\nprint('Emails únicos:')\nfor email in emails_unicos:\n    print(f'- {email}')\n\n# Verificar permisos de usuario\npermisos_admin = {'leer', 'escribir', 'eliminar', 'admin'}\npermisos_usuario = {'leer', 'escribir'}\n\nusuario_actual = 'eliminar'\nif usuario_actual in permisos_admin:\n    print(f'Permiso {usuario_actual}: Autorizado para admin')\nelif usuario_actual in permisos_usuario:\n    print(f'Permiso {usuario_actual}: Autorizado para usuario')\nelse:\n    print(f'Permiso {usuario_actual}: No autorizado')"]
+        }
+      ]
+    }
+  ]
