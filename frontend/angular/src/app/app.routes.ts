@@ -11,6 +11,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { authGuard } from './guards/auth.guard';
 import { CursosComponent } from './pages/cursos/cursos.component';
 import { IntroductionComponent } from './pages/introduction/introduction.component';
+import { ChatComponent } from './pages/chat/chat.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -19,15 +20,16 @@ export const routes: Routes = [
 
 
   { path: 'intro', component: IntroductionComponent},
-  // rutas protegidas
   { path: 'cursos', component: CursosComponent},
   { path: 'buscador', component: PaginaBuscadorComponent },
   { path: 'lista-videos', component: VideosListComponent },
   { path: 'lista-ejercicios', component: ExercisesListComponent },
   { path: 'exercise/:id', component: SeeExerciseComponent },
-  { path: 'progreso-aprendizaje', component: LearningProgressComponent, canMatch: [authGuard] },
   { path: 'lista-cursos', component: CoursesListComponent },
   { path: 'terminal', component: TerminalComponent },
+  { path: 'cursos/:id', component: IntroductionComponent },
+  { path: 'chat', component: ChatComponent },
 
-  { path: 'cursos/:id', component: IntroductionComponent }
+      // rutas protegidas
+  { path: 'progreso-aprendizaje', component: LearningProgressComponent, canMatch: [authGuard]}
 ];
