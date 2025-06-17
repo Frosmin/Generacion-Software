@@ -24,8 +24,8 @@
       </div>
 
       <app-editor-actividad
-        [base]="curso?.codigo_incompleto"
-        [solucion]="curso?.solucion_correcta"
+        [base]="curso?.codigo_incompleto ?? ''"
+        [solucion]="curso?.solucion_correcta ?? ''"
         (salidaCodigo)="salidaCodigo = $event">
       </app-editor-actividad>
 
