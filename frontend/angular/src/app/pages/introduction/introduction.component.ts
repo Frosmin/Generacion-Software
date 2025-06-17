@@ -9,6 +9,7 @@ import archivosMock from './archivosMock.json';
 import { MatButtonModule } from '@angular/material/button';
 import { EditorActividadComponent } from '../../components/editor-actividad/editor-actividad.component';
 import { SearchComponent } from '../../components/search/search.component';
+import { ContenidoCurso, CursoDisponible } from './interfaces'; 
 
 @Component({
   selector: 'app-introduction',
@@ -17,54 +18,93 @@ import { SearchComponent } from '../../components/search/search.component';
   styleUrl: './introduction.component.scss',
 })
 export class IntroductionComponent {
-  curso: any | null = null;
+  curso: ContenidoCurso | null = null;
   resetCnt = 0;
   salidaCodigo = '';
-  currentMock: any[] = [];
+  currentMock: ContenidoCurso[] = [];
   initialSubject = 0;
   totalSubjects = 0;
-  content: any;
+  content: ContenidoCurso | null = null;
   allCursos: string[] = [];
+
+  // Si necesitas cursosDisponibles para el template
+  cursosDisponibles: CursoDisponible[] = [
+    { nombre: 'Introducción', mock: introductionMock as ContenidoCurso[] },
+    { nombre: 'Flujos de Control', mock: flujosMock as ContenidoCurso[] },
+    { nombre: 'Funciones', mock: funcionesMock as ContenidoCurso[] },
+    { nombre: 'Estructuras de Datos', mock: estructurasMock as ContenidoCurso[] },
+    { nombre: 'POO', mock: pooMock as ContenidoCurso[] },
+    { nombre: 'Archivos', mock: archivosMock as ContenidoCurso[] }
+  ];
 
   constructor(private route: ActivatedRoute) {
     this.route.params.subscribe(params => {
-      this.loadMock(params['id']);
+      const id = params['id'];
+      this.loadMock(id);
     });
   }
 
-  loadMock(id: string) {
+  loadMock(id: string): void {
     switch(id) {
       case 'intro':
-        this.currentMock = introductionMock;
+        this.currentMock = introductionMock as ContenidoCurso[];
         break;
       case 'flujos':
-        this.currentMock = flujosMock;
+        this.currentMock = flujosMock as ContenidoCurso[];
         break;
       case 'funciones':
-        this.currentMock = funcionesMock;
+        this.currentMock = funcionesMock as ContenidoCurso[];
         break;
       case 'datos':
-        this.currentMock = estructurasMock;
+        this.currentMock = estructurasMock as ContenidoCurso[];
         break;
       case 'poo':
-        this.currentMock = pooMock;
+        this.currentMock = pooMock as ContenidoCurso[];
         break;
       case 'files':
-        this.currentMock = archivosMock;
+        this.currentMock = archivosMock as ContenidoCurso[];
         break;
       default:
-        this.currentMock = introductionMock;
+        this.currentMock = introductionMock as ContenidoCurso[];
     }
 
     this.initialSubject = 0;
     this.totalSubjects = this.currentMock.length - 1;
     this.content = this.currentMock[this.initialSubject];
-    this.allCursos = this.currentMock.map((e) => e.title);
+    this.allCursos = this.currentMock.map(e => e.title);
     this.resetCnt++;
   }
 
-  gonext() { /* igual que lo tienes */ }
-  goback() { /* igual que lo tienes */ }
-  update() { this.content = this.currentMock[this.initialSubject]; }
-  handleSelection(index: number) { this.initialSubject = index; this.update(); }
+  gonext(): void {
+    if (this.initialSubject < this.totalSubjects) {
+      this.initialSubject++;
+      this.update();
+    }
+  }
+
+  goback(): void {
+    if (this.initialSubject > 0) {
+      this.initialSubject--;
+      this.update();
+    }
+  }
+
+  update(): void {
+    this.content = this.currentMock[this.initialSubject];
+    this.resetCnt++;
+  }
+
+  handleSelection(index: number): void {
+    this.initialSubject = index;
+    this.update();
+  }
+
+  cambiarCurso(mock: ContenidoCurso[]): void {
+    this.currentMock = mock;
+    this.initialSubject = 0;
+    this.totalSubjects = this.currentMock.length - 1;
+    this.content = this.currentMock[this.initialSubject];
+    this.allCursos = this.currentMock.map(e => e.title);
+    this.resetCnt++;
+  }
 }
