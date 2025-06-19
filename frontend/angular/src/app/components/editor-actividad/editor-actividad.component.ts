@@ -1,3 +1,4 @@
+
 import { CommonModule } from '@angular/common';
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -25,7 +26,12 @@ export class EditorActividadComponent implements OnInit {
   cmOptions = {
     theme: 'material',
     lineNumbers: true,
-    mode: 'python'
+    mode: 'python',
+    lineWrapping: true,
+    viewportMargin: Infinity, 
+    extraKeys: {
+      'Ctrl-Space': 'autocomplete' 
+    }
   };
   //cuando ya haya conexión o atributos con la bd recien cambiamos eso por eso
   //por el momento con ese mock
