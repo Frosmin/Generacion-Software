@@ -128,6 +128,7 @@ export class CreateCourseComponent implements OnInit {
   }
 
   formatDate(date: Date): string {
+    console.log("hola pruebita");
     return date.toLocaleDateString('es-ES', {
       day: '2-digit',
       month: '2-digit',
