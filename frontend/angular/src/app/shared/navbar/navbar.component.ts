@@ -29,10 +29,8 @@ export class NavbarComponent implements OnInit {
   ];
 
   constructor(private translate: TranslateService) {
-    // Configurar idioma por defecto
     this.translate.setDefaultLang('es');
 
-    // Obtener idioma guardado o usar español por defecto
     const savedLanguage = localStorage.getItem('selectedLanguage') || 'es';
     this.currentLanguage = savedLanguage;
     this.translate.use(savedLanguage);
