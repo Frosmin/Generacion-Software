@@ -1,71 +1,27 @@
 <header class="main-header">
   <div id="nav-logo" class="logo">
-    <img
-      src="images/logo.png"
-      alt="Logo Aprende Python"
-      class="logo-navbar"
-      title="Icono Aprende Python"
-    />
+    <img src="images/logo.png" alt="Logo Aprende Python" class="logo-navbar" title="Icono Aprende Python">
     <h1>Aprende Python</h1>
   </div>
   <button class="menu-toggle" (click)="toggleMenu()">☰</button>
-  <nav class="main-nav" [ngClass]="{ active: isMenuActive }">
+  <nav class="main-nav" [ngClass]="{'active': isMenuActive}">
     <ul>
-      <li>
-        <a
-          routerLink="/"
-          routerLinkActive="active"
-          [routerLinkActiveOptions]="{ exact: true }"
-          (click)="closeMenu()"
-          >Inicio</a
-        >
-      </li>
-      <li>
-        <a
-          routerLink="/lista-cursos"
-          routerLinkActive="active"
-          (click)="closeMenu()"
-          >Cursos</a
-        >
-      </li>
-      <li>
-        <a
-          routerLink="/lista-ejercicios"
-          routerLinkActive="active"
-          (click)="closeMenu()"
-          >Ejercicios</a
-        >
-      </li>
-      <li>
-        <a
-          routerLink="/lista-videos"
-          routerLinkActive="active"
-          (click)="closeMenu()"
-          >Videos</a
-        >
-      </li>
-      <li>
-        <a
-          routerLink="/terminal"
-          routerLinkActive="active"
-          (click)="closeMenu()"
-          >Terminal</a
-        >
-      </li>
-      <li>
-        <a routerLink="/chat" routerLinkActive="active" (click)="closeMenu()"
-          >Chat</a
-        >
-      </li>
+      <li><a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
+          (click)="closeMenu()">Inicio</a></li>
+      <li><a routerLink="/lista-cursos" routerLinkActive="active" (click)="closeMenu()">Cursos</a></li>
+      <li><a routerLink="/lista-ejercicios" routerLinkActive="active" (click)="closeMenu()">Ejercicios</a></li>
+      <li><a routerLink="/lista-videos" routerLinkActive="active" (click)="closeMenu()">Videos</a></li>
+      <li><a routerLink="/terminal" routerLinkActive="active" (click)="closeMenu()">Terminal</a></li>
+      <li><a routerLink="/chat" routerLinkActive="active" (click)="closeMenu()">Chat</a></li>
       <li class="nav-item">
         <a
           routerLink="/progreso-aprendizaje"
           routerLinkActive="active"
           (click)="closeMenu()"
-          title="Mi aprendizaje"
         >
-          <i class="fas fa-user-circle"></i>
-          <span class="nav-label">Mi aprendizaje</span>
+          <i class="fas fa-chart-line"></i>
+          <span class="nav-text">Mi aprendizaje</span>
+          <div class="tooltip">Mi aprendizaje</div>
         </a>
       </li>
     </ul>

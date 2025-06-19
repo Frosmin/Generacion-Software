@@ -1,0 +1,99 @@
+{
+  "miau": "¡Miau! en runasimi",
+  "HOME": {
+    "BANNER": {
+      "TITLE": "Kikin velocidadniykiwan yachay",
+      "SUBTITLE": "Ch'usaqmanta yachaqkama Python nisqapi: punta p'unchaymanta qam mismo proyectosniykita ruway.",
+      "START_NOW": "Kunan qallaykuy",
+      "LEARN_MORE": "Aswan yachay",
+      "IMAGE_TITLE": "Python nisqapi programay siq'i",
+      "IMAGE_ALT": "python nisqapi programay"
+    },
+    "BENEFITS": {
+      "TITLE": "Python nisqapa allinninkunan",
+      "SUBTITLE": "Taripakuy imarayku Python teqsimuyupi ruraqkunapa munasqa siminmi kasqanmanta.",
+      "CARDS": {
+        "EASY_LEARN": {
+          "ICON_TITLE": "Siq'i facil yachayta rikuchinanpaq",
+          "TITLE": "Facil Yachana",
+          "DESCRIPTION": "Python mana sasachakuyniyuq hinaspa ñawinchanapaq sintaxis nisqayuq, chaymi qallariqkunapaq yachayta facil ruran."
+        },
+        "VERSATILITY": {
+          "ICON_TITLE": "Siq'i python nisqapa versatilidad nisqata rikuchinanpaq",
+          "TITLE": "Imaymana ruwanapaq",
+          "DESCRIPTION": "Llamk'achiy web ruranaykipaq, willay hamut'anapaq, yuyay atiy hinaspa automático ruwaykunapaq."
+        },
+        "COMMUNITY": {
+          "ICON_TITLE": "Siq'i hatun ruraq aylu kasqanmanta rikuchiq",
+          "TITLE": "Hatun Ayllu",
+          "DESCRIPTION": "Hunu hunu ruraqkuna hinaspa yanapakuna kashanku puririyniykipi yanapasusqaykipaq."
+        },
+        "JOB_OPPORTUNITY": {
+          "ICON_TITLE": "Siq'i hatun llamk'ay mañakuymanta rikuchiq",
+          "TITLE": "Llamk'ay Atipana",
+          "DESCRIPTION": "Llamk'ay qhatupi hatun mañakuy allin qullqiyuq."
+        },
+        "LIBRARIES": {
+          "ICON_TITLE": "Siq'i python librerías nisqaman yaykuy rikuchiq",
+          "TITLE": "Kallpasapa Libreríakuna",
+          "TITLE": "Waranqa waranqa librerías nisqaman yaykuy, chaykunan ruranaykita utqayachin."
+        },
+        "MULTIPLATFORM": {
+          "ICON_TITLE": "Siq'i hukniray plataformakunapi llamk'anta rikuchiq",
+          "TITLE": "Achka plataforma",
+          "DESCRIPTION": "Windows, Mac, Linux nisqakunapi hinaspa aswan rurana sistemaskunapi kodgoykita purichiy."
+        }
+      }
+    },
+    "WHY_PYTHON": {
+      "TITLE": "¿Imarayku Python yachana?",
+      "SUBTITLE": "Python aswan riqsisqa hinaspa imaymana ruwanapaq programay simi teqsimuyupi.",
+      "IMAGE_ALT": "Python nisqapa estructura",
+      "IMAGE_TITLE": "Python nisqapa partekunapa siq'in",
+      "SECTIONS": {
+        "FUTURE_LANGUAGE": {
+          "TITLE": "Hamuq p'unchaypa Simin",
+          "DESCRIPTION": "Python aswan mañasqa simi lluqsiq tecnologíakunapi, AI, Machine Learning hinaspa Data Science hina."
+        },
+        "INTUITIVE_SYNTAX": {
+          "TITLE": "Yuyaymanay Sintaxis",
+          "DESCRIPTION": "Chay kódigo inglés simi hina ñawinchakunmi, chaymi ruruna pachata pisiyachin hinaspa waqaychayta facil ruran."
+        },
+        "ROBUST_ECOSYSTEM": {
+          "TITLE": "Kallpasapa Ecosistema",
+          "DESCRIPTION": "PyPI nisqapi 300,000 patamanta paquetekunayuq kaspa ima rurananmanta munasqata qhawariqta."
+        }
+      }
+    },
+    "WORK_AREAS": {
+      "TITLE": "Llamk'ay patakuna",
+      "SUBTITLE": "Python achka llamk'ay patakunaman punkukunata kichan hatun llamk'ay mañakuywanmi.",
+      "CARDS": {
+        "WEB_DEV": {
+          "NAME": "Web ruray",
+          "TITLE": "Siq'i Web Ruray patapaq rikuchiq"
+        },
+        "DATA_SCIENCE": {
+          "NAME": "Willay hamut'ay",
+          "TITLE": "Siq'i Willay hamut'ay patapaq rikuchiq"
+        },
+        "MACHINE_LEARNING": {
+          "NAME": "Maquina yachay",
+          "TITLE": "Siq'i Machine learning patapaq rikuchiq"
+        },
+        "AUTOMATION": {
+          "NAME": "Automático ruway",
+          "TITLE": "Siq'i Automático ruway patapaq rikuchiq"
+        },
+        "CYBERSECURITY": {
+          "NAME": "Ciberseguridad",
+          "TITLE": "Siq'i Ciberseguridad patapaq rikuchiq"
+        },
+        "AI": {
+          "NAME": "Yuyay atiy",
+          "TITLE": "Siq'i Yuyay atiy patapaq rikuchiq"
+        }
+      }
+    }
+  }
+}

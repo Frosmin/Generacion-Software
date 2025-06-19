@@ -1,0 +1,99 @@
+{
+  "miau": "Meow! in English",
+  "HOME": {
+    "BANNER": {
+      "TITLE": "Learn at your own pace",
+      "SUBTITLE": "From zero to expert in Python: create your own projects from day one.",
+      "START_NOW": "Start now",
+      "LEARN_MORE": "Learn more",
+      "IMAGE_TITLE": "Python programming illustration",
+      "IMAGE_ALT": "python programming"
+    },
+    "BENEFITS": {
+      "TITLE": "Python Benefits",
+      "SUBTITLE": "Discover why Python is the preferred language by developers worldwide.",
+      "CARDS": {
+        "EASY_LEARN": {
+          "ICON_TITLE": "Icon to represent ease of learning",
+          "TITLE": "Easy to Learn",
+          "DESCRIPTION": "Python has a simple and readable syntax that makes learning easy for beginners."
+        },
+        "VERSATILITY": {
+          "ICON_TITLE": "Icon to represent python versatility",
+          "TITLE": "Versatility",
+          "DESCRIPTION": "Use it for web development, data science, artificial intelligence and automation."
+        },
+        "COMMUNITY": {
+          "ICON_TITLE": "Icon to represent the large developer community",
+          "TITLE": "Large Community",
+          "DESCRIPTION": "Millions of developers and resources available to help you on your journey."
+        },
+        "JOB_OPPORTUNITY": {
+          "ICON_TITLE": "Icon to represent high job demand",
+          "TITLE": "Job Opportunities",
+          "DESCRIPTION": "High demand in the job market with excellent salaries."
+        },
+        "LIBRARIES": {
+          "ICON_TITLE": "Icon to represent access to python libraries",
+          "TITLE": "Powerful Libraries",
+          "DESCRIPTION": "Access to thousands of libraries that accelerate your development."
+        },
+        "MULTIPLATFORM": {
+          "ICON_TITLE": "Icon to represent functionality across different platforms",
+          "TITLE": "Multiplatform",
+          "DESCRIPTION": "Run your code on Windows, Mac, Linux and more operating systems."
+        }
+      }
+    },
+    "WHY_PYTHON": {
+      "TITLE": "Why learn Python?",
+      "SUBTITLE": "Python is the most popular and versatile programming language in the world.",
+      "IMAGE_ALT": "Python structure",
+      "IMAGE_TITLE": "Illustration of python components",
+      "SECTIONS": {
+        "FUTURE_LANGUAGE": {
+          "TITLE": "Language of the Future",
+          "DESCRIPTION": "Python is the most demanded language in emerging technologies like AI, Machine Learning and Data Science."
+        },
+        "INTUITIVE_SYNTAX": {
+          "TITLE": "Intuitive Syntax",
+          "DESCRIPTION": "Its code reads like natural English, reducing development time and facilitating maintenance."
+        },
+        "ROBUST_ECOSYSTEM": {
+          "TITLE": "Robust Ecosystem",
+          "DESCRIPTION": "It has more than 300,000 packages in PyPI that cover any development need."
+        }
+      }
+    },
+    "WORK_AREAS": {
+      "TITLE": "Work Areas",
+      "SUBTITLE": "Python opens doors to multiple work areas with high job demand.",
+      "CARDS": {
+        "WEB_DEV": {
+          "NAME": "Web development",
+          "TITLE": "Illustrative image for Web Development area"
+        },
+        "DATA_SCIENCE": {
+          "NAME": "Data science",
+          "TITLE": "Illustrative image for Data Science area"
+        },
+        "MACHINE_LEARNING": {
+          "NAME": "Machine learning",
+          "TITLE": "Illustrative image for Machine Learning area"
+        },
+        "AUTOMATION": {
+          "NAME": "Automation",
+          "TITLE": "Illustrative image for Automation area"
+        },
+        "CYBERSECURITY": {
+          "NAME": "Cybersecurity",
+          "TITLE": "Illustrative image for Cybersecurity area"
+        },
+        "AI": {
+          "NAME": "Artificial intelligence",
+          "TITLE": "Illustrative image for Artificial Intelligence area"
+        }
+      }
+    }
+  }
+}
