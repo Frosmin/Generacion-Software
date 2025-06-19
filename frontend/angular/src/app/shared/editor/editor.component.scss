@@ -122,6 +122,37 @@
   color: #abb2bf !important;
 }
 
+// Estilos para el autocompletado
+::ng-deep .CodeMirror-hints {
+  position: absolute;
+  z-index: 10;
+  overflow: hidden;
+  list-style: none;
+  margin: 0;
+  padding: 2px;
+  border-radius: 4px;
+  border: 1px solid #ffffff32;
+  background: #181335;
+  font-size: 90%;
+  max-height: 20em;
+  overflow-y: auto;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+::ng-deep .CodeMirror-hint {
+  margin: 0;
+  padding: 4px 6px;
+  border-radius: 2px;
+  white-space: pre;
+  color: #abb2bf;
+  cursor: pointer;
+}
+
+::ng-deep li.CodeMirror-hint-active {
+  background: #2e2143;
+  color: #df881d;
+}
+
 @media screen and (max-width: 768px) {
   .editor-container {
     height: auto;
