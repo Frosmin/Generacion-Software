@@ -1,34 +1,40 @@
 package models
 
-import "gorm.io/gorm"
+import (
+    //"gorm.io/gorm"
+    "encoding/json"
+	"database/sql/driver"
+)
 
 type Course struct {
-	gorm.Model
-	Title       string         `gorm:"not null" json:"title"`
-	Description string         `gorm:"type:text" json:"description"`
-	Goto        string         `gorm:"not null" json:"goto"`
-	Contents    []CourseContent `gorm:"foreignKey:CourseID;constraint:OnDelete:CASCADE" json:"contents"`
+	ID          uint      `json:"id" gorm:"primaryKey"`
+	Title       string    `json:"title"`
+	Description string    `json:"description"`
+	Goto        string    `json:"goto"`
+	Contents    []Content `json:"contents" gorm:"foreignKey:CourseID"`
 }
 
-type CourseContent struct {
-	gorm.Model
-	CourseID     uint         `json:"course_id"`
-	Title        string       `gorm:"not null" json:"title"`
-	Paragraph    string       `gorm:"type:text" json:"paragraph"`
-	Next         string       `json:"next"`
-	Subcontents  []Subcontent `gorm:"foreignKey:CourseContentID;constraint:OnDelete:CASCADE" json:"subcontents"`
+type Content struct {
+	ID        uint         `json:"id" gorm:"primaryKey"`
+	CourseID  uint         `json:"-"`
+	Title     string       `json:"title"`
+	Paragraph GormStrings  `json:"paragraph" gorm:"type:jsonb"`
+	Subcontents []Subcontent `json:"subcontents" gorm:"foreignKey:ContentID"`
 }
 
 type Subcontent struct {
-	gorm.Model
-	CourseContentID uint      `json:"course_content_id"`
-	Subtitle        string    `gorm:"not null" json:"subtitle"`
-	Subparagraph    string    `gorm:"type:text" json:"subparagraph"`
-	Examples        []Example `gorm:"foreignKey:SubcontentID;constraint:OnDelete:CASCADE" json:"examples"`
+	ID           uint        `json:"id" gorm:"primaryKey"`
+	ContentID    uint        `json:"-"`
+	Subtitle     string      `json:"subtitle"`
+	Subparagraph GormStrings `json:"subparagraph" gorm:"type:jsonb"`
+	Example      GormStrings `json:"example" gorm:"type:jsonb"`
 }
 
-type Example struct {
-	gorm.Model
-	SubcontentID uint   `json:"subcontent_id"`
-	Code         string `gorm:"type:text" json:"code"`
+type GormStrings []string
+
+func (g GormStrings) Value() (driver.Value, error) {
+	return json.Marshal(g)
+}
+func (g *GormStrings) Scan(value interface{}) error {
+	return json.Unmarshal(value.([]byte), g)
 }

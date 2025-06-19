@@ -45,8 +45,9 @@ func SetupRouter() *gin.Engine {
 	api.POST("/gemini", GeminiHandler)
 
 	//Rutas curso
-	api.GET("/courses", GetCoursesHandler)
-	api.GET("/courses/:id", GetCourseByIDHandler)
-	api.POST("/courses", PostCourseHandler)
+	api.GET("/courses", GetAllCourses)
+	api.GET("/courses/info", GetBasicCourses)
+	api.GET("/courses/:id", GetCourse)
+	api.POST("/courses", CreateCourse)
 	return r
 }
