@@ -99,7 +99,7 @@ export class CodeforcesService {
     difficulty: 'easy' | 'medium' | 'hard'
   ): TransformedProblem[] {
     return problems.filter((problem) => {
-      return problem.difficulty.toLowerCase() === difficulty;
+      return problem.difficulty?.toLowerCase() === difficulty;
     });
   }
 
