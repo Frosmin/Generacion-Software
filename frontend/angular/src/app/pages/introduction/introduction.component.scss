@@ -96,6 +96,7 @@
 .intro-right {
   grid-area: right;
   padding: 1rem;
+  overflow: hidden;
 }
 
 .intro-right .buttons-field {
@@ -115,3 +116,4 @@
   border: 1px solid white;
   color: white !important;
 }
+
