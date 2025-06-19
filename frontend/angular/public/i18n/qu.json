@@ -1,5 +1,15 @@
 {
-  "miau": "¡Miau! en runasimi",
+  "navbar": {
+    "title": "Python Yachay",
+    "home": "Qallariy",
+    "courses": "Yachaykuna",
+    "exercises": "Ruwanakuna",
+    "videos": "Rikuykuna",
+    "terminal": "Terminal",
+    "chat": "Rimanakuy",
+    "myLearning": "Yachayniyki",
+    "language": "Simi"
+  },
   "HOME": {
     "BANNER": {
       "TITLE": "Kikin velocidadniykiwan yachay",

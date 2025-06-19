@@ -1,5 +1,16 @@
 {
-  "miau": "Meow! in English",
+  
+  "navbar": {
+    "title": "Learn Python",
+    "home": "Home",
+    "courses": "Courses",
+    "exercises": "Exercises",
+    "videos": "Videos",
+    "terminal": "Terminal",
+    "chat": "Chat",
+    "myLearning": "My Learning",
+    "language": "Language"
+  },
   "HOME": {
     "BANNER": {
       "TITLE": "Learn at your own pace",

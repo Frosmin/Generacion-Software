@@ -10,7 +10,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 })
 export class HomeComponent implements AfterViewInit {
   constructor(translate: TranslateService) {
-    translate.use('es');
+    translate.use('qu');
   }
   ngAfterViewInit(): void {
     this.adjustCarouselAnimation();

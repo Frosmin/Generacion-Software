@@ -1,28 +1,96 @@
 <header class="main-header">
   <div id="nav-logo" class="logo">
-    <img src="images/logo.png" alt="Logo Aprende Python" class="logo-navbar" title="Icono Aprende Python">
-    <h1>Aprende Python</h1>
+    <img
+      src="images/logo.png"
+      alt="Logo Aprende Python"
+      class="logo-navbar"
+      title="Icono Aprende Python"
+    />
+    <h1>{{ "navbar.title" | translate }}</h1>
   </div>
   <button class="menu-toggle" (click)="toggleMenu()">☰</button>
-  <nav class="main-nav" [ngClass]="{'active': isMenuActive}">
+  <nav class="main-nav" [ngClass]="{ active: isMenuActive }">
     <ul>
-      <li><a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
-          (click)="closeMenu()">Inicio</a></li>
-      <li><a routerLink="/lista-cursos" routerLinkActive="active" (click)="closeMenu()">Cursos</a></li>
-      <li><a routerLink="/lista-ejercicios" routerLinkActive="active" (click)="closeMenu()">Ejercicios</a></li>
-      <li><a routerLink="/lista-videos" routerLinkActive="active" (click)="closeMenu()">Videos</a></li>
-      <li><a routerLink="/terminal" routerLinkActive="active" (click)="closeMenu()">Terminal</a></li>
-      <li><a routerLink="/chat" routerLinkActive="active" (click)="closeMenu()">Chat</a></li>
+      <li>
+        <a
+          routerLink="/"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          (click)="closeMenu()"
+          >{{ "navbar.home" | translate }}</a
+        >
+      </li>
+      <li>
+        <a
+          routerLink="/lista-cursos"
+          routerLinkActive="active"
+          (click)="closeMenu()"
+          >{{ "navbar.courses" | translate }}</a
+        >
+      </li>
+      <li>
+        <a
+          routerLink="/lista-ejercicios"
+          routerLinkActive="active"
+          (click)="closeMenu()"
+          >{{ "navbar.exercises" | translate }}</a
+        >
+      </li>
+      <li>
+        <a
+          routerLink="/lista-videos"
+          routerLinkActive="active"
+          (click)="closeMenu()"
+          >{{ "navbar.videos" | translate }}</a
+        >
+      </li>
+      <li>
+        <a
+          routerLink="/terminal"
+          routerLinkActive="active"
+          (click)="closeMenu()"
+          >{{ "navbar.terminal" | translate }}</a
+        >
+      </li>
+      <li>
+        <a routerLink="/chat" routerLinkActive="active" (click)="closeMenu()">{{
+          "navbar.chat" | translate
+        }}</a>
+      </li>
       <li class="nav-item">
         <a
           routerLink="/progreso-aprendizaje"
           routerLinkActive="active"
           (click)="closeMenu()"
+          [title]="'navbar.myLearning' | translate"
         >
-          <i class="fas fa-chart-line"></i>
-          <span class="nav-text">Mi aprendizaje</span>
-          <div class="tooltip">Mi aprendizaje</div>
+          <i class="fas fa-user-circle"></i>
+          <span class="nav-label">{{ "navbar.myLearning" | translate }}</span>
         </a>
+      </li>
+      <li class="nav-item language-selector">
+        <a
+          href="javascript:void(0)"
+          (click)="toggleLanguageDropdown()"
+          [title]="'navbar.language' | translate"
+        >
+          <i class="fas fa-globe"></i>
+          <span class="nav-label">{{ "navbar.language" | translate }}</span>
+        </a>
+        <div
+          class="language-dropdown"
+          [ngClass]="{ active: isLanguageDropdownOpen }"
+        >
+          <div
+            class="language-option"
+            *ngFor="let language of languages"
+            (click)="changeLanguage(language.code)"
+            [ngClass]="{ selected: currentLanguage === language.code }"
+          >
+            <span class="flag">{{ language.flag }}</span>
+            <span class="language-name">{{ language.name }}</span>
+          </div>
+        </div>
       </li>
     </ul>
   </nav>

@@ -37,7 +37,6 @@
   padding: 0;
 }
 
-
 .main-nav li {
   margin-left: 2rem;
 }
@@ -70,8 +69,106 @@
   position: relative;
   margin-left: 2rem;
 }
+
 .nav-text {
   display: none;
+}
+
+// --- Ítem de perfil y idioma tipo tooltip ---
+.nav-item a {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: white;
+  font-size: 1.5rem;
+  transition: color 0.3s;
+  margin-right: 15px;
+  cursor: pointer;
+}
+
+.nav-item a .nav-label {
+  font-size: 0.75rem;
+  background-color: #120e23;
+  color: white;
+  padding: 0.2rem 0.5rem;
+  border-radius: 5px;
+  position: absolute;
+  bottom: -1.8rem;
+  opacity: 0;
+  transform: translateY(5px);
+  transition: all 0.3s ease-in-out;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+.nav-item a:hover .nav-label {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.nav-item i {
+  font-size: 1.6rem;
+}
+
+// --- Selector de idiomas ---
+.language-selector {
+  position: relative;
+}
+
+.language-dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: #120e23;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 0.3s ease-in-out;
+  min-width: 140px;
+  z-index: 1000;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.language-dropdown.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.language-option {
+  display: flex;
+  align-items: center;
+  padding: 0.7rem 1rem;
+  cursor: pointer;
+  color: white;
+  transition: background-color 0.2s;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.language-option:last-child {
+  border-bottom: none;
+}
+
+.language-option:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.language-option.selected {
+  background: rgba(165, 214, 255, 0.2);
+  color: #a5d6ff;
+}
+
+.language-option .flag {
+  margin-right: 0.5rem;
+  font-size: 1.2rem;
+}
+
+.language-option .language-name {
+  font-size: 0.9rem;
+  font-weight: 500;
 }
 
 @media screen and (max-width: 940px) {
@@ -129,40 +226,44 @@
     color: #a5d6ff;
     transition: color 0.3s;
   }
-}
-// --- Ítem de perfil tipo tooltip ---
-.nav-item a {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  color: white;
-  font-size: 1.5rem;
-  transition: color 0.3s;
-  margin-right: 15px;
-}
 
-.nav-item a .nav-label {
-  font-size: 0.75rem;
-  background-color: #120e23; // rosa
-  color: white;
-  padding: 0.2rem 0.5rem;
-  border-radius: 5px;
-  position: absolute;
-  bottom: -1.8rem;
-  opacity: 0;
-  transform: translateY(5px);
-  transition: all 0.3s ease-in-out;
-  pointer-events: none;
-  white-space: nowrap;
-}
+  // --- Ajustes móviles para selector de idiomas ---
+  .language-selector {
+    width: 100%;
+  }
 
-.nav-item a:hover .nav-label {
-  opacity: 1;
-  transform: translateY(0);
-}
+  .nav-item a {
+    margin-right: 0;
+  }
 
+  .language-dropdown {
+    position: static;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    box-shadow: none;
+    border: none;
+    background: transparent;
+    margin-top: 0.5rem;
+  }
 
-.nav-item i {
-  font-size: 1.6rem;
+  .language-dropdown.active {
+    display: block;
+  }
+
+  .language-dropdown:not(.active) {
+    display: none;
+  }
+
+  .language-option {
+    justify-content: center;
+    background: rgba(18, 14, 35, 0.8);
+    margin: 0.2rem 1rem;
+    border-radius: 5px;
+    border-bottom: none;
+  }
+
+  .language-option:hover {
+    background: rgba(165, 214, 255, 0.2);
+  }
 }

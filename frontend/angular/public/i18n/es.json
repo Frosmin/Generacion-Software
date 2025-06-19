@@ -1,5 +1,15 @@
 {
-  "miau": "¡Miau! en español",
+  "navbar": {
+    "title": "Aprende Python",
+    "home": "Inicio",
+    "courses": "Cursos",
+    "exercises": "Ejercicios",
+    "videos": "Videos",
+    "terminal": "Terminal",
+    "chat": "Chat",
+    "myLearning": "Mi aprendizaje",
+    "language": "Idioma"
+  },
   "HOME": {
     "BANNER": {
       "TITLE": "Aprende a tu ritmo",
