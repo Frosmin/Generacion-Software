@@ -1,0 +1,57 @@
+[
+  {
+    "id": 1,
+    "title": "Comentarios en Python",
+    "paragraph": [
+      "Los comentarios pueden ser usados para explicar código Python, los comentarios pueden ser usados para hacer el código más legible, los comentarios pueden ser usados para prevenir ejecución cuando se prueba código."
+    ],
+    "subcontent": [
+      {
+        "subtitle": "Creando un comentario",
+        "subparagraph": [
+          "Los comentarios comienzan con un #, y Python los ignorará"
+        ],
+        "example": ["# Esto es un comentario \nprint('Hola mundo')"]
+      },
+      {
+        "subtitle": "Comentarios multilínea",
+        "subparagraph": [
+          "Python realmente no tiene una sintaxis para comentarios multilínea. Para agregar un comentario multilínea puedes agregar un # para cada línea"
+        ],
+        "example": [
+          "# Esto es un comentario\n# escrito en\n# más de una línea \nprint('Hola mundo')"
+        ]
+      }
+    ],
+    "next": "variables"
+  },
+  {
+    "id": 2,
+    "title": "Variables",
+    "paragraph": [
+      "Las variables son contenedores para almacenar valores de datos."
+    ],
+    "subcontent": [
+      {
+        "subtitle": "Creando Variables",
+        "subparagraph": [
+          "Python no tiene comando para declarar una variable, las variable se crean en el momento que le asignas un valor por primera vez."
+        ],
+        "example": ["x = 5\ny = 'Juan'\nprint(x)\nprint(y)"]
+      },
+      {
+        "subtitle": "",
+        "subparagraph": [
+          "Las variables no necesitan ser declaradas con ningún tipo particular, e incluso pueden cambiar de tipo después de haber sido establecidas."
+        ],
+        "example":[
+          "x = 4\t\t# x es de tipo int\nx = 'Sally'\t# x es ahora de tipo str\nprint(x)"
+        ]
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "title": "algo"
+  }
+]

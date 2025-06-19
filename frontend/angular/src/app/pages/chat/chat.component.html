@@ -1,0 +1,20 @@
+<div class="chat-container">
+  <div class="chat-header">
+    <h2>Asistente Virtual</h2>
+  </div>
+  <div class="chat-messages">
+    <div *ngFor="let message of messages" class="message" [ngClass]="message.type">
+      <p>{{ message.text }}</p>
+      <span class="timestamp">{{ message.timestamp }}</span>
+    </div>
+  </div>
+  <div class="chat-input-area">
+    <input 
+      type="text" 
+      placeholder="Escribe tu mensaje aquí..." 
+      aria-label="Campo de entrada para el mensaje de chat"
+      [(ngModel)]="inputChat"
+      (keyup.enter)="chat()">
+    <button (click)="chat()" aria-label="Botón para enviar mensaje">Enviar</button>
+  </div>
+</div>

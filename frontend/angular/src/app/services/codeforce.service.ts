@@ -89,9 +89,8 @@ export class CodeforcesService {
     };
   }
 
-  private mapRatingToDifficulty(rating: number): 'Easy' | 'Medium' | 'Hard' {
-    if (rating <= 1000) return 'Easy';
-    if (rating <= 1500) return 'Medium';
+  private mapRatingToDifficulty(rating: number): 'Medium' | 'Hard' {
+    if (rating <= 1300) return 'Medium';
     return 'Hard';
   }
 

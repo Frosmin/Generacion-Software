@@ -1,0 +1,18 @@
+<div class="actividad-container">
+  <h3>Completa el código:</h3>
+
+  <ngx-codemirror
+    [(ngModel)]="codigo"
+    [options]="cmOptions"
+    class="editor-panel">
+  </ngx-codemirror>
+
+  <div class="botones">
+    <button mat-raised-button color="primary" (click)="enviar()">Enviar</button>
+    <button mat-button (click)="resetear()">Restablecer</button>
+  </div>
+
+  <div class="resultado" *ngIf="veredicto">
+    {{ veredicto }}
+  </div>
+</div>

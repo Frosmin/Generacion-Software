@@ -10,37 +10,103 @@
       <div class="lesson-group">
         <h3>Básico</h3>
         <ul class="lesson-list">
-          <li [class.active]="currentSection === 'intro'" (click)="changeSection('intro')">
+          <li 
+            [class.active]="currentSection === 'intro'" 
+            (click)="changeSection('intro')"
+            (keydown.enter)="changeSection('intro')"
+            (keydown.space)="changeSection('intro')"
+            tabindex="0"
+          >
             Python Intro
           </li>
-          <li [class.active]="currentSection === 'started'" (click)="changeSection('started')">
+          <li 
+            [class.active]="currentSection === 'started'" 
+            (click)="changeSection('started')"
+            (keydown.enter)="changeSection('started')"
+            (keydown.space)="changeSection('started')"
+            tabindex="0"
+          >
             Empezar
           </li>
-          <li [class.active]="currentSection === 'syntax'" (click)="changeSection('syntax')">
+          <li 
+            [class.active]="currentSection === 'syntax'" 
+            (click)="changeSection('syntax')"
+            (keydown.enter)="changeSection('syntax')"
+            (keydown.space)="changeSection('syntax')"
+            tabindex="0"
+          >
             Sintaxis
           </li>
-          <li [class.active]="currentSection === 'comments'" (click)="changeSection('comments')">
+          <li 
+            [class.active]="currentSection === 'comments'" 
+            (click)="changeSection('comments')"
+            (keydown.enter)="changeSection('comments')"
+            (keydown.space)="changeSection('comments')"
+            tabindex="0"
+          >
             Comentarios
           </li>
-          <li [class.active]="currentSection === 'variables'" (click)="changeSection('variables')">
+          <li 
+            [class.active]="currentSection === 'variables'" 
+            (click)="changeSection('variables')"
+            (keydown.enter)="changeSection('variables')"
+            (keydown.space)="changeSection('variables')"
+            tabindex="0"
+          >
             Variables
           </li>
-          <li [class.active]="currentSection === 'datatypes'" (click)="changeSection('datatypes')">
+          <li 
+            [class.active]="currentSection === 'datatypes'" 
+            (click)="changeSection('datatypes')"
+            (keydown.enter)="changeSection('datatypes')"
+            (keydown.space)="changeSection('datatypes')"
+            tabindex="0"
+          >
             Tipos de Datos
           </li>
-          <li [class.active]="currentSection === 'numbers'" (click)="changeSection('numbers')">
+          <li 
+            [class.active]="currentSection === 'numbers'" 
+            (click)="changeSection('numbers')"
+            (keydown.enter)="changeSection('numbers')"
+            (keydown.space)="changeSection('numbers')"
+            tabindex="0"
+          >
             Números
           </li>
-          <li [class.active]="currentSection === 'casting'" (click)="changeSection('casting')">
+          <li 
+            [class.active]="currentSection === 'casting'" 
+            (click)="changeSection('casting')"
+            (keydown.enter)="changeSection('casting')"
+            (keydown.space)="changeSection('casting')"
+            tabindex="0"
+          >
             Casting
           </li>
-          <li [class.active]="currentSection === 'strings'" (click)="changeSection('strings')">
+          <li 
+            [class.active]="currentSection === 'strings'" 
+            (click)="changeSection('strings')"
+            (keydown.enter)="changeSection('strings')"
+            (keydown.space)="changeSection('strings')"
+            tabindex="0"
+          >
             Strings
           </li>
-          <li [class.active]="currentSection === 'booleans'" (click)="changeSection('booleans')">
+          <li 
+            [class.active]="currentSection === 'booleans'" 
+            (click)="changeSection('booleans')"
+            (keydown.enter)="changeSection('booleans')"
+            (keydown.space)="changeSection('booleans')"
+            tabindex="0"
+          >
             Booleanos
           </li>
-          <li [class.active]="currentSection === 'operators'" (click)="changeSection('operators')">
+          <li 
+            [class.active]="currentSection === 'operators'" 
+            (click)="changeSection('operators')"
+            (keydown.enter)="changeSection('operators')"
+            (keydown.space)="changeSection('operators')"
+            tabindex="0"
+          >
             Operadores
           </li>
         </ul>
@@ -49,16 +115,40 @@
       <div class="lesson-group">
         <h3>Estructuras de Datos</h3>
         <ul class="lesson-list">
-          <li [class.active]="currentSection === 'lists'" (click)="changeSection('lists')">
+          <li 
+            [class.active]="currentSection === 'lists'" 
+            (click)="changeSection('lists')"
+            (keydown.enter)="changeSection('lists')"
+            (keydown.space)="changeSection('lists')"
+            tabindex="0"
+          >
             Listas
           </li>
-          <li [class.active]="currentSection === 'tuples'" (click)="changeSection('tuples')">
+          <li 
+            [class.active]="currentSection === 'tuples'" 
+            (click)="changeSection('tuples')"
+            (keydown.enter)="changeSection('tuples')"
+            (keydown.space)="changeSection('tuples')"
+            tabindex="0"
+          >
             Tuplas
           </li>
-          <li [class.active]="currentSection === 'sets'" (click)="changeSection('sets')">
+          <li 
+            [class.active]="currentSection === 'sets'" 
+            (click)="changeSection('sets')"
+            (keydown.enter)="changeSection('sets')"
+            (keydown.space)="changeSection('sets')"
+            tabindex="0"
+          >
             Sets
           </li>
-          <li [class.active]="currentSection === 'dictionaries'" (click)="changeSection('dictionaries')">
+          <li
+            [class.active]="currentSection === 'dictionaries'" 
+            (click)="changeSection('dictionaries')"
+            (keydown.enter)="changeSection('dictionaries')"
+            (keydown.space)="changeSection('dictionaries')"
+            tabindex="0"
+          >
             Diccionarios
           </li>
         </ul>
@@ -67,13 +157,31 @@
       <div class="lesson-group">
         <h3>Control de Flujo</h3>
         <ul class="lesson-list">
-          <li [class.active]="currentSection === 'ifelse'" (click)="changeSection('ifelse')">
+          <li 
+            [class.active]="currentSection === 'ifelse'" 
+            (click)="changeSection('ifelse')"
+            (keydown.enter)="changeSection('ifelse')"
+            (keydown.space)="changeSection('ifelse')"
+            tabindex="0"
+          >
             If...Else
           </li>
-          <li [class.active]="currentSection === 'while'" (click)="changeSection('while')">
+          <li 
+            [class.active]="currentSection === 'while'" 
+            (click)="changeSection('while')"
+            (keydown.enter)="changeSection('while')"
+            (keydown.space)="changeSection('while')"
+            tabindex="0"
+          >
             While Loops
           </li>
-          <li [class.active]="currentSection === 'for'" (click)="changeSection('for')">
+          <li 
+            [class.active]="currentSection === 'for'" 
+            (click)="changeSection('for')"
+            (keydown.enter)="changeSection('for')"
+            (keydown.space)="changeSection('for')"
+            tabindex="0"
+          >
             For Loops
           </li>
         </ul>
@@ -82,10 +190,22 @@
       <div class="lesson-group">
         <h3>Funciones</h3>
         <ul class="lesson-list">
-          <li [class.active]="currentSection === 'functions'" (click)="changeSection('functions')">
+          <li 
+            [class.active]="currentSection === 'functions'" 
+            (click)="changeSection('functions')"
+            (keydown.enter)="changeSection('functions')"
+            (keydown.space)="changeSection('functions')"
+            tabindex="0"
+          >
             Funciones
           </li>
-          <li [class.active]="currentSection === 'lambda'" (click)="changeSection('lambda')">
+          <li 
+            [class.active]="currentSection === 'lambda'" 
+            (click)="changeSection('lambda')"
+            (keydown.enter)="changeSection('lambda')"
+            (keydown.space)="changeSection('lambda')"
+            tabindex="0"
+          >
             Lambda
           </li>
         </ul>
@@ -94,10 +214,22 @@
       <div class="lesson-group">
         <h3>Programación Orientada a Objetos</h3>
         <ul class="lesson-list">
-          <li [class.active]="currentSection === 'classes'" (click)="changeSection('classes')">
+          <li 
+            [class.active]="currentSection === 'classes'" 
+            (click)="changeSection('classes')"
+            (keydown.enter)="changeSection('classes')"
+            (keydown.space)="changeSection('classes')"
+            tabindex="0"
+          >
             Clases
           </li>
-          <li [class.active]="currentSection === 'inheritance'" (click)="changeSection('inheritance')">
+          <li 
+            [class.active]="currentSection === 'inheritance'" 
+            (click)="changeSection('inheritance')"
+            (keydown.enter)="changeSection('inheritance')"
+            (keydown.space)="changeSection('inheritance')"
+            tabindex="0"
+          >
             Herencia
           </li>
         </ul>
@@ -106,7 +238,13 @@
       <div class="lesson-group">
         <h3>Manejo de Archivos</h3>
         <ul class="lesson-list">
-          <li [class.active]="currentSection === 'filehandling'" (click)="changeSection('filehandling')">
+          <li 
+            [class.active]="currentSection === 'filehandling'" 
+            (click)="changeSection('filehandling')"
+            (keydown.enter)="changeSection('filehandling')"
+            (keydown.space)="changeSection('filehandling')"
+            tabindex="0"
+          >
             Manejo de Archivos
           </li>
         </ul>
@@ -319,34 +457,72 @@ print(a[1])</pre>
         </div>
       </div>
 
-      <!-- Listas -->
-      <div *ngIf="currentSection === 'lists'" class="section-content">
-        <h1>Listas en Python</h1>
-        <p>Las listas se usan para almacenar múltiples elementos en una sola variable.</p>
-        <p>Las listas son uno de los 4 tipos de datos incorporados en Python usados para almacenar colecciones de datos.</p>
-        
-        <div class="example-box">
-          <h3>Ejemplo</h3>
-          <div class="code-block">
-            <pre>mialista = ["manzana", "plátano", "cereza"]
-print(mialista)</pre>
-          </div>
-        </div>
+      
+      <!-- Estructuras de Datos dinámicas -->
+<div [ngSwitch]="currentSection">
+  <ng-container *ngSwitchCase="'tuples'">
+  <h1>{{ examples['tuples'].title }}</h1>
+  <p>{{ examples['tuples'].description }}</p>
+  <div class="code-block">
+    <pre>{{ examples['tuples'].code }}</pre>
+  </div>
+  <h3>Tips útiles</h3>
+  <ul>
+    <li *ngFor="let tip of examples['tuples'].tips">{{ tip }}</li>
+  </ul>
+  <h3>Operaciones comunes</h3>
+  <ul>
+    <li *ngFor="let op of examples['tuples'].operations">{{ op }}</li>
+  </ul>
+</ng-container>
+  <ng-container *ngSwitchCase="'lists'">
+  <h1>{{ examples['lists'].title }}</h1>
+  <p>{{ examples['lists'].description }}</p>
+  <div class="code-block">
+    <pre>{{ examples['lists'].code }}</pre>
+  </div>
+  <h3>Tips útiles</h3>
+  <ul>
+    <li *ngFor="let tip of examples['lists'].tips">{{ tip }}</li>
+  </ul>
+  <h3>Operaciones comunes</h3>
+  <ul>
+    <li *ngFor="let op of examples['lists'].operations">{{ op }}</li>
+  </ul>
+</ng-container>
+  <ng-container *ngSwitchCase="'sets'">
+  <h1>{{ examples['sets'].title }}</h1>
+  <p>{{ examples['sets'].description }}</p>
+  <div class="code-block">
+    <pre>{{ examples['sets'].code }}</pre>
+  </div>
+  <h3>Tips útiles</h3>
+  <ul>
+    <li *ngFor="let tip of examples['sets'].tips">{{ tip }}</li>
+  </ul>
+  <h3>Operaciones comunes</h3>
+  <ul>
+    <li *ngFor="let op of examples['sets'].operations">{{ op }}</li>
+  </ul>
+</ng-container>
+  <ng-container *ngSwitchCase="'dictionaries'">
+  <h1>{{ examples['dictionaries'].title }}</h1>
+  <p>{{ examples['dictionaries'].description }}</p>
+  <div class="code-block">
+    <pre>{{ examples['dictionaries'].code }}</pre>
+  </div>
+  <h3>Tips útiles</h3>
+  <ul>
+    <li *ngFor="let tip of examples['dictionaries'].tips">{{ tip }}</li>
+  </ul>
+  <h3>Operaciones comunes</h3>
+  <ul>
+    <li *ngFor="let op of examples['dictionaries'].operations">{{ op }}</li>
+  </ul>
+</ng-container>
+</div>
 
-        <h2>Elementos de Lista</h2>
-        <p>Los elementos de lista están ordenados, son cambiables, y permiten valores duplicados.</p>
-        <p>Los elementos de lista están indexados, el primer elemento tiene índice [0], el segundo elemento tiene índice [1] etc.</p>
-        
-        <div class="example-box">
-          <h3>Ejemplo</h3>
-          <div class="code-block">
-            <pre>mialista = ["manzana", "plátano", "cereza"]
-print(mialista[0])</pre>
-          </div>
-        </div>
-      </div>
-
-      <!-- Funciones -->
+<!-- Funciones -->
       <div *ngIf="currentSection === 'functions'" class="section-content">
         <h1>Funciones en Python</h1>
         <p>Una función es un bloque de código que solo se ejecuta cuando es llamado.</p>
@@ -379,10 +555,7 @@ mi_funcion()</pre>
       </div>
 
       <!-- Agregar más secciones según sea necesario... -->
-      <div *ngIf="!isValidSection(currentSection)" class="section-content">
-        <h1>Sección en Desarrollo</h1>
-        <p>Esta sección está siendo desarrollada. Por favor selecciona otra lección del menú lateral.</p>
-      </div>
+      
 
     </div>
 

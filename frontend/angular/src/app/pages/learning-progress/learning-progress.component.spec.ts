@@ -95,6 +95,7 @@ describe('LearningProgressComponent', () => {
   });
 
   it('should format date correctly', () => {
+    // Arrange
     const testDate = new Date(2025, 4, 15);
 
     const formattedDate = component.formatDate(testDate);

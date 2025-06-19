@@ -1,38 +1,188 @@
 // courses-list.component.ts
 import { Component } from '@angular/core';
-import { HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import jsPDF from 'jspdf';
+
+interface SectionContent {
+  title: string;
+  content: string;
+}
 
 @Component({
   selector: 'app-courses-list',
   standalone: true,
   imports: [CommonModule],
   templateUrl: './courses-list.component.html',
-  styleUrl: './courses-list.component.scss'
+  styleUrl: './courses-list.component.scss',
 })
 export class CoursesListComponent {
-  currentSection: string = 'intro';
-  
+  currentSection = 'intro';
+
   // Array con todas las lecciones en orden
   sections: string[] = [
-    'intro', 'started', 'syntax', 'comments', 'variables', 'datatypes', 
-    'numbers', 'casting', 'strings', 'booleans', 'operators',
-    'lists', 'tuples', 'sets', 'dictionaries',
-    'ifelse', 'while', 'for',
-    'functions', 'lambda',
-    'classes', 'inheritance',
-    'filehandling'
+    'intro',
+    'started',
+    'syntax',
+    'comments',
+    'variables',
+    'datatypes',
+    'numbers',
+    'casting',
+    'strings',
+    'booleans',
+    'operators',
+    'lists',
+    'tuples',
+    'sets',
+    'dictionaries',
+    'ifelse',
+    'while',
+    'for',
+    'functions',
+    'lambda',
+    'classes',
+    'inheritance',
+    'filehandling',
   ];
-
 
   // Secciones que tienen contenido implementado
   implementedSections: string[] = [
-    'intro', 'started', 'syntax', 'comments', 'variables', 'datatypes', 'strings', 'lists', 'functions'
+    'intro',
+    'started',
+    'syntax',
+    'comments',
+    'variables',
+    'datatypes',
+    'strings',
+    'lists',
+    'functions',
   ];
 
+  // Ejemplos de código para secciones especiales
+  examples: Record<
+    string,
+    {
+      title: string;
+      code: string;
+      description: string;
+      tips: string[];
+      operations: string[];
+    }
+  > = {
+    lists: {
+      title: 'Listas en Python',
+      description:
+        'Las listas son colecciones ordenadas y mutables que permiten elementos duplicados. Son ideales para almacenar secuencias de datos.',
+      code: `# Creamos una lista con tres frutas
+mi_lista = ["manzana", "plátano", "cereza"]
+
+# Mostramos toda la lista
+print(mi_lista)
+
+# Accedemos al segundo elemento (índice 1)
+print(mi_lista[1])  # Resultado: plátano
+
+# Agregamos una nueva fruta al final
+mi_lista.append("naranja")
+
+# Mostramos la lista actualizada
+print(mi_lista)`,
+      tips: [
+        'Puedes mezclar tipos de datos en una lista.',
+        'Las listas pueden contener otras listas (listas anidadas).',
+        'Usa slicing: mi_lista[1:3] para obtener una sublista.',
+      ],
+      operations: [
+        'append(x): Agrega un elemento al final',
+        'remove(x): Elimina la primera aparición de x',
+        'pop(i): Elimina y retorna el elemento en la posición i',
+        'sort(): Ordena la lista',
+        'reverse(): Invierte el orden de la lista',
+      ],
+    },
+    tuples: {
+      title: 'Tuplas en Python',
+      description:
+        'Las tuplas son como listas, pero inmutables. Útiles para datos que no deben cambiar.',
+      code: `# Creamos una tupla con tres frutas
+mia_tupla = ("manzana", "plátano", "cereza")
+
+# Mostramos toda la tupla
+print(mia_tupla)
+
+# Accedemos al primer elemento (índice 0)
+print(mia_tupla[0])  # Resultado: manzana`,
+      tips: [
+        'Las tuplas pueden ser usadas como claves en diccionarios.',
+        'Para crear una tupla de un solo elemento: tupla = ("manzana",)',
+        'Son más rápidas que las listas para operaciones de solo lectura.',
+      ],
+      operations: [
+        'count(x): Cuenta cuántas veces aparece x',
+        'index(x): Devuelve el índice de la primera aparición de x',
+      ],
+    },
+    sets: {
+      title: 'Sets en Python',
+      description:
+        'Los sets son colecciones desordenadas, sin elementos duplicados. Ideales para operaciones de conjuntos.',
+      code: `# Creamos un set con tres frutas (sin duplicados)
+miset = {"manzana", "plátano", "cereza"}
+
+# Mostramos el set
+print(miset)
+
+# Agregamos una nueva fruta al set
+miset.add("naranja")
+
+# Mostramos el set actualizado
+print(miset)`,
+      tips: [
+        'No puedes acceder a los elementos por índice.',
+        'Perfectos para eliminar duplicados de una lista: set([1,2,2,3])',
+        'Puedes hacer uniones, intersecciones y diferencias.',
+      ],
+      operations: [
+        'add(x): Agrega un elemento',
+        'remove(x): Elimina x (error si no existe)',
+        'discard(x): Elimina x (sin error si no existe)',
+        'union(set2): Unión de sets',
+        'intersection(set2): Intersección de sets',
+        'difference(set2): Diferencia de sets',
+      ],
+    },
+    dictionaries: {
+      title: 'Diccionarios en Python',
+      description:
+        'Los diccionarios almacenan pares clave:valor. Son ideales para representar entidades y sus atributos.',
+      code: `# Creamos un diccionario con dos pares clave:valor
+mi_diccionario = {"nombre": "Juan", "edad": 30}
+
+# Mostramos todo el diccionario
+print(mi_diccionario)
+
+# Agregamos una nueva clave 'ciudad'
+mi_diccionario["ciudad"] = "Bogotá"
+
+# Mostramos el valor asociado a la clave 'nombre'
+print(mi_diccionario["nombre"])  # Resultado: Juan`,
+      tips: [
+        'Las claves deben ser únicas y de tipo inmutable.',
+        'Puedes iterar sobre claves, valores o ambos.',
+        'Método get() para acceso seguro: mi_diccionario.get("clave")',
+      ],
+      operations: [
+        'keys(): Lista todas las claves',
+        'values(): Lista todos los valores',
+        'items(): Lista pares clave-valor',
+        'update(dict2): Actualiza con otro diccionario',
+        'pop(clave): Elimina clave y retorna su valor',
+      ],
+    },
+  };
+
   // Mapeo del contenido de cada sección para exportación
-  private sectionContent: { [key: string]: any } = {
+  private sectionContent: Record<string, SectionContent> = {
     intro: {
       title: '¿Qué es Python?',
       content: `Python es un lenguaje de programación popular.
@@ -47,7 +197,7 @@ export class CoursesListComponent {
 • Python funciona en diferentes plataformas (Windows, Mac, Linux, Raspberry Pi, etc).
 • Python tiene una sintaxis simple similar al idioma inglés.
 • Python tiene sintaxis que permite a los desarrolladores escribir programas con menos líneas que otros lenguajes de programación.
-• Python funciona en un sistema intérprete, lo que significa que el código puede ser ejecutado tan pronto como se escribe.`
+• Python funciona en un sistema intérprete, lo que significa que el código puede ser ejecutado tan pronto como se escribe.`,
     },
     started: {
       title: 'Python - Empezar',
@@ -60,7 +210,7 @@ Instalación de Python
 Muchas PC y Mac ya tendrán Python instalado.
 Para verificar si tienes Python instalado en una PC con Windows, busca Python en el menú de inicio o ejecuta lo siguiente en la línea de comandos:
 
-C:\\Users\\Tu Nombre>python --version`
+C:\\Users\\Tu Nombre>python --version`,
     },
     syntax: {
       title: 'Sintaxis de Python',
@@ -76,7 +226,7 @@ Donde en otros lenguajes de programación la indentación en el código es solo 
 
 Ejemplo:
 if 5 > 2:
-    print("Cinco es mayor que dos!")`
+    print("Cinco es mayor que dos!")`,
     },
     comments: {
       title: 'Comentarios en Python',
@@ -99,7 +249,7 @@ Ejemplo:
 # Este es un comentario
 # escrito en
 # más de una línea
-print("¡Hola, Mundo!")`
+print("¡Hola, Mundo!")`,
     },
     variables: {
       title: 'Variables de Python',
@@ -120,7 +270,7 @@ Las variables no necesitan ser declaradas con ningún tipo particular, e incluso
 Ejemplo:
 x = 4       # x es de tipo int
 x = "Sally" # x es ahora de tipo str
-print(x)`
+print(x)`,
     },
     datatypes: {
       title: 'Tipos de Datos en Python',
@@ -139,7 +289,7 @@ Python tiene los siguientes tipos de datos incorporados por defecto, en estas ca
 
 Ejemplo:
 x = 5
-print(type(x))`
+print(type(x))`,
     },
     strings: {
       title: 'Python Strings',
@@ -167,7 +317,7 @@ Como muchos otros lenguajes de programación populares, los strings en Python so
 Ejemplo:
 a = "Hola, Mundo!"
 print(a[1])
-Resultado: o`
+Resultado: o`,
     },
     lists: {
       title: 'Listas en Python',
@@ -184,7 +334,7 @@ Los elementos de lista están indexados, el primer elemento tiene índice [0], e
 
 Ejemplo:
 mialista = ["manzana", "plátano", "cereza"]
-print(mialista[0])`
+print(mialista[0])`,
     },
     functions: {
       title: 'Funciones en Python',
@@ -206,8 +356,8 @@ Ejemplo:
 def mi_funcion():
     print("Hola desde una función")
 
-mi_funcion()`
-    }
+mi_funcion()`,
+    },
   };
 
   changeSection(section: string): void {
@@ -234,6 +384,7 @@ mi_funcion()`
     const currentIndex = this.getCurrentSectionIndex();
     if (currentIndex > 0) {
       this.currentSection = this.sections[currentIndex - 1];
+      window.scrollTo(0, 0);
     }
   }
 
@@ -241,88 +392,93 @@ mi_funcion()`
     const currentIndex = this.getCurrentSectionIndex();
     if (currentIndex < this.sections.length - 1) {
       this.currentSection = this.sections[currentIndex + 1];
+      window.scrollTo(0, 0);
     }
   }
 
   descargarComoTxt(): void {
     try {
       const currentContent = this.sectionContent[this.currentSection];
-      
+
       if (!currentContent) {
         alert('El contenido de esta sección no está disponible para descarga.');
         return;
       }
 
-      const content = `${currentContent.title}\n${'='.repeat(currentContent.title.length)}\n\n${currentContent.content}`;
-      
+      const content = `${currentContent.title}\n${'='.repeat(
+        currentContent.title.length
+      )}\n\n${currentContent.content}`;
+
       const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
       const url = window.URL.createObjectURL(blob);
       const link = document.createElement('a');
-      
+
       link.href = url;
       link.download = `python-tutorial-${this.currentSection}.txt`;
       document.body.appendChild(link);
       link.click();
-      
+
       // Limpieza
       document.body.removeChild(link);
       window.URL.revokeObjectURL(url);
     } catch (error) {
       console.error('Error al descargar archivo TXT:', error);
-      alert('Hubo un error al descargar el archivo. Por favor, inténtalo de nuevo.');
+      alert(
+        'Hubo un error al descargar el archivo. Por favor, inténtalo de nuevo.'
+      );
     }
   }
 
   descargarComoPDF(): void {
     try {
       const currentContent = this.sectionContent[this.currentSection];
-      
+
       if (!currentContent) {
         alert('El contenido de esta sección no está disponible para descarga.');
         return;
       }
 
       const doc = new jsPDF();
-      
+
       // Configuración de fuentes y colores
       doc.setFont('helvetica', 'bold');
       doc.setFontSize(18);
       doc.setTextColor(255, 110, 196); // Color rosa similar al diseño
-      
+
       // Título
       const title = currentContent.title;
       doc.text(title, 20, 30);
-      
+
       // Línea decorativa
       doc.setDrawColor(255, 110, 196);
       doc.setLineWidth(0.5);
       doc.line(20, 35, 190, 35);
-      
+
       // Contenido
       doc.setFont('helvetica', 'normal');
       doc.setFontSize(11);
       doc.setTextColor(60, 60, 60);
-      
+
       const content = currentContent.content;
       const lines = doc.splitTextToSize(content, 170);
-      
+
       let yPosition = 50;
       const pageHeight = doc.internal.pageSize.height;
       const marginBottom = 20;
-      
-      for (let i = 0; i < lines.length; i++) {
+
+      for (const line of lines) {
         if (yPosition > pageHeight - marginBottom) {
           doc.addPage();
           yPosition = 30;
         }
-        
-        doc.text(lines[i], 20, yPosition);
+
+        doc.text(line, 20, yPosition);
         yPosition += 6;
       }
-      
+
       // Footer
-       // Footer
-      const pageCount = (doc as any).internal.pages.length - 1; // -1 porque el primer elemento es metadata
+      // Footer
+      const pageCount = doc.getNumberOfPages();
       for (let i = 1; i <= pageCount; i++) {
         doc.setPage(i);
         doc.setFontSize(8);
@@ -330,16 +486,12 @@ mi_funcion()`
         doc.text(`Tutorial Python - ${title}`, 20, pageHeight - 10);
         doc.text(`Página ${i} de ${pageCount}`, 170, pageHeight - 10);
       }
-      
+
       // Guardar archivo
       doc.save(`python-tutorial-${this.currentSection}.pdf`);
-      
     } catch (error) {
       console.error('Error al generar PDF:', error);
       alert('Hubo un error al generar el PDF. Por favor, inténtalo de nuevo.');
     }
-    
   }
-
-
 }
