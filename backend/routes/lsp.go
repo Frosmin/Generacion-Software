@@ -8,9 +8,13 @@ import (
 	"github.com/gorilla/websocket"
 )
 
-var upgrader = websocket.Upgrader{}
+var upgrader = websocket.Upgrader{
+	CheckOrigin: func(r *http.Request) bool {
+		return true // Permitir todas las conexiones
+	},
+}
 
-func LspHandler(w http.ResponseWriter, r *http.Request) {
+func LSPHandler(w http.ResponseWriter, r *http.Request) {
 	conn, err := upgrader.Upgrade(w, r, nil)
 	if err != nil {
 		log.Println("Error al actualizar a WebSocket:", err)
@@ -50,7 +54,7 @@ func LspHandler(w http.ResponseWriter, r *http.Request) {
 		}
 	}()
 
-	buf := make([]byte, 1024)
+	buf := make([]byte, 4096)
 	for {
 		n, err := stdout.Read(buf)
 		if err != nil {

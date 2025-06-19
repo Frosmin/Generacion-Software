@@ -1,10 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // EditorComponent.ts
-import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { CodemirrorModule, CodemirrorComponent } from '@ctrl/ngx-codemirror';
 import { HttpClient } from '@angular/common/http';
+import { PythonLSPService } from '../../services/python-lsp.service';
+import { Subscription } from 'rxjs';
 
 // Importacion de lint y modo python para CodeMirror
 import * as CodeMirrorNS from 'codemirror';
@@ -80,7 +82,7 @@ function pythonLint(code: string) {
   templateUrl: './editor.component.html',
   styleUrls: ['./editor.component.scss'],
 })
-export class EditorComponent implements OnInit, AfterViewInit {
+export class EditorComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('codeEditor') private codeEditorComponent!: CodemirrorComponent;
   codigo = '';
   inputs = '';
@@ -170,9 +172,14 @@ export class EditorComponent implements OnInit, AfterViewInit {
   codeMirrorInstance: any;
   editorOptions: any;
   codeEditor: any;
+  private lspSubscription: Subscription | null = null;
+  private completionItems: any[] = [];
 
-  constructor(private http: HttpClient) {
-    // Función de autocompletado personalizada
+  constructor(
+    private http: HttpClient,
+    private pythonLSP: PythonLSPService
+  ) {
+    // Función de autocompletado personalizada que combina LSP y palabras clave
     const pythonHint = (cm: any) => {
       const cursor = cm.getCursor();
       const token = cm.getTokenAt(cursor);
@@ -187,21 +194,31 @@ export class EditorComponent implements OnInit, AfterViewInit {
       // Agregar palabras clave de Python
       PYTHON_KEYWORDS.forEach(word => words.add(word));
       
+      // Agregar funciones built-in de Python
+      PYTHON_BUILTINS.forEach(word => words.add(word));
+      
+      // Agregar sugerencias del LSP
+      this.completionItems.forEach(item => words.add(item.label));
+      
       // Agregar palabras del documento actual
       for (let i = 0; i < cm.lineCount(); i++) {
         const lineText = cm.getLine(i);
-        const wordMatches = lineText.match(/[\\w$]+/g);
+        const wordMatches = lineText.match(/[\w$]+/g);
         if (wordMatches) {
           wordMatches.forEach((word: string) => words.add(word));
         }
       }
 
+      // Filtrar sugerencias basadas en el token actual
+      const filteredWords = Array.from(words).filter(word => 
+        word.toLowerCase().startsWith(token.string.toLowerCase()) && 
+        word !== token.string
+      ).sort();
+
       return {
-        list: Array.from(words).filter(word => 
-          word.toLowerCase().startsWith(token.string.toLowerCase())
-        ).sort(),
-        from: {line: cursor.line, ch: token.start},
-        to: {line: cursor.line, ch: token.end}
+        list: filteredWords,
+        from: CodeMirror.Pos(cursor.line, token.start),
+        to: CodeMirror.Pos(cursor.line, token.end)
       };
     };
 
@@ -215,12 +232,24 @@ export class EditorComponent implements OnInit, AfterViewInit {
       matchBrackets: true,
       lint: true,
       extraKeys: {
-        'Ctrl-Space': false,
+        'Ctrl-Space': (cm: any) => {
+          // Solicitar sugerencias al LSP antes de mostrar el hint
+          const cursor = cm.getCursor();
+          this.requestCompletions(cm, cursor);
+          cm.showHint({
+            hint: pythonHint,
+            completeSingle: false,
+            closeOnUnfocus: false,
+            alignWithWord: true
+          });
+        },
         'Ctrl-B': false
       },
       hintOptions: {
+        hint: pythonHint,
         completeSingle: false,
-        hint: pythonHint
+        closeOnUnfocus: false,
+        alignWithWord: true
       }
     };
   }
@@ -231,77 +260,93 @@ export class EditorComponent implements OnInit, AfterViewInit {
     this.pyodideReady = true;
     (window as any).pyodideInstance = this.pyodide;
     console.log('[Editor] Pyodide cargado desde CDN');
+
+    // Suscribirse a los mensajes del LSP
+    this.lspSubscription = this.pythonLSP.onMessage().subscribe(message => {
+      if (message.method === 'textDocument/completion') {
+        this.completionItems = message.result?.items || [];
+      }
+    });
   }
 
   ngAfterViewInit() {
-    // Esperar a que el editor esté listo
     setTimeout(() => {
       if (this.codeEditorComponent) {
         this.codeEditor = this.codeEditorComponent.codeMirror;
-        
-        // Configurar el autocompletado automático
+
+        // Autocompletado en tiempo real al escribir
         this.codeEditor.on('inputRead', (cm: any, change: any) => {
           if (!change || !change.text) return;
-          
-          const cursor = cm.getCursor();
-          const token = cm.getTokenAt(cursor);
-          
-          // No mostrar sugerencias para operadores o dentro de strings/comentarios
-          if (token.type === 'string' || token.type === 'comment') {
-            return;
-          }
-          
-          // Verificar si el último carácter ingresado es una letra o guión bajo
           const lastChar = change.text[change.text.length - 1];
-          if (lastChar && lastChar.match(/[a-zA-Z_]/)) {
-            cm.showHint({ 
-              completeSingle: false,
-              closeOnUnfocus: false,
-              alignWithWord: true
-            });
+          // Solo dispara si el usuario escribe letra, número, punto o guion bajo
+          if (lastChar && /[\w.]/.test(lastChar)) {
+            const cursor = cm.getCursor();
+            const token = cm.getTokenAt(cursor);
+            if (token.type !== 'string' && token.type !== 'comment') {
+              // Solicita sugerencias al LSP y muestra el hint con la función unificada
+              this.requestCompletions(cm, cursor);
+              cm.showHint({
+                hint: this.editorOptions.hintOptions.hint,
+                completeSingle: false,
+                closeOnUnfocus: false,
+                alignWithWord: true
+              });
+            }
           }
         });
 
-        // También mostrar sugerencias al borrar
-        this.codeEditor.on('keyup', (cm: any, event: KeyboardEvent) => {
-          const cursor = cm.getCursor();
-          const token = cm.getTokenAt(cursor);
-          
-          // No mostrar sugerencias para operadores o dentro de strings/comentarios
-          if (token.type === 'string' || token.type === 'comment') {
-            return;
-          }
-          
-          // Mostrar sugerencias al borrar si hay texto que completar
-          if (event.key === 'Backspace' && token.string.length > 0) {
-            cm.showHint({ 
-              completeSingle: false,
-              closeOnUnfocus: false,
-              alignWithWord: true
-            });
-          }
+        // Notificar cambios al LSP
+        this.codeEditor.on('change', (cm: any) => {
+          this.notifyLSPChanges(cm);
         });
       }
     }, 100);
   }
 
+  ngOnDestroy() {
+    if (this.lspSubscription) {
+      this.lspSubscription.unsubscribe();
+    }
+  }
+
+  private requestCompletions(cm: any, cursor: any) {
+    const documentUri = 'file:///workspace/main.py';
+    const position = {
+      line: cursor.line,
+      character: cursor.ch
+    };
+
+    this.pythonLSP.sendRequest({
+      jsonrpc: '2.0',
+      id: 2,
+      method: 'textDocument/completion',
+      params: {
+        textDocument: { uri: documentUri },
+        position: position
+      }
+    });
+  }
+
+  private notifyLSPChanges(cm: any) {
+    const documentUri = 'file:///workspace/main.py';
+    const content = cm.getValue();
+
+    this.pythonLSP.sendRequest({
+      jsonrpc: '2.0',
+      method: 'textDocument/didChange',
+      params: {
+        textDocument: {
+          uri: documentUri,
+          version: Date.now()
+        },
+        contentChanges: [{ text: content }]
+      }
+    });
+  }
+
   // Vincular instancia de CodeMirror
   onEditorInit(instance: any) {
     this.codeMirrorInstance = instance;
-    
-    // Activar autocompletado al escribir
-    instance.on('inputRead', (cm: any, change: any) => {
-      if (!change || change.origin !== '+input') return;
-      
-      const cur = cm.getCursor();
-      const token = cm.getTokenAt(cur);
-      
-      // Solo mostrar sugerencias si estamos escribiendo una palabra
-      if (token.type !== 'operator' && token.type !== 'string' && 
-          token.string.length > 1 && !/^\d+$/.test(token.string)) {
-        CodeMirror.commands.autocomplete(cm);
-      }
-    });
   }
 
   // Forzar el lint en cada cambio de código
