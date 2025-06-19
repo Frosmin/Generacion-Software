@@ -1,5 +1,4 @@
 import { Component, AfterViewInit } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
 import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
@@ -9,9 +8,6 @@ import { TranslatePipe } from '@ngx-translate/core';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements AfterViewInit {
-  constructor(translate: TranslateService) {
-    translate.use('qu');
-  }
   ngAfterViewInit(): void {
     this.adjustCarouselAnimation();
 
