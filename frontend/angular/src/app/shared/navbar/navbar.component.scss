@@ -1,6 +1,4 @@
-
-
-@use 'sass:color';
+@use "sass:color";
 
 .main-header {
   background: linear-gradient(
@@ -33,10 +31,12 @@
 
 .main-nav ul {
   display: flex;
+  align-items: center;
   list-style: none;
   margin: 0;
   padding: 0;
 }
+
 
 .main-nav li {
   margin-left: 2rem;
@@ -53,7 +53,7 @@
 
 .main-nav a.active,
 .main-nav a:hover {
-  border-bottom: 3px solid white;
+  border-bottom: 3px solid rgb(255, 255, 255);
 }
 
 .menu-toggle {
@@ -64,6 +64,14 @@
   background: none;
   border: none;
   outline: none;
+}
+
+.nav-item {
+  position: relative;
+  margin-left: 2rem;
+}
+.nav-text {
+  display: none;
 }
 
 @media screen and (max-width: 940px) {
@@ -121,4 +129,40 @@
     color: #a5d6ff;
     transition: color 0.3s;
   }
+}
+// --- Ítem de perfil tipo tooltip ---
+.nav-item a {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: white;
+  font-size: 1.5rem;
+  transition: color 0.3s;
+  margin-right: 15px;
+}
+
+.nav-item a .nav-label {
+  font-size: 0.75rem;
+  background-color: #120e23; // rosa
+  color: white;
+  padding: 0.2rem 0.5rem;
+  border-radius: 5px;
+  position: absolute;
+  bottom: -1.8rem;
+  opacity: 0;
+  transform: translateY(5px);
+  transition: all 0.3s ease-in-out;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+.nav-item a:hover .nav-label {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+.nav-item i {
+  font-size: 1.6rem;
 }
