@@ -1,12 +1,50 @@
 <div class="editor-container">
   <h2>Editor de Código Python</h2>
 
-  <textarea [(ngModel)]="codigo" placeholder="Escribe tu código Python aquí..." spellcheck="false"></textarea>
+  <div class="editor">
+    <ngx-codemirror
+      class="cm-panel"
+      [(ngModel)]="codigo"
+      [options]="cmOptions"
+      (editorInitialized)="onEditorInit($event)">
+    </ngx-codemirror>
+    <div class="output-panel">
+      <div class="section">
+        <h3>Input:</h3>
+        <ngx-codemirror
+          class="cm-panel"
+          [(ngModel)]="inputs"
+          [options]="inputOptions">
+        </ngx-codemirror>
+      </div>
+      <div class="section">
+        <h3>Output:</h3>
+        <pre>{{ output }}</pre>
+      </div>
+    </div>
+  </div>
 
-  <textarea [(ngModel)]="inputs" placeholder="Escribe los inputs aquí..." spellcheck="false"></textarea>
+  <button class="btn-ejecutar" (click)="ejecutarCodigo()">
+    <span>Ejecutar</span>
+  </button>
 
-  <button (click)="ejecutarCodigo()">Ejecutar</button>
+    <button class="btn-ejecutar" (click)="chat()">
+    <span>chat</span>
+  </button>
 
-  <h3>Output:</h3>
-  <pre>{{ output }}</pre>
+
+<!-- parte de simon  -->
+  <div class="section">
+        <h3>Input:</h3>
+        <ngx-codemirror
+          class="cm-panel"
+          [(ngModel)]="inputChat"
+          [options]="inputOptions">
+        </ngx-codemirror>
+      </div>
+
+  <div class="section">
+        <h3>Output:</h3>
+        <pre>{{ outputChat }}</pre>
+      </div>
 </div>

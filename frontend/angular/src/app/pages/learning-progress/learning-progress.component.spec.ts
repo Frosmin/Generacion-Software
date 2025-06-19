@@ -7,9 +7,8 @@ describe('LearningProgressComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LearningProgressComponent ]
-    })
-    .compileComponents();
+      imports: [LearningProgressComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {
@@ -32,7 +31,7 @@ describe('LearningProgressComponent', () => {
         modules: 10,
         completedModules: 6,
         image: 'test.png',
-        lastAccessed: new Date()
+        lastAccessed: new Date(),
       },
       {
         id: 2,
@@ -41,13 +40,13 @@ describe('LearningProgressComponent', () => {
         modules: 8,
         completedModules: 3,
         image: 'test.png',
-        lastAccessed: new Date()
-      }
+        lastAccessed: new Date(),
+      },
     ];
-    
+
     // Act
     component.calculateOverallProgress();
-    
+
     // Assert
     expect(component.totalProgress).toBe(50); // Average of 60 and 40
   });
@@ -62,7 +61,7 @@ describe('LearningProgressComponent', () => {
         modules: 10,
         completedModules: 10,
         image: 'test.png',
-        lastAccessed: new Date()
+        lastAccessed: new Date(),
       },
       {
         id: 2,
@@ -71,7 +70,7 @@ describe('LearningProgressComponent', () => {
         modules: 8,
         completedModules: 3,
         image: 'test.png',
-        lastAccessed: new Date()
+        lastAccessed: new Date(),
       },
       {
         id: 3,
@@ -80,7 +79,7 @@ describe('LearningProgressComponent', () => {
         modules: 5,
         completedModules: 3,
         image: 'test.png',
-        lastAccessed: new Date()
+        lastAccessed: new Date(),
       },
       {
         id: 4,
@@ -89,13 +88,13 @@ describe('LearningProgressComponent', () => {
         modules: 12,
         completedModules: 0,
         image: 'test.png',
-        lastAccessed: new Date()
-      }
+        lastAccessed: new Date(),
+      },
     ];
-    
+
     // Act
     component.countActiveCourses();
-    
+
     // Assert
     expect(component.activeCourses).toBe(2); // Two courses with 0 < progress < 100
     expect(component.completedCourses).toBe(1); // One course with progress = 100
@@ -103,11 +102,11 @@ describe('LearningProgressComponent', () => {
 
   it('should format date correctly', () => {
     // Arrange
-    const testDate = new Date('2025-05-15');
-    
+    const testDate = new Date(2025, 4, 15);
+
     // Act
     const formattedDate = component.formatDate(testDate);
-    
+
     // Assert
     // Adjust the expectation based on the locale specified in the formatDate method
     expect(formattedDate).toBe('15/05/2025');
@@ -116,7 +115,7 @@ describe('LearningProgressComponent', () => {
   it('should initialize with test data on ngOnInit', () => {
     // Act
     component.ngOnInit();
-    
+
     // Assert
     expect(component.courses.length).toBeGreaterThan(0);
     expect(component.achievements.length).toBeGreaterThan(0);

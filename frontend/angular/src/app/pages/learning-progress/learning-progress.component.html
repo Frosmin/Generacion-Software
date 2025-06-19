@@ -2,45 +2,44 @@
   <div class="hero-section">
     <div class="hero-content">
       <h1>Mi aprendizaje</h1>
-      <p class="welcome-message">¡Hola {{username}}! Tu progreso actual es:</p>
-      
+      <p class="welcome-message">
+        ¡Hola {{ username }}! Tu progreso actual es:
+      </p>
+
       <div class="progress-overview">
         <div class="progress-circle-container">
           <div class="progress-circle">
             <svg viewBox="0 0 36 36" class="circular-chart">
-              <path class="circle-bg"
-                d="M18 2.0845
+              <path class="circle-bg" d="M18 2.0845
                   a 15.9155 15.9155 0 0 1 0 31.831
-                  a 15.9155 15.9155 0 0 1 0 -31.831"
-              />
-              <path class="circle"
-                [attr.stroke-dasharray]="totalProgress + ', 100'"
-                d="M18 2.0845
+                  a 15.9155 15.9155 0 0 1 0 -31.831" />
+              <path class="circle" [attr.stroke-dasharray]="totalProgress + ', 100'" d="M18 2.0845
                   a 15.9155 15.9155 0 0 1 0 31.831
-                  a 15.9155 15.9155 0 0 1 0 -31.831"
-              />
-              <text x="18" y="20.35" class="percentage">{{totalProgress}}%</text>
+                  a 15.9155 15.9155 0 0 1 0 -31.831" />
+              <text x="18" y="20.35" class="percentage">
+                {{ totalProgress }}%
+              </text>
             </svg>
           </div>
         </div>
         <div class="progress-stats">
           <div class="stat-card">
-            <div class="stat-value">{{courses.length}}</div>
+            <div class="stat-value">{{ courses.length }}</div>
             <div class="stat-label">Cursos totales</div>
           </div>
           <div class="stat-card">
-            <div class="stat-value">{{activeCourses}}</div>
+            <div class="stat-value">{{ activeCourses }}</div>
             <div class="stat-label">Cursos activos</div>
           </div>
           <div class="stat-card">
-            <div class="stat-value">{{completedCourses}}</div>
+            <div class="stat-value">{{ completedCourses }}</div>
             <div class="stat-label">Cursos completados</div>
           </div>
         </div>
       </div>
     </div>
     <div class="hero-image">
-      <img src="assets/images/hero-image.png" alt="Progreso de aprendizaje">
+      <img src="assets/images/hero-image.png" alt="Progreso de aprendizaje" />
     </div>
   </div>
 
@@ -49,52 +48,35 @@
     <div class="courses-container">
       <div class="course-card" *ngFor="let course of courses">
         <div class="course-image">
-          <img [src]="course.image" [alt]="course.title">
+          <img [src]="course.image" [alt]="course.title" [title]="'Imagen ilustrativa del curso ' + course.title">/>
           <div class="course-progress-overlay">
             <div class="course-progress-bar" [style.width.%]="course.progress"></div>
           </div>
         </div>
         <div class="course-info">
-          <h3>{{course.title}}</h3>
+          <h3>{{ course.title }}</h3>
           <div class="course-progress">
             <div class="progress-bar">
               <div class="progress-fill" [style.width.%]="course.progress"></div>
             </div>
-            <div class="progress-percentage">{{course.progress}}%</div>
+            <div class="progress-percentage">{{ course.progress }}%</div>
           </div>
           <div class="course-details">
-            <span class="modules-count">{{course.completedModules}}/{{course.modules}} módulos</span>
-            <span class="last-access">Último acceso: {{formatDate(course.lastAccessed)}}</span>
+            <span class="modules-count">{{ course.completedModules }}/{{ course.modules }} módulos</span>
+            <span class="last-access">Último acceso: {{ formatDate(course.lastAccessed) }}</span>
           </div>
           <button class="continue-button">Continuar</button>
         </div>
       </div>
     </div>
   </section>
-<!--
-  <section class="achievements-section">
-    <h2>Mis logros</h2>
-    <div class="achievements-container">
-      <div class="achievement-card" *ngFor="let achievement of achievements">
-        <div class="achievement-icon">
-          <i class="fa fa-{{achievement.icon}}"></i>
-        </div>
-        <div class="achievement-info">
-          <h3>{{achievement.title}}</h3>
-          <p>{{achievement.description}}</p>
-          <span class="earned-date">Obtenido el {{formatDate(achievement.earnedDate)}}</span>
-        </div>
-      </div>
-    </div>
-  </section>
--->
-
   <section class="recommendation-section">
     <h2>Recomendado para ti</h2>
     <div class="recommendation-cards">
       <div class="recommendation-card">
         <div class="recommendation-image">
-          <img src="assets/images/curso-python.png" alt="Ciencia de datos">
+          <img src="assets/images/curso-python.png" alt="Ciencia de datos"
+            title="Imagen ilustrativa del curso Ciencia de datos" />
         </div>
         <h3>Ciencia de datos con Python</h3>
         <p>Aprende análisis de datos, visualización y machine learning</p>
@@ -102,7 +84,7 @@
       </div>
       <div class="recommendation-card">
         <div class="recommendation-image">
-          <img src="assets/images/curso-python.png" alt="Django">
+          <img src="assets/images/curso-python.png" alt="Django" title="Imagen ilustrativa del curso Django" />
         </div>
         <h3>Desarrollo Web con Django</h3>
         <p>Crea aplicaciones web completas con el framework Django</p>

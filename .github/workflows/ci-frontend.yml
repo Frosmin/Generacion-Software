@@ -1,0 +1,54 @@
+name: CI Frontend
+
+on:
+  #push:
+    #paths:
+      #- 'frontend/**'
+  pull_request:
+    paths:
+      - 'frontend/**'
+
+permissions:
+  contents: write
+
+jobs:
+  lint-and-test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./frontend/angular
+
+    env:
+      REPORT_DIR: ${{ github.workspace }}/test-reports
+
+    steps:
+      - name: Checkout repositorio
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Cache dependencias
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('frontend/angular/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Instalar dependencias
+        run: npm install
+
+      - name: Ejecutar Linter y guardar resultados
+        run: npm run lint
+
+      - name: Ejecutar pruebas unitarias y guardar resultados
+        run: npm run test -- --watch=false --browsers=ChromeHeadless --reporters=progress
+
+      - name: Subir reportes como artefactos
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-reports
+          path: ${{ env.REPORT_DIR }}

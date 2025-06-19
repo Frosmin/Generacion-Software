@@ -1,61 +1,90 @@
+/* CodeMirror Lint Styles - habilita subrayado de errores */
+.CodeMirror-lint-mark-error {
+  border-bottom: 2px solid #ff5370 !important;
+  background: rgba(255, 83, 112, 0.15) !important;
+}
+.CodeMirror-lint-mark-warning {
+  border-bottom: 2px dotted orange;
+  background: none;
+}
+.CodeMirror-lint-tooltip {
+  background: #ffd2d2;
+  color: #a33;
+  border: 1px solid #a33;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.9em;
+  z-index: 100;
+}
+.CodeMirror-lint-marker-error {
+  color: #ff0000;
+}
+.CodeMirror-lint-marker-warning {
+  color: orange;
+}
 
 /* Estilos globales y mobile-first */
 body {
-    margin: 0;
-    font-family: 'Arial', sans-serif;
-    background-color: #f4f4f4;
-    color: #333;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-  
-// pra celular
+  margin: 0;
+  font-family: "Arial", sans-serif;
+  background-color: #f4f4f4;
+  color: #dddddd;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+// para celular
+html {
+  font-size: 16px;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+@media (max-width: 768px) {
   html {
-    font-size: 16px;
-    box-sizing: border-box;
+    font-size: 14px;
   }
-  
-  *, *:before, *:after {
-    box-sizing: inherit;
-  }
-  
 
-  @media (max-width: 768px) {
-    html {
-      font-size: 14px;
-    }
-    
-    .features {
-      flex-direction: column;
-      align-items: center;
-    }
-    
-    .feature-card {
-      width: 100%;
-      max-width: 100%;
-      margin-bottom: 1.5rem;
-    }
-    
-    .content {
-      padding: 1rem;
-    }
-    
-    .home-container h2 {
-      font-size: 2rem;
-    }
+  .features {
+    flex-direction: column;
+    align-items: center;
   }
-  
 
-  @media (max-width: 480px) {
-    html {
-      font-size: 12px;
-    }
-    
-    .home-container h2 {
-      font-size: 1.8rem;
-    }
-    
-    .btn-primary {
-      width: 100%;
-    }
+  .feature-card {
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 1.5rem;
   }
+
+  .content {
+    padding: 1rem;
+  }
+
+  .home-container h2 {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  html {
+    font-size: 12px;
+  }
+
+  .home-container h2 {
+    font-size: 1.8rem;
+  }
+
+  .btn-primary {
+    width: 100%;
+  }
+}
+
+.CodeMirror-activeline-background {
+  background: rgba(120, 130, 180, 0.18) !important;
+}

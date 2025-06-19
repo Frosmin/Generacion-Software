@@ -1,0 +1,36 @@
+<div class="submissions-container">
+  <h3>Historial de envíos</h3>
+
+  <table class="submissions-table" *ngIf="submissions.length > 0">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Fecha</th>
+        <th>Estado</th>
+        <th>Tiempo</th>
+        <th>Memoria</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        *ngFor="let sub of submissions"
+        [ngClass]="{
+          accepted: sub.status === 'Accepted',
+          'wrong-answer': sub.status === 'Wrong Answer',
+          'time-limit': sub.status === 'Time Limit Exceeded',
+          'runtime-error': sub.status === 'Runtime Error'
+        }"
+      >
+        <td>{{ sub.id }}</td>
+        <td>{{ sub.submittedAt | date : "dd/MM/yyyy HH:mm" }}</td>
+        <td class="status">{{ sub.status }}</td>
+        <td>{{ sub.executionTime }}</td>
+        <td>{{ sub.memory }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="no-submissions" *ngIf="submissions.length === 0">
+    <p>No has realizado envíos para este ejercicio.</p>
+  </div>
+</div>

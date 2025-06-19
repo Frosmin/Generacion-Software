@@ -1,0 +1,313 @@
+@use "sass:color";
+// Variables
+$primary-color: #df881d;
+$secondary-color: #1e1e2e;
+$background-color: #120e23;
+$card-background: #2e2143;
+$border-color: #ffffff32;
+$text-color: #fff;
+$text-secondary: #dddddd;
+$accepted-color: #4caf50;
+$wrong-answer-color: #f44336;
+$time-limit-color: #ff9800;
+$runtime-error-color: #9c27b0;
+
+@mixin card-box {
+  background-color: $card-background;
+  border: 1px solid $border-color;
+  border-radius: 12px;
+  padding: 20px;
+}
+.exercise-container {
+  min-width: 100%;
+  color: $text-color;
+  min-height: 100dvh;
+}
+.top-bar {
+  padding: 20px 80px;
+  .btn-volver {
+    background-color: transparent;
+    border: none;
+    color: $primary-color;
+    cursor: pointer;
+    font-size: 1rem;
+    padding: 8px 0;
+    transition: all 0.2s ease;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+
+  // Pestaña de problema
+  .main-content {
+    flex: 1;
+
+    .problem-statement {
+      .section {
+        margin-bottom: 30px;
+
+        h3 {
+          font-size: 20px;
+          margin-bottom: 10px;
+          font-weight: 500;
+          color: $primary-color;
+        }
+      }
+
+      .examples {
+        .example {
+          background-color: $secondary-color;
+          border-radius: 8px;
+          padding: 15px;
+          margin-bottom: 20px;
+
+          .example-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            font-weight: 500;
+          }
+
+          .example-actions {
+            .copy-btn {
+              background-color: white;
+              border: 1px solid $border-color;
+              border-radius: 4px;
+              padding: 5px 10px;
+              cursor: pointer;
+              transition: all 0.2s ease;
+
+              &:hover {
+                background-color: color.adjust(white, $lightness: -5%);
+              }
+            }
+          }
+
+          .example-input,
+          .example-output,
+          .example-explanation {
+            margin-bottom: 10px;
+
+            .label {
+              font-weight: 500;
+              margin-bottom: 5px;
+            }
+
+            pre {
+              background-color: rgb(19, 19, 19);
+              border-radius: 4px;
+              padding: 10px;
+              margin: 0;
+              overflow-x: auto;
+              font-family: "Consolas", "Monaco", monospace;
+            }
+          }
+        }
+      }
+    }
+  }
+  .title-section {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    .exercise-title {
+      margin: 0;
+      font-weight: 600;
+      color: $text-color;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-right: 25px;
+    }
+    .difficulty-badge {
+      padding: 0 10px;
+      border-radius: 12px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      text-transform: lowercase;
+      text-align: center;
+      align-items: center;
+      display: inline-flex;
+      &.easy {
+        background-color: rgba($accepted-color, 0.2);
+        color: $accepted-color;
+      }
+      &.medium {
+        background-color: rgba($time-limit-color, 0.2);
+        color: $time-limit-color;
+      }
+      &.hard {
+        background-color: rgba($wrong-answer-color, 0.2);
+        color: $wrong-answer-color;
+      }
+      // padding: 40px 0;
+      color: color.adjust($text-color, $lightness: 30%);
+    }
+  }
+}
+.main-layout {
+  display: flex;
+  gap: 30px;
+  min-height: calc(100vh - 140px);
+}
+.main-content {
+  flex: 1;
+  .tabs {
+    display: flex;
+    border-bottom: 1px solid $border-color;
+    padding: 0 40px;
+    .tab {
+      padding: 15px 24px;
+      cursor: pointer;
+      border-bottom: 3px solid transparent;
+      font-size: 1rem;
+      font-weight: 500;
+      transition: all 0.2s ease;
+      color: $text-secondary;
+      &:hover {
+        background-color: rgba($primary-color, 0.05);
+        color: $text-color;
+      }
+      &.active {
+        border-bottom-color: $primary-color;
+        color: $primary-color;
+        background-color: rgba($primary-color, 0.05);
+      }
+    }
+  }
+  .content-area {
+    padding: 40px;
+    .tab-content {
+      max-width: none;
+    }
+  }
+}
+.sidebar {
+  width: 350px;
+  flex-shrink: 0;
+  background-color: $background-color;
+  padding: 30px 20px;
+  border-left: 1px solid $border-color;
+  border-radius: 15px;
+  .info-card {
+    @include card-box;
+    margin-bottom: 20px;
+    h4 {
+      margin: 0 0 15px 0;
+      font-weight: 600;
+      font-size: 1.25rem;
+      color: $text-color;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    p {
+      margin: 0;
+      line-height: 1.5;
+      color: $text-secondary;
+      font-size: 0.875rem;
+    }
+  }
+  .topics-card {
+    .topics-list {
+      .topic-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        margin-bottom: 15px;
+        .topic-dot {
+          width: 6px;
+          height: 6px;
+          background-color: $primary-color;
+          border-radius: 50%;
+          margin-top: 6px;
+          flex-shrink: 0;
+        }
+        .topic-content {
+          flex: 1;
+          .topic-name {
+            display: block;
+            font-weight: 600;
+            color: $text-color;
+            margin-bottom: 4px;
+            font-size: 14px;
+          }
+          .topic-description {
+            color: $text-secondary;
+            font-size: 12px;
+            line-height: 1.4;
+          }
+        }
+      }
+    }
+  }
+  .technical-card {
+    .info-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      &:last-child {
+        margin-bottom: 0;
+      }
+      .info-label {
+        font-weight: 500;
+        color: $text-secondary;
+        font-size: 14px;
+      }
+      .info-value {
+        font-weight: 600;
+        color: $text-color;
+        font-size: 14px;
+      }
+    }
+  }
+  .materials-list {
+    margin: 0;
+    padding-left: 20px;
+    li {
+      margin-bottom: 8px;
+      color: $text-secondary;
+      font-size: 14px;
+      line-height: 1.4;
+    }
+  }
+}
+// Responsive design
+@media (max-width: 1200px) {
+  .main-layout {
+    flex-direction: column;
+  }
+  .sidebar {
+    width: 100%;
+    border-left: none;
+    border-top: 1px solid $border-color;
+  }
+}
+@media (max-width: 768px) {
+  .top-bar {
+    padding: 15px 20px;
+
+    .title-section .exercise-title {
+      font-size: 1.5rem;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+    }
+  }
+  .main-content .content-area {
+    padding: 10px;
+  }
+  .sidebar {
+    padding: 20px 15px;
+    height: 100%;
+  }
+  .main-content .tabs {
+    padding: 0;
+  }
+}

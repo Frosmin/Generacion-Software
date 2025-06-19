@@ -1,0 +1,53 @@
+name: CI Backend
+
+on:
+  #push:
+    #paths:
+      #- 'backend/**'
+  pull_request:
+    paths:
+      - 'backend/**'
+
+jobs:
+  test-backend:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.22'
+
+      - name: Install dependencies
+        run: go mod tidy
+
+      - name: Run Go tests with coverage
+        run: go test -coverprofile=coverage.out ./...
+
+      - name: Mostrar porcentaje de cobertura
+        run: go tool cover -func=coverage.out
+
+      - name: Subir reporte de cobertura como artefacto
+        uses: actions/upload-artifact@v4
+        with:
+          name: cobertura-backend
+          path: coverage.out
+
+      - name: Start backend (background)
+        run: go run main.go &
+      
+      - name: Esperar a que el backend levante
+        run: sleep 5
+
+      - name: Test GET /api/users
+        run: curl -f http://localhost:8080/api/users
+        
+      - name: Test GET /api/videos
+        run: curl -f http://localhost:8080/api/videos
+

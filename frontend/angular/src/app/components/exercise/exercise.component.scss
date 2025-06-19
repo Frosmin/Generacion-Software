@@ -1,0 +1,42 @@
+.container {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  border-color: #ffffff32;
+  padding: 0.5rem 1rem;
+  margin: 0.5rem 0.5rem;
+  background: #2e2143;
+  display: flex;
+  flex-direction: column;
+  width: 1000px;
+  box-sizing: border-box;
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.104);
+  }
+}
+h2 {
+  font-size: 1.25rem;
+  color: #ffffff;
+  margin-bottom: 0;
+  font-weight: 600;
+  text-align: left;
+}
+p {
+  font-size: 1rem;
+  color: #dddddd;
+  margin-bottom: 1rem;
+  font-weight: 400;
+  text-align: left;
+}
+@media screen and (max-width: 1000px) {
+  .container {
+    max-width: 90vw;
+    overflow: hidden;
+    margin: auto;
+  }
+}
+@media screen and (max-width: 480px) {
+  .statement > p {
+    width: 500px;
+  }
+}

@@ -1,9 +1,35 @@
 <div class="pill-radio-container">
-  <input checked="" name="plan" id="pill-free" type="radio" />
-  <label for="pill-free">Facil</label>
-  <input name="plan" id="pill-basic" type="radio" />
+  <input checked="" name="plan" id="pill-free" type="radio" (change)="changeLevel(1)" />
+  <label for="pill-free">Fácil</label>
+  <input name="plan" id="pill-basic" type="radio" (change)="changeLevel(2)" />
   <label for="pill-basic">Intermedio</label>
-  <input name="plan" id="pill-premium" type="radio" />
+  <input name="plan" id="pill-premium" type="radio" (change)="changeLevel(3)" />
   <label for="pill-premium">Avanzado</label>
   <div class="pill-indicator"></div>
+</div>
+
+<div class="videos-container">
+  <div *ngIf="loading" class="loading-message">
+    Cargando vídeos...
+  </div>
+  
+  <div *ngIf="error" class="error-message">
+    {{ error }}
+  </div>
+  
+  <div *ngIf="!loading && !error && filteredVideos.length === 0" class="no-videos-message">
+    No hay vídeos disponibles para este nivel de dificultad.
+  </div>
+  
+  <div *ngFor="let video of filteredVideos" class="video-card">
+    <h3>{{ video.Title }}</h3>
+    <div class="video-frame">
+      <iframe width="100%" height="200" 
+              [src]="video.Link | safeUrl" 
+              frameborder="0" 
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+              allowfullscreen>
+      </iframe>
+    </div>
+  </div>
 </div>

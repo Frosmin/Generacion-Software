@@ -1,4 +1,6 @@
+@use "sass:color";
 // Nuevas variables de color
+
 $primary-color: #df881d; // naranja dorado
 $secondary-color: #8a63d2; // lavanda intensa
 $background-dark: #000000; // fondo negro total
@@ -10,9 +12,8 @@ $card-border: rgba(255, 255, 255, 0.1);
 
 .learning-progress-container {
   min-height: 100vh;
-  background: linear-gradient(135deg, $background-light, $background-dark);
   color: $text-light;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   padding-bottom: 60px;
 }
 
@@ -21,7 +22,7 @@ $card-border: rgba(255, 255, 255, 0.1);
   align-items: center;
   justify-content: space-between;
   padding: 60px 120px;
-  
+
   @media (max-width: 768px) {
     flex-direction: column;
     padding: 40px 20px;
@@ -31,20 +32,20 @@ $card-border: rgba(255, 255, 255, 0.1);
 .hero-content {
   flex: 1;
   margin-right: 60px;
-  
-  @media (max-width: 768px) {
+
+  @media (max-width: 800px) {
     margin-right: 0;
     margin-bottom: 40px;
     text-align: center;
   }
-  
+
   h1 {
     font-size: 3rem;
     margin-bottom: 1rem;
     font-weight: 700;
     color: $text-light;
   }
-  
+
   .welcome-message {
     font-size: 1.2rem;
     margin-bottom: 2rem;
@@ -55,7 +56,7 @@ $card-border: rgba(255, 255, 255, 0.1);
 .hero-image {
   flex: 1;
   max-width: 500px;
-  
+
   img {
     width: 100%;
     border-radius: 10px;
@@ -67,9 +68,10 @@ $card-border: rgba(255, 255, 255, 0.1);
   display: flex;
   align-items: center;
   margin-top: 30px;
-  
-  @media (max-width: 768px) {
-    flex-direction: column;
+
+  @media (max-width: 800px) {
+    flex-direction: row;
+    align-items: start;
   }
 }
 
@@ -77,8 +79,8 @@ $card-border: rgba(255, 255, 255, 0.1);
   width: 150px;
   height: 150px;
   margin-right: 40px;
-  
-  @media (max-width: 768px) {
+
+  @media (max-width: 800px) {
     margin-right: 0;
     margin-bottom: 30px;
   }
@@ -120,10 +122,12 @@ $card-border: rgba(255, 255, 255, 0.1);
 .progress-stats {
   display: flex;
   gap: 20px;
-  
+
   @media (max-width: 576px) {
     flex-wrap: wrap;
     justify-content: center;
+    gap: 10px;
+    align-items: center;
   }
 }
 
@@ -136,14 +140,19 @@ $card-border: rgba(255, 255, 255, 0.1);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(5px);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  
+
+  @media (max-width: 576px) {
+    min-width: 80px;
+    padding: 5px 10px;
+  }
+
   .stat-value {
     font-size: 2rem;
     font-weight: bold;
     margin-bottom: 5px;
     color: $secondary-color;
   }
-  
+
   .stat-label {
     font-size: 0.9rem;
     opacity: 0.8;
@@ -152,19 +161,19 @@ $card-border: rgba(255, 255, 255, 0.1);
 
 section {
   padding: 40px 120px;
-  
+
   @media (max-width: 768px) {
     padding: 30px 20px;
   }
-  
+
   h2 {
-    font-size: 2rem;
+    font-size: 1.5rem;
     margin-bottom: 30px;
     font-weight: 600;
     position: relative;
-    
+
     &:after {
-      content: '';
+      content: "";
       position: absolute;
       bottom: -10px;
       left: 0;
@@ -180,7 +189,7 @@ section {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 30px;
-  
+
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
   }
@@ -193,7 +202,7 @@ section {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   border: 1px solid $card-border;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-  
+
   &:hover {
     transform: translateY(-5px);
     box-shadow: 0 12px 20px rgba(0, 0, 0, 0.3);
@@ -204,13 +213,13 @@ section {
   height: 160px;
   position: relative;
   overflow: hidden;
-  
+
   img {
     width: 100%;
     height: 100%;
     object-fit: cover;
   }
-  
+
   .course-progress-overlay {
     position: absolute;
     bottom: 0;
@@ -218,7 +227,7 @@ section {
     right: 0;
     height: 6px;
     background: rgba(255, 255, 255, 0.2);
-    
+
     .course-progress-bar {
       height: 100%;
       background: linear-gradient(90deg, $primary-color, $secondary-color);
@@ -228,7 +237,7 @@ section {
 
 .course-info {
   padding: 20px;
-  
+
   h3 {
     font-size: 1.2rem;
     margin-bottom: 12px;
@@ -241,14 +250,14 @@ section {
   display: flex;
   align-items: center;
   margin-bottom: 15px;
-  
+
   .progress-bar {
     flex: 1;
     height: 8px;
     background: rgba(255, 255, 255, 0.1);
     border-radius: 4px;
     overflow: hidden;
-    
+
     .progress-fill {
       height: 100%;
       background: linear-gradient(90deg, $primary-color, $secondary-color);
@@ -256,7 +265,7 @@ section {
       transition: width 0.6s ease;
     }
   }
-  
+
   .progress-percentage {
     margin-left: 10px;
     font-weight: 600;
@@ -284,7 +293,7 @@ section {
   font-weight: 600;
   cursor: pointer;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
-  
+
   &:hover {
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -295,7 +304,7 @@ section {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
   gap: 20px;
-  
+
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
   }
@@ -309,7 +318,7 @@ section {
   border: 1px solid $card-border;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
   transition: transform 0.3s ease;
-  
+
   &:hover {
     transform: translateY(-3px);
   }
@@ -326,7 +335,7 @@ section {
   justify-content: center;
   margin-right: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  
+
   i {
     font-size: 24px;
     color: #ffffff;
@@ -335,18 +344,18 @@ section {
 
 .achievement-info {
   h3 {
-    font-size: 1.1rem;
+    font-size: 1rem;
     margin-bottom: 8px;
     font-weight: 600;
   }
-  
+
   p {
     font-size: 0.9rem;
     margin-bottom: 12px;
     opacity: 0.8;
     line-height: 1.5;
   }
-  
+
   .earned-date {
     font-size: 0.8rem;
     color: #b39ddb;
@@ -361,7 +370,7 @@ section {
 .recommendation-cards {
   display: flex;
   gap: 30px;
-  
+
   @media (max-width: 768px) {
     flex-direction: column;
   }
@@ -375,27 +384,27 @@ section {
   border: 1px solid $card-border;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
   transition: transform 0.3s ease;
-  
+
   &:hover {
     transform: translateY(-5px);
   }
-  
+
   .recommendation-image {
     height: 180px;
-    
+
     img {
       width: 100%;
       height: 100%;
       object-fit: cover;
     }
   }
-  
+
   h3 {
     padding: 20px 20px 10px;
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     font-weight: 600;
   }
-  
+
   p {
     padding: 0 20px;
     font-size: 0.9rem;
@@ -416,9 +425,9 @@ section {
   font-weight: 600;
   cursor: pointer;
   transition: background 0.3s ease;
-  
+
   &:hover {
-    background: lighten($primary-color, 10%);
+    background: color.adjust($primary-color, $lightness: 10%);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   }
 }

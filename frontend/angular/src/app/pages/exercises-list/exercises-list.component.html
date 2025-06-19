@@ -1,10 +1,17 @@
-<div class="pill-radio-container">
-  <input checked="" name="plan" id="pill-free" type="radio" />
-  <label for="pill-free">Facil</label>
-  <input name="plan" id="pill-basic" type="radio" />
-  <label for="pill-basic">Intermedio</label>
-  <input name="plan" id="pill-premium" type="radio" />
-  <label for="pill-premium">Avanzado</label>
-  <div class="pill-indicator"></div>
-  
+<div class="container">
+  <div class="pill-radio-container">
+    <input checked="" name="plan" id="pill-free" type="radio" />
+    <label for="pill-free">Facil</label>
+    <input name="plan" id="pill-basic" type="radio" />
+    <label for="pill-basic">Intermedio</label>
+    <input name="plan" id="pill-premium" type="radio" />
+    <label for="pill-premium">Avanzado</label>
+    <div class="pill-indicator"></div>
+  </div>
+
+  <div class="questions">
+    @for (question of mock; track question.id) {
+    <app-exercise [detail]="question"/>
+    }
+  </div>
 </div>

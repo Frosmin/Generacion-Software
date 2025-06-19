@@ -1,15 +1,19 @@
 <header class="main-header">
-  <div class="logo">
-    <img src="images/logo.png" alt="Logo Aprende Python" class="logo-navbar">
+  <div id="nav-logo" class="logo">
+    <img src="images/logo.png" alt="Logo Aprende Python" class="logo-navbar" title="Icono Aprende Python">
     <h1>Aprende Python</h1>
   </div>
-  <nav class="main-nav">
+  <button class="menu-toggle" (click)="toggleMenu()">☰</button>
+  <nav class="main-nav" [ngClass]="{'active': isMenuActive}">
     <ul>
-      <li><a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Inicio</a></li>
-      <li><a routerLink="/lista-cursos" routerLinkActive="active">Cursos</a></li>
-      <li><a routerLink="/lista-ejercicios" routerLinkActive="active">Ejercicios</a></li>
-      <li><a routerLink="/lista-videos" routerLinkActive="active">Videos</a></li>
-      <li><a routerLink="/progreso-aprendizaje" routerLinkActive="active">Mi aprendizaje</a></li>
+      <li><a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
+          (click)="closeMenu()">Inicio</a></li>
+      <li><a routerLink="/lista-cursos" routerLinkActive="active" (click)="closeMenu()">Cursos</a></li>
+      <li><a routerLink="/lista-ejercicios" routerLinkActive="active" (click)="closeMenu()">Ejercicios</a></li>
+      <li><a routerLink="/lista-videos" routerLinkActive="active" (click)="closeMenu()">Videos</a></li>
+      <li><a routerLink="/terminal" routerLinkActive="active" (click)="closeMenu()">Terminal</a></li>
+      <li><a routerLink="/chat" routerLinkActive="active" (click)="closeMenu()">Chat</a></li>
+      <li><a routerLink="/progreso-aprendizaje" routerLinkActive="active" (click)="closeMenu()">Mi aprendizaje</a></li>
     </ul>
   </nav>
 </header>

@@ -5,7 +5,7 @@ import (
 	"gorm.io/gorm"
 )
 
-var DSN = "host=dpg-d078tkk9c44c739pp6kg-a.oregon-postgres.render.com user=simon password=2ITO0Za60IKbNPmkO3sqlXKKoCwcYAC2 dbname=generacion_postgres port=5432"
+var DSN = "host=aws-0-sa-east-1.pooler.supabase.com user=postgres.lexwwxotwfsennaambio password=pepe dbname=postgres port=6543"
 
 var DB *gorm.DB
 
@@ -18,5 +18,3 @@ func Connect() {
 		println("Connected to database")
 	}
 }
-
-// dpg-d078tkk9c44c739pp6kg-a.oregon-postgres.render.com

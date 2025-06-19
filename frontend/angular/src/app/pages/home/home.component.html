@@ -1,8 +1,7 @@
 <div class="home">
   <main class="content">
-    <!-- <app-particles/> -->
     <section id="banner" class="home-section">
-      <div>
+      <div class="banner-text">
         <h1 class="intro">Aprende a tu ritmo</h1>
         <h2 class="intro2">
           De cero a experto en Python: crea tus propios proyectos desde el
@@ -10,126 +9,194 @@
         </h2>
 
         <div class="contenedorBotones">
-          <button>
-            <span class="text">Comenzar ahora</span>
+          <button class="boton-banner-home">
+            <a href="#/lista-ejercicios">
+              <span class="text">Comenzar ahora</span>
+            </a>
+
           </button>
-          <button>
-            <span class="text">Saber más</span>
+          <button class="boton-banner-home">
+            <a href="#beneficios">
+              <span class="text">Saber más</span>
+            </a>
           </button>
         </div>
       </div>
-      <img
-        src="images/programar.png"
-        alt="programar en python"
-        class="imgBanner"
-      />
+      <img src="images/programar.png" title="Ilustracion programar en python" alt="programar en python"
+        class="imgBanner" />
     </section>
 
-    <section class="beneficios home-section">
-      <h1>Beneficios de aprender Python</h1>
+    <section class="beneficios home-section" id="beneficios">
+      <div class="beneficios-titulo">
+        <h1>Beneficios de Python</h1>
+        <h2>
+          Descubre por qué Python es el lenguaje preferido por desarrolladores
+          en todo el mundo.
+        </h2>
+      </div>
+
       <div class="beneficios-cards">
-        <div class="beneficios-card">
-          <img src="images/maleta.png" alt="Icono salidas laborales" />
-          <h2>Salidas laborales</h2>
-          <p>
-            Python es uno de los lenguajes más demandados en campos como
-            desarrollo web, análisis de datos, inteligencia artificial y
-            automatización.
-          </p>
+        <div class="card-row">
+          <div class="beneficios-card">
+            <div class="icono">
+              <h1 title="Icono para representar la facilidad de aprendizaje">📚</h1>
+              <h2>Fácil de Aprender</h2>
+            </div>
+
+            <p>
+              Python tiene una sintaxis simple y legible que facilita el
+              aprendizaje para principiantes.
+            </p>
+          </div>
+          <div class="beneficios-card">
+            <div class="icono">
+              <h1 title="Icono para representar la versatilidad de python">🔧</h1>
+              <h2>Versatilidad</h2>
+            </div>
+            <p>
+              Úsalo para desarrollo web, ciencia de datos, inteligencia
+              artificial y automatización.
+            </p>
+          </div>
+          <div class="beneficios-card">
+            <div class="icono">
+              <h1 title="Icono para representar la gran comunidad de desarrolladores">🌍</h1>
+              <h2>Gran Comunidad</h2>
+            </div>
+            <p>
+              Millones de desarrolladores y recursos disponibles para ayudarte
+              en tu camino.
+            </p>
+          </div>
         </div>
-        <div class="beneficios-card">
-          <img src="images/dinero.png" alt="Icono salarios competitivos" />
-          <h2>Salarios competitivos</h2>
-          <p>
-            Los profesionales que dominan Python suelen recibir sueldos
-            atractivos debido a su versatilidad y valor en el mercado
-            tecnológico.
-          </p>
-        </div>
-        <div class="beneficios-card">
-          <img src="images/curva.png" alt="Icono curva de aprendizaje" />
-          <h2>Rápida curva de aprendizaje</h2>
-          <p>
-            Su sintaxis simple y legible lo convierte en un lenguaje ideal para
-            principiantes y facilita el desarrollo rápido de proyectos.
-          </p>
+        <div class="card-row">
+          <div class="beneficios-card">
+            <div class="icono">
+              <h1 title="Icono para representar la alta demanda laboral">💼</h1>
+              <h2>Oportunidad Laboral</h2>
+            </div>
+            <p>Alta demanda en el mercado laboral con excelentes salarios.</p>
+          </div>
+          <div class="beneficios-card">
+            <div class="icono">
+              <h1 title="Icono para representar el acceso a las librerías de python">💰</h1>
+              <h2>Librerías Potentes</h2>
+            </div>
+            <p>Acceso a miles de librerías que aceleran tu desarrollo.</p>
+          </div>
+          <div class="beneficios-card">
+            <div class="icono">
+              <h1 title="Icono para representar la funcionalidad en distintas plataformas">🖥️</h1>
+              <h2>Multiplataforma</h2>
+            </div>
+            <p>
+              Ejecuta tu código en Windows, Mac, Linux y más sistemas
+              operativos.
+            </p>
+          </div>
         </div>
       </div>
     </section>
 
     <section id="porque-python" class="home-section">
-      <div class="porque-python-columna">
+      <div class="porque-python-titulo">
         <h1>¿Porqué aprender Python?</h1>
-
-        <p>
-          <b>Simplicidad y legibilidad:</b><br />
-          Python tiene una sintaxis clara que facilita su aprendizaje.
-        </p>
-        <p>
-          <b>Versatilidad:</b><br />
-          Aplicable en múltiples industrias y proyectos.
-        </p>
-        <p>
-          <b>Gran comunidad:</b><br />
-          Amplio soporte y recursos disponibles.
-        </p>
-        <p>
-          <b>Alta demanda laboral:</b><br />
-          Uno de los lenguajes más solicitados por empresas.
-        </p>
-        <p>
-          <b>Ecosistema robusto:</b><br />
-          Miles de bibliotecas y frameworks disponibles.
-        </p>
+        <h2>
+          Python es el lenguaje de programación más popular y versátil del
+          mundo.
+        </h2>
       </div>
-      <img
-        src="svgs/miau.svg"
-        alt="python foto"
-        class="imgPython porque-python-columna"
-      />
+      <div class="porque-python-columna">
+        <div>
+          <div class="porque-python-section">
+            <div class="numero">
+              <h2>01</h2>
+            </div>
+            <div>
+              <h2>Lenguaje del Futuro</h2>
+              <p>
+                Python es el lenguaje más demandado en tecnologías emergentes
+                como IA, Machine Learning y Data Science.
+              </p>
+            </div>
+          </div>
+          <div class="porque-python-section">
+            <div class="numero">
+              <h2>02</h2>
+            </div>
+            <div>
+              <h2>Sintaxis Intuitiva</h2>
+              <p>
+                Su código se lee como inglés natural, lo que reduce el tiempo de
+                desarrollo y facilita el mantenimiento.
+              </p>
+            </div>
+          </div>
+          <div class="porque-python-section">
+            <div class="numero">
+              <h2>03</h2>
+            </div>
+            <div>
+              <h2>Ecosistema Robusto</h2>
+              <p>
+                Cuenta con más de 300,000 paquetes en PyPI que cubren cualquier
+                necesidad de desarrollo.
+              </p>
+            </div>
+          </div>
+        </div>
+        <img src="svgs/miau.svg" alt="Estructura en python" class="imgPython"
+          title="Ilustración de componentes en python" />
+      </div>
     </section>
 
     <section id="areas-trabajo" class="home-section">
       <h1>Áreas de trabajo</h1>
+      <h2>
+        Python te abre las puertas a múltiples áreas de trabajo con alta demanda
+        laboral.
+      </h2>
       <div class="scroll-contenedor">
         <div class="auto-scroll" id="auto-scroll">
           <!-- Tarjetas originales -->
-          <div id="work-card1" class="work-areas-card">
+          <div id="work-card1" class="work-areas-card" title="Imagen ilustrativa para el área de Desarrollo Web">
             <p>Desarrollo web</p>
           </div>
-          <div id="work-card2" class="work-areas-card">
+          <div id="work-card2" class="work-areas-card" title="Imagen ilustrativa para el área de Ciencia de datos">
             <p>Ciencia de datos</p>
           </div>
-          <div id="work-card3" class="work-areas-card">
+          <div id="work-card3" class="work-areas-card" title="Imagen ilustrativa para el área de Machine learning">
             <p>Machine learning</p>
           </div>
-          <div id="work-card4" class="work-areas-card">
+          <div id="work-card4" class="work-areas-card" title="Imagen ilustrativa para el área de Automatización">
             <p>Automatización</p>
           </div>
-          <div id="work-card5" class="work-areas-card">
+          <div id="work-card5" class="work-areas-card" title="Imagen ilustrativa para el área de Ciberseguridad">
             <p>Ciberseguridad</p>
           </div>
-          <div id="work-card6" class="work-areas-card">
+          <div id="work-card6" class="work-areas-card"
+            title="Imagen ilustrativa para el área de Inteligencia artificial">
             <p>Inteligencia artificial</p>
           </div>
 
           <!-- efecto infinito -->
-          <div id="work-card1" class="work-areas-card">
+          <div id="work-card1" class="work-areas-card" title="Imagen ilustrativa para el área de Desarrollo Web">
             <p>Desarrollo web</p>
           </div>
-          <div id="work-card2" class="work-areas-card">
+          <div id="work-card2" class="work-areas-card" title="Imagen ilustrativa para el área de Ciencia de Datos">
             <p>Ciencia de datos</p>
           </div>
-          <div id="work-card3" class="work-areas-card">
+          <div id="work-card3" class="work-areas-card" title="Imagen ilustrativa para el área de Machine learning">
             <p>Machine learning</p>
           </div>
-          <div id="work-card4" class="work-areas-card">
+          <div id="work-card4" class="work-areas-card" title="Imagen ilustrativa para el área de Automatización">
             <p>Automatización</p>
           </div>
-          <div id="work-card5" class="work-areas-card">
+          <div id="work-card5" class="work-areas-card" title="Imagen ilustrativa para el área de Ciberseguridad">
             <p>Ciberseguridad</p>
           </div>
-          <div id="work-card6" class="work-areas-card">
+          <div id="work-card6" class="work-areas-card"
+            title="Imagen ilustrativa para el área de Inteligencia artificial">
             <p>Inteligencia artificial</p>
           </div>
         </div>

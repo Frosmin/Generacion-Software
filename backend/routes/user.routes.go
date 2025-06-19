@@ -30,14 +30,23 @@ func GetUserHandler(c *gin.Context) {
 func PostUserHandler(c *gin.Context) {
 	var user models.User
 
-	var error = c.ShouldBindJSON(&user)
-
-	if error != nil {
+	if err := c.ShouldBindJSON(&user); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "usuario no creado"})
+		return
 	}
 
-	c.JSON(http.StatusCreated, user)
+	// Cifrar la contraseña antes de guardarla
+	if err := user.HashPassword(); err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "error al cifrar la contraseña"})
+		return
+	}
 
+	// Guardar usuario en la base de datos
+	if err := db.DB.Create(&user).Error; err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "usuario no creado"})
+		return
+	}
+	c.JSON(http.StatusCreated, user)
 }
 
 func DeleteUserHandler(c *gin.Context) {
@@ -58,4 +67,25 @@ func DeleteUserHandler(c *gin.Context) {
 	// db.DB.Delete(&user)
 
 	c.JSON(http.StatusOK, gin.H{"message": "Usuario eliminado correctamente"})
+}
+
+func LoginHandler(c *gin.Context) {
+	var user models.User
+	if err := c.ShouldBindJSON(&user); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "datos de inicio de sesión inválidos"})
+		return
+	}
+
+	var dbUser models.User
+	if err := db.DB.Where("email = ?", user.Email).First(&dbUser).Error; err != nil {
+		c.JSON(http.StatusUnauthorized, gin.H{"error": "usuario no encontrado"})
+		return
+	}
+
+	if err := dbUser.CheckPassword(user.Password); err != nil {
+		c.JSON(http.StatusUnauthorized, gin.H{"error": "contraseña incorrecta"})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"message": "inicio de sesión exitoso", "user": dbUser})
 }

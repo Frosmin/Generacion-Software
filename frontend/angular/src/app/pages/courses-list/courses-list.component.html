@@ -1,27 +1,572 @@
+<!-- courses-list.component.html -->
+<div class="main-container">
+  <!-- Sidebar -->
+  <nav class="sidebar">
+    <div class="sidebar-header">
+      <h2>Tutorial Python</h2>
+    </div>
+    
+    <div class="sidebar-content">
+      <div class="lesson-group">
+        <h3>Básico</h3>
+        <ul class="lesson-list">
+          <li 
+            [class.active]="currentSection === 'intro'" 
+            (click)="changeSection('intro')"
+            (keydown.enter)="changeSection('intro')"
+            (keydown.space)="changeSection('intro')"
+            tabindex="0"
+          >
+            Python Intro
+          </li>
+          <li 
+            [class.active]="currentSection === 'started'" 
+            (click)="changeSection('started')"
+            (keydown.enter)="changeSection('started')"
+            (keydown.space)="changeSection('started')"
+            tabindex="0"
+          >
+            Empezar
+          </li>
+          <li 
+            [class.active]="currentSection === 'syntax'" 
+            (click)="changeSection('syntax')"
+            (keydown.enter)="changeSection('syntax')"
+            (keydown.space)="changeSection('syntax')"
+            tabindex="0"
+          >
+            Sintaxis
+          </li>
+          <li 
+            [class.active]="currentSection === 'comments'" 
+            (click)="changeSection('comments')"
+            (keydown.enter)="changeSection('comments')"
+            (keydown.space)="changeSection('comments')"
+            tabindex="0"
+          >
+            Comentarios
+          </li>
+          <li 
+            [class.active]="currentSection === 'variables'" 
+            (click)="changeSection('variables')"
+            (keydown.enter)="changeSection('variables')"
+            (keydown.space)="changeSection('variables')"
+            tabindex="0"
+          >
+            Variables
+          </li>
+          <li 
+            [class.active]="currentSection === 'datatypes'" 
+            (click)="changeSection('datatypes')"
+            (keydown.enter)="changeSection('datatypes')"
+            (keydown.space)="changeSection('datatypes')"
+            tabindex="0"
+          >
+            Tipos de Datos
+          </li>
+          <li 
+            [class.active]="currentSection === 'numbers'" 
+            (click)="changeSection('numbers')"
+            (keydown.enter)="changeSection('numbers')"
+            (keydown.space)="changeSection('numbers')"
+            tabindex="0"
+          >
+            Números
+          </li>
+          <li 
+            [class.active]="currentSection === 'casting'" 
+            (click)="changeSection('casting')"
+            (keydown.enter)="changeSection('casting')"
+            (keydown.space)="changeSection('casting')"
+            tabindex="0"
+          >
+            Casting
+          </li>
+          <li 
+            [class.active]="currentSection === 'strings'" 
+            (click)="changeSection('strings')"
+            (keydown.enter)="changeSection('strings')"
+            (keydown.space)="changeSection('strings')"
+            tabindex="0"
+          >
+            Strings
+          </li>
+          <li 
+            [class.active]="currentSection === 'booleans'" 
+            (click)="changeSection('booleans')"
+            (keydown.enter)="changeSection('booleans')"
+            (keydown.space)="changeSection('booleans')"
+            tabindex="0"
+          >
+            Booleanos
+          </li>
+          <li 
+            [class.active]="currentSection === 'operators'" 
+            (click)="changeSection('operators')"
+            (keydown.enter)="changeSection('operators')"
+            (keydown.space)="changeSection('operators')"
+            tabindex="0"
+          >
+            Operadores
+          </li>
+        </ul>
+      </div>
 
-<div class="lorem-ipsum-container" id="lorem-ipsum-text">
-  <h3>Curso basico para Python</h3>
-  <p>
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vitae metus non turpis scelerisque varius. Donec auctor
-    leo ac ante egestas, ac aliquet tortor congue. Cras vel nunc a velit tincidunt auctor. Etiam euismod metus vel quam
-    consectetur, sed condimentum ante vestibulum. Integer euismod nulla in dui feugiat, eget placerat elit iaculis. Donec
-    aliquam, tortor at efficitur sollicitudin, felis purus vehicula lorem, non fermentum felis nunc eu mi. Sed tempor
-    dolor sapien, non dictum nulla aliquam ac. Vivamus suscipit lorem non tincidunt laoreet. Mauris gravida libero et
-    posuere fringilla.
-  </p>
-  <p>
-    Sed et nisi sollicitudin, aliquet felis at, viverra ex. Sed dapibus eu urna ut hendrerit. Nulla facilisi. Mauris
-    tincidunt risus vel ante laoreet convallis. Quisque scelerisque nisl purus, eget eleifend sapien vehicula et. Cras sit
-    amet venenatis urna. Phasellus volutpat gravida ex. Integer sit amet augue est. Aenean fringilla, purus ac volutpat
-    gravida, lorem lorem tincidunt tortor, ut pretium velit urna ut elit. Aliquam malesuada turpis a nunc tempor, eu
-    volutpat libero luctus.
-  </p>
+      <div class="lesson-group">
+        <h3>Estructuras de Datos</h3>
+        <ul class="lesson-list">
+          <li 
+            [class.active]="currentSection === 'lists'" 
+            (click)="changeSection('lists')"
+            (keydown.enter)="changeSection('lists')"
+            (keydown.space)="changeSection('lists')"
+            tabindex="0"
+          >
+            Listas
+          </li>
+          <li 
+            [class.active]="currentSection === 'tuples'" 
+            (click)="changeSection('tuples')"
+            (keydown.enter)="changeSection('tuples')"
+            (keydown.space)="changeSection('tuples')"
+            tabindex="0"
+          >
+            Tuplas
+          </li>
+          <li 
+            [class.active]="currentSection === 'sets'" 
+            (click)="changeSection('sets')"
+            (keydown.enter)="changeSection('sets')"
+            (keydown.space)="changeSection('sets')"
+            tabindex="0"
+          >
+            Sets
+          </li>
+          <li
+            [class.active]="currentSection === 'dictionaries'" 
+            (click)="changeSection('dictionaries')"
+            (keydown.enter)="changeSection('dictionaries')"
+            (keydown.space)="changeSection('dictionaries')"
+            tabindex="0"
+          >
+            Diccionarios
+          </li>
+        </ul>
+      </div>
+
+      <div class="lesson-group">
+        <h3>Control de Flujo</h3>
+        <ul class="lesson-list">
+          <li 
+            [class.active]="currentSection === 'ifelse'" 
+            (click)="changeSection('ifelse')"
+            (keydown.enter)="changeSection('ifelse')"
+            (keydown.space)="changeSection('ifelse')"
+            tabindex="0"
+          >
+            If...Else
+          </li>
+          <li 
+            [class.active]="currentSection === 'while'" 
+            (click)="changeSection('while')"
+            (keydown.enter)="changeSection('while')"
+            (keydown.space)="changeSection('while')"
+            tabindex="0"
+          >
+            While Loops
+          </li>
+          <li 
+            [class.active]="currentSection === 'for'" 
+            (click)="changeSection('for')"
+            (keydown.enter)="changeSection('for')"
+            (keydown.space)="changeSection('for')"
+            tabindex="0"
+          >
+            For Loops
+          </li>
+        </ul>
+      </div>
+
+      <div class="lesson-group">
+        <h3>Funciones</h3>
+        <ul class="lesson-list">
+          <li 
+            [class.active]="currentSection === 'functions'" 
+            (click)="changeSection('functions')"
+            (keydown.enter)="changeSection('functions')"
+            (keydown.space)="changeSection('functions')"
+            tabindex="0"
+          >
+            Funciones
+          </li>
+          <li 
+            [class.active]="currentSection === 'lambda'" 
+            (click)="changeSection('lambda')"
+            (keydown.enter)="changeSection('lambda')"
+            (keydown.space)="changeSection('lambda')"
+            tabindex="0"
+          >
+            Lambda
+          </li>
+        </ul>
+      </div>
+
+      <div class="lesson-group">
+        <h3>Programación Orientada a Objetos</h3>
+        <ul class="lesson-list">
+          <li 
+            [class.active]="currentSection === 'classes'" 
+            (click)="changeSection('classes')"
+            (keydown.enter)="changeSection('classes')"
+            (keydown.space)="changeSection('classes')"
+            tabindex="0"
+          >
+            Clases
+          </li>
+          <li 
+            [class.active]="currentSection === 'inheritance'" 
+            (click)="changeSection('inheritance')"
+            (keydown.enter)="changeSection('inheritance')"
+            (keydown.space)="changeSection('inheritance')"
+            tabindex="0"
+          >
+            Herencia
+          </li>
+        </ul>
+      </div>
+
+      <div class="lesson-group">
+        <h3>Manejo de Archivos</h3>
+        <ul class="lesson-list">
+          <li 
+            [class.active]="currentSection === 'filehandling'" 
+            (click)="changeSection('filehandling')"
+            (keydown.enter)="changeSection('filehandling')"
+            (keydown.space)="changeSection('filehandling')"
+            tabindex="0"
+          >
+            Manejo de Archivos
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Contenido Principal -->
+  <main class="main-content">
+    <div class="content-section" id="content-container">
+      
+      <!-- Introducción -->
+      <div *ngIf="currentSection === 'intro'" class="section-content">
+        <h1>¿Qué es Python?</h1>
+        <p>Python es un lenguaje de programación popular.</p>
+        <ul>
+          <li>Python puede ser usado en un servidor para crear aplicaciones web.</li>
+          <li>Python puede ser usado junto a software para crear flujos de trabajo.</li>
+          <li>Python puede conectarse a sistemas de bases de datos. También puede leer y modificar archivos.</li>
+          <li>Python puede ser usado para manejar big data y realizar matemáticas complejas.</li>
+          <li>Python puede ser usado para prototipado rápido, o para desarrollo de software listo para producción.</li>
+        </ul>
+
+        <h2>¿Por qué Python?</h2>
+        <ul>
+          <li>Python funciona en diferentes plataformas (Windows, Mac, Linux, Raspberry Pi, etc).</li>
+          <li>Python tiene una sintaxis simple similar al idioma inglés.</li>
+          <li>Python tiene sintaxis que permite a los desarrolladores escribir programas con menos líneas que otros lenguajes de programación.</li>
+          <li>Python funciona en un sistema intérprete, lo que significa que el código puede ser ejecutado tan pronto como se escribe.</li>
+        </ul>
+      </div>
+
+      <!-- Empezar -->
+      <div *ngIf="currentSection === 'started'" class="section-content">
+        <h1>Python - Empezar</h1>
+        <p>Python es un lenguaje de programación interpretado, esto significa que como desarrollador escribes archivos Python (.py) en un editor de texto y luego pones esos archivos en el intérprete de Python para ser ejecutados.</p>
+        
+        <div class="example-box">
+          <h3>Ejemplo</h3>
+          <div class="code-block">
+            <pre>print("¡Hola, Mundo!")</pre>
+          </div>
+        </div>
+
+        <h2>Instalación de Python</h2>
+        <p>Muchas PC y Mac ya tendrán Python instalado.</p>
+        <p>Para verificar si tienes Python instalado en una PC con Windows, busca Python en el menú de inicio o ejecuta lo siguiente en la línea de comandos:</p>
+        
+        <div class="code-block">
+          <pre>C:\Users\Tu Nombre>python --version</pre>
+        </div>
+      </div>
+
+      <!-- Sintaxis -->
+      <div *ngIf="currentSection === 'syntax'" class="section-content">
+        <h1>Sintaxis de Python</h1>
+        <p>La sintaxis de Python puede ser ejecutada escribiendo directamente en la línea de comandos:</p>
+        
+        <div class="example-box">
+          <h3>Ejemplo</h3>
+          <div class="code-block">
+            <pre>>>> print("¡Hola, Mundo!")
+¡Hola, Mundo!</pre>
+          </div>
+        </div>
+
+        <h2>Indentación de Python</h2>
+        <p>La indentación se refiere a los espacios al comienzo de una línea de código.</p>
+        <p>Donde en otros lenguajes de programación la indentación en el código es solo para legibilidad, la indentación en Python es muy importante.</p>
+        
+        <div class="example-box">
+          <h3>Ejemplo</h3>
+          <div class="code-block">
+            <pre>if 5 > 2:
+    print("Cinco es mayor que dos!")</pre>
+          </div>
+        </div>
+      </div>
+
+      <!-- Comentarios -->
+      <div *ngIf="currentSection === 'comments'" class="section-content">
+        <h1>Comentarios en Python</h1>
+        <p>Los comentarios pueden ser usados para explicar código Python.</p>
+        <p>Los comentarios pueden ser usados para hacer el código más legible.</p>
+        <p>Los comentarios pueden ser usados para prevenir ejecución cuando se prueba código.</p>
+        
+        <h2>Creando un Comentario</h2>
+        <p>Los comentarios comienzan con un #, y Python los ignorará:</p>
+        
+        <div class="example-box">
+          <h3>Ejemplo</h3>
+          <div class="code-block">
+            <pre># Esto es un comentario
+print("¡Hola, Mundo!")</pre>
+          </div>
+        </div>
+
+        <h2>Comentarios Multilínea</h2>
+        <p>Python realmente no tiene una sintaxis para comentarios multilínea.</p>
+        <p>Para agregar un comentario multilínea puedes insertar un # para cada línea:</p>
+        
+        <div class="example-box">
+          <h3>Ejemplo</h3>
+          <div class="code-block">
+            <pre># Este es un comentario
+# escrito en
+# más de una línea
+print("¡Hola, Mundo!")</pre>
+          </div>
+        </div>
+      </div>
+
+      <!-- Variables -->
+      <div *ngIf="currentSection === 'variables'" class="section-content">
+        <h1>Variables de Python</h1>
+        <p>Las variables son contenedores para almacenar valores de datos.</p>
+        
+        <h2>Creando Variables</h2>
+        <p>Python no tiene comando para declarar una variable.</p>
+        <p>Una variable se crea en el momento que le asignas un valor por primera vez.</p>
+        
+        <div class="example-box">
+          <h3>Ejemplo</h3>
+          <div class="code-block">
+            <pre>x = 5
+y = "Juan"
+print(x)
+print(y)</pre>
+          </div>
+        </div>
+
+        <p>Las variables no necesitan ser declaradas con ningún tipo particular, e incluso pueden cambiar de tipo después de haber sido establecidas.</p>
+        
+        <div class="example-box">
+          <h3>Ejemplo</h3>
+          <div class="code-block">
+            <pre>x = 4       # x es de tipo int
+x = "Sally" # x es ahora de tipo str
+print(x)</pre>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tipos de Datos -->
+      <div *ngIf="currentSection === 'datatypes'" class="section-content">
+        <h1>Tipos de Datos en Python</h1>
+        <p>En programación, el tipo de dato es un concepto importante.</p>
+        <p>Las variables pueden almacenar datos de diferentes tipos, y diferentes tipos pueden hacer diferentes cosas.</p>
+        
+        <p>Python tiene los siguientes tipos de datos incorporados por defecto, en estas categorías:</p>
+        
+        <ul>
+          <li><strong>Tipo Texto:</strong> str</li>
+          <li><strong>Tipos Numéricos:</strong> int, float, complex</li>
+          <li><strong>Tipos Secuencia:</strong> list, tuple, range</li>
+          <li><strong>Tipo Mapeo:</strong> dict</li>
+          <li><strong>Tipos Set:</strong> set, frozenset</li>
+          <li><strong>Tipo Booleano:</strong> bool</li>
+          <li><strong>Tipos Binarios:</strong> bytes, bytearray, memoryview</li>
+        </ul>
+
+        <div class="example-box">
+          <h3>Ejemplo</h3>
+          <div class="code-block">
+            <pre>x = 5
+print(type(x))</pre>
+          </div>
+        </div>
+      </div>
+
+      <!-- Strings -->
+      <div *ngIf="currentSection === 'strings'" class="section-content">
+        <h1>Python Strings</h1>
+        <p>Las cadenas en Python están rodeadas por comillas simples o dobles.</p>
+        <p><code>'hola'</code> es lo mismo que <code>"hola"</code>.</p>
+        <p>Puedes mostrar una cadena literal con la función <code>print()</code>:</p>
+        
+        <div class="example-box">
+          <h3>Ejemplo</h3>
+          <div class="code-block">
+            <pre>print("Hola")
+print('Hola')</pre>
+          </div>
+        </div>
+
+        <h2>Strings Multilínea</h2>
+        <p>Puedes asignar un string multilínea a una variable usando tres comillas:</p>
+        
+        <div class="example-box">
+          <h3>Ejemplo</h3>
+          <div class="code-block">
+            <pre>a = """Lorem ipsum dolor sit amet,
+consectetur adipiscing elit,
+sed do eiusmod tempor incididunt
+ut labore et dolore magna aliqua."""
+print(a)</pre>
+          </div>
+        </div>
+
+        <h2>Los Strings son Arrays</h2>
+        <p>Como muchos otros lenguajes de programación populares, los strings en Python son arrays de bytes que representan caracteres unicode.</p>
+        
+        <div class="example-box">
+          <h3>Ejemplo</h3>
+          <div class="code-block">
+            <pre>a = "Hola, Mundo!"
+print(a[1])</pre>
+          </div>
+          <p><strong>Resultado:</strong> o</p>
+        </div>
+      </div>
+
+      
+      <!-- Estructuras de Datos dinámicas -->
+<div [ngSwitch]="currentSection">
+  <ng-container *ngSwitchCase="'tuples'">
+  <h1>{{ examples['tuples'].title }}</h1>
+  <p>{{ examples['tuples'].description }}</p>
+  <div class="code-block">
+    <pre>{{ examples['tuples'].code }}</pre>
+  </div>
+  <h3>Tips útiles</h3>
+  <ul>
+    <li *ngFor="let tip of examples['tuples'].tips">{{ tip }}</li>
+  </ul>
+  <h3>Operaciones comunes</h3>
+  <ul>
+    <li *ngFor="let op of examples['tuples'].operations">{{ op }}</li>
+  </ul>
+</ng-container>
+  <ng-container *ngSwitchCase="'lists'">
+  <h1>{{ examples['lists'].title }}</h1>
+  <p>{{ examples['lists'].description }}</p>
+  <div class="code-block">
+    <pre>{{ examples['lists'].code }}</pre>
+  </div>
+  <h3>Tips útiles</h3>
+  <ul>
+    <li *ngFor="let tip of examples['lists'].tips">{{ tip }}</li>
+  </ul>
+  <h3>Operaciones comunes</h3>
+  <ul>
+    <li *ngFor="let op of examples['lists'].operations">{{ op }}</li>
+  </ul>
+</ng-container>
+  <ng-container *ngSwitchCase="'sets'">
+  <h1>{{ examples['sets'].title }}</h1>
+  <p>{{ examples['sets'].description }}</p>
+  <div class="code-block">
+    <pre>{{ examples['sets'].code }}</pre>
+  </div>
+  <h3>Tips útiles</h3>
+  <ul>
+    <li *ngFor="let tip of examples['sets'].tips">{{ tip }}</li>
+  </ul>
+  <h3>Operaciones comunes</h3>
+  <ul>
+    <li *ngFor="let op of examples['sets'].operations">{{ op }}</li>
+  </ul>
+</ng-container>
+  <ng-container *ngSwitchCase="'dictionaries'">
+  <h1>{{ examples['dictionaries'].title }}</h1>
+  <p>{{ examples['dictionaries'].description }}</p>
+  <div class="code-block">
+    <pre>{{ examples['dictionaries'].code }}</pre>
+  </div>
+  <h3>Tips útiles</h3>
+  <ul>
+    <li *ngFor="let tip of examples['dictionaries'].tips">{{ tip }}</li>
+  </ul>
+  <h3>Operaciones comunes</h3>
+  <ul>
+    <li *ngFor="let op of examples['dictionaries'].operations">{{ op }}</li>
+  </ul>
+</ng-container>
 </div>
 
+<!-- Funciones -->
+      <div *ngIf="currentSection === 'functions'" class="section-content">
+        <h1>Funciones en Python</h1>
+        <p>Una función es un bloque de código que solo se ejecuta cuando es llamado.</p>
+        <p>Puedes pasar datos, conocidos como parámetros, a una función.</p>
+        <p>Una función puede devolver datos como resultado.</p>
+        
+        <h2>Creando una Función</h2>
+        <p>En Python una función se define usando la palabra clave <code>def</code>:</p>
+        
+        <div class="example-box">
+          <h3>Ejemplo</h3>
+          <div class="code-block">
+            <pre>def mi_funcion():
+    print("Hola desde una función")</pre>
+          </div>
+        </div>
 
-<br/>
-<div class="buttons-container">
-  <button (click)="descargarComoTxt()">Descargar como .txt</button>
-  <button (click)="descargarComoPDF()">Descargar como .pdf</button>
+        <h2>Llamando una Función</h2>
+        <p>Para llamar una función, usa el nombre de la función seguido de paréntesis:</p>
+        
+        <div class="example-box">
+          <h3>Ejemplo</h3>
+          <div class="code-block">
+            <pre>def mi_funcion():
+    print("Hola desde una función")
+
+mi_funcion()</pre>
+          </div>
+        </div>
+      </div>
+
+      <!-- Agregar más secciones según sea necesario... -->
+      
+
+    </div>
+
+    <div class="navigation-buttons">
+      <button class="nav-btn prev-btn" (click)="previousSection()" [disabled]="isFirstSection()">❮ Anterior</button>
+      <button class="nav-btn next-btn" (click)="nextSection()" [disabled]="isLastSection()">Siguiente ❯</button>
+    </div>
+
+    <div class="download-buttons">
+      <button class="download-btn" (click)="descargarComoTxt()">📄 Descargar como .txt</button>
+      <button class="download-btn" (click)="descargarComoPDF()">📑 Descargar como .pdf</button>
+    </div>
+  </main>
 </div>
-<br/>

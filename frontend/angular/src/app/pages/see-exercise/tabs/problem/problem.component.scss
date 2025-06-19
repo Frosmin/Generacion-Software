@@ -1,0 +1,126 @@
+@use "sass:color";
+// Variables compartidas
+$primary-color: #df881d;
+$secondary-color: #1e1e2e;
+$background-color: #120e23;
+$card-background: #2e2143;
+$border-color: #ffffff32;
+$text-color: #fff;
+$text-secondary: #dddddd;
+
+@mixin card-box {
+  background-color: $card-background;
+  border: 1px solid $border-color;
+  border-radius: 12px;
+  padding: 20px;
+}
+.problem-content {
+  .section {
+    @include card-box;
+    margin-bottom: 40px;
+    padding: 10px 30px;
+    min-width: 100%;
+    h3 {
+      margin: 20px 0 15px 0;
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: $text-color;
+    }
+    p {
+      color: $text-secondary;
+      line-height: 1.8;
+      font-size: 1rem;
+    }
+  }
+  .examples {
+    .example {
+      @include card-box;
+      margin-bottom: 20px;
+      .example-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 15px;
+        font-weight: 600;
+        color: $text-color;
+      }
+      .example-input,
+      .example-output,
+      .example-explanation {
+        margin-bottom: 15px;
+        .input-label {
+          display: flex;
+          font-weight: 600;
+          flex-direction: row;
+          align-items: center;
+          justify-content: space-between;
+          .label {
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: $text-color;
+            font-size: 1rem;
+          }
+          .copy-btn {
+            background-color: rgba($primary-color, 0.1);
+            border: 1px solid rgba($primary-color, 0.3);
+            color: $primary-color;
+            border-radius: 6px;
+            padding: 6px 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.9rem;
+            justify-content: end;
+
+            &:hover {
+              background-color: rgba($primary-color, 0.2);
+            }
+          }
+        }
+        pre {
+          background-color: #181335;
+          border: 1px solid $border-color;
+          border-radius: 8px;
+          padding: 15px;
+          margin: 0;
+          overflow-x: auto;
+          font-family: "JetBrains Mono", "Consolas", "Monaco", monospace;
+          color: $text-color;
+          font-size: 14px;
+        }
+        p {
+          color: $text-secondary;
+          line-height: 1.5;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .problem-content {
+    .section {
+      padding: 10px 20px;
+    }
+    .examples {
+      padding: 15px 20px;
+      .example {
+        border-radius: 0;
+        padding: 0;
+        margin-bottom: 25px;
+        background: transparent;
+        border: none;
+        .example-header {
+          font-size: 1rem;
+        }
+        .example-input,
+        .example-output,
+        .example-explanation {
+          margin-bottom: 10px;
+          pre {
+            padding: 10px;
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,21 @@
+<!-- <p>search works!</p> -->
+<form class="autocomplete">
+  <mat-form-field class="formfield">
+    <mat-label>Buscar</mat-label>
+    <input
+      type="text"
+      matInput
+      [formControl]="myControl"
+      [matAutocomplete]="auto"
+    />
+    <mat-autocomplete
+      #auto="matAutocomplete"
+      [displayWith]="displayFn"
+      (optionSelected)="onOptionSelected($event)"
+    >
+      @for (option of filteredOptions | async; track option) {
+      <mat-option [value]="option">{{ option }}</mat-option>
+      }
+    </mat-autocomplete>
+  </mat-form-field>
+</form>

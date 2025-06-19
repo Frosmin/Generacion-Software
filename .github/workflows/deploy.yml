@@ -1,0 +1,41 @@
+  name: Deploy
+  on:
+    push:
+      branches: ["main"]
+    #pull_request: #preguntar si hacer en el pull request
+      #branches: ["main"]
+  
+  jobs:
+    build:
+      runs-on: ubuntu-latest
+      steps:
+        - name: Checkout code-Kar
+          uses: actions/checkout@v4
+
+        - name: Setup Node-Kar
+          uses: actions/setup-node@v4
+
+        - name: Install Dependencies
+          run: npm install
+          working-directory: frontend/angular #darle la ruta del directorio de package.json
+
+        - name: Build-Kar
+          run: npm run build -- --base-href /Generacion-Software/ #RECORDAR poner el nombre del repositorio
+          working-directory: frontend/angular #darle la ruta del directorio de package.json
+
+        - name: Artifact upload
+          uses: actions/upload-pages-artifact@v3
+          with:
+            name: github-pages #siempre poner este nombre, el artifac busca este nombre y si no lo encuentra falla
+            path: frontend/angular/dist/angular/browser
+      
+    deploy:
+      needs: build
+      permissions:
+        pages: write
+        id-token: write
+      runs-on: ubuntu-latest
+      steps:
+        - name: Deploy to Github
+          id: deployment
+          uses: actions/deploy-pages@v4   

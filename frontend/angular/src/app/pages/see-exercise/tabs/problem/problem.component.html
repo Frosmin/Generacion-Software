@@ -1,0 +1,58 @@
+<div class="problem-content">
+  <div class="section">
+    <p>{{ exercise.description }}</p>
+  </div>
+
+  <div class="section">
+    <h3>Input</h3>
+    <p>{{ exercise.inputDescription }}</p>
+
+    <h3>Output</h3>
+    <p>{{ exercise.outputDescription }}</p>
+  </div>
+
+  <div class="section examples">
+    <h3>Examples</h3>
+    <div
+      class="example"
+      *ngFor="let example of exercise.examples; let i = index"
+    >
+      <div class="example-header">
+        <span>Ejemplo {{ i + 1 }}</span>
+      </div>
+
+      <div class="example-input">
+        <div class="input-label">
+          <div class="label">Entrada:</div>
+          <button
+            class="copy-btn"
+            (click)="copyText(example.input)"
+            title="Copiar entrada"
+          >
+            📋 Copiar
+          </button>
+        </div>
+        <pre>{{ example.input }}</pre>
+      </div>
+
+      <div class="example-output">
+        <div class="input-label">
+          <div class="label">Salida:</div>
+          <button
+            class="copy-btn"
+            (click)="copyText(example.output)"
+            title="Copiar salida"
+          >
+            📋 Copiar
+          </button>
+        </div>
+        <pre>{{ example.output }}</pre>
+      </div>
+
+      <div class="example-explanation" *ngIf="example.explanation">
+        <div class="label">Explicación:</div>
+        <p>{{ example.explanation }}</p>
+      </div>
+    </div>
+  </div>
+</div>

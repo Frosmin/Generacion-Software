@@ -1,11 +1,19 @@
+
+
+@use 'sass:color';
+
 .main-header {
-  background-color: #040504;
+  background: linear-gradient(
+    to bottom,
+    #120e23 0%,
+    #120e23a9 60%,
+    rgba(0, 0, 0, 0) 100%
+  );
   color: white;
-  padding: 1rem 2.5rem;
+  padding: 0.5rem 1.5rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
 }
 
 .logo {
@@ -46,4 +54,71 @@
 .main-nav a.active,
 .main-nav a:hover {
   border-bottom: 3px solid white;
+}
+
+.menu-toggle {
+  display: none;
+  cursor: pointer;
+  font-size: 1.5rem;
+  color: white;
+  background: none;
+  border: none;
+  outline: none;
+}
+
+@media screen and (max-width: 940px) {
+  .menu-toggle {
+    display: block;
+  }
+
+  #nav-logo h1 {
+    font-size: 1rem;
+  }
+
+  .main-nav {
+    position: absolute;
+    top: 70px;
+    left: 0;
+    right: 0;
+    background-color: #040504;
+    height: 0;
+    overflow: hidden;
+    transition: height 0.3s ease;
+    z-index: 100;
+  }
+
+  .main-nav.active {
+    height: auto;
+    padding: 1rem 0;
+    box-shadow: 0 5px 8px rgba(0, 0, 0, 0.3);
+  }
+
+  .main-nav ul {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .main-nav li {
+    margin: 0;
+    text-align: center;
+    padding: 0.8rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .main-nav li:last-child {
+    border-bottom: none;
+  }
+
+  .main-nav a {
+    display: block;
+    padding: 0.5rem 0;
+    border-bottom: none !important;
+  }
+
+  .main-nav a.active,
+  .main-nav a:hover {
+    border-bottom: none !important;
+    color: #a5d6ff;
+    transition: color 0.3s;
+  }
 }

@@ -1,0 +1,10 @@
+<button class="container" (click)="navigateToExercise()" type="button">
+  <div class="title">
+    <h2>
+      <strong>{{ detail.title }}</strong>
+    </h2>
+  </div>
+  <div class="statement">
+    <p>{{ detail.statement.slice(0, sliceLength) }}...</p>
+  </div>
+</button>
