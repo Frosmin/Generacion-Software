@@ -111,25 +111,28 @@
   box-sizing: border-box;
 }
 
+.intro-right {
+  grid-area: right;
+  padding: 1rem;
+}
+
 .intro-right .buttons-field {
   display: flex;
-  gap: 0.8rem; // Reducido de 1rem
+  gap: 1rem;
   justify-content: center;
   align-items: center;
-  margin-bottom: 1rem;
-  flex-shrink: 0; // No se comprime
 }
 
-.intro-right .editor-field {
-  display: flex;
-  flex-direction: column;
-  gap: 0.8rem;
-  flex: 1; // Ocupa el espacio restante
-  min-height: 0; // Importante para que funcione correctamente el flex
-  overflow: hidden; // Evita desbordamiento
+.editor-block {
+  background: #2c2c2c;
+  padding: 1rem;
+  border-radius: 8px;
 }
 
-// SCSS del componente editor optimizado
+.btn {
+  border: 1px solid white;
+  color: white !important;
+}
 .actividad-container {
   display: flex;
   flex-direction: column;
@@ -160,25 +163,6 @@
   font-weight: bold;
 }
 
-.editor-block {
-  background: #2c2c2c;
-  padding: 0.8rem; // Reducido de 1rem
-  border-radius: 6px; // Reducido de 8px
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
-  
-  // Altura fija para evitar estiramiento
-  &:first-of-type {
-    flex-shrink: 0; // Instrucciones no se comprimen
-    max-height: 120px; // Altura máxima para instrucciones
-  }
-  
-  &:last-of-type {
-    flex-shrink: 0; // Salida no se comprime
-    max-height: 150px; // Altura máxima para salida
-  }
-}
 
 .btn {
   border: 1px solid white;
@@ -201,87 +185,6 @@
   }
 }
 
-// Estilos adicionales para optimización
-.instrucciones-ejercicio {
-  background: #2a2a2a;
-  padding: 0.8rem;
-  border-radius: 6px;
-  margin-bottom: 0.8rem;
-  overflow: hidden; // Sin scroll
-  
-  h3 {
-    margin-top: 0;
-    margin-bottom: 0.5rem;
-    color: #ff6ec4;
-    font-size: 1.1rem;
-  }
-  
-  p {
-    margin-bottom: 0.5rem;
-    font-size: 0.95rem;
-    line-height: 1.3;
-    overflow: hidden; // Evita texto desbordante
-    text-overflow: ellipsis; // Añade ... si el texto es muy largo
-  }
-}
-
-
-
-.code-output {
-  background: #0d1117;
-  border: 1px solid #30363d;
-  border-radius: 6px;
-  padding: 0.8rem;
-  font-family: "Courier New", monospace;
-  font-size: 0.9rem;
-  line-height: 1.4;
-  color: #c9d1d9;
-  height: 100px; 
-  overflow: hidden; 
-  box-sizing: border-box;
-  white-space: pre-wrap;
-  word-wrap: break-word;
-}
-
-@media (max-height: 768px) {
-  .intro-left h1 {
-    font-size: 1.8rem;
-  }
-  
-  .intro-left h2 {
-    font-size: 1.3rem;
-  }
-  
-  .intro-left p {
-    font-size: 0.9rem;
-    line-height: 1.0;
-  }
-  
-  .intro-left .code-block pre {
-    font-size: 0.8rem;
-    line-height: 1.2;
-  }
-  
-  .actividad-container {
-    gap: 0.5rem;
-    padding: 0.6rem;
-  }
-  
-  .editor-block {
-    &:first-of-type {
-      max-height: 100px; // Reduce aún más en pantallas pequeñas
-    }
-    
-    &:last-of-type {
-      max-height: 120px;
-    }
-  }
-  
-  
-  .code-output {
-    height: 80px;
-  }
-}
 
 // Scrollbar personalizado solo para el lado izquierdo
 .intro-left::-webkit-scrollbar {
