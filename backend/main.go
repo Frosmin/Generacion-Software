@@ -15,10 +15,13 @@ func main() {
 	}
 	// migraciones para la base de datos
 	db.Connect()
-	// db.DB.AutoMigrate(models.User{})
-	// db.DB.AutoMigrate(models.Exercise{})
-	// db.DB.AutoMigrate(models.Tutorial{})
-	// db.DB.AutoMigrate(models.Video{})
+	db.DB.AutoMigrate(models.User{})
+	db.DB.AutoMigrate(models.Exercise{})
+	db.DB.AutoMigrate(models.Tutorial{})
+	db.DB.AutoMigrate(models.Video{})
+	db.DB.AutoMigrate(models.Course{})
+	db.DB.AutoMigrate(models.Subcontent{})
+	db.DB.AutoMigrate(models.Example{})
 
 	// Obtener el router configurado con CORS y rutas
 	r := routes.SetupRouter()

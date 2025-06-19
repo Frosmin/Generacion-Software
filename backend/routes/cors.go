@@ -43,5 +43,9 @@ func SetupRouter() *gin.Engine {
 	// Rutas de AI
 	api.POST("/openia", OpenAIHandler)
 	api.POST("/gemini", GeminiHandler)
+
+	//Rutas curso
+	api.GET("/cursos", GetCursosHandler)
+	api.POST("/cursos", PostCursoHandler)
 	return r
 }
