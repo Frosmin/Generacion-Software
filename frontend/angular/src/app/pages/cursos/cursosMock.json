@@ -5,18 +5,19 @@
     "description": "Panorama general de la programación y conceptos básicos.",
     "goto": "intro"
   },
-  {
+   {
     "id": 2,
-    "title": "Estructura de datos",
-    "description": "Uso de listas, pilas, colas y árboles para organizar información.",
-    "goto": "datos"
-  },
-  {
-    "id": 3,
     "title": "Control de flujo",
     "description": "Condicionales y bucles para tomar decisiones y repetir acciones.",
     "goto": "flujos"
   },
+  {
+    "id": 3,
+    "title": "Estructura de datos",
+    "description": "Uso de listas, pilas, colas y árboles para organizar información.",
+    "goto": "datos"
+  },
+ 
   {
     "id": 4,
     "title": "Fuciones",
