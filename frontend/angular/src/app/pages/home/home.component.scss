@@ -1,5 +1,6 @@
 .home {
   color: white;
+  width: 100vw;
 }
 .content {
   flex: 1;
@@ -9,7 +10,7 @@
 }
 .intro {
   display: flex;
-  font-size: 3rem;
+  font-size: 3.5rem;
 }
 .intro2 {
   font-size: 1.5rem;
@@ -88,16 +89,13 @@ button:active {
 #banner {
   display: flex;
   align-items: center;
-  margin-bottom: 30px;
+  margin: 30px 0;
   height: 90dvh;
 }
 .imgBanner {
   display: block;
   max-width: 40%;
   margin: 2rem auto;
-}
-#beneficios {
-  height: 100dvh;
 }
 .beneficios {
   text-align: center;
@@ -108,7 +106,7 @@ button:active {
   margin-bottom: 50px;
 }
 .beneficios h1 {
-  font-size: 2.5rem;
+  font-size: 3rem;
   margin: 15px;
 }
 .beneficios h2 {
@@ -156,13 +154,12 @@ button:active {
   margin-top: 100px;
   display: flex;
   flex-direction: column;
-  height: 100dvh;
   .porque-python-titulo {
     text-align: center;
     h1 {
-      font-size: 2.5rem;
+      font-size: 3rem;
       font-weight: 700;
-      margin-bottom: 10px;
+      margin-bottom: 20px;
     }
     h2 {
       font-size: 1.25rem;
@@ -198,6 +195,7 @@ button:active {
       div:last-child {
         flex: 1;
         padding: 5px;
+        margin-bottom: 10px;
         h2 {
           font-size: 1.5rem;
         }
@@ -208,7 +206,7 @@ button:active {
       }
     }
     .imgPython {
-      width: 50%;
+      width: 60%;
     }
   }
 }
@@ -228,7 +226,6 @@ button:active {
 }
 #areas-trabajo {
   padding: 40px 20px;
-  height: 100dvh;
 }
 .scroll-contenedor {
   display: flex;
@@ -321,11 +318,13 @@ button:active {
   #banner {
     flex-direction: column-reverse;
     align-items: center;
-  }
-  .imgBanner {
     margin: 0;
-    max-width: 50%;
+    .imgBanner {
+      margin: 0;
+      max-width: 50vw;
+    }
   }
+
   .contenedorBotones {
     flex-wrap: wrap;
     justify-content: center;
