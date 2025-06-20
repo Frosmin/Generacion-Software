@@ -44,7 +44,6 @@ interface CursoDisponible {
   description: string;
 }
 
-// Nueva interfaz para la respuesta del endpoint goto
 interface CourseIdResponse {
   id: number;
 }
@@ -91,20 +90,12 @@ export class CoursesService {
     );
   }
 
-  /**
-   * Obtiene el ID de un curso haciendo una llamada HTTP al endpoint
-   * http://localhost:8080/api/course/:goto
-   */
   getCourseIdByGoto(gotoId: string): Observable<CourseIdResponse> {
     return this.http.get<CourseIdResponse>(`${this.baseUrl}/course/${gotoId}`).pipe(
       catchError(this.handleError)
     );
   }
 
-  /**
-   * Método que combina getCourseIdByGoto y getCourseById
-   * Mantiene la funcionalidad original pero usando el endpoint
-   */
   getCourseByGoto(gotoId: string): Observable<CourseData> {
     return this.getCourseIdByGoto(gotoId).pipe(
       map(response => response.id),
@@ -174,10 +165,6 @@ export class CoursesService {
     return [...this.cursosDisponibles];
   }
 
-  /**
-   * Método local para obtener el ID desde el array (para compatibilidad)
-   * Ahora es privado ya que el método principal usa HTTP
-   */
   private getCourseIdByGotoLocal(gotoId: string): number | null {
     const curso = this.cursosDisponibles.find(c => c.goto === gotoId);
     return curso ? curso.id : null;

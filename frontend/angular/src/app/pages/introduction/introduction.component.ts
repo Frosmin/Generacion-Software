@@ -65,10 +65,8 @@ export class IntroductionComponent implements OnInit {
     private coursesService: CoursesService
   ) {
     this.cursosDisponibles = this.coursesService.getAvailableCourses();
-    
-    // Suscribirse a los cambios de parámetros de la URL
     this.route.params.subscribe(params => {
-      const gotoParam = params['id']; // Asumiendo que el parámetro se llama 'id' en tu ruta
+      const gotoParam = params['id'];
       if (gotoParam) {
         this.currentGoto = gotoParam;
         this.loadCourseByGoto(gotoParam);
@@ -78,19 +76,12 @@ export class IntroductionComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  /**
-   * Carga un curso usando el parámetro goto de la URL
-   * Primero obtiene el ID del endpoint y luego carga el curso completo
-   */
   loadCourseByGoto(gotoParam: string): void {
     this.loading = true;
     this.error = null;
-    
-    // Primero obtenemos el ID desde el endpoint
     this.coursesService.getCourseIdByGoto(gotoParam).subscribe({
       next: (response) => {
         const courseId = response.id;
-        // Ahora cargamos el curso completo usando el ID
         this.loadCourseById(courseId);
       },
       error: (error) => {
@@ -99,9 +90,6 @@ export class IntroductionComponent implements OnInit {
     });
   }
 
-  /**
-   * Carga un curso por su ID
-   */
   private loadCourseById(courseId: number): void {
     this.coursesService.getCourseById(courseId).subscribe({
       next: (data) => {
@@ -119,7 +107,6 @@ export class IntroductionComponent implements OnInit {
       this.loading = false;
       return;
     }
-    
     this.curso = data;
     this.currentMock = data.contents;
     this.initialSubject = 0;
@@ -135,8 +122,6 @@ export class IntroductionComponent implements OnInit {
     console.error('Error loading course data:', error);
     this.error = error.message || 'Error al cargar el curso';
     this.loading = false;
-    
-    // Si no es el curso de introducción, intentar cargar ese como fallback
     if (requestedGoto !== 'intro') {
       console.log('Intentando cargar curso por defecto (Introducción)...');
       setTimeout(() => {
@@ -173,7 +158,6 @@ export class IntroductionComponent implements OnInit {
     this.loading = true;
     this.error = null;
     this.currentGoto = cursoDisponible.goto;
-    
     this.coursesService.getCourseById(cursoDisponible.id).subscribe({
       next: (data) => {
         this.handleCourseDataSuccess(data);
@@ -207,7 +191,6 @@ export class IntroductionComponent implements OnInit {
 
   loadNextContent(): void {
     if (!this.curso || !this.content) return;
-    
     this.coursesService.getNextContent(this.curso.course.id, this.content.id).subscribe({
       next: (nextContent) => {
         if (nextContent) {
@@ -226,7 +209,6 @@ export class IntroductionComponent implements OnInit {
 
   loadPreviousContent(): void {
     if (!this.curso || !this.content) return;
-    
     this.coursesService.getPreviousContent(this.curso.course.id, this.content.id).subscribe({
       next: (prevContent) => {
         if (prevContent) {
@@ -248,9 +230,6 @@ export class IntroductionComponent implements OnInit {
     this.loadCourseByGoto(currentGoto);
   }
 
-  /**
-   * Método para obtener información del curso actual
-   */
   getCurrentCourseInfo(): CursoDisponible | null {
     return this.coursesService.getCourseInfoByGoto(this.currentGoto);
   }
