@@ -1,14 +1,15 @@
 import { Component, AfterViewInit } from '@angular/core';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-home',
+  imports: [TranslatePipe],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     this.adjustCarouselAnimation();
-
     window.addEventListener('resize', () => {
       this.adjustCarouselAnimation();
     });

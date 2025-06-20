@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { TranslateModule } from '@ngx-translate/core';
 import { NavbarComponent } from './navbar.component';
 
 describe('NavbarComponent', () => {
@@ -7,10 +8,13 @@ describe('NavbarComponent', () => {
   let fixture: ComponentFixture<NavbarComponent>;
 
   beforeEach(async () => {
+    spyOn(localStorage, 'getItem').and.returnValue('es');
+
     await TestBed.configureTestingModule({
       imports: [
+        RouterTestingModule,
+        TranslateModule.forRoot(),
         NavbarComponent,
-        RouterTestingModule, 
       ],
     }).compileComponents();
 
@@ -19,7 +23,29 @@ describe('NavbarComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create the navbar component', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should set default language as "es"', () => {
+    expect(component.currentLanguage).toBe('es');
+  });
+
+  it('should toggle menu state', () => {
+    component.toggleMenu();
+    expect(component.isMenuActive).toBeTrue();
+    component.toggleMenu();
+    expect(component.isMenuActive).toBeFalse();
+  });
+
+  it('should change language and update localStorage', () => {
+    const newLang = 'en';
+    spyOn(localStorage, 'setItem');
+    component.changeLanguage(newLang);
+    expect(component.currentLanguage).toBe(newLang);
+    expect(localStorage.setItem).toHaveBeenCalledWith(
+      'selectedLanguage',
+      newLang
+    );
   });
 });

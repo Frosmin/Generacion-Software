@@ -1,6 +1,4 @@
-
-
-@use 'sass:color';
+@use "sass:color";
 
 .main-header {
   background: linear-gradient(
@@ -33,6 +31,7 @@
 
 .main-nav ul {
   display: flex;
+  align-items: center;
   list-style: none;
   margin: 0;
   padding: 0;
@@ -53,7 +52,7 @@
 
 .main-nav a.active,
 .main-nav a:hover {
-  border-bottom: 3px solid white;
+  border-bottom: 3px solid rgb(255, 255, 255);
 }
 
 .menu-toggle {
@@ -64,6 +63,137 @@
   background: none;
   border: none;
   outline: none;
+}
+
+.nav-item {
+  position: relative;
+  margin-left: 2rem;
+}
+
+.nav-text {
+  display: none;
+}
+
+.nav-item a {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: white;
+  font-size: 1.5rem;
+  transition: color 0.3s;
+  cursor: pointer;
+}
+
+.nav-item a .nav-label {
+  font-size: 0.75rem;
+  background-color: #120e23;
+  color: white;
+  padding: 0.2rem 0.5rem;
+  border-radius: 5px;
+  position: absolute;
+  bottom: -1.8rem;
+  opacity: 0;
+  transform: translateY(5px);
+  transition: all 0.3s ease-in-out;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+.nav-item a:hover .nav-label {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.nav-item i {
+  font-size: 1.6rem;
+}
+
+// --- Selector de idiomas ---
+.language-selector {
+  position: relative;
+}
+
+.language-dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: #1e1e2f;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 0.3s ease-in-out;
+  min-width: 160px;
+  z-index: 1000;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+
+  &.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+}
+
+.language-option {
+  all: unset;
+  display: flex;
+  align-items: center;
+  width: 80%;
+  padding: 0.7rem 1rem;
+  cursor: pointer;
+  color: white;
+  transition: background-color 0.2s;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  background: transparent;
+  border-radius: 5px;
+
+  &:hover,
+  &:focus-visible {
+    background: rgba(255, 255, 255, 0.1);
+    outline: none;
+  }
+
+  &.selected {
+    background: rgba(255, 165, 0, 0.2);
+    color: #ffa500;
+    font-weight: bold;
+
+  }
+
+  .flag {
+    margin-right: 0.5rem;
+    font-size: 1.2rem;
+  }
+
+  .language-name {
+    font-size: 0.9rem;
+  }
+}
+
+.language-toggle {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 50%;
+  transition: background 0.3s;
+
+  &:hover,
+  &:focus-visible {
+    background: rgba(255, 255, 255, 0.1);
+    outline: none;
+  }
+
+  .nav-label {
+    display: none; // oculta el texto
+  }
 }
 
 @media screen and (max-width: 940px) {
@@ -120,5 +250,44 @@
     border-bottom: none !important;
     color: #a5d6ff;
     transition: color 0.3s;
+  }
+
+  .language-selector {
+    width: 100%;
+  }
+
+  .nav-item a {
+    margin-right: 0;
+  }
+
+  .language-dropdown {
+    position: static;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    box-shadow: none;
+    border: none;
+    background: transparent;
+    margin-top: 0.5rem;
+  }
+
+  .language-dropdown.active {
+    display: block;
+  }
+
+  .language-dropdown:not(.active) {
+    display: none;
+  }
+
+  .language-option {
+    justify-content: center;
+    background: rgba(18, 14, 35, 0.8);
+    margin: 0.2rem 1rem;
+    border-radius: 5px;
+    border-bottom: none;
+  }
+
+  .language-option:hover {
+    background: rgba(165, 214, 255, 0.2);
   }
 }

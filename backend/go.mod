@@ -8,11 +8,14 @@ require (
 	github.com/gin-contrib/cors v1.7.5
 	github.com/gin-gonic/gin v1.10.0
 	github.com/gorilla/websocket v1.5.3
+	gorm.io/driver/postgres v1.5.9
+	gorm.io/gorm v1.26.0
+)
+
+require (
 	github.com/joho/godotenv v1.5.1
 	golang.org/x/crypto v0.39.0
 	google.golang.org/genai v1.11.1
-	gorm.io/driver/postgres v1.5.11
-	gorm.io/gorm v1.26.0
 )
 
 require (

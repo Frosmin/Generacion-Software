@@ -2,36 +2,40 @@
   <main class="content">
     <section id="banner" class="home-section">
       <div class="banner-text">
-        <h1 class="intro">Aprende a tu ritmo</h1>
+        <h1 class="intro">{{ "HOME.BANNER.TITLE" | translate }}</h1>
         <h2 class="intro2">
-          De cero a experto en Python: crea tus propios proyectos desde el
-          primer día.
+          {{ "HOME.BANNER.SUBTITLE" | translate }}
         </h2>
-
         <div class="contenedorBotones">
           <button class="boton-banner-home">
             <a href="#/lista-ejercicios">
-              <span class="text">Comenzar ahora</span>
+              <span class="text">{{
+                "HOME.BANNER.START_NOW" | translate
+              }}</span>
             </a>
-
           </button>
           <button class="boton-banner-home">
             <a href="#beneficios">
-              <span class="text">Saber más</span>
+              <span class="text">{{
+                "HOME.BANNER.LEARN_MORE" | translate
+              }}</span>
             </a>
           </button>
         </div>
       </div>
-      <img src="images/programar.png" title="Ilustracion programar en python" alt="programar en python"
-        class="imgBanner" />
+      <img
+        src="images/programar.png"
+        [title]="'HOME.BANNER.IMAGE_TITLE' | translate"
+        [alt]="'HOME.BANNER.IMAGE_ALT' | translate"
+        class="imgBanner"
+      />
     </section>
 
     <section class="beneficios home-section" id="beneficios">
       <div class="beneficios-titulo">
-        <h1>Beneficios de Python</h1>
+        <h1>{{ "HOME.BENEFITS.TITLE" | translate }}</h1>
         <h2>
-          Descubre por qué Python es el lenguaje preferido por desarrolladores
-          en todo el mundo.
+          {{ "HOME.BENEFITS.SUBTITLE" | translate }}
         </h2>
       </div>
 
@@ -39,59 +43,94 @@
         <div class="card-row">
           <div class="beneficios-card">
             <div class="icono">
-              <h1 title="Icono para representar la facilidad de aprendizaje">📚</h1>
-              <h2>Fácil de Aprender</h2>
+              <h1
+                [title]="
+                  'HOME.BENEFITS.CARDS.EASY_LEARN.ICON_TITLE' | translate
+                "
+              >
+                📚
+              </h1>
+              <h2>{{ "HOME.BENEFITS.CARDS.EASY_LEARN.TITLE" | translate }}</h2>
             </div>
-
             <p>
-              Python tiene una sintaxis simple y legible que facilita el
-              aprendizaje para principiantes.
+              {{ "HOME.BENEFITS.CARDS.EASY_LEARN.DESCRIPTION" | translate }}
             </p>
           </div>
           <div class="beneficios-card">
             <div class="icono">
-              <h1 title="Icono para representar la versatilidad de python">🔧</h1>
-              <h2>Versatilidad</h2>
+              <h1
+                [title]="
+                  'HOME.BENEFITS.CARDS.VERSATILITY.ICON_TITLE' | translate
+                "
+              >
+                🔧
+              </h1>
+              <h2>{{ "HOME.BENEFITS.CARDS.VERSATILITY.TITLE" | translate }}</h2>
             </div>
             <p>
-              Úsalo para desarrollo web, ciencia de datos, inteligencia
-              artificial y automatización.
+              {{ "HOME.BENEFITS.CARDS.VERSATILITY.DESCRIPTION" | translate }}
             </p>
           </div>
           <div class="beneficios-card">
             <div class="icono">
-              <h1 title="Icono para representar la gran comunidad de desarrolladores">🌍</h1>
-              <h2>Gran Comunidad</h2>
+              <h1
+                [title]="'HOME.BENEFITS.CARDS.COMMUNITY.ICON_TITLE' | translate"
+              >
+                🌍
+              </h1>
+              <h2>{{ "HOME.BENEFITS.CARDS.COMMUNITY.TITLE" | translate }}</h2>
             </div>
             <p>
-              Millones de desarrolladores y recursos disponibles para ayudarte
-              en tu camino.
+              {{ "HOME.BENEFITS.CARDS.COMMUNITY.DESCRIPTION" | translate }}
             </p>
           </div>
         </div>
         <div class="card-row">
           <div class="beneficios-card">
             <div class="icono">
-              <h1 title="Icono para representar la alta demanda laboral">💼</h1>
-              <h2>Oportunidad Laboral</h2>
-            </div>
-            <p>Alta demanda en el mercado laboral con excelentes salarios.</p>
-          </div>
-          <div class="beneficios-card">
-            <div class="icono">
-              <h1 title="Icono para representar el acceso a las librerías de python">💰</h1>
-              <h2>Librerías Potentes</h2>
-            </div>
-            <p>Acceso a miles de librerías que aceleran tu desarrollo.</p>
-          </div>
-          <div class="beneficios-card">
-            <div class="icono">
-              <h1 title="Icono para representar la funcionalidad en distintas plataformas">🖥️</h1>
-              <h2>Multiplataforma</h2>
+              <h1
+                [title]="
+                  'HOME.BENEFITS.CARDS.JOB_OPPORTUNITY.ICON_TITLE' | translate
+                "
+              >
+                💼
+              </h1>
+              <h2>
+                {{ "HOME.BENEFITS.CARDS.JOB_OPPORTUNITY.TITLE" | translate }}
+              </h2>
             </div>
             <p>
-              Ejecuta tu código en Windows, Mac, Linux y más sistemas
-              operativos.
+              {{
+                "HOME.BENEFITS.CARDS.JOB_OPPORTUNITY.DESCRIPTION" | translate
+              }}
+            </p>
+          </div>
+          <div class="beneficios-card">
+            <div class="icono">
+              <h1
+                [title]="'HOME.BENEFITS.CARDS.LIBRARIES.ICON_TITLE' | translate"
+              >
+                💰
+              </h1>
+              <h2>{{ "HOME.BENEFITS.CARDS.LIBRARIES.TITLE" | translate }}</h2>
+            </div>
+            <p>{{ "HOME.BENEFITS.CARDS.LIBRARIES.DESCRIPTION" | translate }}</p>
+          </div>
+          <div class="beneficios-card">
+            <div class="icono">
+              <h1
+                [title]="
+                  'HOME.BENEFITS.CARDS.MULTIPLATFORM.ICON_TITLE' | translate
+                "
+              >
+                🖥️
+              </h1>
+              <h2>
+                {{ "HOME.BENEFITS.CARDS.MULTIPLATFORM.TITLE" | translate }}
+              </h2>
+            </div>
+            <p>
+              {{ "HOME.BENEFITS.CARDS.MULTIPLATFORM.DESCRIPTION" | translate }}
             </p>
           </div>
         </div>
@@ -100,10 +139,9 @@
 
     <section id="porque-python" class="home-section">
       <div class="porque-python-titulo">
-        <h1>¿Porqué aprender Python?</h1>
+        <h1>{{ "HOME.WHY_PYTHON.TITLE" | translate }}</h1>
         <h2>
-          Python es el lenguaje de programación más popular y versátil del
-          mundo.
+          {{ "HOME.WHY_PYTHON.SUBTITLE" | translate }}
         </h2>
       </div>
       <div class="porque-python-columna">
@@ -113,10 +151,16 @@
               <h2>01</h2>
             </div>
             <div>
-              <h2>Lenguaje del Futuro</h2>
+              <h2>
+                {{
+                  "HOME.WHY_PYTHON.SECTIONS.FUTURE_LANGUAGE.TITLE" | translate
+                }}
+              </h2>
               <p>
-                Python es el lenguaje más demandado en tecnologías emergentes
-                como IA, Machine Learning y Data Science.
+                {{
+                  "HOME.WHY_PYTHON.SECTIONS.FUTURE_LANGUAGE.DESCRIPTION"
+                    | translate
+                }}
               </p>
             </div>
           </div>
@@ -125,10 +169,16 @@
               <h2>02</h2>
             </div>
             <div>
-              <h2>Sintaxis Intuitiva</h2>
+              <h2>
+                {{
+                  "HOME.WHY_PYTHON.SECTIONS.INTUITIVE_SYNTAX.TITLE" | translate
+                }}
+              </h2>
               <p>
-                Su código se lee como inglés natural, lo que reduce el tiempo de
-                desarrollo y facilita el mantenimiento.
+                {{
+                  "HOME.WHY_PYTHON.SECTIONS.INTUITIVE_SYNTAX.DESCRIPTION"
+                    | translate
+                }}
               </p>
             </div>
           </div>
@@ -137,67 +187,126 @@
               <h2>03</h2>
             </div>
             <div>
-              <h2>Ecosistema Robusto</h2>
+              <h2>
+                {{
+                  "HOME.WHY_PYTHON.SECTIONS.ROBUST_ECOSYSTEM.TITLE" | translate
+                }}
+              </h2>
               <p>
-                Cuenta con más de 300,000 paquetes en PyPI que cubren cualquier
-                necesidad de desarrollo.
+                {{
+                  "HOME.WHY_PYTHON.SECTIONS.ROBUST_ECOSYSTEM.DESCRIPTION"
+                    | translate
+                }}
               </p>
             </div>
           </div>
         </div>
-        <img src="svgs/miau.svg" alt="Estructura en python" class="imgPython"
-          title="Ilustración de componentes en python" />
+        <img
+          src="svgs/miau.svg"
+          [alt]="'HOME.WHY_PYTHON.IMAGE_ALT' | translate"
+          class="imgPython"
+          [title]="'HOME.WHY_PYTHON.IMAGE_TITLE' | translate"
+        />
       </div>
     </section>
 
     <section id="areas-trabajo" class="home-section">
-      <h1>Áreas de trabajo</h1>
+      <h1>{{ "HOME.WORK_AREAS.TITLE" | translate }}</h1>
       <h2>
-        Python te abre las puertas a múltiples áreas de trabajo con alta demanda
-        laboral.
+        {{ "HOME.WORK_AREAS.SUBTITLE" | translate }}
       </h2>
       <div class="scroll-contenedor">
         <div class="auto-scroll" id="auto-scroll">
           <!-- Tarjetas originales -->
-          <div id="work-card1" class="work-areas-card" title="Imagen ilustrativa para el área de Desarrollo Web">
-            <p>Desarrollo web</p>
+          <div
+            id="work-card1"
+            class="work-areas-card"
+            [title]="'HOME.WORK_AREAS.CARDS.WEB_DEV.TITLE' | translate"
+          >
+            <p>{{ "HOME.WORK_AREAS.CARDS.WEB_DEV.NAME" | translate }}</p>
           </div>
-          <div id="work-card2" class="work-areas-card" title="Imagen ilustrativa para el área de Ciencia de datos">
-            <p>Ciencia de datos</p>
+          <div
+            id="work-card2"
+            class="work-areas-card"
+            [title]="'HOME.WORK_AREAS.CARDS.DATA_SCIENCE.TITLE' | translate"
+          >
+            <p>{{ "HOME.WORK_AREAS.CARDS.DATA_SCIENCE.NAME" | translate }}</p>
           </div>
-          <div id="work-card3" class="work-areas-card" title="Imagen ilustrativa para el área de Machine learning">
-            <p>Machine learning</p>
+          <div
+            id="work-card3"
+            class="work-areas-card"
+            [title]="'HOME.WORK_AREAS.CARDS.MACHINE_LEARNING.TITLE' | translate"
+          >
+            <p>
+              {{ "HOME.WORK_AREAS.CARDS.MACHINE_LEARNING.NAME" | translate }}
+            </p>
           </div>
-          <div id="work-card4" class="work-areas-card" title="Imagen ilustrativa para el área de Automatización">
-            <p>Automatización</p>
+          <div
+            id="work-card4"
+            class="work-areas-card"
+            [title]="'HOME.WORK_AREAS.CARDS.AUTOMATION.TITLE' | translate"
+          >
+            <p>{{ "HOME.WORK_AREAS.CARDS.AUTOMATION.NAME" | translate }}</p>
           </div>
-          <div id="work-card5" class="work-areas-card" title="Imagen ilustrativa para el área de Ciberseguridad">
-            <p>Ciberseguridad</p>
+          <div
+            id="work-card5"
+            class="work-areas-card"
+            [title]="'HOME.WORK_AREAS.CARDS.CYBERSECURITY.TITLE' | translate"
+          >
+            <p>{{ "HOME.WORK_AREAS.CARDS.CYBERSECURITY.NAME" | translate }}</p>
           </div>
-          <div id="work-card6" class="work-areas-card"
-            title="Imagen ilustrativa para el área de Inteligencia artificial">
-            <p>Inteligencia artificial</p>
+          <div
+            id="work-card6"
+            class="work-areas-card"
+            [title]="'HOME.WORK_AREAS.CARDS.AI.TITLE' | translate"
+          >
+            <p>{{ "HOME.WORK_AREAS.CARDS.AI.NAME" | translate }}</p>
           </div>
 
           <!-- efecto infinito -->
-          <div id="work-card1" class="work-areas-card" title="Imagen ilustrativa para el área de Desarrollo Web">
-            <p>Desarrollo web</p>
+          <div
+            id="work-card1"
+            class="work-areas-card"
+            [title]="'HOME.WORK_AREAS.CARDS.WEB_DEV.TITLE' | translate"
+          >
+            <p>{{ "HOME.WORK_AREAS.CARDS.WEB_DEV.NAME" | translate }}</p>
           </div>
-          <div id="work-card2" class="work-areas-card" title="Imagen ilustrativa para el área de Ciencia de Datos">
-            <p>Ciencia de datos</p>
+          <div
+            id="work-card2"
+            class="work-areas-card"
+            [title]="'HOME.WORK_AREAS.CARDS.DATA_SCIENCE.TITLE' | translate"
+          >
+            <p>{{ "HOME.WORK_AREAS.CARDS.DATA_SCIENCE.NAME" | translate }}</p>
           </div>
-          <div id="work-card3" class="work-areas-card" title="Imagen ilustrativa para el área de Machine learning">
-            <p>Machine learning</p>
+          <div
+            id="work-card3"
+            class="work-areas-card"
+            [title]="'HOME.WORK_AREAS.CARDS.MACHINE_LEARNING.TITLE' | translate"
+          >
+            <p>
+              {{ "HOME.WORK_AREAS.CARDS.MACHINE_LEARNING.NAME" | translate }}
+            </p>
           </div>
-          <div id="work-card4" class="work-areas-card" title="Imagen ilustrativa para el área de Automatización">
-            <p>Automatización</p>
+          <div
+            id="work-card4"
+            class="work-areas-card"
+            [title]="'HOME.WORK_AREAS.CARDS.AUTOMATION.TITLE' | translate"
+          >
+            <p>{{ "HOME.WORK_AREAS.CARDS.AUTOMATION.NAME" | translate }}</p>
           </div>
-          <div id="work-card5" class="work-areas-card" title="Imagen ilustrativa para el área de Ciberseguridad">
-            <p>Ciberseguridad</p>
+          <div
+            id="work-card5"
+            class="work-areas-card"
+            [title]="'HOME.WORK_AREAS.CARDS.CYBERSECURITY.TITLE' | translate"
+          >
+            <p>{{ "HOME.WORK_AREAS.CARDS.CYBERSECURITY.NAME" | translate }}</p>
           </div>
-          <div id="work-card6" class="work-areas-card"
-            title="Imagen ilustrativa para el área de Inteligencia artificial">
-            <p>Inteligencia artificial</p>
+          <div
+            id="work-card6"
+            class="work-areas-card"
+            [title]="'HOME.WORK_AREAS.CARDS.AI.TITLE' | translate"
+          >
+            <p>{{ "HOME.WORK_AREAS.CARDS.AI.NAME" | translate }}</p>
           </div>
         </div>
       </div>
