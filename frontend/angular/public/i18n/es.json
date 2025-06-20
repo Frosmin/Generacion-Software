@@ -109,5 +109,12 @@
   "chat": {
     "header": "Asistente Virtual",
     "button": "Enviar"
+  },
+  "exercisesList": {
+    "pillEasy": "Fácil",
+    "pillMedium": "Intermedio",
+    "pillHard": "Avanzado",
+    "loading": "Cargando ejercicios...",
+    "noExercises": "No hay ejercicios disponibles en este momento."
   }
 }

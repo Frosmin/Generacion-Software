@@ -109,5 +109,12 @@
   "chat": {
     "header": "Yaykuy Asistente",
     "button": "Kachariy"
+  },
+  "exercisesList": {
+    "pillEasy": "Sasa",
+    "pillMedium": "Chiqniyuq",
+    "pillHard": "Llasaq",
+    "loading": "Kawsaykuna rantikunata chaskiy...",
+    "noExercises": "Kunanpacha manaraq kawsaykuna rantikuna kachkanichu."
   }
 }
