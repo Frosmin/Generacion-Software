@@ -1,95 +1,374 @@
-<div class="learning-progress-container">
+<div class="create-course-container">
   <div class="hero-section">
     <div class="hero-content">
-      <h1>Mi aprendizaje</h1>
-      <p class="welcome-message">
-        ¡Hola {{ username }}! Tu progreso actual es:
-      </p>
-
-      <div class="progress-overview">
-        <div class="progress-circle-container">
-          <div class="progress-circle">
-            <svg viewBox="0 0 36 36" class="circular-chart">
-              <path class="circle-bg" d="M18 2.0845
-                  a 15.9155 15.9155 0 0 1 0 31.831
-                  a 15.9155 15.9155 0 0 1 0 -31.831" />
-              <path class="circle" [attr.stroke-dasharray]="totalProgress + ', 100'" d="M18 2.0845
-                  a 15.9155 15.9155 0 0 1 0 31.831
-                  a 15.9155 15.9155 0 0 1 0 -31.831" />
-              <text x="18" y="20.35" class="percentage">
-                {{ totalProgress }}%
-              </text>
-            </svg>
-          </div>
-        </div>
-        <div class="progress-stats">
-          <div class="stat-card">
-            <div class="stat-value">{{ courses.length }}</div>
-            <div class="stat-label">Cursos totales</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-value">{{ activeCourses }}</div>
-            <div class="stat-label">Cursos activos</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-value">{{ completedCourses }}</div>
-            <div class="stat-label">Cursos completados</div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="hero-image">
-      <img src="assets/images/hero-image.png" alt="Progreso de aprendizaje" />
+      <h1>Crear Nuevo Curso</h1>
+      <p class="welcome-message">Diseña tu curso de programación paso a paso</p>
     </div>
   </div>
 
-  <section class="courses-section">
-    <h2>Mis cursos</h2>
-    <div class="courses-container">
-      <div class="course-card" *ngFor="let course of courses">
-        <div class="course-image">
-          <img [src]="course.image" [alt]="course.title" [title]="'Imagen ilustrativa del curso ' + course.title">/>
-          <div class="course-progress-overlay">
-            <div class="course-progress-bar" [style.width.%]="course.progress"></div>
-          </div>
+  <form [formGroup]="courseForm" (ngSubmit)="onSubmit()" class="course-form">
+    <!-- Información básica del curso -->
+    <section class="form-section">
+      <h2>📚 Información del Curso</h2>
+      <div class="form-group">
+        <label for="title">Título del Curso *</label>
+        <input 
+          type="text" 
+          id="title" 
+          formControlName="title"
+          (input)="onTitleChange()"
+          placeholder="Ej: Control de flujo"
+          class="form-input">
+        <div class="error-message" *ngIf="courseForm.get('title')?.invalid && courseForm.get('title')?.touched">
+          El título es requerido
         </div>
-        <div class="course-info">
-          <h3>{{ course.title }}</h3>
-          <div class="course-progress">
-            <div class="progress-bar">
-              <div class="progress-fill" [style.width.%]="course.progress"></div>
+      </div>
+
+      <div class="form-group">
+        <label for="description">Descripción *</label>
+        <textarea 
+          id="description" 
+          formControlName="description"
+          placeholder="Describe brevemente de qué trata el curso"
+          class="form-textarea" 
+          rows="3"></textarea>
+        <div class="error-message" *ngIf="courseForm.get('description')?.invalid && courseForm.get('description')?.touched">
+          La descripción es requerida
+        </div>
+      </div>
+    </section>
+
+    <!-- Contenidos del curso -->
+    <section class="form-section">
+      <div class="section-header">
+        <h2>📖 Contenidos del Curso</h2>
+        <button 
+          type="button" 
+          class="add-button" 
+          (click)="addContent()"
+          [disabled]="contents.length >= 20">
+          <i class="fas fa-plus"></i> Agregar Contenido
+        </button>
+      </div>
+
+      <div class="contents-container" formArrayName="contents">
+        <div 
+          *ngFor="let content of contents.controls; let i = index" 
+          [formGroupName]="i" 
+          class="content-card">
+          
+          <div class="content-header">
+            <div class="content-title">
+              <span class="content-number">{{ i + 1 }}</span>
+              <h3>📄 Contenido {{ i + 1 }}</h3>
             </div>
-            <div class="progress-percentage">{{ course.progress }}%</div>
+            <button 
+              type="button" 
+              class="remove-button" 
+              (click)="removeContent(i)"
+              *ngIf="contents.length > 1">
+              <i class="fas fa-trash"></i>
+            </button>
           </div>
-          <div class="course-details">
-            <span class="modules-count">{{ course.completedModules }}/{{ course.modules }} módulos</span>
-            <span class="last-access">Último acceso: {{ formatDate(course.lastAccessed) }}</span>
+
+          <div class="content-body">
+            <div class="form-group">
+              <label>Título del Contenido *</label>
+              <input 
+                type="text" 
+                formControlName="title"
+                (input)="updateNextOptions()"
+                placeholder="Ej: Introducción al control de flujo"
+                class="form-input">
+            </div>
+
+            <div class="form-group">
+              <label>Párrafo Descriptivo *</label>
+              <textarea 
+                formControlName="paragraph"
+                placeholder="Describe brevemente este contenido"
+                class="form-textarea" 
+                rows="2"></textarea>
+            </div>
+
+            <!-- Subcontenidos -->
+            <div class="subcontent-section">
+              <div class="subcontent-header">
+                <h4>📋 Subcontenidos</h4>
+                <button 
+                  type="button" 
+                  class="add-sub-button" 
+                  (click)="addSubcontent(i)">
+                  <i class="fas fa-plus"></i> Agregar Subcontenido
+                </button>
+              </div>
+
+              <div class="subcontent-container" formArrayName="subcontent">
+                <div 
+                  *ngFor="let subcontent of getSubcontents(i).controls; let j = index"
+                  [formGroupName]="j"
+                  class="subcontent-card">
+                  
+                  <div class="subcontent-header-item">
+                    <div class="subcontent-title">
+                      <span class="subcontent-number">{{ i + 1 }}.{{ j + 1 }}</span>
+                      <span class="subcontent-label">📝 Subcontenido {{ j + 1 }}</span>
+                    </div>
+                    <button 
+                      type="button" 
+                      class="remove-sub-button" 
+                      (click)="removeSubcontent(i, j)"
+                      *ngIf="getSubcontents(i).length > 1">
+                      <i class="fas fa-times"></i>
+                    </button>
+                  </div>
+
+                  <div class="subcontent-body">
+                    <div class="form-group">
+                      <label>Subtítulo *</label>
+                      <input 
+                        type="text" 
+                        formControlName="subtitle"
+                        placeholder="Ej: ¿Qué es el control de flujo?"
+                        class="form-input">
+                    </div>
+
+                    <div class="form-group">
+                      <label>Subpárrafo *</label>
+                      <textarea 
+                        formControlName="subparagraph"
+                        placeholder="Explica este subtema en detalle"
+                        class="form-textarea" 
+                        rows="3"></textarea>
+                    </div>
+
+                    <!-- Ejemplos -->
+                    <div class="examples-section">
+                      <div class="examples-header">
+                        <h5>💻 Ejemplos de Código</h5>
+                        <button 
+                          type="button" 
+                          class="add-example-button" 
+                          (click)="addExample(i, j)">
+                          <i class="fas fa-plus"></i> Agregar Ejemplo
+                        </button>
+                      </div>
+
+                      <div class="examples-container" formArrayName="example">
+                        <div 
+                          *ngFor="let example of getExamples(i, j).controls; let k = index"
+                          class="example-item">
+                          <div class="example-header">
+                            <span class="example-number">{{ i + 1 }}.{{ j + 1 }}.{{ k + 1 }}</span>
+                            <span class="example-label">Ejemplo {{ k + 1 }}</span>
+                            <button 
+                              type="button" 
+                              class="remove-example-button" 
+                              (click)="removeExample(i, j, k)"
+                              *ngIf="getExamples(i, j).length > 1">
+                              <i class="fas fa-trash"></i>
+                            </button>
+                          </div>
+                          <textarea 
+                            [formControlName]="k"
+                            placeholder="# Escribe tu código de ejemplo aquí..."
+                            class="code-textarea"
+                            rows="8"></textarea>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-          <button class="continue-button">Continuar</button>
         </div>
       </div>
+    </section>
+
+    <!-- Botones de acción -->
+    <div class="form-actions">
+      <button type="button" class="cancel-button" (click)="onCancel()">
+        Cancelar
+      </button>
+      <button type="submit" class="submit-button" [disabled]="courseForm.invalid || isSubmitting">
+        <span *ngIf="!isSubmitting">Crear Curso</span>
+        <span *ngIf="isSubmitting">
+          <i class="fas fa-spinner fa-spin"></i> Creando...
+        </span>
+      </button>
     </div>
-  </section>
-  <section class="recommendation-section">
-    <h2>Recomendado para ti</h2>
-    <div class="recommendation-cards">
-      <div class="recommendation-card">
-        <div class="recommendation-image">
-          <img src="assets/images/curso-python.png" alt="Ciencia de datos"
-            title="Imagen ilustrativa del curso Ciencia de datos" />
-        </div>
-        <h3>Ciencia de datos con Python</h3>
-        <p>Aprende análisis de datos, visualización y machine learning</p>
-        <button class="explore-button">Explorar curso</button>
-      </div>
-      <div class="recommendation-card">
-        <div class="recommendation-image">
-          <img src="assets/images/curso-python.png" alt="Django" title="Imagen ilustrativa del curso Django" />
-        </div>
-        <h3>Desarrollo Web con Django</h3>
-        <p>Crea aplicaciones web completas con el framework Django</p>
-        <button class="explore-button">Explorar curso</button>
-      </div>
-    </div>
-  </section>
+  </form>
+
+  <!-- Preview del JSON -->
+  <div class="preview-section" *ngIf="showPreview">
+    <h3>Vista Previa del JSON</h3>
+    <pre class="json-preview">{{ getPreviewJson() }}</pre>
+  </div>
 </div>
+
+<style>
+/* Estilos para mejor jerarquía visual */
+.content-card {
+  border: 2px solid #e3f2fd;
+  border-left: 4px solid #2196f3;
+  margin-bottom: 2rem;
+  background: #fafafa;
+}
+
+.content-header {
+  background: #e3f2fd;
+  padding: 1rem;
+  border-bottom: 1px solid #bbdefb;
+}
+
+.content-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.content-number {
+  background: #2196f3;
+  color: white;
+  padding: 0.25rem 0.5rem;
+  border-radius: 50%;
+  font-weight: bold;
+  font-size: 0.875rem;
+  min-width: 2rem;
+  text-align: center;
+}
+
+.content-body {
+  padding: 1.5rem;
+}
+
+.subcontent-section {
+  margin-top: 2rem;
+  border-top: 1px solid #e0e0e0;
+  padding-top: 1.5rem;
+}
+
+.subcontent-header h4 {
+  color: #1976d2;
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.subcontent-container {
+  margin-left: 1rem;
+  border-left: 2px solid #e0e0e0;
+  padding-left: 1rem;
+}
+
+.subcontent-card {
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.subcontent-header-item {
+  background: #f5f5f5;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #e0e0e0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.subcontent-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.subcontent-number {
+  background: #4caf50;
+  color: white;
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+  font-weight: bold;
+  font-size: 0.75rem;
+}
+
+.subcontent-body {
+  padding: 1rem;
+}
+
+.examples-section {
+  margin-top: 1rem;
+  border-top: 1px solid #f0f0f0;
+  padding-top: 1rem;
+}
+
+.examples-header h5 {
+  color: #388e3c;
+  margin: 0;
+  font-size: 1rem;
+}
+
+.examples-container {
+  margin-left: 1rem;
+  border-left: 2px solid #f0f0f0;
+  padding-left: 1rem;
+}
+
+.example-item {
+  background: #f8f8f8;
+  border: 1px solid #e8e8e8;
+  border-radius: 6px;
+  margin-bottom: 0.75rem;
+  overflow: hidden;
+}
+
+.example-header {
+  background: #e8f5e8;
+  padding: 0.5rem 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-bottom: 1px solid #d4edda;
+}
+
+.example-number {
+  background: #28a745;
+  color: white;
+  padding: 0.15rem 0.3rem;
+  border-radius: 3px;
+  font-weight: bold;
+  font-size: 0.7rem;
+}
+
+.example-label {
+  font-size: 0.875rem;
+  color: #155724;
+  font-weight: 500;
+}
+
+.code-textarea {
+  width: 100%;
+  border: none;
+  background: #f8f8f8;
+  font-family: 'Courier New', monospace;
+  padding: 0.75rem;
+  resize: vertical;
+  min-height: 120px;
+}
+
+.remove-example-button {
+  margin-left: auto;
+  background: #dc3545;
+  color: white;
+  border: none;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  cursor: pointer;
+}
+
+.remove-example-button:hover {
+  background: #c82333;
+}
+</style>

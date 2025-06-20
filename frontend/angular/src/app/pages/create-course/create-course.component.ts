@@ -1,138 +1,267 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, FormArray, Validators, AbstractControl } from '@angular/forms';
+import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
 
-interface Course {
-  id: number;
-  title: string;
-  progress: number;
-  modules: number;
-  completedModules: number;
-  image: string;
-  lastAccessed: Date;
+interface CourseData {
+  course: {
+    title: string;
+    description: string;
+    goto: string;
+  };
+  contents: ContentData[];
 }
 
-interface Achievement {
-  id: number;
+interface ContentData {
   title: string;
-  description: string;
-  icon: string;
-  earnedDate: Date;
+  paragraph: string[];
+  subcontent: SubcontentData[];
+  next?: string;
+}
+
+interface SubcontentData {
+  subtitle: string;
+  subparagraph: string[];
+  example: string[];
 }
 
 @Component({
   selector: 'app-create-course',
   standalone: true,
-  imports: [CommonModule],
   templateUrl: './create-course.component.html',
   styleUrls: ['./create-course.component.scss'],
+  imports: [CommonModule, ReactiveFormsModule]
 })
 export class CreateCourseComponent implements OnInit {
-  username = 'Usuario';
-  totalProgress = 0;
-  courses: Course[] = [];
-  achievements: Achievement[] = [];
-  activeCourses = 0;
-  completedCourses = 0;
+  courseForm: FormGroup;
+  isSubmitting = false;
+  showPreview = false;
+
+  constructor(
+    private fb: FormBuilder,
+    private router: Router
+  ) {
+    this.courseForm = this.createCourseForm();
+  }
 
   ngOnInit(): void {
-    this.username = 'Alex';
-    this.loadSampleCourses();
-    this.loadAchievements();
-    this.calculateOverallProgress();
-    this.countActiveCourses();
-  }
-
-  private loadSampleCourses(): void {
-    this.courses = [
-      {
-        id: 1,
-        title: 'Fundamentos de Python',
-        progress: 75,
-        modules: 8,
-        completedModules: 6,
-        image: 'assets/images/curso-python.png',
-        lastAccessed: new Date(2025, 4, 10),
-      },
-      {
-        id: 2,
-        title: 'Estructuras de datos en Python',
-        progress: 40,
-        modules: 10,
-        completedModules: 4,
-        image: 'assets/images/curso-python.png',
-        lastAccessed: new Date(2025, 4, 12),
-      },
-      {
-        id: 3,
-        title: 'Programación Orientada a Objetos',
-        progress: 20,
-        modules: 12,
-        completedModules: 2,
-        image: 'assets/images/curso-python.png',
-        lastAccessed: new Date(2025, 4, 8),
-      },
-      {
-        id: 4,
-        title: 'Desarrollo Web con Flask',
-        progress: 0,
-        modules: 15,
-        completedModules: 0,
-        image: 'assets/images/curso-python.png',
-        lastAccessed: new Date(),
-      },
-    ];
-  }
-
-  private loadAchievements(): void {
-    this.achievements = [
-      {
-        id: 1,
-        title: 'Primer código',
-        description: 'Completaste tu primer programa "Hola Mundo"',
-        icon: 'trophy',
-        earnedDate: new Date(2025, 4, 1),
-      },
-      {
-        id: 2,
-        title: 'Experto en Variables',
-        description: 'Dominaste el uso de variables y tipos de datos',
-        icon: 'star',
-        earnedDate: new Date(2025, 4, 3),
-      },
-      {
-        id: 3,
-        title: 'Bucles Conquistados',
-        description: 'Completaste todos los ejercicios de bucles',
-        icon: 'medal',
-        earnedDate: new Date(2025, 4, 7),
-      },
-    ];
-  }
-
-  calculateOverallProgress(): void {
-    if (this.courses.length === 0) {
-      this.totalProgress = 0;
-      return;
+    // Agregar el primer contenido por defecto
+    if (this.contents.length === 0) {
+      this.addContent();
     }
-    const total = this.courses.reduce((sum, c) => sum + c.progress, 0);
-    this.totalProgress = Math.round(total / this.courses.length);
   }
 
-  countActiveCourses(): void {
-    this.activeCourses = this.courses.filter(
-      (c) => c.progress > 0 && c.progress < 100
-    ).length;
-    this.completedCourses = this.courses.filter(
-      (c) => c.progress === 100
-    ).length;
-  }
-
-  formatDate(date: Date): string {
-    console.log("hola pruebita");
-    return date.toLocaleDateString('es-ES', {
-      day: '2-digit',
-      month: '2-digit',
-      year: 'numeric',
+  private createCourseForm(): FormGroup {
+    return this.fb.group({
+      title: ['', [Validators.required, Validators.minLength(3)]],
+      description: ['', [Validators.required, Validators.minLength(10)]],
+      contents: this.fb.array([])
     });
+  }
+
+  // Getters para FormArrays
+  get contents(): FormArray {
+    return this.courseForm.get('contents') as FormArray;
+  }
+
+  getSubcontents(contentIndex: number): FormArray {
+    return this.contents.at(contentIndex).get('subcontent') as FormArray;
+  }
+
+  getExamples(contentIndex: number, subcontentIndex: number): FormArray {
+    return this.getSubcontents(contentIndex).at(subcontentIndex).get('example') as FormArray;
+  }
+
+  // Métodos para manejar contenidos
+  addContent(): void {
+    if (this.contents.length < 20) {
+      const contentGroup = this.fb.group({
+        title: ['', Validators.required],
+        paragraph: ['', Validators.required],
+        subcontent: this.fb.array([])
+      });
+
+      this.contents.push(contentGroup);
+      
+      // Agregar el primer subcontenido automáticamente
+      this.addSubcontent(this.contents.length - 1);
+      
+      // Actualizar las referencias "next" automáticamente
+      this.updateNextOptions();
+    }
+  }
+
+  removeContent(index: number): void {
+    if (this.contents.length > 1) {
+      this.contents.removeAt(index);
+      this.updateNextOptions();
+    }
+  }
+
+  // Métodos para manejar subcontenidos
+  addSubcontent(contentIndex: number): void {
+    const subcontentGroup = this.fb.group({
+      subtitle: ['', Validators.required],
+      subparagraph: ['', Validators.required],
+      example: this.fb.array([this.fb.control('', Validators.required)])
+    });
+
+    this.getSubcontents(contentIndex).push(subcontentGroup);
+  }
+
+  removeSubcontent(contentIndex: number, subcontentIndex: number): void {
+    const subcontents = this.getSubcontents(contentIndex);
+    if (subcontents.length > 1) {
+      subcontents.removeAt(subcontentIndex);
+    }
+  }
+
+  // Métodos para manejar ejemplos
+  addExample(contentIndex: number, subcontentIndex: number): void {
+    this.getExamples(contentIndex, subcontentIndex).push(
+      this.fb.control('', Validators.required)
+    );
+  }
+
+  removeExample(contentIndex: number, subcontentIndex: number, exampleIndex: number): void {
+    const examples = this.getExamples(contentIndex, subcontentIndex);
+    if (examples.length > 1) {
+      examples.removeAt(exampleIndex);
+    }
+  }
+
+  // Actualizar opciones de "siguiente contenido" automáticamente
+  updateNextOptions(): void {
+    // Esta función ahora solo actualiza los valores "next" internamente
+    // No se muestra en el formulario, pero se usa en el JSON final
+  }
+
+  // Generar ruta de acceso automáticamente desde el título
+  private generateGoto(title: string): string {
+    return title
+      .toLowerCase()
+      .replace(/[^a-z0-9\s]/g, '') // Eliminar caracteres especiales
+      .replace(/\s+/g, '-') // Reemplazar espacios con guiones
+      .trim();
+  }
+
+  // Formatear datos para el JSON final
+  private formatCourseData(): CourseData {
+    const formValue = this.courseForm.value;
+    
+    const contents: ContentData[] = formValue.contents.map((content: any, index: number) => {
+      const contentData: ContentData = {
+        title: content.title,
+        paragraph: [content.paragraph],
+        subcontent: content.subcontent.map((sub: any) => ({
+          subtitle: sub.subtitle,
+          subparagraph: [sub.subparagraph],
+          example: sub.example.filter((ex: string) => ex.trim() !== '')
+        }))
+      };
+
+      // Agregar "next" automáticamente si no es el último contenido
+      if (index < formValue.contents.length - 1) {
+        const nextContent = formValue.contents[index + 1];
+        if (nextContent && nextContent.title) {
+          contentData.next = nextContent.title;
+        }
+      }
+
+      return contentData;
+    });
+
+    return {
+      course: {
+        title: formValue.title,
+        description: formValue.description,
+        goto: this.generateGoto(formValue.title)
+      },
+      contents
+    };
+  }
+
+  // Vista previa del JSON
+  getPreviewJson(): string {
+    if (this.courseForm.valid) {
+      return JSON.stringify(this.formatCourseData(), null, 2);
+    }
+    return 'Completa todos los campos requeridos para ver la vista previa';
+  }
+
+  togglePreview(): void {
+    this.showPreview = !this.showPreview;
+  }
+
+  // Validación personalizada
+  private validateCourse(): boolean {
+    // Validar que cada contenido tenga al menos un subcontenido
+    for (let i = 0; i < this.contents.length; i++) {
+      const subcontents = this.getSubcontents(i);
+      if (subcontents.length === 0) {
+        alert(`El contenido ${i + 1} debe tener al menos un subcontenido`);
+        return false;
+      }
+
+      // Validar que cada subcontenido tenga al menos un ejemplo
+      for (let j = 0; j < subcontents.length; j++) {
+        const examples = this.getExamples(i, j);
+        const validExamples = examples.controls.filter(ex => ex.value.trim() !== '');
+        if (validExamples.length === 0) {
+          alert(`El subcontenido ${j + 1} del contenido ${i + 1} debe tener al menos un ejemplo`);
+          return false;
+        }
+      }
+    }
+
+    return true;
+  }
+
+  // Envío del formulario - Solo imprime el JSON
+  onSubmit(): void {
+    if (this.courseForm.valid && this.validateCourse()) {
+      this.isSubmitting = true;
+      
+      const courseData = this.formatCourseData();
+      
+      // Imprimir el JSON en la consola
+      console.log('JSON del curso creado:');
+      console.log(JSON.stringify(courseData, null, 2));
+      
+      // También mostrar en un alert (opcional)
+      alert('¡Curso creado! Revisa la consola para ver el JSON completo.');
+      
+      this.isSubmitting = false;
+    } else {
+      this.markFormGroupTouched(this.courseForm);
+      alert('Por favor, completa todos los campos requeridos');
+    }
+  }
+
+  onCancel(): void {
+    if (confirm('¿Estás seguro de que quieres cancelar? Se perderán todos los cambios.')) {
+      this.courseForm.reset();
+      this.contents.clear();
+      this.addContent(); // Agregar contenido inicial
+    }
+  }
+
+  // Marcar todos los campos como tocados para mostrar errores
+  private markFormGroupTouched(formGroup: FormGroup | FormArray): void {
+    Object.keys(formGroup.controls).forEach(key => {
+      const control = formGroup.get(key);
+      if (control instanceof FormGroup || control instanceof FormArray) {
+        this.markFormGroupTouched(control);
+      } else {
+        control?.markAsTouched();
+      }
+    });
+  }
+
+  // Método para actualizar ruta automáticamente cuando cambia el título
+  onTitleChange(): void {
+    // Este método se mantiene para compatibilidad con el template
+    // La generación de goto ahora es automática en formatCourseData()
   }
 }
