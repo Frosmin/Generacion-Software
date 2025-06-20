@@ -1,16 +1,19 @@
-// Estilos adicionales para el componente de introducción
 
 .intro-template {
   // background-color: red;
   height: 100%;
   display: grid;
+  
   grid-template-columns: 1fr 1fr;
   grid-template-areas:
     "left right"
     "left right";
-  overflow: hidden;
+  //overflow: hidden;
 }
-
+.intro-left,
+.intro-right {
+  min-width: 0;
+}
 .intro-left {
   grid-area: left;
   padding: 1rem;
@@ -144,7 +147,7 @@
 
       h3 {
         margin-top: 0;
-        color: #495057;
+        color: #ff6ec4;
       }
 
       p {
@@ -163,7 +166,7 @@
         margin: 0;
       }
 
-      // Estilos condicionales que puedes agregar con ngClass
+   
       &.correct {
         background: #d4edda;
         color: #155724;
@@ -179,55 +182,30 @@
   }
 }
 
-// Estilos específicos para la terminal/editor en la parte derecha
 .intro-right {
-  .editor-field {
-    // Asegurar que el contenedor del editor tenga fondo negro
-    ::ng-deep .CodeMirror {
-      background-color: #000000 !important; // Fondo negro
-      color: #ffffff !important; // Texto blanco
-      border: 1px solid #333333;
-      border-radius: 8px;
-      overflow: hidden !important; // Sin scroll
-      max-height: none !important; // Sin límite de altura
-    }
-
-    ::ng-deep .CodeMirror-gutters {
-      background-color: #000000 !important; // Gutter negro
-      border-right: 1px solid #333333;
-    }
-
-    ::ng-deep .CodeMirror-linenumber {
-      color: #888888 !important; // Números de línea grises
-    }
-
-    ::ng-deep .CodeMirror-cursor {
-      border-left: 2px solid #ffffff !important; // Cursor blanco
-    }
-
-    ::ng-deep .CodeMirror-placeholder {
-      color: #888888 !important; // Placeholder gris
-    }
-
-    // Eliminar scroll de la sección de output
-    .section {
-      pre {
-        background: #000000; // Fondo negro para output
-        border: 1px solid #333333;
-        border-radius: 4px;
-        color: #ffffff; // Texto blanco
-        padding: 1rem;
-        margin: 0;
-        overflow: visible !important; // Sin scroll
-        max-height: none !important; // Sin límite de altura
-        white-space: pre-wrap; // Ajustar texto
-        word-wrap: break-word; // Ajustar palabras largas
-      }
-    }
-  }
+  grid-area: right;
+  padding: 1rem;
 }
 
-// Responsive design
+.intro-right .buttons-field {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.editor-block {
+  background: #2c2c2c;
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+.btn {
+  border: 1px solid white;
+  color: white !important;
+}
+
+
 @media (max-width: 768px) {
   .intro-template {
     .intro-left, .intro-right {

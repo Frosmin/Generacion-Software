@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import introductionMock from './introduccionMock.json';
 import { MatButtonModule } from '@angular/material/button';
 import { SearchComponent } from '../../components/search/search.component';
-import { EditorComponent } from '../../shared/editor/editor.component'; // Solo este import
+import { EditorComponent } from '../../shared/editor/editor.component'; 
 
 interface Curso {
   instrucciones: string;
@@ -12,7 +12,7 @@ interface Curso {
 
 @Component({
   selector: 'app-introduction',
-  imports: [MatButtonModule, SearchComponent, EditorComponent], // Solo EditorComponent
+  imports: [MatButtonModule, SearchComponent, EditorComponent], 
   templateUrl: './introduction.component.html',
   styleUrl: './introduction.component.scss',
 })
@@ -48,7 +48,7 @@ export class IntroductionComponent {
   }
 
   cargarEjercicio() {
-    // Simulación de carga de ejercicio específico
+   
     if (this.initialSubject === 0) {
       this.curso = {
         instrucciones: 'Crea un comentario y luego imprime "Hola mundo"',
@@ -75,12 +75,12 @@ export class IntroductionComponent {
     this.update();
   }
 
-  // Manejar salida del código
+
   onCodeOutput(output: string) {
     this.salidaCodigo = output;
   }
 
-  // Manejar verificación de solución
+
   onSolutionCheck(result: {correct: boolean, output: string}) {
     if (result.correct) {
       this.resultadoVerificacion = '¡Correcto! ✅';
@@ -90,7 +90,6 @@ export class IntroductionComponent {
     this.salidaCodigo = result.output;
   }
 
-  // Inicializar el ejercicio al cargar el componente
   ngOnInit() {
     this.cargarEjercicio();
   }

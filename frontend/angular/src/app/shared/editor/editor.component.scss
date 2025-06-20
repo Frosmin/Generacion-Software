@@ -1,4 +1,5 @@
 
+
 .editor-container {
   flex-direction: column;
   gap: 10px;
@@ -21,13 +22,16 @@
     border-radius: 4px;
   }
 
+
   .editor {
     display: flex;
     flex-direction: row;
     gap: 1rem;
-    min-width: 100%;
+    width: 100%; 
     height: 70vh;
-    
+     max-width: 100%;
+     overflow-x: hidden;
+    flex: 1 1 0%;
     &.activity-layout {
       height: 300px;
       .cm-panel {
@@ -212,9 +216,7 @@
   }
 }
 
-// ===============================
-// ESTILOS DE ACTIVIDAD INTEGRADOS
-// ===============================
+
 .actividad-container {
   display: flex;
   flex-direction: column;
@@ -229,9 +231,7 @@
   border-radius: 8px;
 }
 
-// ===============================
-// ESTILOS DE INTRODUCCIÓN INTEGRADOS
-// ===============================
+
 .intro-template {
   height: 100%;
   display: grid;
@@ -399,9 +399,6 @@
   color: white !important;
 }
 
-// ===============================
-// ESTILOS DE CODEMIRROR
-// ===============================
 .cm-s-material.CodeMirror {
   background: #181335;
   color: #abb2bf;
@@ -449,10 +446,6 @@
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
 }
 
-// ===============================
-// ESTILOS ADICIONALES Y UTILIDADES
-// ===============================
-// Clases de utilidad que pueden ser útiles
 .gradient-text {
   background: linear-gradient(135deg, #ff6ec4, #7873f5);
   -webkit-background-clip: text;
@@ -514,7 +507,12 @@
     }
   }
 }
-
+.CodeMirror,
+ngx-codemirror,
+.cm-panel {
+  width: 100% !important;
+  max-width: 100% !important;
+}
 @media (max-width: 480px) {
   .intro-left {
     padding: 0.5rem;

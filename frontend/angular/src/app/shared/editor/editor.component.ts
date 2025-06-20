@@ -111,10 +111,11 @@ export class EditorComponent implements OnInit, AfterViewInit, OnDestroy, OnChan
     theme: 'material',
     lineNumbers: true,
     indentUnit: 4,
+    lineWrapping: true,
+    viewportMargin: Infinity, 
     tabSize: 4,
     styleActiveLine: true,
     matchBrackets: true,
-    viewportMargin: Infinity,
     placeholder: this.placeholder,
     gutters: ['CodeMirror-lint-markers'],
     lint: {
