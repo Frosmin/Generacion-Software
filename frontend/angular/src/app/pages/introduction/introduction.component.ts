@@ -58,13 +58,16 @@ export class IntroductionComponent implements OnInit {
   loading = false;
   error: string | null = null;
   cursosDisponibles: CursoDisponible[] = [];
-  currentGoto: string = '';
+  currentGoto = '';
 
   constructor(
     private route: ActivatedRoute,
     private coursesService: CoursesService
   ) {
     this.cursosDisponibles = this.coursesService.getAvailableCourses();
+  }
+
+  ngOnInit(): void {
     this.route.params.subscribe(params => {
       const gotoParam = params['id'];
       if (gotoParam) {
@@ -73,8 +76,6 @@ export class IntroductionComponent implements OnInit {
       }
     });
   }
-
-  ngOnInit(): void {}
 
   loadCourseByGoto(gotoParam: string): void {
     this.loading = true;
@@ -118,9 +119,10 @@ export class IntroductionComponent implements OnInit {
     this.error = null;
   }
 
-  private handleCourseDataError(error: any, requestedGoto: string): void {
+  private handleCourseDataError(error: unknown, requestedGoto: string): void {
+    const errorMessage = error instanceof Error ? error.message : 'Error desconocido';
     console.error('Error loading course data:', error);
-    this.error = error.message || 'Error al cargar el curso';
+    this.error = errorMessage || 'Error al cargar el curso';
     this.loading = false;
     if (requestedGoto !== 'intro') {
       console.log('Intentando cargar curso por defecto (Introducción)...');

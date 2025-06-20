@@ -27,6 +27,24 @@ interface SubcontentData {
   example: string[];
 }
 
+interface FormContentValue {
+  title: string;
+  paragraph: string;
+  subcontent: FormSubcontentValue[];
+}
+
+interface FormSubcontentValue {
+  subtitle: string;
+  subparagraph: string;
+  example: string[];
+}
+
+interface FormValue {
+  title: string;
+  description: string;
+  contents: FormContentValue[];
+}
+
 @Component({
   selector: 'app-create-course',
   standalone: true,
@@ -150,13 +168,13 @@ export class CreateCourseComponent implements OnInit {
 
   // Formatear datos para el JSON final
   private formatCourseData(): CourseData {
-    const formValue = this.courseForm.value;
+    const formValue = this.courseForm.value as FormValue;
     
-    const contents: ContentData[] = formValue.contents.map((content: any, index: number) => {
+    const contents: ContentData[] = formValue.contents.map((content: FormContentValue, index: number) => {
       const contentData: ContentData = {
         title: content.title,
         paragraph: [content.paragraph],
-        subcontent: content.subcontent.map((sub: any) => ({
+        subcontent: content.subcontent.map((sub: FormSubcontentValue) => ({
           subtitle: sub.subtitle,
           subparagraph: [sub.subparagraph],
           example: sub.example.filter((ex: string) => ex.trim() !== '')
