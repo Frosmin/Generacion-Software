@@ -16,7 +16,7 @@ export interface CodeforcesApiResponse {
   status: string;
   result: {
     problems: CodeforcesProblem[];
-    problemStatistics: any[];
+    problemStatistics: Record<string, unknown>[];
   };
 }
 
@@ -191,7 +191,7 @@ export class CodeforcesService {
   }
 
   private mapTagsToTopics(tags: string[]): string[] {
-    const topicMapping: { [key: string]: string } = {
+    const topicMapping: Record<string, string> = {
       math: 'Matemáticas',
       implementation: 'Implementación',
       greedy: 'Algoritmos Greedy',
@@ -213,7 +213,7 @@ export class CodeforcesService {
   }
 
   private generateMaterials(tags: string[]): string[] {
-    const materialMapping: { [key: string]: string[] } = {
+    const materialMapping: Record<string, string[]> = {
       math: ['Aritmética Básica', 'Álgebra Elemental'],
       implementation: ['Programación Básica', 'Manejo de Arrays'],
       greedy: ['Algoritmos Greedy', 'Optimización Local'],
@@ -240,7 +240,7 @@ export class CodeforcesService {
 
   private generateExamples(
     problem: TransformedProblem
-  ): Array<{ input: string; output: string; explanation?: string }> {
+  ): { input: string; output: string; explanation?: string }[] {
     if (problem.tags.includes('math')) {
       return [
         {
