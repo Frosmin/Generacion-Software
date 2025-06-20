@@ -42,7 +42,6 @@ export class NavbarComponent implements OnInit {
 
   toggleMenu() {
     this.isMenuActive = !this.isMenuActive;
-    // Cerrar dropdown de idioma si está abierto
     if (this.isLanguageDropdownOpen) {
       this.isLanguageDropdownOpen = false;
     }
