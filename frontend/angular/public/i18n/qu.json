@@ -1,6 +1,6 @@
 {
   "navbar": {
-    "title": "Python yachiy",
+    "title": "Python yachay",
     "home": "Mikhuna",
     "courses": "Yachachina",
     "exercises": "Llamkʼaykuna",
@@ -13,10 +13,10 @@
   "HOME": {
     "BANNER": {
       "TITLE": "Ña ña yachay",
-      "SUBTITLE": "Chʼusaqa Python-manta musuq ripuykunata ruwanapaq.",
+      "SUBTITLE": "Chʼusaqa Python musuq ripuykunata ruwanapaq.",
       "START_NOW": "Kaypi yachay",
       "LEARN_MORE": "Allinlla yachay",
-      "IMAGE_TITLE": "Python-manta ruwanakuynin ilustrasiyon",
+      "IMAGE_TITLE": "Python ruwanakuynin ilustrasiyon",
       "IMAGE_ALT": "Python ruwanakuymanta"
     },
     "BENEFITS": {
@@ -71,7 +71,7 @@
         },
         "ROBUST_ECOSYSTEM": {
           "TITLE": "Qallpa ecosystema",
-          "DESCRIPTION": "PyPI-taq 300,000-paq paketaykuna, tukuy kamachiyta churay."
+          "DESCRIPTION": "PyPI 300,000 paketaykuna, tukuy kamachiyta churay."
         }
       }
     },
@@ -105,5 +105,9 @@
         }
       }
     }
+  },
+  "chat": {
+    "header": "Yaykuy Asistente",
+    "button": "Kachariy"
   }
 }

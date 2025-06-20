@@ -1,5 +1,4 @@
 {
-  
   "navbar": {
     "title": "Learn Python",
     "home": "Home",
@@ -106,5 +105,9 @@
         }
       }
     }
+  },
+  "chat": {
+    "header": "Virtual Assistant",
+    "button": "Send"
   }
 }

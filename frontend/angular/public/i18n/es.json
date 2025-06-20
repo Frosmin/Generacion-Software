@@ -105,5 +105,9 @@
         }
       }
     }
+  },
+  "chat": {
+    "header": "Asistente Virtual",
+    "button": "Enviar"
   }
 }
