@@ -50,22 +50,32 @@
         Siguiente
       </button>
     </div>
+    
     <div class="editor-field">
       <div class="editor-block">
         <h3>Instrucciones del ejercicio</h3>
         <p>{{ curso?.instrucciones || 'Realiza el ejercicio según lo aprendido en esta lección.' }}</p>
       </div>
 
-      <app-editor-actividad
-        [base]="curso?.codigo_incompleto ?? ''"
-        [solucion]="curso?.solucion_correcta ?? ''"
-        (salidaCodigo)="salidaCodigo = $event">
-      </app-editor-actividad>
+      <!-- Editor Component en modo actividad -->
+      <app-editor
+        mode="activity"
+        [initialCode]="curso?.codigo_incompleto ?? ''"
+        [correctSolution]="curso?.solucion_correcta ?? ''"
+        [showChat]="false"
+        [showInputOutput]="false"
+        height="300px"
+        placeholder="Escribe tu código aquí..."
+        (codeOutput)="onCodeOutput($event)"
+        (solutionCheck)="onSolutionCheck($event)">
+      </app-editor>
 
-      <div class="editor-block">
-        <h3>Salida</h3>
-        <pre class="code-output">{{ salidaCodigo || 'Ejecuta el código para ver el resultado.' }}</pre>
-      </div>
+      <!-- Mostrar resultado de verificación -->
+      @if (resultadoVerificacion) {
+        <div class="verification-result">
+          <p>{{ resultadoVerificacion }}</p>
+        </div>
+      }
     </div>
   </div>
 </div>

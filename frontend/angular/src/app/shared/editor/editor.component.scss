@@ -2,12 +2,38 @@
   flex-direction: column;
   gap: 10px;
   height: 100%;
+  
+  &.activity-mode {
+    background: #1e1e1e;
+    color: white;
+    padding: 1rem;
+    border-radius: 10px;
+    height: auto;
+  }
+  
+  .instructions {
+    font-size: 1rem;
+    color: #dddddd;
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 4px;
+  }
+
   .editor {
     display: flex;
     flex-direction: row;
     gap: 1rem;
     min-width: 100%;
     height: 70vh;
+    
+    &.activity-layout {
+      height: 300px;
+      .cm-panel {
+        width: 100%;
+      }
+    }
+    
     .cm-panel {
       border: 1px solid #ffffff32;
       border-radius: 12px;
@@ -15,20 +41,24 @@
       width: 70%;
       height: 100%;
     }
+    
     .output-panel {
       flex: 1;
       display: flex;
       flex-direction: column;
       height: 100%;
+      
       .section {
         flex: 1;
         display: flex;
         flex-direction: column;
         margin-bottom: 1rem;
         min-height: 0;
+        
         &:last-child {
           margin-bottom: 0;
         }
+        
         h3 {
           font-size: 1.2rem;
           margin-bottom: 0.5rem;
@@ -36,11 +66,13 @@
           color: #dddddd;
           flex-shrink: 0;
         }
+        
         .cm-panel {
           flex: 1;
           width: 100%;
           min-height: 0;
         }
+        
         pre {
           background: #181335;
           border: 1px solid #ffffff32;
@@ -55,6 +87,19 @@
       }
     }
   }
+
+  .botones {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin: 30px auto;
+    flex-shrink: 0;
+    
+    .activity-mode & {
+      margin: 1rem 0;
+    }
+  }
+  
   .btn-ejecutar {
     align-items: center;
     background-color: #df881d;
@@ -72,35 +117,106 @@
     white-space: nowrap;
     cursor: pointer;
     transition: all 0.3s;
-    margin: 30px auto;
     flex-shrink: 0;
-  }
-  button:active,
-  button:hover {
-    outline: 0;
-    color: white;
-  }
-  button span {
-    background-color: #2e2143;
-    padding: 16px 24px;
-    border-radius: 6px;
-    width: 100%;
-    height: 100%;
-    transition: 300ms;
+    
+    span {
+      background-color: #2e2143;
+      padding: 16px 24px;
+      border-radius: 6px;
+      width: 100%;
+      height: 100%;
+      transition: 300ms;
+    }
+
+    &:hover {
+      outline: 0;
+      color: white;
+      
+      span {
+        background: none;
+      }
+    }
+
+    &:active {
+      transform: scale(0.9);
+    }
   }
 
-  button:hover span {
-    background: none;
+  .btn-actividad {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+    
+    &.btn-enviar {
+      background-color: #4CAF50;
+      color: white;
+      
+      &:hover {
+        background-color: #45a049;
+      }
+    }
+    
+    &.btn-restablecer {
+      background-color: #f44336;
+      color: white;
+      
+      &:hover {
+        background-color: #da190b;
+      }
+    }
   }
 
-  button:active {
-    transform: scale(0.9);
+  .resultado {
+    font-weight: bold;
+    padding: 0.5rem;
+    border-radius: 4px;
+    text-align: center;
+    margin-top: 1rem;
+  }
+
+  .chat-section {
+    margin-top: 2rem;
+    
+    .section {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 1rem;
+      
+      h3 {
+        font-size: 1.2rem;
+        margin-bottom: 0.5rem;
+        margin-top: 0;
+        color: #dddddd;
+      }
+      
+      .cm-panel {
+        height: 150px;
+        width: 100%;
+      }
+      
+      pre {
+        background: #181335;
+        border: 1px solid #ffffff32;
+        border-radius: 4px;
+        color: #98c379;
+        padding: 1rem;
+        margin: 0;
+        overflow-y: auto;
+        min-height: 150px;
+      }
+    }
   }
 }
+
+// Estilos de CodeMirror
 .cm-s-material.CodeMirror {
   background: #181335;
   color: #abb2bf;
 }
+
 ::ng-deep .CodeMirror {
   background-color: #181335 !important;
   color: #abb2bf !important;
@@ -108,16 +224,20 @@
   border-radius: 8px;
   height: 100%;
 }
+
 ::ng-deep .CodeMirror-gutters {
   background-color: #181335 !important;
   border-right: 1px solid #ffffff32;
 }
+
 ::ng-deep .CodeMirror-linenumber {
   color: #abb2bf !important;
 }
+
 ::ng-deep .CodeMirror-cursor {
   border-left: 2px solid #df881d !important;
 }
+
 ::ng-deep .CodeMirror-placeholder {
   color: #abb2bf !important;
 }
@@ -137,42 +257,4 @@
   max-height: 20em;
   overflow-y: auto;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-}
-
-::ng-deep .CodeMirror-hint {
-  margin: 0;
-  padding: 4px 6px;
-  border-radius: 2px;
-  white-space: pre;
-  color: #abb2bf;
-  cursor: pointer;
-}
-
-::ng-deep li.CodeMirror-hint-active {
-  background: #2e2143;
-  color: #df881d;
-}
-
-@media screen and (max-width: 768px) {
-  .editor-container {
-    height: auto;
-    h2 {
-      font-size: 1.2rem;
-    }
-    .editor {
-      flex-direction: column;
-      height: auto;
-      .cm-panel {
-        width: 100%;
-        height: 300px;
-      }
-      .output-panel {
-        width: 100%;
-        height: auto;
-        .section {
-          margin-bottom: 1rem;
-        }
-      }
-    }
-  }
 }

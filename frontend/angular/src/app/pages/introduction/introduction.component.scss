@@ -1,119 +1,160 @@
+// Estilos adicionales para el componente de introducción
+
 .intro-template {
-  // background-color: red;
-  height: 100%;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-areas:
-    "left right"
-    "left right";
-  overflow: hidden;
+  display: flex;
+  gap: 2rem;
+  min-height: 100vh;
+  padding: 2rem;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    padding: 1rem;
+  }
 }
 
 .intro-left {
-  grid-area: left;
-  padding: 1rem;
-}
-
-.intro-left h1 {
-  color: #fff;
-  font-size: 2.5rem;
-  margin-bottom: 0.5rem;
-  border-bottom: 2px solid #333;
-  padding-bottom: 0.5rem;
-  background: linear-gradient(135deg, #ff6ec4, #7873f5);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.intro-left h2 {
-  color: #ff6ec4;
-  font-size: 1.8rem;
-  margin: 0.5rem 0 1rem 0;
-}
-
-.intro-left h3 {
-  color: #7873f5;
-  font-size: 1.3rem;
-  margin-bottom: 0.1rem;
-}
-
-.intro-left p {
-  color: #ccc;
-  line-height: 1.2;
-  font-size: 1.1rem;
-}
-
-.intro-left .example-box {
-  background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
-  border: 1px solid #444;
-  border-radius: 0.8rem;
-  padding-top: 0.5rem;
-  padding-left: 1rem;
-  padding-right: 1rem;
-  padding-bottom: 0.5rem;
-  margin: 1rem 0;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-  border-left: 4px solid #ff6ec4;
-
-  h3 {
-    color: #ff6ec4;
-    margin-top: 0;
-    margin-bottom: 0.5rem;
-  }
-}
-
-.intro-left .code-block {
-  background: #0d1117;
-  border: 1px solid #30363d;
-  border-radius: 0.5rem;
-  padding: 1.2rem;
-  margin: 0.5rem 0;
-  overflow-x: auto;
-  position: relative;
-
-  &::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, #ff6ec4, #7873f5);
-    border-radius: 0.5rem 0.5rem 0 0;
+  flex: 1;
+  
+  h1 {
+    color: #333;
+    margin-bottom: 1rem;
   }
 
-  pre {
-    color: #c9d1d9;
-    font-family: "Courier New", monospace;
-    margin: 0;
-    white-space: pre-wrap;
-    font-size: 0.95rem;
-    line-height: 1.5;
+  h2 {
+    color: #555;
+    margin: 1.5rem 0 0.5rem 0;
+  }
+
+  p {
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+
+  .example-box {
+    background: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    padding: 1rem;
+    margin: 1rem 0;
+
+    h3 {
+      margin-top: 0;
+      color: #495057;
+    }
+
+    .code-block {
+      background: #f1f3f4;
+      border-radius: 4px;
+      padding: 0.5rem;
+
+      pre {
+        margin: 0;
+        font-family: 'Courier New', monospace;
+        font-size: 0.9rem;
+        color: #2d3748;
+        white-space: pre-wrap;
+      }
+    }
   }
 }
 
 .intro-right {
-  grid-area: right;
-  padding: 1rem;
-  overflow: hidden;
-}
-
-.intro-right .buttons-field {
+  flex: 1;
   display: flex;
+  flex-direction: column;
   gap: 1rem;
-  justify-content: center;
-  align-items: center;
+
+  .buttons-field {
+    display: flex;
+    gap: 1rem;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+
+    .btn {
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      border: 1px solid #007bff;
+      background: #007bff;
+      color: white;
+      cursor: pointer;
+      transition: all 0.3s;
+
+      &:hover:not(:disabled) {
+        background: #0056b3;
+      }
+
+      &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+    }
+  }
+
+  .editor-field {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    .editor-block {
+      background: #f8f9fa;
+      padding: 1rem;
+      border-radius: 8px;
+      border: 1px solid #e9ecef;
+
+      h3 {
+        margin-top: 0;
+        color: #495057;
+      }
+
+      p {
+        margin-bottom: 0;
+        line-height: 1.5;
+      }
+    }
+
+    .verification-result {
+      padding: 0.75rem;
+      border-radius: 4px;
+      text-align: center;
+      font-weight: bold;
+
+      p {
+        margin: 0;
+      }
+
+      // Estilos condicionales que puedes agregar con ngClass
+      &.correct {
+        background: #d4edda;
+        color: #155724;
+        border: 1px solid #c3e6cb;
+      }
+
+      &.incorrect {
+        background: #f8d7da;
+        color: #721c24;
+        border: 1px solid #f5c6cb;
+      }
+    }
+  }
 }
 
-.editor-block {
-  background: #2c2c2c;
-  padding: 1rem;
-  border-radius: 8px;
-}
+// Responsive design
+@media (max-width: 768px) {
+  .intro-template {
+    .intro-left, .intro-right {
+      flex: none;
+      width: 100%;
+    }
 
-.btn {
-  border: 1px solid white;
-  color: white !important;
-}
+    .buttons-field {
+      flex-direction: column;
+      gap: 0.5rem;
 
+      .btn {
+        width: 100%;
+      }
+    }
+  }
+}

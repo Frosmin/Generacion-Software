@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-// EditorComponent.ts
-import { Component, OnInit, AfterViewInit, ViewChild, OnDestroy } from '@angular/core';
+// EditorComponent.ts - Versión Reutilizable
+import { Component, OnInit, AfterViewInit, ViewChild, OnDestroy, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { CodemirrorModule, CodemirrorComponent } from '@ctrl/ngx-codemirror';
@@ -82,8 +82,24 @@ function pythonLint(code: string) {
   templateUrl: './editor.component.html',
   styleUrls: ['./editor.component.scss'],
 })
-export class EditorComponent implements OnInit, AfterViewInit, OnDestroy {
+export class EditorComponent implements OnInit, AfterViewInit, OnDestroy, OnChanges {
   @ViewChild('codeEditor') private codeEditorComponent!: CodemirrorComponent;
+  
+  // Inputs para hacer el componente reutilizable
+  @Input() mode: 'full' | 'activity' = 'full'; // Modo del editor
+  @Input() initialCode: string = ''; // Código inicial
+  @Input() correctSolution: string = ''; // Solución correcta (para modo actividad)
+  @Input() showChat: boolean = true; // Mostrar funcionalidad de chat
+  @Input() showInputOutput: boolean = true; // Mostrar paneles de input/output
+  @Input() height: string = '70vh'; // Altura del editor
+  @Input() placeholder: string = 'Escribe tu código…'; // Placeholder
+  
+  // Outputs para comunicación con el componente padre
+  @Output() codeChange = new EventEmitter<string>();
+  @Output() codeOutput = new EventEmitter<string>();
+  @Output() codeExecuted = new EventEmitter<{code: string, output: string}>();
+  @Output() solutionCheck = new EventEmitter<{correct: boolean, output: string}>();
+
   codigo = '';
   inputs = '';
   output = '';
@@ -99,7 +115,7 @@ export class EditorComponent implements OnInit, AfterViewInit, OnDestroy {
     styleActiveLine: true,
     matchBrackets: true,
     viewportMargin: Infinity,
-    placeholder: 'Escribe tu código…',
+    placeholder: this.placeholder,
     gutters: ['CodeMirror-lint-markers'],
     lint: {
       getAnnotations: pythonLint,
@@ -254,12 +270,26 @@ export class EditorComponent implements OnInit, AfterViewInit, OnDestroy {
     };
   }
 
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['initialCode'] && changes['initialCode'].currentValue !== undefined) {
+      this.codigo = this.initialCode;
+    }
+    if (changes['placeholder']) {
+      this.cmOptions.placeholder = this.placeholder;
+    }
+  }
+
   async ngOnInit() {
     // @ts-expect-error: loadPyodide no está definido en el contexto de TypeScript
     this.pyodide = await loadPyodide();
     this.pyodideReady = true;
     (window as any).pyodideInstance = this.pyodide;
     console.log('[Editor] Pyodide cargado desde CDN');
+
+    // Inicializar código si se proporciona
+    if (this.initialCode) {
+      this.codigo = this.initialCode;
+    }
 
     // Suscribirse a los mensajes del LSP
     this.lspSubscription = this.pythonLSP.onMessage().subscribe((message: LSPMessage) => {
@@ -297,9 +327,11 @@ export class EditorComponent implements OnInit, AfterViewInit, OnDestroy {
           }
         });
 
-        // Notificar cambios al LSP
+        // Notificar cambios al LSP y emitir evento
         this.codeEditor.on('change', (cm: any) => {
           this.notifyLSPChanges(cm);
+          this.codigo = cm.getValue();
+          this.codeChange.emit(this.codigo);
         });
       }
     }, 100);
@@ -361,6 +393,7 @@ export class EditorComponent implements OnInit, AfterViewInit, OnDestroy {
   async ejecutarCodigo(): Promise<void> {
     if (!this.pyodide) {
       this.output = 'Pyodide no está cargado correctamente.';
+      this.codeOutput.emit(this.output);
       return;
     }
 
@@ -386,12 +419,57 @@ export class EditorComponent implements OnInit, AfterViewInit, OnDestroy {
       });
 
       await this.pyodide.runPythonAsync(this.codigo);
+      
+      // Emitir eventos
+      this.codeOutput.emit(this.output);
+      this.codeExecuted.emit({code: this.codigo, output: this.output});
+      
     } catch (error) {
       this.output = `Error: ${String(error)}`;
+      this.codeOutput.emit(this.output);
+      this.codeExecuted.emit({code: this.codigo, output: this.output});
     }
   }
 
-  chat(): void{
+  // Nueva función para verificar solución (modo actividad)
+  async verificarSolucion(): Promise<void> {
+    if (!this.correctSolution) {
+      console.warn('No se ha proporcionado una solución correcta');
+      return;
+    }
+
+    await this.ejecutarCodigo();
+    
+    try {
+      // Ejecutar la solución correcta
+      let correctOutput = '';
+      this.pyodide.setStdout({
+        batched: (text: string) => {
+          correctOutput += text;
+        },
+      });
+      
+      await this.pyodide.runPythonAsync(this.correctSolution);
+      
+      // Comparar salidas
+      const isCorrect = this.output.trim() === correctOutput.trim();
+      this.solutionCheck.emit({correct: isCorrect, output: this.output});
+      
+    } catch (error) {
+      console.error('Error al verificar solución:', error);
+      this.solutionCheck.emit({correct: false, output: this.output});
+    }
+  }
+
+  // Función para restablecer el código
+  restablecerCodigo(): void {
+    this.codigo = this.initialCode;
+    this.output = '';
+    this.codeChange.emit(this.codigo);
+    this.codeOutput.emit('');
+  }
+
+  chat(): void {
     if (!this.inputChat.trim()) {
       this.outputChat = 'Por favor, escribe un mensaje.';
       return;
