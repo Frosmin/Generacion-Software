@@ -12,6 +12,7 @@ import { authGuard } from './guards/auth.guard';
 import { CursosComponent } from './pages/cursos/cursos.component';
 import { IntroductionComponent } from './pages/introduction/introduction.component';
 import { ChatComponent } from './pages/chat/chat.component';
+import { CreateCourseComponent } from './pages/create-course/create-course.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -29,6 +30,7 @@ export const routes: Routes = [
   { path: 'terminal', component: TerminalComponent },
   { path: 'cursos/:id', component: IntroductionComponent },
   { path: 'chat', component: ChatComponent },
+  { path: 'crear-curso', component: CreateCourseComponent },
 
       // rutas protegidas
   { path: 'progreso-aprendizaje', component: LearningProgressComponent, canMatch: [authGuard]}
