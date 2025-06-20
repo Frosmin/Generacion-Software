@@ -15,13 +15,13 @@ type Course struct {
 }
 
 type Content struct {
-	ID        uint         `json:"id" gorm:"primaryKey"`
-	CourseID  uint         `json:"-"`
-	Title     string       `json:"title"`
-	Paragraph GormStrings  `json:"paragraph" gorm:"type:jsonb"`
-	Subcontents []Subcontent `json:"subcontents" gorm:"foreignKey:ContentID"`
+    ID          uint         `json:"id" gorm:"primaryKey"`
+    CourseID    uint         `json:"-"`
+    Title       string       `json:"title"`
+    Paragraph   GormStrings  `json:"paragraph" gorm:"type:jsonb"`
+    Subcontent  []Subcontent `json:"subcontent" gorm:"foreignKey:ContentID"`
+    Next        string       `json:"next,omitempty"` 
 }
-
 type Subcontent struct {
 	ID           uint        `json:"id" gorm:"primaryKey"`
 	ContentID    uint        `json:"-"`

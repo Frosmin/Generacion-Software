@@ -49,5 +49,6 @@ func SetupRouter() *gin.Engine {
 	api.GET("/courses/info", GetBasicCourses)
 	api.GET("/courses/:id", GetCourse)
 	api.POST("/courses", CreateCourse)
+	api.GET("/course/:goto", GetCourseIDByGoto)
 	return r
 }
