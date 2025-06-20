@@ -69,19 +69,24 @@
         </a>
       </li>
       <li class="nav-item language-selector">
-        <a
-          href="javascript:void(0)"
+        <button
+          type="button"
+          class="language-toggle"
           (click)="toggleLanguageDropdown()"
+          [attr.aria-expanded]="isLanguageDropdownOpen"
+          [attr.aria-controls]="'languageDropdown'"
           [title]="'navbar.language' | translate"
         >
-          <i class="fas fa-globe"></i>
+          <i class="fas fa-globe" aria-hidden="true"></i>
           <span class="nav-label">{{ "navbar.language" | translate }}</span>
-        </a>
+        </button>
         <div
+          id="languageDropdown"
           class="language-dropdown"
           [ngClass]="{ active: isLanguageDropdownOpen }"
         >
-          <div
+          <button
+            type="button"
             class="language-option"
             *ngFor="let language of languages"
             (click)="changeLanguage(language.code)"
@@ -89,7 +94,7 @@
           >
             <span class="flag">{{ language.flag }}</span>
             <span class="language-name">{{ language.name }}</span>
-          </div>
+          </button>
         </div>
       </li>
     </ul>
