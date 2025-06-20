@@ -1,12 +1,27 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 
+// Interfaz para el resultado de una solicitud de autocompletado
+export interface CompletionResponse {
+  items: { label: string }[];
+}
+
+// Interfaz para los mensajes LSP
+export interface LSPMessage {
+  jsonrpc: string;
+  id?: number | string;
+  method?: string;
+  params?: unknown;
+  result?: CompletionResponse | unknown;
+  error?: unknown;
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class PythonLSPService {
   private socket: WebSocket;
-  private messageSubject = new Subject<any>();
+  private messageSubject = new Subject<LSPMessage>();
   private initialized = false;
 
   constructor() {
@@ -43,7 +58,7 @@ export class PythonLSPService {
 
     this.socket.onmessage = (event) => {
       try {
-        const message = JSON.parse(event.data);
+        const message: LSPMessage = JSON.parse(event.data);
         this.messageSubject.next(message);
       } catch (error) {
         console.error('Error parsing LSP message:', error);
@@ -55,7 +70,7 @@ export class PythonLSPService {
     };
   }
 
-  public sendRequest(params: any): void {
+  public sendRequest(params: LSPMessage): void {
     if (this.socket.readyState === WebSocket.OPEN) {
       this.socket.send(JSON.stringify(params));
     }

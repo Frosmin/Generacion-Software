@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { CodemirrorModule, CodemirrorComponent } from '@ctrl/ngx-codemirror';
 import { HttpClient } from '@angular/common/http';
-import { PythonLSPService } from '../../services/python-lsp.service';
+import { PythonLSPService, LSPMessage, CompletionResponse } from '../../services/python-lsp.service';
 import { Subscription } from 'rxjs';
 
 // Importacion de lint y modo python para CodeMirror
@@ -173,7 +173,7 @@ export class EditorComponent implements OnInit, AfterViewInit, OnDestroy {
   editorOptions: any;
   codeEditor: any;
   private lspSubscription: Subscription | null = null;
-  private completionItems: any[] = [];
+  private completionItems: { label: string }[] = [];
 
   constructor(
     private http: HttpClient,
@@ -262,9 +262,11 @@ export class EditorComponent implements OnInit, AfterViewInit, OnDestroy {
     console.log('[Editor] Pyodide cargado desde CDN');
 
     // Suscribirse a los mensajes del LSP
-    this.lspSubscription = this.pythonLSP.onMessage().subscribe(message => {
-      if (message.method === 'textDocument/completion') {
-        this.completionItems = message.result?.items || [];
+    this.lspSubscription = this.pythonLSP.onMessage().subscribe((message: LSPMessage) => {
+      if (message.method === 'textDocument/completion' && message.result) {
+        // Asegurarse de que el resultado sea del tipo esperado
+        const completionResult = message.result as CompletionResponse;
+        this.completionItems = completionResult.items || [];
       }
     });
   }
