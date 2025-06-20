@@ -222,8 +222,7 @@ $success-color: #4caf50;
     transform: scale(1.05);
   }
 }
-
-// Contenedores de contenido
+// Contenedores de contenido con jerarquía visual mejorada
 .contents-container {
   display: flex;
   flex-direction: column;
@@ -232,30 +231,56 @@ $success-color: #4caf50;
 
 .content-card {
   background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  border: 2px solid rgba(138, 99, 210, 0.3);
+  border-left: 4px solid $secondary-color;
   border-radius: 10px;
-  padding: 25px;
+  margin-bottom: 2rem;
   position: relative;
+  backdrop-filter: blur(10px);
+}
 
-  .content-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
+.content-header {
+  background: rgba(138, 99, 210, 0.15);
+  padding: 1rem;
+  border-bottom: 1px solid rgba(138, 99, 210, 0.2);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0;
 
-    h3 {
-      color: $secondary-color;
-      font-size: 1.2rem;
-      font-weight: 600;
-      margin: 0;
-    }
+  h3 {
+    color: $text-light;
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin: 0;
   }
 }
 
+.content-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.content-number {
+  background: $secondary-color;
+  color: white;
+  padding: 0.25rem 0.5rem;
+  border-radius: 50%;
+  font-weight: bold;
+  font-size: 0.875rem;
+  min-width: 2rem;
+  text-align: center;
+}
+
+.content-body {
+  padding: 1.5rem;
+}
+
 .subcontent-section {
-  margin-top: 25px;
-  padding-top: 20px;
+  margin-top: 2rem;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 1.5rem;
 
   .subcontent-header {
     display: flex;
@@ -264,7 +289,7 @@ $success-color: #4caf50;
     margin-bottom: 20px;
 
     h4 {
-      color: $text-light;
+      color: $primary-color;
       font-size: 1.1rem;
       font-weight: 600;
       margin: 0;
@@ -272,30 +297,52 @@ $success-color: #4caf50;
   }
 }
 
+.subcontent-container {
+  margin-left: 1rem;
+  border-left: 2px solid rgba(255, 255, 255, 0.1);
+  padding-left: 1rem;
+}
+
 .subcontent-card {
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 8px;
-  padding: 20px;
-  margin-bottom: 20px;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
 
-  .subcontent-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 15px;
+.subcontent-header-item {
+  background: rgba(255, 255, 255, 0.08);
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
-    span {
-      font-weight: 600;
-      color: $primary-color;
-    }
-  }
+.subcontent-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.subcontent-number {
+  background: $primary-color;
+  color: white;
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+  font-weight: bold;
+  font-size: 0.75rem;
+}
+
+.subcontent-body {
+  padding: 1rem;
 }
 
 .examples-section {
-  margin-top: 20px;
-  padding-top: 15px;
+  margin-top: 1rem;
   border-top: 1px solid rgba(255, 255, 255, 0.05);
+  padding-top: 1rem;
 
   .examples-header {
     display: flex;
@@ -308,21 +355,81 @@ $success-color: #4caf50;
       font-size: 0.9rem;
       color: $text-muted;
     }
+
+    h5 {
+      color: rgba(76, 175, 80, 0.9);
+      margin: 0;
+      font-size: 1rem;
+    }
   }
 }
 
-.example-item {
-  position: relative;
-  margin-bottom: 15px;
+.examples-container {
+  margin-left: 1rem;
+  border-left: 2px solid rgba(255, 255, 255, 0.05);
+  padding-left: 1rem;
+}
 
-  .remove-example-button {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    z-index: 10;
-    font-size: 0.8rem;
-    padding: 4px 8px;
+.example-item {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 6px;
+  margin-bottom: 0.75rem;
+  overflow: hidden;
+  position: relative;
+}
+
+.example-header {
+  background: rgba(76, 175, 80, 0.15);
+  padding: 0.5rem 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-bottom: 1px solid rgba(76, 175, 80, 0.2);
+}
+
+.example-number {
+  background: $success-color;
+  color: white;
+  padding: 0.15rem 0.3rem;
+  border-radius: 3px;
+  font-weight: bold;
+  font-size: 0.7rem;
+}
+
+.example-label {
+  font-size: 0.875rem;
+  color: rgba(76, 175, 80, 0.9);
+  font-weight: 500;
+}
+
+// Sobrescribimos el code-textarea dentro de examples para mantener coherencia
+.example-item .code-textarea {
+  width: 100%;
+  border: none;
+  background: rgba(0, 0, 0, 0.6);
+  font-family: 'Courier New', monospace;
+  padding: 0.75rem;
+  resize: vertical;
+  min-height: 120px;
+  color: $text-light;
+  border-radius: 0;
+
+  &::placeholder {
+    color: rgba(255, 255, 255, 0.4);
   }
+
+  &:focus {
+    outline: none;
+    border-color: $primary-color;
+    box-shadow: 0 0 0 3px rgba(223, 136, 29, 0.1);
+  }
+}
+
+.remove-example-button {
+  margin-left: auto;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
 }
 
 // Acciones del formulario
