@@ -116,5 +116,18 @@
     "pillHard": "Llasaq",
     "loading": "Kawsaykuna rantikunata chaskiy...",
     "noExercises": "Kunanpacha manaraq kawsaykuna rantikuna kachkanichu."
+  },
+  "login": {
+    "title": "Yaykuy",
+    "email": "Correo electrónico",
+    "password": "Simiñawi (Contraseña)",
+    "minlength": "Juk ñiqinmanta iskay chʼiqniykunamanta jukʼariña",
+    "loginButton": "Yaykuy",
+    "loginButtonLoading": "Yaykuchkan...",
+    "forgotPassword": "¿Simiñawita qunqaykuchkanki?",
+    "noAccount": "¿Mana ima cuenta kanchu?",
+    "registerHere": "Kaypi qillqay",
+    "required": "Kay champaqqa mana chusakunqachu",
+    "invalidEmail": "Correo electrónico allin hukchasqa churanapaq"
   }
 }

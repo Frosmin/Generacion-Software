@@ -116,5 +116,18 @@
     "pillHard": "Avanzado",
     "loading": "Cargando ejercicios...",
     "noExercises": "No hay ejercicios disponibles en este momento."
+  },
+  "login": {
+    "title": "Iniciar sesión",
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "minlength": "Mínimo 2 caracteres",
+    "loginButton": "Iniciar sesión",
+    "loginButtonLoading": "Iniciando sesión...",
+    "forgotPassword": "¿Olvidaste tu contraseña?",
+    "noAccount": "¿No tienes cuenta?",
+    "registerHere": "Regístrate aquí",
+    "required": "Este campo es obligatorio",
+    "invalidEmail": "Ingresa un formato de correo válido"
   }
 }
