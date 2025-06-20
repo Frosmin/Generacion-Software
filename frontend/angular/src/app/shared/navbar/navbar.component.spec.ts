@@ -8,6 +8,7 @@ describe('NavbarComponent', () => {
   let fixture: ComponentFixture<NavbarComponent>;
 
   beforeEach(async () => {
+    localStorage.removeItem('selectedLanguage');
     await TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,
