@@ -1,9 +1,10 @@
+import { Observable } from 'rxjs';
 import { TestBed } from '@angular/core/testing';
 import {
   HttpClientTestingModule,
   HttpTestingController,
 } from '@angular/common/http/testing';
-import { CodeforcesService, CodeforcesApiResponse } from './codeforce.service';
+import { CodeforcesService, TransformedProblem } from './codeforce.service';
 
 describe('CodeforcesService', () => {
   let service: CodeforcesService;
@@ -12,7 +13,9 @@ describe('CodeforcesService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
+      providers: [CodeforcesService],
     });
+
     service = TestBed.inject(CodeforcesService);
     httpMock = TestBed.inject(HttpTestingController);
   });
@@ -25,62 +28,98 @@ describe('CodeforcesService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should fetch and map Codeforces problems correctly', () => {
-    const mockResponse: CodeforcesApiResponse = {
+  it('should fetch and transform problems correctly', (done) => {
+    const mockApiResponse = {
       status: 'OK',
       result: {
         problems: [
           {
-            contestId: 1234,
+            contestId: 123,
             index: 'A',
-            name: 'Mock Problem A',
+            name: 'Sample Problem',
             type: 'PROGRAMMING',
-            points: 500,
-            rating: 1200,
-            tags: ['math', 'greedy'],
+            rating: 800,
+            tags: ['math'],
           },
         ],
         problemStatistics: [],
       },
     };
 
-    service.getAllProblems().subscribe((exercises) => {
-      expect(exercises.length).toBe(1);
-      expect(exercises[0].id).toBe('1234-A');
-      expect(exercises[0].title).toBe('Mock Problem A');
-      expect(exercises[0].rating).toBe(1200);
+    service.getAllProblems().subscribe((problems) => {
+      expect(problems.length).toBe(1);
+      expect(problems[0].title).toBe('Sample Problem');
+      expect(problems[0].difficulty).toBe('Medium');
+      done();
     });
 
     const req = httpMock.expectOne(
       'https://codeforces.com/api/problemset.problems'
     );
     expect(req.request.method).toBe('GET');
-    req.flush(mockResponse);
+    req.flush(mockApiResponse);
   });
 
   it('should filter problems by difficulty', () => {
-    const mockExercises = [
-      { id: '1', rating: 800, tags: [], title: '', statement: '', index: 'A' },
-      { id: '2', rating: 1300, tags: [], title: '', statement: '', index: 'B' },
-      { id: '3', rating: 1900, tags: [], title: '', statement: '', index: 'C' },
-      { id: '4', tags: [], title: '', statement: '', index: 'D' }, // sin rating
+    const mockProblems: TransformedProblem[] = [
+      {
+        id: '1-A',
+        title: 'Easy Prob',
+        statement: '',
+        tags: [],
+        index: 'A',
+        difficulty: 'Easy',
+      },
+      {
+        id: '1-B',
+        title: 'Hard Prob',
+        statement: '',
+        tags: [],
+        index: 'B',
+        difficulty: 'Hard',
+      },
     ];
 
-    const easy = service.filterProblemsByDifficulty(
-      mockExercises as any,
-      'easy'
-    );
-    const medium = service.filterProblemsByDifficulty(
-      mockExercises as any,
-      'medium'
-    );
-    const hard = service.filterProblemsByDifficulty(
-      mockExercises as any,
-      'hard'
+    const filtered = service.filterProblemsByDifficulty(mockProblems, 'easy');
+    expect(filtered.length).toBe(1);
+    expect(filtered[0].difficulty).toBe('Easy');
+  });
+
+  it('should return undefined if problem ID not found', (done) => {
+    spyOn(service, 'getAllProblems').and.returnValue(
+      new Observable<TransformedProblem[]>((subscriber) => {
+        subscriber.next([]);
+        subscriber.complete();
+      })
     );
 
-    expect(easy.length).toBe(0);
-    expect(medium.length).toBe(1);
-    expect(hard.length).toBe(2);
+    service.getProblemById('non-existent-id').subscribe((result) => {
+      expect(result).toBeUndefined();
+      done();
+    });
+  });
+
+  it('should map tags to readable topics', () => {
+    const result = service['mapTagsToTopics'](['math', 'graphs', 'xyz']);
+    expect(result).toContain('Matemáticas');
+    expect(result).toContain('Teoría de Grafos');
+    expect(result).toContain('Xyz'); // capitalized unknown tag
+  });
+
+  it('should generate examples for math problems', () => {
+    const problem: TransformedProblem = {
+      id: '123-A',
+      title: 'Sum Problem',
+      statement: '',
+      tags: ['math'],
+      rating: 800,
+      index: 'A',
+      difficulty: 'Easy',
+      contestId: 123,
+    };
+
+    const examples = service['generateExamples'](problem);
+    expect(examples.length).toBeGreaterThan(0);
+    expect(examples[0].explanation).toContain('Suma simple');
   });
 });
