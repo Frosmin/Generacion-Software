@@ -108,7 +108,11 @@
   },
   "chat": {
     "header": "Asistente Virtual",
-    "button": "Enviar"
+    "button": "Enviar",
+    "message": "Hola, ¿en qué puedo ayudarte hoy?",
+    "placeholder": "Escribe tu mensaje aquí...",
+    "error": "Error al conectar con el servicio. Por favor, intenta más tarde.",
+    "noValidResponse": "No se recibió una respuesta válida."
   },
   "exercisesList": {
     "pillEasy": "Fácil",

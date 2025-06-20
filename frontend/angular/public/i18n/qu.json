@@ -107,8 +107,12 @@
     }
   },
   "chat": {
-    "header": "Yaykuy Asistente",
-    "button": "Kachariy"
+    "header": "Yachaq Asistente",
+    "button": "Apachiy",
+    "message": "Kamisaraki, ¿imawan yanapaniyki munanki kunan punchawpi?",
+    "placeholder": "Kaypi willaykita qillqay...",
+    "error": "Manaraq atinkuchu mayninta tiyanaykita. Ama hina kaspa, hukratam try-nayta.",
+    "noValidResponse": "Manaraq allinta kutichiyta chaskinchikchu."
   },
   "exercisesList": {
     "pillEasy": "Sasa",
