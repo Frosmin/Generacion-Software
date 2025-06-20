@@ -48,6 +48,36 @@ interface CourseIdResponse {
   id: number;
 }
 
+// Interface para crear un nuevo curso
+interface CreateCourseRequest {
+  course: {
+    title: string;
+    description: string;
+    goto: string;
+  };
+  contents: CreateCourseContent[];
+}
+
+interface CreateCourseContent {
+  title: string;
+  paragraph: string[];
+  subcontent: CreateSubContent[];
+  next: string | null;
+}
+
+interface CreateSubContent {
+  subtitle: string;
+  subparagraph: string[];
+  example: string[];
+}
+
+// Interface para la respuesta de creación
+interface CreateCourseResponse {
+  id: number;
+  message: string;
+  course?: CourseData;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -63,6 +93,13 @@ export class CoursesService {
   ];
 
   constructor(private http: HttpClient) {}
+
+  // NUEVA FUNCIÓN: Crear un nuevo curso
+  createCourse(courseData: CreateCourseRequest): Observable<CreateCourseResponse> {
+    return this.http.post<CreateCourseResponse>(`${this.baseUrl}/courses`, courseData).pipe(
+      catchError(this.handleError)
+    );
+  }
 
   getBasicCourses(): Observable<ICardCurso[]> {
     return this.http.get<BasicCourseResponse[]>(`${this.baseUrl}/courses/info`).pipe(

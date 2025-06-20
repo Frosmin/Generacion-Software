@@ -4,7 +4,6 @@ import (
 	"log"
 
 	"github.com/Frosmin/backend/db"
-	"github.com/Frosmin/backend/models"
 	"github.com/Frosmin/backend/routes"
 	"github.com/joho/godotenv"
 
@@ -21,11 +20,11 @@ func main() {
 	//db.DB.AutoMigrate(models.Exercise{})
 	//db.DB.AutoMigrate(models.Tutorial{})
 	//db.DB.AutoMigrate(models.Video{})
-	db.DB.AutoMigrate(
+	/*db.DB.AutoMigrate(
     &models.Course{},
     &models.Content{},
     &models.Subcontent{},
-	)
+	)*/
 
 	// Obtener el router configurado con CORS y rutas
 	r := routes.SetupRouter()

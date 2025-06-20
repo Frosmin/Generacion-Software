@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormArray, Validators, AbstractControl } from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
+import { CoursesService } from '../../services/courses.service'; // Ajusta la ruta según tu estructura
 
 interface CourseData {
   course: {
@@ -17,7 +18,7 @@ interface ContentData {
   title: string;
   paragraph: string[];
   subcontent: SubcontentData[];
-  next?: string;
+  next: string | null; 
 }
 
 interface SubcontentData {
@@ -40,7 +41,8 @@ export class CreateCourseComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private router: Router
+    private router: Router,
+    private coursesService: CoursesService
   ) {
     this.courseForm = this.createCourseForm();
   }
@@ -158,14 +160,16 @@ export class CreateCourseComponent implements OnInit {
           subtitle: sub.subtitle,
           subparagraph: [sub.subparagraph],
           example: sub.example.filter((ex: string) => ex.trim() !== '')
-        }))
+        })),
+        next: null // Inicializar next como null por defecto
       };
 
       // Agregar "next" automáticamente si no es el último contenido
       if (index < formValue.contents.length - 1) {
         const nextContent = formValue.contents[index + 1];
-        if (nextContent && nextContent.title) {
-          contentData.next = nextContent.title;
+        // Verificar que el siguiente contenido existe y tiene título
+        if (nextContent && nextContent.title && nextContent.title.trim() !== '') {
+          contentData.next = nextContent.title.trim();
         }
       }
 
@@ -218,21 +222,38 @@ export class CreateCourseComponent implements OnInit {
     return true;
   }
 
-  // Envío del formulario - Solo imprime el JSON
+  // MÉTODO ACTUALIZADO: Envío del formulario con integración a la API
   onSubmit(): void {
     if (this.courseForm.valid && this.validateCourse()) {
       this.isSubmitting = true;
       
       const courseData = this.formatCourseData();
       
-      // Imprimir el JSON en la consola
-      console.log('JSON del curso creado:');
-      console.log(JSON.stringify(courseData, null, 2));
+      // Enviar el curso a la API
+      this.coursesService.createCourse(courseData).subscribe({
+        next: (response) => {
+          console.log('Curso creado exitosamente:', response);
+          
+          // Mostrar mensaje de éxito
+          alert(`¡Curso creado exitosamente! ID: ${response.id}`);
+          
+          // Opcional: Resetear el formulario o navegar a otra página
+          this.courseForm.reset();
+          this.contents.clear();
+          this.addContent(); // Agregar contenido inicial
+          
+          // Opcional: Navegar a la lista de cursos o a ver el curso creado
+          // this.router.navigate(['/courses']);
+          
+          this.isSubmitting = false;
+        },
+        error: (error) => {
+          console.error('Error al crear el curso:', error);
+          alert('Error al crear el curso: ' + error.message);
+          this.isSubmitting = false;
+        }
+      });
       
-      // También mostrar en un alert (opcional)
-      alert('¡Curso creado! Revisa la consola para ver el JSON completo.');
-      
-      this.isSubmitting = false;
     } else {
       this.markFormGroupTouched(this.courseForm);
       alert('Por favor, completa todos los campos requeridos');
