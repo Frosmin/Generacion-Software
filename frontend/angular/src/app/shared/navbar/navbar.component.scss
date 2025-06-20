@@ -74,7 +74,6 @@
   display: none;
 }
 
-// --- Ítem de perfil y idioma tipo tooltip ---
 .nav-item a {
   position: relative;
   display: flex;
@@ -83,7 +82,6 @@
   color: white;
   font-size: 1.5rem;
   transition: color 0.3s;
-  margin-right: 15px;
   cursor: pointer;
 }
 
@@ -120,55 +118,82 @@
   position: absolute;
   top: 100%;
   right: 0;
-  background: #120e23;
+  background: #1e1e2f;
   border-radius: 8px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
   opacity: 0;
   visibility: hidden;
   transform: translateY(-10px);
   transition: all 0.3s ease-in-out;
-  min-width: 140px;
+  min-width: 160px;
   z-index: 1000;
   border: 1px solid rgba(255, 255, 255, 0.1);
-}
 
-.language-dropdown.active {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0);
+  &.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
 }
 
 .language-option {
+  all: unset;
   display: flex;
   align-items: center;
+  width: 80%;
   padding: 0.7rem 1rem;
   cursor: pointer;
   color: white;
   transition: background-color 0.2s;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  background: transparent;
+  border-radius: 5px;
+
+  &:hover,
+  &:focus-visible {
+    background: rgba(255, 255, 255, 0.1);
+    outline: none;
+  }
+
+  &.selected {
+    background: rgba(255, 165, 0, 0.2);
+    color: #ffa500;
+    font-weight: bold;
+
+  }
+
+  .flag {
+    margin-right: 0.5rem;
+    font-size: 1.2rem;
+  }
+
+  .language-name {
+    font-size: 0.9rem;
+  }
 }
 
-.language-option:last-child {
-  border-bottom: none;
-}
+.language-toggle {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 50%;
+  transition: background 0.3s;
 
-.language-option:hover {
-  background: rgba(255, 255, 255, 0.1);
-}
+  &:hover,
+  &:focus-visible {
+    background: rgba(255, 255, 255, 0.1);
+    outline: none;
+  }
 
-.language-option.selected {
-  background: rgba(165, 214, 255, 0.2);
-  color: #a5d6ff;
-}
-
-.language-option .flag {
-  margin-right: 0.5rem;
-  font-size: 1.2rem;
-}
-
-.language-option .language-name {
-  font-size: 0.9rem;
-  font-weight: 500;
+  .nav-label {
+    display: none; // oculta el texto
+  }
 }
 
 @media screen and (max-width: 940px) {
