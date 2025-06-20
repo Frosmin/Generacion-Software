@@ -118,17 +118,23 @@
     "noExercises": "No exercises available at this time."
   },
   "login": {
-  "title": "Log In",
-  "email": "Email",
-  "password": "Password",
-  "minlength": "Minimum 2 characters",
-  "loginButton": "Log In",
-  "loginButtonLoading": "Logging in...",
-  "forgotPassword": "Forgot your password?",
-  "noAccount": "Don't have an account?",
-  "registerHere": "Register here",
-  "required": "This field is required",
-  "invalidEmail": "Enter a valid email format"
-}
-
+    "title": "Log In",
+    "email": "Email",
+    "password": "Password",
+    "minlength": "Minimum 2 characters",
+    "loginButton": "Log In",
+    "loginButtonLoading": "Logging in...",
+    "forgotPassword": "Forgot your password?",
+    "noAccount": "Don't have an account?",
+    "registerHere": "Register here",
+    "required": "This field is required",
+    "invalidEmail": "Enter a valid email format"
+  },
+  "videosList": {
+    "pillEasy": "Easy",
+    "pillMedium": "Intermediate",
+    "pillHard": "Advanced",
+    "loading": "Loading videos...",
+    "noVideos": "No videos available for this difficulty level."
+  }
 }

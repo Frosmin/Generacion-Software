@@ -129,5 +129,12 @@
     "registerHere": "Kaypi qillqay",
     "required": "Kay champaqqa mana chusakunqachu",
     "invalidEmail": "Correo electrónico allin hukchasqa churanapaq"
+  },
+  "videosList": {
+    "pillEasy": "Suma qillqay",
+    "pillMedium": "Chiqninchay",
+    "pillHard": "Ch'ama",
+    "loading": "Videokunata chʼaskichkanki...",
+    "noVideos": "Kay chʼamachay ñiqinpaq videokuna mana kanchu."
   }
 }
