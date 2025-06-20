@@ -8,6 +8,8 @@ describe('NavbarComponent', () => {
   let fixture: ComponentFixture<NavbarComponent>;
 
   beforeEach(async () => {
+    spyOn(localStorage, 'getItem').and.returnValue('es');
+
     await TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,
@@ -38,8 +40,12 @@ describe('NavbarComponent', () => {
 
   it('should change language and update localStorage', () => {
     const newLang = 'en';
+    spyOn(localStorage, 'setItem');
     component.changeLanguage(newLang);
     expect(component.currentLanguage).toBe(newLang);
-    expect(localStorage.getItem('selectedLanguage')).toBe(newLang);
+    expect(localStorage.setItem).toHaveBeenCalledWith(
+      'selectedLanguage',
+      newLang
+    );
   });
 });

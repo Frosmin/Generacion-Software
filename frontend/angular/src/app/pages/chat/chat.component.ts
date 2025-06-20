@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common'; 
 import { FormsModule } from '@angular/forms'; 
+import { TranslatePipe } from '@ngx-translate/core';
 
 // Interfaz para tipar los mensajes
 interface ChatMessage {
@@ -18,7 +19,7 @@ interface GeminiResponse {
 @Component({
   selector: 'app-chat',
   standalone: true, // Aseguramos que el componente es standalone
-  imports: [CommonModule, FormsModule], // Añadimos CommonModule y FormsModule
+  imports: [CommonModule, FormsModule, TranslatePipe], // Añadimos CommonModule y FormsModule
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.scss'] // Corregido de styleUrl a styleUrls
 })
