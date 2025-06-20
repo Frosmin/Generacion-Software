@@ -1,0 +1,109 @@
+{
+  "navbar": {
+    "title": "Python yachiy",
+    "home": "Mikhuna",
+    "courses": "Yachachina",
+    "exercises": "Llamkʼaykuna",
+    "videos": "Video-kuna",
+    "terminal": "Terminal",
+    "chat": "Rimanakuy",
+    "myLearning": "Ñuqa yachachiyki",
+    "language": "Rimay"
+  },
+  "HOME": {
+    "BANNER": {
+      "TITLE": "Ña ña yachay",
+      "SUBTITLE": "Chʼusaqa Python-manta musuq ripuykunata ruwanapaq.",
+      "START_NOW": "Kaypi yachay",
+      "LEARN_MORE": "Allinlla yachay",
+      "IMAGE_TITLE": "Python-manta ruwanakuynin ilustrasiyon",
+      "IMAGE_ALT": "Python ruwanakuymanta"
+    },
+    "BENEFITS": {
+      "TITLE": "Python-chay sumaq",
+      "SUBTITLE": "Pythonqa kan yaykuy maskay yachachaypiykunata",
+      "CARDS": {
+        "EASY_LEARN": {
+          "ICON_TITLE": "Yachaylla hamuykuna ruwanakuynin ilustrasiyon",
+          "TITLE": "Yachaylla hamuy",
+          "DESCRIPTION": "Pythonqa sintax willka, tukuy yachaykuna qipqiyta hamuspa."
+        },
+        "VERSATILITY": {
+          "ICON_TITLE": "Puwar laya ruwanakuynin ilustrasiyon",
+          "TITLE": "Puwar laya",
+          "DESCRIPTION": "Ruwanaychu web, data science, IA chayllañata, chaypi."
+        },
+        "COMMUNITY": {
+          "ICON_TITLE": "Ayllu yachachaykuna ilustrasiyon",
+          "TITLE": "Hatun Ayllu",
+          "DESCRIPTION": "Milyunkuna yachachaykuna ruwanakuynin yuyaykuna kasqa llankʼaypa."
+        },
+        "JOB_OPPORTUNITY": {
+          "ICON_TITLE": "Llankʼay rikchʼay ilustrasiyon",
+          "TITLE": "Llankʼay Qhawari",
+          "DESCRIPTION": "Llankʼaypi rikchʼakuna, sumaq palkuna."
+        },
+        "LIBRARIES": {
+          "ICON_TITLE": "Biblioteka ruwanakuynin ilustrasiyon",
+          "TITLE": "Bibliotekaykuna Allin",
+          "DESCRIPTION": "Milyunkuna bibliotekaykuna yachachay huk llankʼayta."
+        },
+        "MULTIPLATFORM": {
+          "ICON_TITLE": "Sistemaspi ruwanakuynin ilustrasiyon",
+          "TITLE": "Tukuy sistema ruwanaku",
+          "DESCRIPTION": "Windows, Mac, Linux...Python runa runa ruwanaku."
+        }
+      }
+    },
+    "WHY_PYTHON": {
+      "TITLE": "Imayna Python yachanqa?",
+      "SUBTITLE": "Pythonqa llaqta rimay hamuq, puwar laya runakuna manam ruwachu.",
+      "IMAGE_ALT": "Python estructuran ilustrasiyon",
+      "IMAGE_TITLE": "Python komponentaykuna ilustrasiyon",
+      "SECTIONS": {
+        "FUTURE_LANGUAGE": {
+          "TITLE": "Waqaychu rimay",
+          "DESCRIPTION": "Pythonqa IA, Machine Learning, Data Science-chay llapa waqaychu rimaypa kamachiq."
+        },
+        "INTUITIVE_SYNTAX": {
+          "TITLE": "Sintax rikhuykunata",
+          "DESCRIPTION": "Inglés llaqtapi rikhurquylata, paytiq yachayninta allin ruwana."
+        },
+        "ROBUST_ECOSYSTEM": {
+          "TITLE": "Qallpa ecosystema",
+          "DESCRIPTION": "PyPI-taq 300,000-paq paketaykuna, tukuy kamachiyta churay."
+        }
+      }
+    },
+    "WORK_AREAS": {
+      "TITLE": "Llankʼay lurasqakuna",
+      "SUBTITLE": "Pythonqa llankʼaypi rikchʼakuna, rikchʼay kawsaypaq.",
+      "CARDS": {
+        "WEB_DEV": {
+          "NAME": "Web llankʼay",
+          "TITLE": "Web llankʼay ilustrasiyon"
+        },
+        "DATA_SCIENCE": {
+          "NAME": "Data Science",
+          "TITLE": "Data Science ilustrasiyon"
+        },
+        "MACHINE_LEARNING": {
+          "NAME": "Machine Learning",
+          "TITLE": "Machine Learning ilustrasiyon"
+        },
+        "AUTOMATION": {
+          "NAME": "Automatización",
+          "TITLE": "Automatización ilustrasiyon"
+        },
+        "CYBERSECURITY": {
+          "NAME": "Cyberseguridad",
+          "TITLE": "Cyberseguridad ilustrasiyon"
+        },
+        "AI": {
+          "NAME": "Artificial Inteligencia",
+          "TITLE": "AI ilustrasiyon"
+        }
+      }
+    }
+  }
+}

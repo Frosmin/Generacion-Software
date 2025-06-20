@@ -1,4 +1,17 @@
-<div class="exercise-container">
+<div *ngIf="loading" class="loading-container">
+  <div class="loading-spinner"></div>
+  <p>Cargando ejercicio...</p>
+</div>
+
+<div *ngIf="!loading && error" class="error-container">
+  <div class="error-message">
+    <h2>❌ Error</h2>
+    <p>{{ error }}</p>
+    <button (click)="goBack()" class="btn-volver">← Volver a ejercicios</button>
+  </div>
+</div>
+
+<div *ngIf="!loading && !error && exercise" class="exercise-container">
   <div class="top-bar">
     <button (click)="goBack()" class="btn-volver">
       < Volver a ejercicios</button>
@@ -13,8 +26,8 @@
           </span>
         </div>
   </div>
+
   <div class="main-layout">
-    <!-- Contenido principal -->
     <div class="main-content">
       <div class="tabs" role="tablist">
         <div class="tab" [class.active]="activeTab === 'problem'" role="tab" tabindex="0"
@@ -43,7 +56,6 @@
           <app-submit (solutionSubmitted)="onSolutionSubmitted($event)"></app-submit>
         </div>
 
-        <!-- Pestaña: Mis Envíos -->
         <div class="tab-content" *ngIf="activeTab === 'submissions'">
           <app-submissions [submissions]="submissions"></app-submissions>
         </div>
@@ -63,6 +75,9 @@
             </div>
           </div>
         </div>
+        <ng-template #noTopics>
+          <p class="no-content">No hay temas específicos definidos</p>
+        </ng-template>
       </div>
 
       <div class="info-card technical-card">
@@ -81,6 +96,20 @@
         <ul class="materials-list">
           <li *ngFor="let material of exercise.materials">{{ material }}</li>
         </ul>
+      </div>
+
+      <div
+        class="info-card"
+        *ngIf="exercise.examples && exercise.examples.length > 0"
+      >
+        <h4>💡 Ejemplos</h4>
+        <div class="examples-preview">
+          <p>
+            Este problema incluye {{ exercise.examples.length }} ejemplo(s) para
+            ayudarte a entender el formato.
+          </p>
+          <small>Ver ejemplos completos en la pestaña "Problema"</small>
+        </div>
       </div>
     </div>
   </div>

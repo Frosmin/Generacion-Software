@@ -9,7 +9,6 @@ import { filter } from 'rxjs/operators';
   selector: 'app-root',
   standalone: true,
 
-  //imports: [CommonModule, NavbarComponent, FooterComponent,EditorComponent],
   imports: [CommonModule, NavbarComponent, FooterComponent, RouterOutlet],
 
   templateUrl: './app.component.html',
