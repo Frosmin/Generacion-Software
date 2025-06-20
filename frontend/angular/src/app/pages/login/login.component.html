@@ -128,137 +128,6 @@
   <span></span>
   <span></span>
   <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
 
   <div class="login-container">
     <div class="login-card">
@@ -386,9 +255,9 @@
             <span class="button-text" *ngIf="password?.errors?.['required']"
               >*{{ "login.required" | translate }}</span
             >
-            <span class="button-text" *ngIf="password?.errors?.['minlength']"
-              >{{ "login.minlength" | translate }}</span
-            >
+            <span class="button-text" *ngIf="password?.errors?.['minlength']">{{
+              "login.minlength" | translate
+            }}</span>
           </div>
         </div>
 
@@ -398,15 +267,22 @@
           [disabled]="isLoading"
           [class.loading]="isLoading"
         >
-          <span class="button-text" *ngIf="!isLoading">{{ "login.loginButton" | translate }}</span>
-          <span class="button-text" *ngIf="isLoading">{{ "login.loginButtonLoading" | translate }}</span>
+          <span class="button-text" *ngIf="!isLoading">{{
+            "login.loginButton" | translate
+          }}</span>
+          <span class="button-text" *ngIf="isLoading">{{
+            "login.loginButtonLoading" | translate
+          }}</span>
         </button>
       </form>
 
       <div class="login-footer">
-        <a href="#" class="forgot-password">{{ "login.forgotPassword" | translate }}</a>
+        <a href="#" class="forgot-password">{{
+          "login.forgotPassword" | translate
+        }}</a>
         <p class="register-link">
-          {{ "login.noAccount" | translate }} <a routerLink="/registro">{{ "login.registerHere" | translate }}</a>
+          {{ "login.noAccount" | translate }}
+          <a routerLink="/registro">{{ "login.registerHere" | translate }}</a>
         </p>
       </div>
     </div>

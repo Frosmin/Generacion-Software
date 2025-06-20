@@ -7,11 +7,13 @@
     "header"
     "content"
     "footer";
-  padding-top: 10dvh;
 }
 
 .navbar-container {
   grid-area: header;
+}
+.navbar-placeholder {
+  height: 10dvh;
 }
 
 .content-container {
