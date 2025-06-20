@@ -93,7 +93,7 @@ label[for="pill-premium"]:hover {
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 2rem;
   padding: 2rem;
-  min-height: 74dvh;
+  height: 74dvh;
 }
 
 .video-card {
@@ -127,4 +127,8 @@ label[for="pill-premium"]:hover {
   .videos-container {
     grid-template-columns: auto;
   }
+}
+
+.videos-list-container {
+  min-height: 80dvh;
 }
