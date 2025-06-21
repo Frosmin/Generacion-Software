@@ -14,12 +14,9 @@ $border-color: rgba(255, 255, 255, 0.1); // Borde sutil
 .chat-container {
   display: flex;
   flex-direction: column;
-  // Ajusta la altura según sea necesario. Considera la altura del navbar y footer.
-  // Por ejemplo, si navbar+footer son ~100px, podrías usar calc(100vh - 100px - 40px de margen).
-  // O simplemente déjalo crecer con el contenido dentro del .content-container de app.component.
-  height: calc(100vh - 140px); // Estimación, ajustar si es necesario. Asume 70px navbar + 70px footer/espacio
+  height: 80vh; // Estimación, ajustar si es necesario. Asume 70px navbar + 70px footer/espacio
   max-width: 800px; // O el ancho que prefieras
-  margin: 20px auto;
+  margin: 0 auto;
   background-color: $background-medium;
   border-radius: 15px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4); // Sombra más pronunciada

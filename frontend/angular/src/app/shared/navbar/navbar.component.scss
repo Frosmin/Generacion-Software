@@ -1,12 +1,19 @@
 @use "sass:color";
 
 .main-header {
-  background: linear-gradient(
-    to bottom,
-    #120e23 0%,
-    #120e23a9 60%,
-    rgba(0, 0, 0, 0) 100%
-  );
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  background-image: linear-gradient(
+      to bottom,
+      #120e23 0%,
+      #120e237a 40%,
+      transparent 100%
+    ),
+    linear-gradient(to right, #36213eec 0%, #2e2143ec 50%, #181335ec 100%);
+  height: 10dvh;
   color: white;
   padding: 0.5rem 1.5rem;
   display: flex;
@@ -159,7 +166,6 @@
     background: rgba(255, 165, 0, 0.2);
     color: #ffa500;
     font-weight: bold;
-
   }
 
   .flag {

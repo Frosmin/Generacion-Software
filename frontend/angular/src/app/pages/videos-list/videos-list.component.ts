@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { SafeUrlPipe } from '../../shared/pipes/safe-url.pipe';
+import { TranslatePipe } from '@ngx-translate/core';
 
 interface Video {
   ID: number;
@@ -13,7 +14,7 @@ interface Video {
 @Component({
   selector: 'app-videos-list',
   standalone: true,
-  imports: [CommonModule, SafeUrlPipe],
+  imports: [CommonModule, SafeUrlPipe, TranslatePipe],
   templateUrl: './videos-list.component.html',
   styleUrl: './videos-list.component.scss',
 })

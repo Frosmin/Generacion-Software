@@ -244,13 +244,13 @@ button.submit-button {
     background-color: #ccc;
     cursor: not-allowed;
   }
-  
+
   &.loading {
     position: relative;
     color: transparent;
-    
+
     &::after {
-      content: '';
+      content: "";
       position: absolute;
       width: 20px;
       height: 20px;
@@ -282,50 +282,44 @@ button.submit-button {
   }
 }
 
-
-/* prueba mia */
-
-
 /* Section styles */
-    section {
-      position: relative;
-      width: 100vw;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 2px;
-      flex-wrap: wrap;
-      overflow: hidden;
-    }
+section {
+  position: relative;
+  width: 100vw;
+  height: 100dvh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2px;
+  flex-wrap: wrap;
+  overflow: hidden;
+}
 
-    /* Animated gradient effect */
-    section::before {
-      content: '';
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(#000000, #ffa500, #ffffff);
-      animation: animate 5s linear infinite;
-    }
+/* Animated gradient effect */
+section::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(#000000, #ffa500, #ffffff);
+  animation: animate 5s linear infinite;
+}
 
-    /* Animation keyframes */
-    @keyframes animate {
-      0% {
-        transform: translateY(-100%);
-      }
-      100% {
-        transform: translateY(100%);
-      }
-    }
+/* Animation keyframes */
+@keyframes animate {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(100%);
+  }
+}
 
-
-    
 section span:not(.button-text) {
   position: relative;
   display: block;
   width: calc(6.25vw - 2px);
-  height: calc(6.25vw - 2px);
+  height: 12.5dvh;
   background: #181818;
   z-index: 2;
   transition: 1.5s;
@@ -335,4 +329,3 @@ section span:not(.button-text):hover {
   background: #ffa500;
   transition: 0s;
 }
-

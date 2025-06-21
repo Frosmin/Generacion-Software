@@ -5,10 +5,11 @@ import {
   CodeforcesService,
   TransformedProblem,
 } from '../../services/codeforce.service';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-exercises-list',
-  imports: [ExerciseComponent, CommonModule],
+  imports: [ExerciseComponent, CommonModule, TranslatePipe],
   templateUrl: './exercises-list.component.html',
   styleUrl: './exercises-list.component.scss',
 })

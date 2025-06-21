@@ -15,7 +15,7 @@
   <div class="chat-input-area">
     <input
       type="text"
-      placeholder="Escribe tu mensaje aquí..."
+      [placeholder]="'chat.placeholder' | translate"
       aria-label="Campo de entrada para el mensaje de chat"
       [(ngModel)]="inputChat"
       (keyup.enter)="chat()"

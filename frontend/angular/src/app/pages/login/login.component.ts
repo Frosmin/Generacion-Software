@@ -8,11 +8,12 @@ import {
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../services/auth.service';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule, TranslatePipe],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
@@ -23,7 +24,7 @@ export class LoginComponent {
   errorMessage = '';
 
   constructor(
-    private fb: FormBuilder, 
+    private fb: FormBuilder,
     private router: Router,
     private authService: AuthService
   ) {
@@ -37,9 +38,9 @@ export class LoginComponent {
     if (this.loginForm.valid) {
       this.isLoading = true;
       this.errorMessage = '';
-      
+
       const { email, password } = this.loginForm.value;
-      
+
       this.authService.login(email, password).subscribe({
         next: (response) => {
           console.log('Login exitoso', response);
@@ -56,7 +57,7 @@ export class LoginComponent {
             this.errorMessage = 'Error al conectar con el servidor';
           }
           console.error('Error de login:', error);
-        }
+        },
       });
     } else {
       this.markFormGroupTouched();
