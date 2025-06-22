@@ -12,9 +12,10 @@
 #banner {
   display: flex;
   .banner-text {
+    max-width: 50%;
+    margin: 0 auto;
     .intro {
       font-size: 3.5rem;
-
       p {
         background: linear-gradient(to right, #4346ff, #ff6a81);
         -webkit-background-clip: text;
@@ -23,7 +24,6 @@
         width: fit-content;
       }
     }
-
     .intro2 {
       font-size: 1.25rem;
       margin-bottom: 3rem;
@@ -65,9 +65,79 @@
       }
     }
   }
+  .imgBanner {
+    display: block;
+    max-width: 40%;
+    margin: 2rem auto;
+  }
 }
+
 #beneficios {
+  text-align: center;
+  padding: 30px 20px;
+  align-items: center;
+  .beneficios-titulo {
+    margin-bottom: 30px;
+    h1 {
+      font-size: 2.5rem;
+      margin: 15px;
+    }
+    h2 {
+      font-size: 1.2rem;
+      color: #dddddd;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+  }
+  .beneficios-cards {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    .card-row {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-bottom: 5px;
+      .beneficios-card {
+        position: relative;
+        background: #1b1724;
+        padding: 15px;
+        width: 30%;
+        text-align: left;
+        border-bottom-left-radius: 15px;
+        border-bottom-right-radius: 15px;
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+        border: 1px solid #382440;
+        h1 {
+          font-size: 2rem;
+          margin: 0 0;
+        }
+        h2 {
+          font-size: 1.25rem;
+          font-weight: bold;
+          color: #f2f2f2;
+        }
+        p {
+          font-size: 1rem;
+          color: #ddd;
+        }
+      }
+      .beneficios-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 4px;
+        width: 100%;
+        background: linear-gradient(to right, #4346ff, #b27ec8);
+        border-radius: 10px 10px 0 0;
+      }
+    }
+  }
 }
+
 #porque-python {
   .imgPython {
     display: block;
@@ -75,6 +145,7 @@
     margin: 2rem auto;
   }
 }
+
 #areas-trabajo {
 }
 
@@ -89,75 +160,7 @@
   position: relative;
   overflow: hidden;
 }
-.card {
-  text-align: justify;
-  border-radius: 8px;
-  transition: 0.5s;
-  left: calc(50% - 110px);
-}
 
-.banner-text {
-  max-width: 50%;
-  margin: 0 auto;
-}
-.imgBanner {
-  display: block;
-  max-width: 40%;
-  margin: 2rem auto;
-}
-.beneficios {
-  text-align: center;
-  padding: 30px 20px;
-  align-items: center;
-}
-.beneficios-titulo {
-  margin-bottom: 50px;
-}
-.beneficios h1 {
-  font-size: 3rem;
-  margin: 15px;
-}
-.beneficios h2 {
-  font-size: 1.2rem;
-  color: #dddddd;
-  max-width: 600px;
-  margin: 0 auto;
-}
-.beneficios-cards {
-  display: flex;
-  gap: 15px;
-  flex-wrap: wrap;
-}
-.card-row {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  flex-wrap: wrap;
-  margin-bottom: 10px;
-}
-.beneficios-card {
-  background: linear-gradient(to right, #36213e, #181335);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-  border-radius: 16px;
-  border: 2px solid #e0e0e01b;
-  width: 30%;
-  text-align: left;
-}
-.beneficios-card h1 {
-  font-size: 3rem;
-  margin: 0 0 10px;
-}
-.beneficios-card h2 {
-  font-size: 1.5rem;
-  font-weight: bold;
-  margin-bottom: 10px;
-  color: #f6f0f4;
-}
-.beneficios-card p {
-  font-size: 1rem;
-  color: #dddddd;
-}
 #porque-python {
   margin-top: 100px;
   display: flex;
