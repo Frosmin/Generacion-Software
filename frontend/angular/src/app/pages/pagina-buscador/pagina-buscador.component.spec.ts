@@ -8,9 +8,8 @@ describe('PaginaBuscadorComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PaginaBuscadorComponent]
-    })
-    .compileComponents();
+      imports: [PaginaBuscadorComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(PaginaBuscadorComponent);
     component = fixture.componentInstance;

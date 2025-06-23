@@ -1,5 +1,5 @@
 // filepath: frontend/angular/src/app/pages/chat/chat.component.scss
-@use 'sass:color'; // Importa el módulo sass:color
+@use "sass:color"; // Importa el módulo sass:color
 
 // Inspirado en los colores y estilos de la aplicación
 $primary-color: #df881d; // Naranja principal de la app
@@ -79,7 +79,11 @@ $border-color: rgba(255, 255, 255, 0.1); // Borde sutil
 }
 
 .message.sent {
-  background: linear-gradient(135deg, color.adjust($primary-color, $lightness: -5%), $primary-color); // Degradado sutil
+  background: linear-gradient(
+    135deg,
+    color.adjust($primary-color, $lightness: -5%),
+    $primary-color
+  ); // Degradado sutil
   color: $text-light;
   align-self: flex-end;
   border-bottom-right-radius: 6px; // Detalle en la esquina
@@ -124,7 +128,8 @@ $border-color: rgba(255, 255, 255, 0.1); // Borde sutil
 
     &:focus {
       border-color: $primary-color;
-      box-shadow: 0 0 0 3px rgba(color.adjust($primary-color, $alpha: -0.75), 0.25);
+      box-shadow: 0 0 0 3px
+        rgba(color.adjust($primary-color, $alpha: -0.75), 0.25);
     }
   }
 
@@ -155,7 +160,9 @@ $border-color: rgba(255, 255, 255, 0.1); // Borde sutil
   .chat-container {
     margin: 0; // Sin margen en móviles
     border-radius: 0; // Sin bordes redondeados en el contenedor principal
-    height: calc(100vh - 70px); // Asumiendo solo navbar en móvil, ajustar si hay footer
+    height: calc(
+      100vh - 70px
+    ); // Asumiendo solo navbar en móvil, ajustar si hay footer
     border: none; // Sin borde en móviles
   }
 
