@@ -139,41 +139,17 @@
 }
 
 #porque-python {
-  .imgPython {
-    display: block;
-    max-width: 60%;
-    margin: 2rem auto;
-  }
-}
-
-#areas-trabajo {
-}
-
-.home-section {
-  height: 90dvh;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 50px;
-}
-
-.carusel {
-  position: relative;
-  overflow: hidden;
-}
-
-#porque-python {
   margin-top: 100px;
   display: flex;
   flex-direction: column;
   .porque-python-titulo {
     text-align: center;
     h1 {
-      font-size: 3rem;
-      font-weight: 700;
-      margin-bottom: 20px;
+      font-size: 2.5rem;
+      margin: 15px;
     }
     h2 {
-      font-size: 1.25rem;
+      font-size: 1.2rem;
       color: #dddddd;
       font-weight: 600;
       max-width: 600px;
@@ -182,7 +158,6 @@
   }
   .porque-python-columna {
     display: flex;
-    flex-direction: row;
     align-items: center;
     .porque-python-section {
       display: flex;
@@ -192,7 +167,7 @@
       .numero {
         min-width: 80px;
         min-height: 80px;
-        background: #df881d;
+        background: linear-gradient(to right, #b27ec8, #ff6a81);
         border-radius: 20px;
         display: flex;
         align-items: center;
@@ -200,15 +175,14 @@
         h2 {
           font-size: 1.5rem;
           font-weight: 800;
-          color: #2e2143;
+          color: #15111c;
         }
       }
       div:last-child {
         flex: 1;
-        padding: 5px;
         margin-bottom: 10px;
         h2 {
-          font-size: 1.5rem;
+          font-size: 1.25rem;
         }
         p {
           font-size: 1rem;
@@ -216,114 +190,102 @@
         }
       }
     }
-    .imgPython {
-      width: 60%;
+  }
+  .imgPython {
+    display: block;
+    max-width: 60%;
+    margin: 1rem auto;
+  }
+}
+
+#areas-trabajo {
+  padding: 40px 20px;
+  h1 {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+    text-align: center;
+  }
+  h2 {
+    font-size: 1.2rem;
+    color: #dddddd;
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto;
+    margin-bottom: 60px;
+  }
+  .scroll-contenedor {
+    display: flex;
+    overflow-x: hidden;
+    position: relative;
+    scroll-behavior: smooth;
+    @keyframes autoScroll {
+      0% {
+        transform: translateX(0);
+      }
+      100% {
+        transform: translateX(calc(-300px * 3));
+      }
+    }
+    .auto-scroll {
+      animation: autoScroll 30s linear infinite;
+      display: flex;
+      .work-areas-card {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 300px;
+        width: 280px;
+        border-radius: 10px;
+        position: relative;
+        overflow: hidden;
+        margin: 0 5px;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        p {
+          font-weight: bold;
+          font-size: 1.5rem;
+          z-index: 2;
+        }
+        &::before {
+          content: "";
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          background: rgba(0, 0, 0, 0.4);
+          z-index: 1;
+        }
+      }
+      #work-card1 {
+        background-image: url("../../../../public/images/web.jpg");
+      }
+      #work-card2 {
+        background-image: url("../../../../public/images/data.jpg");
+      }
+      #work-card3 {
+        background-image: url("../../../../public/images/machine.jpg");
+      }
+      #work-card4 {
+        background-image: url("../../../../public/images/automatize.jpg");
+      }
+      #work-card5 {
+        background-image: url("../../../../public/images/ciber.jpg");
+      }
+      #work-card6 {
+        background-image: url("../../../../public/images/ia.jpg");
+      }
+    }
+    .auto-scroll:hover {
+      animation-play-state: paused;
     }
   }
 }
-#areas-trabajo h1 {
-  font-size: 3rem;
-  font-weight: 700;
-  margin-bottom: 15px;
-  text-align: center;
-}
-#areas-trabajo h2 {
-  font-size: 1.2rem;
-  color: #dddddd;
-  text-align: center;
-  max-width: 600px;
-  margin: 0 auto;
-  margin-bottom: 60px;
-}
-#areas-trabajo {
-  padding: 40px 20px;
-}
-.scroll-contenedor {
-  display: flex;
-  overflow-x: hidden;
-  padding-bottom: 60px;
-  position: relative;
-  scroll-behavior: smooth;
-}
-@keyframes autoScroll {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(calc(-300px * 3));
-  }
-}
-.auto-scroll {
-  animation: autoScroll 30s linear infinite;
-  display: flex;
-  width: max-content;
-}
-.auto-scroll:hover {
-  animation-play-state: paused;
-}
-.work-areas-card {
-  display: flex;
-  justify-content: center;
+
+.home-section {
+  min-height: 90dvh;
   align-items: center;
-  height: 300px;
-  width: 280px;
-  flex: 0 0 auto;
-  border-radius: 10px;
-  padding: 20px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  position: relative;
-  overflow: hidden;
-  margin: 0 5px;
-  p {
-    font-weight: bold;
-    font-size: 1.5rem;
-    text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
-    z-index: 2;
-  }
-  &::before {
-    content: "";
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.4);
-    z-index: 1;
-  }
-}
-#work-card1 {
-  background-image: url("../../../../public/images/web.jpg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-#work-card2 {
-  background-image: url("../../../../public/images/data.jpg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-#work-card3 {
-  background-image: url("../../../../public/images/machine.jpg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-#work-card4 {
-  background-image: url("../../../../public/images/automatize.jpg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-#work-card5 {
-  background-image: url("../../../../public/images/ciber.jpg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-#work-card6 {
-  background-image: url("../../../../public/images/ia.jpg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  justify-content: center;
+  margin-bottom: 40px;
 }
 
 @media screen and (max-width: 720px) {
