@@ -1,0 +1,191 @@
+<form [formGroup]="courseForm" class="course-form">
+  <!-- Información básica del curso -->
+  <section class="form-section">
+    <h2>📚 Información del Curso</h2>
+    <div class="form-group">
+      <label for="title">Título del Curso *</label>
+      <input 
+        type="text" 
+        id="title" 
+        formControlName="title"
+        (input)="onTitleChange()"
+        placeholder="Ej: Control de flujo"
+        class="form-input">
+      <div class="error-message" *ngIf="courseForm.get('title')?.invalid && courseForm.get('title')?.touched">
+        El título es requerido
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="description">Descripción *</label>
+      <textarea 
+        id="description" 
+        formControlName="description"
+        placeholder="Describe brevemente de qué trata el curso"
+        class="form-textarea" 
+        rows="3"></textarea>
+      <div class="error-message" *ngIf="courseForm.get('description')?.invalid && courseForm.get('description')?.touched">
+        La descripción es requerida
+      </div>
+    </div>
+  </section>
+
+  <!-- Contenidos del curso -->
+  <section class="form-section">
+    <div class="section-header">
+      <h2>📖 Contenidos del Curso</h2>
+      <button 
+        type="button" 
+        class="add-button" 
+        (click)="addContent()"
+        [disabled]="contents.length >= 20">
+        ➕ Agregar Contenido
+      </button>
+    </div>
+
+    <div class="contents-container" formArrayName="contents">
+      <div 
+        *ngFor="let content of contents.controls; let i = index" 
+        [formGroupName]="i" 
+        class="content-card">
+        
+        <div class="content-header">
+          <div class="content-title">
+            <span class="content-number">{{ i + 1 }}</span>
+            <h3>📄 Contenido {{ i + 1 }}</h3>
+          </div>
+          <button 
+            type="button" 
+            class="remove-button" 
+            (click)="removeContent(i)"
+            *ngIf="contents.length > 1">
+            🗑️
+          </button>
+        </div>
+
+        <div class="content-body">
+          <div class="form-group">
+            <label for="contentTitle-{{i}}">Título del Contenido *</label>
+            <input 
+              type="text" 
+              id="contentTitle-{{i}}"
+              formControlName="title"
+              (input)="updateNextOptions()"
+              placeholder="Ej: Introducción al control de flujo"
+              class="form-input">
+          </div>
+
+          <div class="form-group">
+            <label for="contentParagraph-{{i}}">Párrafo Descriptivo *</label>
+            <textarea 
+              id="contentParagraph-{{i}}"
+              formControlName="paragraph"
+              placeholder="Describe brevemente este contenido"
+              class="form-textarea" 
+              rows="2"></textarea>
+          </div>
+
+          <!-- Subcontenidos -->
+          <div class="subcontent-section">
+            <div class="subcontent-header">
+              <h4>📋 Subcontenidos</h4>
+              <button 
+                type="button" 
+                class="add-sub-button" 
+                (click)="addSubcontent(i)">
+                ➕ Agregar Subcontenido
+              </button>
+            </div>
+
+            <div class="subcontent-container" formArrayName="subcontent">
+              <div 
+                *ngFor="let subcontent of getSubcontents(i).controls; let j = index"
+                [formGroupName]="j"
+                class="subcontent-card">
+                
+                <div class="subcontent-header-item">
+                  <div class="subcontent-title">
+                    <span class="subcontent-number">{{ i + 1 }}.{{ j + 1 }}</span>
+                    <span class="subcontent-label">📝 Subcontenido {{ j + 1 }}</span>
+                  </div>
+                  <button 
+                    type="button" 
+                    class="remove-sub-button" 
+                    (click)="removeSubcontent(i, j)"
+                    *ngIf="getSubcontents(i).length > 1">
+                    ❌
+                  </button>
+                </div>
+
+                <div class="subcontent-body">
+                  <div class="form-group">
+                    <label for="subtitle-{{i}}-{{j}}">Subtítulo *</label>
+                    <input 
+                      type="text" 
+                      id="subtitle-{{i}}-{{j}}"
+                      formControlName="subtitle"
+                      placeholder="Ej: ¿Qué es el control de flujo?"
+                      class="form-input">
+                  </div>
+
+                  <div class="form-group">
+                    <label for="subparagraph-{{i}}-{{j}}">Subpárrafo *</label>
+                    <textarea 
+                      id="subparagraph-{{i}}-{{j}}"
+                      formControlName="subparagraph"
+                      placeholder="Explica este subtema en detalle"
+                      class="form-textarea" 
+                      rows="3"></textarea>
+                  </div>
+
+                  <!-- Ejemplos -->
+                  <div class="examples-section">
+                    <div class="examples-header">
+                      <h5>💻 Ejemplos de Código</h5>
+                      <button 
+                        type="button" 
+                        class="add-example-button" 
+                        (click)="addExample(i, j)">
+                        ➕ Agregar Ejemplo
+                      </button>
+                    </div>
+
+                    <div class="examples-container" formArrayName="example">
+                      <div 
+                        *ngFor="let example of getExamples(i, j).controls; let k = index"
+                        class="example-item">
+                        <div class="example-header">
+                          <span class="example-number">{{ i + 1 }}.{{ j + 1 }}.{{ k + 1 }}</span>
+                          <label for="example-{{i}}-{{j}}-{{k}}" class="example-label">Ejemplo {{ k + 1 }}</label>
+                          <button 
+                            type="button" 
+                            class="remove-example-button" 
+                            (click)="removeExample(i, j, k)"
+                            *ngIf="getExamples(i, j).length > 1">
+                            🗑️
+                          </button>
+                        </div>
+                        <textarea 
+                          id="example-{{i}}-{{j}}-{{k}}"
+                          [formControlName]="k"
+                          placeholder="# Escribe tu código de ejemplo aquí..."
+                          class="code-textarea"
+                          rows="8"></textarea>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Preview del JSON -->
+  <div class="preview-section" *ngIf="showPreview">
+    <h3>Vista Previa del JSON</h3>
+    <pre class="json-preview">{{ getPreviewJson() }}</pre>
+  </div>
+</form>
