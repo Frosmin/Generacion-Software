@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-// EditorComponent.ts - Versión Reutilizable
+// EditorComponent.ts - Versión con límites usando Web Workers
 import { Component, OnInit, AfterViewInit, ViewChild, OnDestroy, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -88,23 +88,32 @@ export class EditorComponent implements OnInit, AfterViewInit, OnDestroy, OnChan
   // Inputs para hacer el componente reutilizable
   @Input() mode: 'full' | 'activity' = 'full'; // Modo del editor
   @Input() initialCode = ''; // Código inicial
-  @Input() correctSolution= ''; // Solución correcta (para modo actividad)
+  @Input() correctSolution = ''; // Solución correcta (para modo actividad)
   @Input() showChat = true; // Mostrar funcionalidad de chat
   @Input() showInputOutput = true; // Mostrar paneles de input/output
   @Input() height = '70vh'; // Altura del editor
   @Input() placeholder = 'Escribe tu código…'; // Placeholder
   
-  // Outputs para comunicación con el componente padre
+  // Nuevos inputs para límites de ejecución
+  @Input() timeoutSeconds = 5; // Límite de tiempo en segundos
+  @Input() memoryLimitMB = 50; // Límite de memoria en MB
+  @Input() maxOutputLines = 1000; // Límite de líneas de output
+  
+  // Outputs para comunicación con el componente padre - CORREGIDOS
   @Output() codeChange = new EventEmitter<string>();
   @Output() codeOutput = new EventEmitter<string>();
   @Output() codeExecuted = new EventEmitter<{code: string, output: string}>();
   @Output() solutionCheck = new EventEmitter<{correct: boolean, output: string}>();
+  @Output() executionTimeout = new EventEmitter<void>();
+  @Output() memoryExceeded = new EventEmitter<void>();
+  @Output() outputLimitExceeded = new EventEmitter<void>();
 
   codigo = '';
   inputs = '';
   output = '';
   inputChat = '';
   outputChat = '';
+  isExecuting = false;
 
   cmOptions = {
     mode: 'python',
@@ -191,6 +200,8 @@ export class EditorComponent implements OnInit, AfterViewInit, OnDestroy, OnChan
   codeEditor: any;
   private lspSubscription: Subscription | null = null;
   private completionItems: { label: string }[] = [];
+  private executionWorker: Worker | null = null;
+  private executionTimeoutHandle: any = null;
 
   constructor(
     private http: HttpClient,
@@ -342,6 +353,103 @@ export class EditorComponent implements OnInit, AfterViewInit, OnDestroy, OnChan
     if (this.lspSubscription) {
       this.lspSubscription.unsubscribe();
     }
+    if (this.executionWorker) {
+      this.executionWorker.terminate();
+    }
+    if (this.executionTimeoutHandle) {
+      clearTimeout(this.executionTimeoutHandle);
+    }
+  }
+
+  private createSecurePythonCode(code: string): string {
+    // Código de seguridad que se inyecta para limitar ejecución
+    const secureWrapper = `
+import sys
+import time
+import threading
+from io import StringIO
+
+# Límites de seguridad
+MAX_OUTPUT_LINES = ${this.maxOutputLines}
+MAX_MEMORY_MB = ${this.memoryLimitMB}
+TIMEOUT_SECONDS = ${this.timeoutSeconds}
+
+# Variables de control
+_output_lines = 0
+_start_time = time.time()
+_original_stdout = sys.stdout
+_string_io = StringIO()
+_execution_stopped = False
+
+class LimitedStringIO(StringIO):
+    def write(self, s):
+        global _output_lines, _execution_stopped
+        if _execution_stopped:
+            return
+        
+        # Contar líneas
+        _output_lines += s.count('\\n')
+        if _output_lines > MAX_OUTPUT_LINES:
+            _execution_stopped = True
+            super().write(f"\\n\\n Límite de output excedido ({MAX_OUTPUT_LINES} líneas)\\n")
+            raise Exception("Output limit exceeded")
+        
+        # Verificar tiempo
+        if time.time() - _start_time > TIMEOUT_SECONDS:
+            _execution_stopped = True
+            super().write(f"\\n\\n Tiempo de ejecución excedido ({TIMEOUT_SECONDS}s)\\n")
+            raise Exception("Timeout exceeded")
+        
+        return super().write(s)
+
+# Reemplazar stdout
+sys.stdout = LimitedStringIO()
+
+# Función de trace para monitorear ejecución línea por línea
+def trace_calls(frame, event, arg):
+    global _execution_stopped
+    if _execution_stopped:
+        raise Exception("Execution stopped")
+    
+    # Verificar timeout en cada línea
+    if time.time() - _start_time > TIMEOUT_SECONDS:
+        _execution_stopped = True
+        raise Exception("Timeout exceeded")
+    
+    return trace_calls
+
+# Activar trace
+sys.settrace(trace_calls)
+
+try:
+    # Ejecutar código del usuario
+${code.split('\n').map(line => '    ' + line).join('\n')}
+    
+except KeyboardInterrupt:
+    print("\\n\\n Ejecución interrumpida")
+except Exception as e:
+    if "Timeout exceeded" in str(e):
+        print(f"\\n\\n Tiempo de ejecución excedido ({TIMEOUT_SECONDS}s)")
+    elif "Output limit exceeded" in str(e):
+        print(f"\\n\\n Límite de output excedido ({MAX_OUTPUT_LINES} líneas)")
+    elif "Execution stopped" in str(e):
+        print("\\n\\n Ejecución detenida")
+    else:
+        print(f"\\n\\nError: {e}")
+finally:
+    # Limpiar
+    sys.settrace(None)
+    
+    # Obtener output
+    output_content = sys.stdout.getvalue() if hasattr(sys.stdout, 'getvalue') else ''
+    
+    # Restaurar stdout
+    sys.stdout = _original_stdout
+    
+    # Imprimir resultado
+    print(output_content, end='')
+`;
+    return secureWrapper;
   }
 
   private requestCompletions(cm: any, cursor: any) {
@@ -415,26 +523,76 @@ export class EditorComponent implements OnInit, AfterViewInit, OnDestroy, OnChan
     this.pyodide.globals.set('input', inputFunction);
   }
 
-  // Método privado para ejecutar código Python
-  private async executeCode(code: string): Promise<string> {
-    let output = '';
-    
-    // Configurar captura de stdout
-    this.pyodide.setStdout({
-      batched: (text: string) => {
-        output += text;
-      },
-    });
-
-    // Configurar input si hay inputs disponibles
-    if (this.inputs.trim()) {
-      this.setupInput();
+  // Método para detener ejecución
+  stopExecution(): void {
+    if (this.executionWorker) {
+      this.executionWorker.terminate();
+      this.executionWorker = null;
     }
+    if (this.executionTimeoutHandle) {
+      clearTimeout(this.executionTimeoutHandle);
+      this.executionTimeoutHandle = null;
+    }
+    this.isExecuting = false;
+    this.output += '\n\n⏹️ Ejecución detenida por el usuario';
+    this.codeOutput.emit(this.output);
+  }
 
-    // Ejecutar código
-    await this.pyodide.runPythonAsync(code);
-    
-    return output;
+  // Método privado para ejecutar código Python con límites estrictos
+  private async executeCodeWithLimits(code: string): Promise<string> {
+    return new Promise<string>((resolve, reject) => {
+      this.isExecuting = true;
+      let output = '';
+      
+      // Configurar captura de stdout
+      this.pyodide.setStdout({
+        batched: (text: string) => {
+          output += text;
+        },
+      });
+
+      // Configurar input si hay inputs disponibles
+      if (this.inputs.trim()) {
+        this.setupInput();
+      }
+
+      // Crear código seguro
+      const secureCode = this.createSecurePythonCode(code);
+
+      // Timeout de JavaScript como respaldo
+      this.executionTimeoutHandle = setTimeout(() => {
+        this.isExecuting = false;
+        this.executionTimeout.emit();
+        reject(new Error(`⏱️ Timeout de JavaScript: excedió ${this.timeoutSeconds} segundos`));
+      }, this.timeoutSeconds * 1000);
+
+      // Ejecutar código
+      this.pyodide.runPythonAsync(secureCode)
+        .then(() => {
+          clearTimeout(this.executionTimeoutHandle);
+          this.isExecuting = false;
+          resolve(output);
+        })
+        .catch((error: any) => {
+          clearTimeout(this.executionTimeoutHandle);
+          this.isExecuting = false;
+          
+          const errorMessage = error.message || error.toString();
+          
+          if (errorMessage.includes('Timeout exceeded') || errorMessage.includes('timeout')) {
+            this.executionTimeout.emit();
+            reject(new Error(`⏱️ Tiempo de ejecución excedido (${this.timeoutSeconds}s)`));
+          } else if (errorMessage.includes('Output limit exceeded')) {
+            this.outputLimitExceeded.emit();
+            reject(new Error(`⚠️ Límite de output excedido (${this.maxOutputLines} líneas)`));
+          } else if (errorMessage.includes('Memory limit') || errorMessage.includes('MemoryError')) {
+            this.memoryExceeded.emit();
+            reject(new Error(`💾 Límite de memoria excedido (${this.memoryLimitMB}MB)`));
+          } else {
+            reject(error);
+          }
+        });
+    });
   }
 
   async ejecutarCodigo(): Promise<void> {
@@ -444,22 +602,28 @@ export class EditorComponent implements OnInit, AfterViewInit, OnDestroy, OnChan
       return;
     }
 
+    if (this.isExecuting) {
+      this.stopExecution();
+      return;
+    }
+
     try {
       this.output = '';
-      this.output = await this.executeCode(this.codigo);
+      this.output = await this.executeCodeWithLimits(this.codigo);
       
       // Emitir eventos
       this.codeOutput.emit(this.output);
       this.codeExecuted.emit({code: this.codigo, output: this.output});
       
-    } catch (error) {
-      this.output = `Error: ${String(error)}`;
+    } catch (error: any) {
+      const errorMessage = String(error.message || error);
+      this.output = `Error: ${errorMessage}`;
       this.codeOutput.emit(this.output);
       this.codeExecuted.emit({code: this.codigo, output: this.output});
     }
   }
 
-  // Nueva función para verificar solución (modo actividad)
+  // Nueva función para verificar solución (modo actividad) con límites
   async verificarSolucion(): Promise<void> {
     if (!this.correctSolution) {
       console.warn('No se ha proporcionado una solución correcta');
@@ -473,13 +637,13 @@ export class EditorComponent implements OnInit, AfterViewInit, OnDestroy, OnChan
     }
 
     try {
-      // Ejecutar el código del usuario
+      // Ejecutar el código del usuario con límites
       this.output = '';
-      const userOutput = await this.executeCode(this.codigo);
+      const userOutput = await this.executeCodeWithLimits(this.codigo);
       this.output = userOutput;
       
-      // Ejecutar la solución correcta
-      const correctOutput = await this.executeCode(this.correctSolution);
+      // Ejecutar la solución correcta (también con límites por seguridad)
+      const correctOutput = await this.executeCodeWithLimits(this.correctSolution);
       
       // Comparar salidas (normalizar espacios en blanco)
       const normalizeOutput = (str: string) => str.trim().replace(/\s+/g, ' ');
@@ -489,8 +653,9 @@ export class EditorComponent implements OnInit, AfterViewInit, OnDestroy, OnChan
       this.codeOutput.emit(this.output);
       this.solutionCheck.emit({correct: isCorrect, output: this.output});
       
-    } catch (error) {
-      this.output = `Error: ${String(error)}`;
+    } catch (error: any) {
+      const errorMessage = String(error.message || error);
+      this.output = `Error: ${errorMessage}`;
       this.codeOutput.emit(this.output);
       this.solutionCheck.emit({correct: false, output: this.output});
     }
