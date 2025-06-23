@@ -10,7 +10,6 @@ import { TranslatePipe } from '@ngx-translate/core';
 export class HomeComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     this.adjustCarouselAnimation();
-
     window.addEventListener('resize', () => {
       this.adjustCarouselAnimation();
     });

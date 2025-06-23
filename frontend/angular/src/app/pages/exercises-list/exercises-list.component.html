@@ -7,7 +7,7 @@
       type="radio"
       (change)="onDifficultyChange('easy')"
     />
-    <label for="pill-free">Fácil</label>
+    <label for="pill-free">{{ "exercisesList.pillEasy" | translate }}</label>
 
     <input
       [checked]="selectedDifficulty === 'medium'"
@@ -16,7 +16,7 @@
       type="radio"
       (change)="onDifficultyChange('medium')"
     />
-    <label for="pill-basic">Intermedio</label>
+    <label for="pill-basic">{{ "exercisesList.pillMedium" | translate }}</label>
 
     <input
       [checked]="selectedDifficulty === 'hard'"
@@ -25,14 +25,14 @@
       type="radio"
       (change)="onDifficultyChange('hard')"
     />
-    <label for="pill-premium">Avanzado</label>
+    <label for="pill-premium">{{ "exercisesList.pillHard" | translate }}</label>
 
     <div class="pill-indicator"></div>
   </div>
 
   @if (isLoading) {
   <div class="loading-indicator">
-    <p>Cargando ejercicios...</p>
+    <p>{{ "exercisesList.loading" | translate }}</p>
   </div>
   } @if (error) {
   <div class="error-message">
@@ -40,7 +40,7 @@
   </div>
   }@if (!isLoading && !error && visibleExercises.length === 0) {
   <div class="no-exercises-message">
-    <p>No hay ejercicios disponibles para la dificultad seleccionada.</p>
+    <p>{{ "exercisesList.noExercises" | translate }}</p>
   </div>
   }
 

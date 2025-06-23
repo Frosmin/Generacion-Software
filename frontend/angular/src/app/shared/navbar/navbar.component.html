@@ -6,7 +6,7 @@
       class="logo-navbar"
       title="Icono Aprende Python"
     />
-    <h1>{{ "navbar.title" | translate }}</h1>
+    <h1 class="logo-title"><span>Py</span>Bloom</h1>
   </div>
   <button class="menu-toggle" (click)="toggleMenu()">☰</button>
   <nav class="main-nav" [ngClass]="{ active: isMenuActive }">
@@ -22,10 +22,18 @@
       </li>
       <li>
         <a
-          routerLink="/lista-cursos"
+          routerLink="/cursos"
           routerLinkActive="active"
           (click)="closeMenu()"
           >{{ "navbar.courses" | translate }}</a
+        >
+      </li>
+      <li>
+        <a
+          routerLink="/crear-curso"
+          routerLinkActive="active"
+          (click)="closeMenu()"
+          >{{ "Crear cursos" | translate }}</a
         >
       </li>
       <li>

@@ -1,12 +1,19 @@
 @use "sass:color";
 
 .main-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
   background: linear-gradient(
     to bottom,
-    #120e23 0%,
-    #120e23a9 60%,
-    rgba(0, 0, 0, 0) 100%
+    #0a090e 0%,
+    #0a090ee1 35%,
+    #0a090e99 70%,
+    transparent 100%
   );
+  height: 10dvh;
   color: white;
   padding: 0.5rem 1.5rem;
   display: flex;
@@ -23,10 +30,17 @@
   max-width: 50px;
 }
 
-.logo h1 {
+.logo-title {
+  display: flex;
   margin: 0;
   font-size: 2rem;
-  font-weight: 700;
+  font-weight: 500;
+  color:#fd8799;
+  text-decoration: none;
+
+  span {
+    color: #5b5eff;
+  }
 }
 
 .main-nav ul {
@@ -52,7 +66,8 @@
 
 .main-nav a.active,
 .main-nav a:hover {
-  border-bottom: 3px solid rgb(255, 255, 255);
+  border-bottom: 3px solid #ddd;
+  color: #ddd;
 }
 
 .menu-toggle {
@@ -159,7 +174,6 @@
     background: rgba(255, 165, 0, 0.2);
     color: #ffa500;
     font-weight: bold;
-
   }
 
   .flag {
@@ -248,7 +262,7 @@
   .main-nav a.active,
   .main-nav a:hover {
     border-bottom: none !important;
-    color: #a5d6ff;
+    color: #ddd;
     transition: color 0.3s;
   }
 

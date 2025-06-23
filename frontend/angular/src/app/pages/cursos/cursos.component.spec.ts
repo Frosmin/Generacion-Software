@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+
 import { CursosComponent } from './cursos.component';
-import { ActivatedRoute } from '@angular/router';
 
 describe('CursosComponent', () => {
   let component: CursosComponent;
@@ -8,9 +9,9 @@ describe('CursosComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CursosComponent],
-      providers: [
-        {provide: ActivatedRoute, useValue: {} } //mockear ActivatedRoute para evitar errores
+      imports: [
+        CursosComponent,
+        HttpClientTestingModule  // Esto proporciona HttpClient para las pruebas
       ]
     })
     .compileComponents();

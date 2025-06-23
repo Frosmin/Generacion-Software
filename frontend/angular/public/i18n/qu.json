@@ -1,6 +1,6 @@
 {
   "navbar": {
-    "title": "Python yachiy",
+    "title": "Python yachay",
     "home": "Mikhuna",
     "courses": "Yachachina",
     "exercises": "Llamkʼaykuna",
@@ -12,11 +12,11 @@
   },
   "HOME": {
     "BANNER": {
-      "TITLE": "Ña ña yachay",
-      "SUBTITLE": "Chʼusaqa Python-manta musuq ripuykunata ruwanapaq.",
+      "TITLE": "Allin hamuqkuy",
+      "SUBTITLE": "Chʼusaqa Python musuq ripuykunata ruwanapaq.",
       "START_NOW": "Kaypi yachay",
       "LEARN_MORE": "Allinlla yachay",
-      "IMAGE_TITLE": "Python-manta ruwanakuynin ilustrasiyon",
+      "IMAGE_TITLE": "Python ruwanakuynin ilustrasiyon",
       "IMAGE_ALT": "Python ruwanakuymanta"
     },
     "BENEFITS": {
@@ -71,7 +71,7 @@
         },
         "ROBUST_ECOSYSTEM": {
           "TITLE": "Qallpa ecosystema",
-          "DESCRIPTION": "PyPI-taq 300,000-paq paketaykuna, tukuy kamachiyta churay."
+          "DESCRIPTION": "PyPI 300,000 paketaykuna, tukuy kamachiyta churay."
         }
       }
     },
@@ -105,5 +105,40 @@
         }
       }
     }
+  },
+  "chat": {
+    "header": "Yachaq Asistente",
+    "button": "Apachiy",
+    "message": "Kamisaraki, ¿imawan yanapaniyki munanki kunan punchawpi?",
+    "placeholder": "Kaypi willaykita qillqay...",
+    "error": "Manaraq atinkuchu mayninta tiyanaykita. Ama hina kaspa, hukratam try-nayta.",
+    "noValidResponse": "Manaraq allinta kutichiyta chaskinchikchu."
+  },
+  "exercisesList": {
+    "pillEasy": "Sasa",
+    "pillMedium": "Chiqniyuq",
+    "pillHard": "Llasaq",
+    "loading": "Kawsaykuna rantikunata chaskiy...",
+    "noExercises": "Kunanpacha manaraq kawsaykuna rantikuna kachkanichu."
+  },
+  "login": {
+    "title": "Yaykuy",
+    "email": "Correo electrónico",
+    "password": "Simiñawi (Contraseña)",
+    "minlength": "Juk ñiqinmanta iskay chʼiqniykunamanta jukʼariña",
+    "loginButton": "Yaykuy",
+    "loginButtonLoading": "Yaykuchkan...",
+    "forgotPassword": "¿Simiñawita qunqaykuchkanki?",
+    "noAccount": "¿Mana ima cuenta kanchu?",
+    "registerHere": "Kaypi qillqay",
+    "required": "Kay champaqqa mana chusakunqachu",
+    "invalidEmail": "Correo electrónico allin hukchasqa churanapaq"
+  },
+  "videosList": {
+    "pillEasy": "Suma qillqay",
+    "pillMedium": "Chiqninchay",
+    "pillHard": "Ch'ama",
+    "loading": "Videokunata chʼaskichkanki...",
+    "noVideos": "Kay chʼamachay ñiqinpaq videokuna mana kanchu."
   }
 }

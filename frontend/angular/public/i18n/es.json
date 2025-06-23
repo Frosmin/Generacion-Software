@@ -12,7 +12,7 @@
   },
   "HOME": {
     "BANNER": {
-      "TITLE": "Aprende a tu ritmo",
+      "TITLE": "Bienvenido a",
       "SUBTITLE": "De cero a experto en Python: crea tus propios proyectos desde el primer día.",
       "START_NOW": "Comenzar ahora",
       "LEARN_MORE": "Saber más",
@@ -105,5 +105,40 @@
         }
       }
     }
+  },
+  "chat": {
+    "header": "Asistente Virtual",
+    "button": "Enviar",
+    "message": "Hola, ¿en qué puedo ayudarte hoy?",
+    "placeholder": "Escribe tu mensaje aquí...",
+    "error": "Error al conectar con el servicio. Por favor, intenta más tarde.",
+    "noValidResponse": "No se recibió una respuesta válida."
+  },
+  "exercisesList": {
+    "pillEasy": "Fácil",
+    "pillMedium": "Intermedio",
+    "pillHard": "Avanzado",
+    "loading": "Cargando ejercicios...",
+    "noExercises": "No hay ejercicios disponibles en este momento."
+  },
+  "login": {
+    "title": "Iniciar sesión",
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "minlength": "Mínimo 2 caracteres",
+    "loginButton": "Iniciar sesión",
+    "loginButtonLoading": "Iniciando sesión...",
+    "forgotPassword": "¿Olvidaste tu contraseña?",
+    "noAccount": "¿No tienes cuenta?",
+    "registerHere": "Regístrate aquí",
+    "required": "Este campo es obligatorio",
+    "invalidEmail": "Ingresa un formato de correo válido"
+  },
+  "videosList": {
+    "pillEasy": "Fácil",
+    "pillMedium": "Intermedio",
+    "pillHard": "Avanzado",
+    "loading": "Cargando videos...",
+    "noVideos": "No hay vídeos disponibles para este nivel de dificultad."
   }
 }

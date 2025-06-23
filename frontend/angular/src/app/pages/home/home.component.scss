@@ -1,5 +1,6 @@
 .home {
   color: white;
+  max-width: 100vw;
 }
 .content {
   flex: 1;
@@ -7,147 +8,136 @@
   max-width: 1200px;
   margin: 0 auto;
 }
-.intro {
-  display: flex;
-  font-size: 3.5rem;
-}
-.intro2 {
-  font-size: 1.5rem;
-  margin-bottom: 3rem;
-  color: #dddddd;
-}
-.contenedorBotones {
-  display: flex;
-  gap: 2rem;
-}
-.boton-banner-home a {
-  all: unset;
-  cursor: pointer;
-  display: inline-block;
-  text-decoration: none;
-  color: inherit;
-}
-.boton-banner-home {
-  padding: 20px 4px;
-}
-.boton-banner-home a span {
-  transition: 100ms;
-}
-.imgPython {
-  display: block;
-  max-width: 60%;
-  margin: 2rem auto;
-}
-button {
-  align-items: center;
-  background-color: #df881d;
-  border: 0;
-  border-radius: 8px;
-  color: #df881d;
-  display: flex;
-  font-size: 1.1rem;
-  justify-content: center;
-  padding: 3px;
-  cursor: pointer;
-  transition: all 0.3s;
-}
-button:active,
-button:hover {
-  color: #dddddd;
-}
-button span {
-  background-color: #2e2143;
-  padding: 16px 24px;
-  border-radius: 6px;
-  transition: 300ms;
-}
-button:hover span {
-  background: none;
-}
-button:active {
-  transform: scale(0.9);
-}
-.carusel {
-  position: relative;
-  overflow: hidden;
-}
-.card {
-  text-align: justify;
-  border-radius: 8px;
-  transition: 0.5s;
-  left: calc(50% - 110px);
-}
-.home-section {
-  align-items: center;
-  justify-content: center;
-}
-.banner-text {
-  max-width: 50%;
-  margin: 0 auto;
-}
+
 #banner {
   display: flex;
-  align-items: center;
-  margin: 30px 0;
+  .banner-text {
+    max-width: 50%;
+    margin: 0 auto;
+    .intro {
+      font-size: 3.5rem;
+      p {
+        background: linear-gradient(to right, #4346ff, #ff6a81);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin: 5px 0;
+        width: fit-content;
+      }
+    }
+    .intro2 {
+      font-size: 1.25rem;
+      margin-bottom: 3rem;
+      color: #dddddd;
+    }
+    .contenedorBotones {
+      display: flex;
+      gap: 1.5rem;
+      button,
+      .boton-banner-home {
+        padding: 15px 30px;
+        font-size: 1.1rem;
+        color: #fff;
+        border: 3px solid transparent;
+        border-radius: 9999px;
+        cursor: pointer;
+        position: relative;
+        transition: all 0.3s ease-in-out;
+        background-image: linear-gradient(#15111c, #15111c),
+          linear-gradient(to right, #4346ff, #ff6a81);
+        background-origin: padding-box, border-box;
+        background-clip: padding-box, border-box;
+      }
+      button:hover,
+      .boton-banner-home:hover {
+        background-image: linear-gradient(#2d1d34, #2d1d34),
+          linear-gradient(to right, #4346ff, #ff6a81);
+      }
+      button:active,
+      .boton-banner-home:active {
+        transform: scale(0.95);
+      }
+      a {
+        all: unset;
+      }
+      button span,
+      .boton-banner-home span {
+        transition: 100ms;
+      }
+    }
+  }
+  .imgBanner {
+    display: block;
+    max-width: 40%;
+    margin: 2rem auto;
+  }
 }
-.imgBanner {
-  display: block;
-  max-width: 40%;
-  margin: 2rem auto;
-}
-.beneficios {
+
+#beneficios {
   text-align: center;
   padding: 30px 20px;
   align-items: center;
+  .beneficios-titulo {
+    margin-bottom: 30px;
+    h1 {
+      font-size: 2.5rem;
+      margin: 15px;
+    }
+    h2 {
+      font-size: 1.2rem;
+      color: #dddddd;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+  }
+  .beneficios-cards {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    .card-row {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-bottom: 5px;
+      .beneficios-card {
+        position: relative;
+        background: #1b1724;
+        padding: 15px;
+        width: 30%;
+        text-align: left;
+        border-bottom-left-radius: 15px;
+        border-bottom-right-radius: 15px;
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+        border: 1px solid #382440;
+        h1 {
+          font-size: 2rem;
+          margin: 0 0;
+        }
+        h2 {
+          font-size: 1.25rem;
+          font-weight: bold;
+          color: #f2f2f2;
+        }
+        p {
+          font-size: 1rem;
+          color: #ddd;
+        }
+      }
+      .beneficios-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 4px;
+        width: 100%;
+        background: linear-gradient(to right, #4346ff, #b27ec8);
+        border-radius: 10px 10px 0 0;
+      }
+    }
+  }
 }
-.beneficios-titulo {
-  margin-bottom: 50px;
-}
-.beneficios h1 {
-  font-size: 3rem;
-  margin: 15px;
-}
-.beneficios h2 {
-  font-size: 1.2rem;
-  color: #dddddd;
-  max-width: 600px;
-  margin: 0 auto;
-}
-.beneficios-cards {
-  display: flex;
-  gap: 15px;
-  flex-wrap: wrap;
-}
-.card-row {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  flex-wrap: wrap;
-  margin-bottom: 10px;
-}
-.beneficios-card {
-  background: linear-gradient(to right, #36213e, #181335);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-  border-radius: 16px;
-  border: 2px solid #e0e0e01b;
-  width: 30%;
-  text-align: left;
-}
-.beneficios-card h1 {
-  font-size: 3rem;
-  margin: 0 0 10px;
-}
-.beneficios-card h2 {
-  font-size: 1.5rem;
-  font-weight: bold;
-  margin-bottom: 10px;
-  color: #f6f0f4;
-}
-.beneficios-card p {
-  font-size: 1rem;
-  color: #dddddd;
-}
+
 #porque-python {
   margin-top: 100px;
   display: flex;
@@ -155,12 +145,11 @@ button:active {
   .porque-python-titulo {
     text-align: center;
     h1 {
-      font-size: 3rem;
-      font-weight: 700;
-      margin-bottom: 20px;
+      font-size: 2.5rem;
+      margin: 15px;
     }
     h2 {
-      font-size: 1.25rem;
+      font-size: 1.2rem;
       color: #dddddd;
       font-weight: 600;
       max-width: 600px;
@@ -169,7 +158,6 @@ button:active {
   }
   .porque-python-columna {
     display: flex;
-    flex-direction: row;
     align-items: center;
     .porque-python-section {
       display: flex;
@@ -179,7 +167,7 @@ button:active {
       .numero {
         min-width: 80px;
         min-height: 80px;
-        background: #df881d;
+        background: linear-gradient(to right, #b27ec8, #ff6a81);
         border-radius: 20px;
         display: flex;
         align-items: center;
@@ -187,15 +175,14 @@ button:active {
         h2 {
           font-size: 1.5rem;
           font-weight: 800;
-          color: #2e2143;
+          color: #15111c;
         }
       }
       div:last-child {
         flex: 1;
-        padding: 5px;
         margin-bottom: 10px;
         h2 {
-          font-size: 1.5rem;
+          font-size: 1.25rem;
         }
         p {
           font-size: 1rem;
@@ -203,124 +190,124 @@ button:active {
         }
       }
     }
-    .imgPython {
-      width: 60%;
+  }
+  .imgPython {
+    display: block;
+    max-width: 60%;
+    margin: 1rem auto;
+  }
+}
+
+#areas-trabajo {
+  padding: 40px 20px;
+  h1 {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+    text-align: center;
+  }
+  h2 {
+    font-size: 1.2rem;
+    color: #dddddd;
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto;
+    margin-bottom: 60px;
+  }
+  .scroll-contenedor {
+    display: flex;
+    overflow-x: hidden;
+    position: relative;
+    scroll-behavior: smooth;
+    @keyframes autoScroll {
+      0% {
+        transform: translateX(0);
+      }
+      100% {
+        transform: translateX(calc(-300px * 3));
+      }
+    }
+    .auto-scroll {
+      animation: autoScroll 30s linear infinite;
+      display: flex;
+      .work-areas-card {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 300px;
+        width: 280px;
+        border-radius: 10px;
+        position: relative;
+        overflow: hidden;
+        margin: 0 5px;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        p {
+          font-weight: bold;
+          font-size: 1.5rem;
+          z-index: 2;
+        }
+        &::before {
+          content: "";
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          background: rgba(0, 0, 0, 0.4);
+          z-index: 1;
+        }
+      }
+      #work-card1 {
+        background-image: url("../../../../public/images/web.jpg");
+      }
+      #work-card2 {
+        background-image: url("../../../../public/images/data.jpg");
+      }
+      #work-card3 {
+        background-image: url("../../../../public/images/machine.jpg");
+      }
+      #work-card4 {
+        background-image: url("../../../../public/images/automatize.jpg");
+      }
+      #work-card5 {
+        background-image: url("../../../../public/images/ciber.jpg");
+      }
+      #work-card6 {
+        background-image: url("../../../../public/images/ia.jpg");
+      }
+    }
+    .auto-scroll:hover {
+      animation-play-state: paused;
     }
   }
 }
-#areas-trabajo h1 {
-  font-size: 3rem;
-  font-weight: 700;
-  margin-bottom: 15px;
-  text-align: center;
-}
-#areas-trabajo h2 {
-  font-size: 1.2rem;
-  color: #dddddd;
-  text-align: center;
-  max-width: 600px;
-  margin: 0 auto;
-  margin-bottom: 60px;
-}
-#areas-trabajo {
-  padding: 40px 20px;
-}
-.scroll-contenedor {
-  display: flex;
-  overflow-x: hidden;
-  padding-bottom: 60px;
-  position: relative;
-  scroll-behavior: smooth;
-}
-@keyframes autoScroll {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(calc(-300px * 3));
-  }
-}
-.auto-scroll {
-  animation: autoScroll 30s linear infinite;
-  display: flex;
-  width: max-content;
-}
-.auto-scroll:hover {
-  animation-play-state: paused;
-}
-.work-areas-card {
-  display: flex;
-  justify-content: center;
+
+.home-section {
+  min-height: 90dvh;
   align-items: center;
-  height: 300px;
-  width: 280px;
-  flex: 0 0 auto;
-  border-radius: 10px;
-  padding: 20px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  position: relative;
-  overflow: hidden;
-  margin: 0 5px;
-  p {
-    font-weight: bold;
-    font-size: 1.5rem;
-    text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
-    z-index: 2;
-  }
-  &::before {
-    content: "";
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.4);
-    z-index: 1;
-  }
+  justify-content: center;
+  margin-bottom: 40px;
 }
-#work-card1 {
-  background-image: url("../../../../public/images/web.jpg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-#work-card2 {
-  background-image: url("../../../../public/images/data.jpg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-#work-card3 {
-  background-image: url("../../../../public/images/machine.jpg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-#work-card4 {
-  background-image: url("../../../../public/images/automatize.jpg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-#work-card5 {
-  background-image: url("../../../../public/images/ciber.jpg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-#work-card6 {
-  background-image: url("../../../../public/images/ia.jpg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
+
 @media screen and (max-width: 720px) {
   #banner {
     flex-direction: column-reverse;
-    align-items: center;
+    .banner-text {
+      max-width: 90%;
+      text-align: center;
+      margin: 0 auto;
+      .intro {
+        font-size: 3rem;
+        p {
+          margin: 0 auto;
+        }
+      }
+    }
+    .imgBanner {
+      margin: 0;
+      max-width: 60vw;
+    }
   }
-  .imgBanner {
-    margin: 0;
-    max-width: 50%;
-  }
+
   .contenedorBotones {
     flex-wrap: wrap;
     justify-content: center;
@@ -366,87 +353,48 @@ button:active {
 }
 
 @media screen and (max-width: 480px) {
-  .content {
-    padding: 0;
-    width: 100%;
+  .home-section {
+    min-height: 90dvh;
+    margin-bottom: 10px;
+    padding: 0 10px;
   }
-  .home-section h1 {
-    font-size: 2.5rem;
-    margin: 0;
-  }
-  .home-section h2 {
-    font-size: 1.2rem;
-  }
-  .banner-text {
-    max-width: 100%;
-  }
-  .intro2 {
-    margin-bottom: 1rem;
-  }
-  .contenedorBotones {
-    flex-direction: row;
-    justify-content: start;
-    gap: 1rem;
-    margin-top: 30px;
-    margin-bottom: 40px;
-    .text {
-      text-align: center;
-      font-size: 1.2rem;
-    }
-  }
-  .beneficios {
-    padding: 30px 20px;
-    h2 {
-      margin: 15px 0;
-    }
-    .beneficios-titulo {
-      margin-bottom: 30px;
-    }
-    .beneficios-cards {
-      flex-direction: column;
-      align-items: center;
-      gap: 0;
-      .card-row {
-        gap: 0;
+  #banner {
+    .banner-text {
+      .contenedorBotones {
+        button,
+        .boton-banner-home {
+          padding: 12px 25px;
+        }
       }
-      .beneficios-card {
-        padding: 10px 15px;
-        .icono {
-          display: flex;
-          flex-direction: row;
-          align-items: center;
-          height: 20px;
-          margin-top: 10px;
-          h1 {
-            font-size: 2rem;
-            width: 10%;
-          }
-          h2 {
-            width: 70%;
-            margin-left: 10px;
+    }
+  }
+  #beneficios {
+    padding: 0;
+    .beneficios-cards {
+      gap: 5px;
+      .card-row {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        align-items: center;
+        .beneficios-card {
+          width: 90%;
+          text-align: center;
+          .icono {
+            display: flex;
+            justify-content: center;
+            h1 {
+              margin-right: 10px;
+            }
           }
         }
       }
-      p {
-        font-size: 1.1rem;
-      }
     }
   }
-  #banner {
-    padding: 0 20px;
-  }
   #porque-python {
-    padding: 0 20px;
     margin: 0;
     .porque-python-titulo {
       margin-bottom: 20px;
-      h1 {
-        font-size: 2.5rem;
-      }
-      h2 {
-        font-size: 1.2rem;
-        font-weight: 600;
-      }
     }
     .porque-python-section {
       flex-direction: row;
@@ -455,34 +403,11 @@ button:active {
       .numero {
         max-width: 2rem;
         max-height: 2rem;
-        h2 {
-          font-size: 1.5rem;
-        }
       }
     }
   }
   #areas-trabajo {
-    padding: 20px;
-    margin-top: 50px;
-    h1 {
-      font-size: 2.5rem;
-    }
-    h2 {
-      font-size: 1.2rem;
-      margin-bottom: 20px;
-    }
-    .scroll-contenedor {
-      flex-direction: column;
-      align-items: center;
-      gap: 10px;
-    }
-    .work-areas-card {
-      width: 100%;
-      max-width: 300px;
-      height: 200px;
-      p {
-        font-size: 1.2rem;
-      }
-    }
+    padding: 0 20px;
+    min-height: 50dvh;
   }
 }
