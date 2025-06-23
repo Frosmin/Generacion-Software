@@ -87,12 +87,12 @@ export class EditorComponent implements OnInit, AfterViewInit, OnDestroy, OnChan
   
   // Inputs para hacer el componente reutilizable
   @Input() mode: 'full' | 'activity' = 'full'; // Modo del editor
-  @Input() initialCode: string = ''; // Código inicial
-  @Input() correctSolution: string = ''; // Solución correcta (para modo actividad)
-  @Input() showChat: boolean = true; // Mostrar funcionalidad de chat
-  @Input() showInputOutput: boolean = true; // Mostrar paneles de input/output
-  @Input() height: string = '70vh'; // Altura del editor
-  @Input() placeholder: string = 'Escribe tu código…'; // Placeholder
+  @Input() initialCode = ''; // Código inicial
+  @Input() correctSolution= ''; // Solución correcta (para modo actividad)
+  @Input() showChat = true; // Mostrar funcionalidad de chat
+  @Input() showInputOutput = true; // Mostrar paneles de input/output
+  @Input() height = '70vh'; // Altura del editor
+  @Input() placeholder = 'Escribe tu código…'; // Placeholder
   
   // Outputs para comunicación con el componente padre
   @Output() codeChange = new EventEmitter<string>();
