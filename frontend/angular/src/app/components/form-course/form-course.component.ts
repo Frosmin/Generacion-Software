@@ -22,7 +22,13 @@ interface ContentData {
 interface SubcontentData {
   subtitle: string;
   subparagraph: string[];
-  example: string[];
+  example: ExampleData[];
+}
+
+interface ExampleData {
+  code: string;
+  maxResourceConsumption: number;
+  maxProcessingTime: number;
 }
 
 interface FormContentValue {
@@ -34,13 +40,34 @@ interface FormContentValue {
 interface FormSubcontentValue {
   subtitle: string;
   subparagraph: string;
-  example: string[];
+  example: FormExampleValue[];
+}
+
+interface FormExampleValue {
+  code: string;
+  maxResourceConsumption: number;
+  maxProcessingTime: number;
 }
 
 interface FormValue {
   title: string;
   description: string;
   contents: FormContentValue[];
+}
+
+// Custom validators
+function positiveIntegerValidator(control: any) {
+  const value = control.value;
+  if (value === null || value === undefined || value === '') {
+    return null; // Let required validator handle empty values
+  }
+  
+  const numValue = Number(value);
+  if (!Number.isInteger(numValue) || numValue <= 0) {
+    return { positiveInteger: true };
+  }
+  
+  return null;
 }
 
 @Component({
@@ -92,6 +119,20 @@ export class FormCourseComponent implements OnInit, OnChanges {
     });
   }
 
+  private createExampleFormGroup(example?: ExampleData): FormGroup {
+    return this.fb.group({
+      code: [example?.code || '', Validators.required],
+      maxResourceConsumption: [
+        example?.maxResourceConsumption || '', 
+        [Validators.required, positiveIntegerValidator]
+      ],
+      maxProcessingTime: [
+        example?.maxProcessingTime || '', 
+        [Validators.required, positiveIntegerValidator]
+      ]
+    });
+  }
+
   private loadInitialData(data: CourseData): void {
     // Limpiar contenidos existentes
     this.contents.clear();
@@ -116,7 +157,7 @@ export class FormCourseComponent implements OnInit, OnChanges {
           subtitle: [subcontent.subtitle, Validators.required],
           subparagraph: [subcontent.subparagraph.join('\n'), Validators.required],
           example: this.fb.array(
-            subcontent.example.map(example => this.fb.control(example, Validators.required))
+            subcontent.example.map(example => this.createExampleFormGroup(example))
           )
         });
 
@@ -171,13 +212,16 @@ export class FormCourseComponent implements OnInit, OnChanges {
 
   // Métodos para manejar subcontenidos
   addSubcontent(contentIndex: number): void {
-    const subcontentGroup = this.fb.group({
-      subtitle: ['', Validators.required],
-      subparagraph: ['', Validators.required],
-      example: this.fb.array([this.fb.control('', Validators.required)])
-    });
+    const subcontents = this.getSubcontents(contentIndex);
+    if (subcontents.length < 10) {
+      const subcontentGroup = this.fb.group({
+        subtitle: ['', Validators.required],
+        subparagraph: ['', Validators.required],
+        example: this.fb.array([this.createExampleFormGroup()])
+      });
 
-    this.getSubcontents(contentIndex).push(subcontentGroup);
+      subcontents.push(subcontentGroup);
+    }
   }
 
   removeSubcontent(contentIndex: number, subcontentIndex: number): void {
@@ -189,9 +233,10 @@ export class FormCourseComponent implements OnInit, OnChanges {
 
   // Métodos para manejar ejemplos
   addExample(contentIndex: number, subcontentIndex: number): void {
-    this.getExamples(contentIndex, subcontentIndex).push(
-      this.fb.control('', Validators.required)
-    );
+    const examples = this.getExamples(contentIndex, subcontentIndex);
+    if (examples.length < 5) {
+      examples.push(this.createExampleFormGroup());
+    }
   }
 
   removeExample(contentIndex: number, subcontentIndex: number, exampleIndex: number): void {
@@ -227,7 +272,13 @@ export class FormCourseComponent implements OnInit, OnChanges {
         subcontent: content.subcontent.map((sub: FormSubcontentValue) => ({
           subtitle: sub.subtitle,
           subparagraph: [sub.subparagraph],
-          example: sub.example.filter((ex: string) => ex.trim() !== '')
+          example: sub.example
+            .filter((ex: FormExampleValue) => ex.code.trim() !== '')
+            .map((ex: FormExampleValue) => ({
+              code: ex.code,
+              maxResourceConsumption: Number(ex.maxResourceConsumption),
+              maxProcessingTime: Number(ex.maxProcessingTime)
+            }))
         })),
         next: null // Inicializar next como null por defecto
       };
@@ -275,9 +326,13 @@ export class FormCourseComponent implements OnInit, OnChanges {
       // Validar que cada subcontenido tenga al menos un ejemplo
       for (let j = 0; j < subcontents.length; j++) {
         const examples = this.getExamples(i, j);
-        const validExamples = examples.controls.filter(ex => ex.value.trim() !== '');
+        const validExamples = examples.controls.filter(ex => 
+          ex.get('code')?.value.trim() !== '' && 
+          ex.get('maxResourceConsumption')?.valid &&
+          ex.get('maxProcessingTime')?.valid
+        );
         if (validExamples.length === 0) {
-          alert(`El subcontenido ${j + 1} del contenido ${i + 1} debe tener al menos un ejemplo`);
+          alert(`El subcontenido ${j + 1} del contenido ${i + 1} debe tener al menos un ejemplo válido`);
           return false;
         }
       }
@@ -332,5 +387,28 @@ export class FormCourseComponent implements OnInit, OnChanges {
     this.courseForm.reset();
     this.contents.clear();
     this.addContent();
+  }
+
+  // Métodos auxiliares para obtener mensajes de error
+  getResourceConsumptionError(contentIndex: number, subcontentIndex: number, exampleIndex: number): string {
+    const control = this.getExamples(contentIndex, subcontentIndex).at(exampleIndex).get('maxResourceConsumption');
+    if (control?.hasError('required')) {
+      return 'El consumo máximo de recursos es requerido';
+    }
+    if (control?.hasError('positiveInteger')) {
+      return 'Debe ser un número entero positivo mayor a 0';
+    }
+    return '';
+  }
+
+  getProcessingTimeError(contentIndex: number, subcontentIndex: number, exampleIndex: number): string {
+    const control = this.getExamples(contentIndex, subcontentIndex).at(exampleIndex).get('maxProcessingTime');
+    if (control?.hasError('required')) {
+      return 'El tiempo máximo de procesamiento es requerido';
+    }
+    if (control?.hasError('positiveInteger')) {
+      return 'Debe ser un número entero positivo mayor a 0';
+    }
+    return '';
   }
 }

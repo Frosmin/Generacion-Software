@@ -39,7 +39,7 @@
         class="add-button" 
         (click)="addContent()"
         [disabled]="contents.length >= 20">
-        ➕ Agregar Contenido
+        ➕ Agregar Contenido ({{ contents.length }}/20)
       </button>
     </div>
 
@@ -92,8 +92,9 @@
               <button 
                 type="button" 
                 class="add-sub-button" 
-                (click)="addSubcontent(i)">
-                ➕ Agregar Subcontenido
+                (click)="addSubcontent(i)"
+                [disabled]="getSubcontents(i).length >= 10">
+                ➕ Agregar Subcontenido ({{ getSubcontents(i).length }}/10)
               </button>
             </div>
 
@@ -145,18 +146,21 @@
                       <button 
                         type="button" 
                         class="add-example-button" 
-                        (click)="addExample(i, j)">
-                        ➕ Agregar Ejemplo
+                        (click)="addExample(i, j)"
+                        [disabled]="getExamples(i, j).length >= 5">
+                        ➕ Agregar Ejemplo ({{ getExamples(i, j).length }}/5)
                       </button>
                     </div>
 
                     <div class="examples-container" formArrayName="example">
                       <div 
                         *ngFor="let example of getExamples(i, j).controls; let k = index"
+                        [formGroupName]="k"
                         class="example-item">
+                        
                         <div class="example-header">
                           <span class="example-number">{{ i + 1 }}.{{ j + 1 }}.{{ k + 1 }}</span>
-                          <label for="example-{{i}}-{{j}}-{{k}}" class="example-label">Ejemplo {{ k + 1 }}</label>
+                          <label class="example-label">Ejemplo {{ k + 1 }}</label>
                           <button 
                             type="button" 
                             class="remove-example-button" 
@@ -165,12 +169,55 @@
                             🗑️
                           </button>
                         </div>
-                        <textarea 
-                          id="example-{{i}}-{{j}}-{{k}}"
-                          [formControlName]="k"
-                          placeholder="# Escribe tu código de ejemplo aquí..."
-                          class="code-textarea"
-                          rows="8"></textarea>
+
+                        <div class="example-body">
+                          <!-- Código del ejemplo -->
+                          <div class="form-group">
+                            <label for="example-code-{{i}}-{{j}}-{{k}}">Código del Ejemplo *</label>
+                            <textarea 
+                              id="example-code-{{i}}-{{j}}-{{k}}"
+                              formControlName="code"
+                              placeholder="# Escribe tu código de ejemplo aquí..."
+                              class="code-textarea"
+                              rows="8"></textarea>
+                            <div class="error-message" *ngIf="example.get('code')?.invalid && example.get('code')?.touched">
+                              El código del ejemplo es requerido
+                            </div>
+                          </div>
+
+                          <!-- Campos adicionales en una fila -->
+                          <div class="example-metrics">
+                            <div class="form-group">
+                              <label for="maxResourceConsumption-{{i}}-{{j}}-{{k}}">Consumo Máximo de Recursos (MB) *</label>
+                              <input 
+                                type="number" 
+                                id="maxResourceConsumption-{{i}}-{{j}}-{{k}}"
+                                formControlName="maxResourceConsumption"
+                                placeholder="Ej: 256"
+                                min="1"
+                                step="1"
+                                class="form-input">
+                              <div class="error-message" *ngIf="example.get('maxResourceConsumption')?.invalid && example.get('maxResourceConsumption')?.touched">
+                                {{ getResourceConsumptionError(i, j, k) }}
+                              </div>
+                            </div>
+
+                            <div class="form-group">
+                              <label for="maxProcessingTime-{{i}}-{{j}}-{{k}}">Tiempo Máximo de Procesamiento (ms) *</label>
+                              <input 
+                                type="number" 
+                                id="maxProcessingTime-{{i}}-{{j}}-{{k}}"
+                                formControlName="maxProcessingTime"
+                                placeholder="Ej: 5000"
+                                min="1"
+                                step="1"
+                                class="form-input">
+                              <div class="error-message" *ngIf="example.get('maxProcessingTime')?.invalid && example.get('maxProcessingTime')?.touched">
+                                {{ getProcessingTimeError(i, j, k) }}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
