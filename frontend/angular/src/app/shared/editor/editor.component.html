@@ -34,12 +34,11 @@
   <div class="botones">
     <!-- Modo normal -->
     <button 
-      *ngIf="mode === 'full'" 
+      *ngIf="mode === 'full' || mode === 'activity'" 
       class="btn-ejecutar" 
       (click)="ejecutarCodigo()">
       <span>Ejecutar</span>
     </button>
-
     <!-- Modo actividad -->
     <ng-container *ngIf="mode === 'activity'">
       <button 

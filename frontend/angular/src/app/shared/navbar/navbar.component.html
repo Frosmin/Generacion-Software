@@ -9,6 +9,35 @@
     <h1 class="logo-title"><span>Py</span>Bloom</h1>
   </div>
   <button class="menu-toggle" (click)="toggleMenu()">☰</button>
+  <div class="language-selector">
+    <button
+      type="button"
+      class="language-toggle"
+      (click)="toggleLanguageDropdown()"
+      [attr.aria-expanded]="isLanguageDropdownOpen"
+      [attr.aria-controls]="'languageDropdown'"
+      [title]="'navbar.language' | translate"
+    >
+      <i class="fas fa-globe" aria-hidden="true"></i>
+    </button>
+    <div
+      id="languageDropdown"
+      class="language-dropdown"
+      [ngClass]="{ active: isLanguageDropdownOpen }"
+    >
+      <button
+        type="button"
+        class="language-option"
+        *ngFor="let language of languages"
+        (click)="changeLanguage(language.code)"
+        [ngClass]="{ selected: currentLanguage === language.code }"
+      >
+        <span class="flag">{{ language.flag }}</span>
+        <span class="language-name">{{ language.name }}</span>
+      </button>
+    </div>
+  </div>
+
   <nav class="main-nav" [ngClass]="{ active: isMenuActive }">
     <ul>
       <li>
@@ -75,34 +104,6 @@
           <i class="fas fa-user-circle"></i>
           <span class="nav-label">{{ "navbar.myLearning" | translate }}</span>
         </a>
-      </li>
-      <li class="nav-item language-selector">
-        <button
-          type="button"
-          class="language-toggle"
-          (click)="toggleLanguageDropdown()"
-          [attr.aria-expanded]="isLanguageDropdownOpen"
-          [attr.aria-controls]="'languageDropdown'"
-          [title]="'navbar.language' | translate"
-        >
-          <i class="fas fa-globe" aria-hidden="true"></i>
-        </button>
-        <div
-          id="languageDropdown"
-          class="language-dropdown"
-          [ngClass]="{ active: isLanguageDropdownOpen }"
-        >
-          <button
-            type="button"
-            class="language-option"
-            *ngFor="let language of languages"
-            (click)="changeLanguage(language.code)"
-            [ngClass]="{ selected: currentLanguage === language.code }"
-          >
-            <span class="flag">{{ language.flag }}</span>
-            <span class="language-name">{{ language.name }}</span>
-          </button>
-        </div>
       </li>
     </ul>
   </nav>

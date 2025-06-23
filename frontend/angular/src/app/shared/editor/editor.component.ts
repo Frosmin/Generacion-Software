@@ -391,6 +391,52 @@ export class EditorComponent implements OnInit, AfterViewInit, OnDestroy, OnChan
     }
   }
 
+  // Método privado para configurar stdout de forma consistente
+  private setupStdout(): void {
+    this.pyodide.setStdout({
+      batched: (text: string) => {
+        this.output += text;
+      },
+    });
+  }
+
+  // Método privado para configurar input de forma consistente
+  private setupInput(): void {
+    const inputLines = this.inputs.split('\n').filter(line => line.trim() !== '');
+    let inputIndex = 0;
+
+    const inputFunction = () => {
+      if (inputIndex >= inputLines.length) {
+        throw new Error('No hay más inputs disponibles');
+      }
+      return inputLines[inputIndex++];
+    };
+
+    this.pyodide.globals.set('input', inputFunction);
+  }
+
+  // Método privado para ejecutar código Python
+  private async executeCode(code: string): Promise<string> {
+    let output = '';
+    
+    // Configurar captura de stdout
+    this.pyodide.setStdout({
+      batched: (text: string) => {
+        output += text;
+      },
+    });
+
+    // Configurar input si hay inputs disponibles
+    if (this.inputs.trim()) {
+      this.setupInput();
+    }
+
+    // Ejecutar código
+    await this.pyodide.runPythonAsync(code);
+    
+    return output;
+  }
+
   async ejecutarCodigo(): Promise<void> {
     if (!this.pyodide) {
       this.output = 'Pyodide no está cargado correctamente.';
@@ -399,27 +445,8 @@ export class EditorComponent implements OnInit, AfterViewInit, OnDestroy, OnChan
     }
 
     try {
-      const inputLines = this.inputs.split('\n');
-      let inputIndex = 0;
-
-      const inputFunction = () => {
-        if (inputIndex >= inputLines.length) {
-          throw new Error('No hay más inputs disponibles');
-        }
-        return inputLines[inputIndex++];
-      };
-
-      this.pyodide.globals.set('input', inputFunction);
-
       this.output = '';
-
-      this.pyodide.setStdout({
-        batched: (text: string) => {
-          this.output += text;
-        },
-      });
-
-      await this.pyodide.runPythonAsync(this.codigo);
+      this.output = await this.executeCode(this.codigo);
       
       // Emitir eventos
       this.codeOutput.emit(this.output);
@@ -439,25 +466,32 @@ export class EditorComponent implements OnInit, AfterViewInit, OnDestroy, OnChan
       return;
     }
 
-    await this.ejecutarCodigo();
-    
+    if (!this.pyodide) {
+      this.output = 'Pyodide no está cargado correctamente.';
+      this.codeOutput.emit(this.output);
+      return;
+    }
+
     try {
+      // Ejecutar el código del usuario
+      this.output = '';
+      const userOutput = await this.executeCode(this.codigo);
+      this.output = userOutput;
+      
       // Ejecutar la solución correcta
-      let correctOutput = '';
-      this.pyodide.setStdout({
-        batched: (text: string) => {
-          correctOutput += text;
-        },
-      });
+      const correctOutput = await this.executeCode(this.correctSolution);
       
-      await this.pyodide.runPythonAsync(this.correctSolution);
+      // Comparar salidas (normalizar espacios en blanco)
+      const normalizeOutput = (str: string) => str.trim().replace(/\s+/g, ' ');
+      const isCorrect = normalizeOutput(userOutput) === normalizeOutput(correctOutput);
       
-      // Comparar salidas
-      const isCorrect = this.output.trim() === correctOutput.trim();
+      // Emitir eventos
+      this.codeOutput.emit(this.output);
       this.solutionCheck.emit({correct: isCorrect, output: this.output});
       
     } catch (error) {
-      console.error('Error al verificar solución:', error);
+      this.output = `Error: ${String(error)}`;
+      this.codeOutput.emit(this.output);
       this.solutionCheck.emit({correct: false, output: this.output});
     }
   }
