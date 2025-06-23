@@ -1,5 +1,5 @@
 // filepath: frontend/angular/src/app/pages/chat/chat.component.scss
-@use 'sass:color'; // Importa el módulo sass:color
+@use "sass:color"; // Importa el módulo sass:color
 
 // Inspirado en los colores y estilos de la aplicación
 $primary-color: #df881d; // Naranja principal de la app
@@ -14,12 +14,9 @@ $border-color: rgba(255, 255, 255, 0.1); // Borde sutil
 .chat-container {
   display: flex;
   flex-direction: column;
-  // Ajusta la altura según sea necesario. Considera la altura del navbar y footer.
-  // Por ejemplo, si navbar+footer son ~100px, podrías usar calc(100vh - 100px - 40px de margen).
-  // O simplemente déjalo crecer con el contenido dentro del .content-container de app.component.
-  height: calc(100vh - 140px); // Estimación, ajustar si es necesario. Asume 70px navbar + 70px footer/espacio
+  height: 80vh; // Estimación, ajustar si es necesario. Asume 70px navbar + 70px footer/espacio
   max-width: 800px; // O el ancho que prefieras
-  margin: 20px auto;
+  margin: 0 auto;
   background-color: $background-medium;
   border-radius: 15px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4); // Sombra más pronunciada
@@ -82,7 +79,11 @@ $border-color: rgba(255, 255, 255, 0.1); // Borde sutil
 }
 
 .message.sent {
-  background: linear-gradient(135deg, color.adjust($primary-color, $lightness: -5%), $primary-color); // Degradado sutil
+  background: linear-gradient(
+    135deg,
+    color.adjust($primary-color, $lightness: -5%),
+    $primary-color
+  ); // Degradado sutil
   color: $text-light;
   align-self: flex-end;
   border-bottom-right-radius: 6px; // Detalle en la esquina
@@ -127,7 +128,8 @@ $border-color: rgba(255, 255, 255, 0.1); // Borde sutil
 
     &:focus {
       border-color: $primary-color;
-      box-shadow: 0 0 0 3px rgba(color.adjust($primary-color, $alpha: -0.75), 0.25);
+      box-shadow: 0 0 0 3px
+        rgba(color.adjust($primary-color, $alpha: -0.75), 0.25);
     }
   }
 
@@ -158,7 +160,9 @@ $border-color: rgba(255, 255, 255, 0.1); // Borde sutil
   .chat-container {
     margin: 0; // Sin margen en móviles
     border-radius: 0; // Sin bordes redondeados en el contenedor principal
-    height: calc(100vh - 70px); // Asumiendo solo navbar en móvil, ajustar si hay footer
+    height: calc(
+      100vh - 70px
+    ); // Asumiendo solo navbar en móvil, ajustar si hay footer
     border: none; // Sin borde en móviles
   }
 

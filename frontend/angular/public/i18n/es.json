@@ -1,0 +1,144 @@
+{
+  "navbar": {
+    "title": "Aprende Python",
+    "home": "Inicio",
+    "courses": "Cursos",
+    "exercises": "Ejercicios",
+    "videos": "Videos",
+    "terminal": "Terminal",
+    "chat": "Chat",
+    "myLearning": "Mi aprendizaje",
+    "language": "Idioma"
+  },
+  "HOME": {
+    "BANNER": {
+      "TITLE": "Bienvenido a",
+      "SUBTITLE": "De cero a experto en Python: crea tus propios proyectos desde el primer día.",
+      "START_NOW": "Comenzar ahora",
+      "LEARN_MORE": "Saber más",
+      "IMAGE_TITLE": "Ilustracion programar en python",
+      "IMAGE_ALT": "programar en python"
+    },
+    "BENEFITS": {
+      "TITLE": "Beneficios de Python",
+      "SUBTITLE": "Descubre por qué Python es el lenguaje preferido por desarrolladores en todo el mundo.",
+      "CARDS": {
+        "EASY_LEARN": {
+          "ICON_TITLE": "Icono para representar la facilidad de aprendizaje",
+          "TITLE": "Fácil de Aprender",
+          "DESCRIPTION": "Python tiene una sintaxis simple y legible que facilita el aprendizaje para principiantes."
+        },
+        "VERSATILITY": {
+          "ICON_TITLE": "Icono para representar la versatilidad de python",
+          "TITLE": "Versatilidad",
+          "DESCRIPTION": "Úsalo para desarrollo web, ciencia de datos, inteligencia artificial y automatización."
+        },
+        "COMMUNITY": {
+          "ICON_TITLE": "Icono para representar la gran comunidad de desarrolladores",
+          "TITLE": "Gran Comunidad",
+          "DESCRIPTION": "Millones de desarrolladores y recursos disponibles para ayudarte en tu camino."
+        },
+        "JOB_OPPORTUNITY": {
+          "ICON_TITLE": "Icono para representar la alta demanda laboral",
+          "TITLE": "Oportunidad Laboral",
+          "DESCRIPTION": "Alta demanda en el mercado laboral con excelentes salarios."
+        },
+        "LIBRARIES": {
+          "ICON_TITLE": "Icono para representar el acceso a las librerías de python",
+          "TITLE": "Librerías Potentes",
+          "DESCRIPTION": "Acceso a miles de librerías que aceleran tu desarrollo."
+        },
+        "MULTIPLATFORM": {
+          "ICON_TITLE": "Icono para representar la funcionalidad en distintas plataformas",
+          "TITLE": "Multiplataforma",
+          "DESCRIPTION": "Ejecuta tu código en Windows, Mac, Linux y más sistemas operativos."
+        }
+      }
+    },
+    "WHY_PYTHON": {
+      "TITLE": "¿Por qué aprender Python?",
+      "SUBTITLE": "Python es el lenguaje de programación más popular y versátil del mundo.",
+      "IMAGE_ALT": "Estructura en python",
+      "IMAGE_TITLE": "Ilustración de componentes en python",
+      "SECTIONS": {
+        "FUTURE_LANGUAGE": {
+          "TITLE": "Lenguaje del Futuro",
+          "DESCRIPTION": "Python es el lenguaje más demandado en tecnologías emergentes como IA, Machine Learning y Data Science."
+        },
+        "INTUITIVE_SYNTAX": {
+          "TITLE": "Sintaxis Intuitiva",
+          "DESCRIPTION": "Su código se lee como inglés natural, lo que reduce el tiempo de desarrollo y facilita el mantenimiento."
+        },
+        "ROBUST_ECOSYSTEM": {
+          "TITLE": "Ecosistema Robusto",
+          "DESCRIPTION": "Cuenta con más de 300,000 paquetes en PyPI que cubren cualquier necesidad de desarrollo."
+        }
+      }
+    },
+    "WORK_AREAS": {
+      "TITLE": "Áreas de trabajo",
+      "SUBTITLE": "Python te abre las puertas a múltiples áreas de trabajo con alta demanda laboral.",
+      "CARDS": {
+        "WEB_DEV": {
+          "NAME": "Desarrollo web",
+          "TITLE": "Imagen ilustrativa para el área de Desarrollo Web"
+        },
+        "DATA_SCIENCE": {
+          "NAME": "Ciencia de datos",
+          "TITLE": "Imagen ilustrativa para el área de Ciencia de datos"
+        },
+        "MACHINE_LEARNING": {
+          "NAME": "Machine learning",
+          "TITLE": "Imagen ilustrativa para el área de Machine learning"
+        },
+        "AUTOMATION": {
+          "NAME": "Automatización",
+          "TITLE": "Imagen ilustrativa para el área de Automatización"
+        },
+        "CYBERSECURITY": {
+          "NAME": "Ciberseguridad",
+          "TITLE": "Imagen ilustrativa para el área de Ciberseguridad"
+        },
+        "AI": {
+          "NAME": "Inteligencia artificial",
+          "TITLE": "Imagen ilustrativa para el área de Inteligencia artificial"
+        }
+      }
+    }
+  },
+  "chat": {
+    "header": "Asistente Virtual",
+    "button": "Enviar",
+    "message": "Hola, ¿en qué puedo ayudarte hoy?",
+    "placeholder": "Escribe tu mensaje aquí...",
+    "error": "Error al conectar con el servicio. Por favor, intenta más tarde.",
+    "noValidResponse": "No se recibió una respuesta válida."
+  },
+  "exercisesList": {
+    "pillEasy": "Fácil",
+    "pillMedium": "Intermedio",
+    "pillHard": "Avanzado",
+    "loading": "Cargando ejercicios...",
+    "noExercises": "No hay ejercicios disponibles en este momento."
+  },
+  "login": {
+    "title": "Iniciar sesión",
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "minlength": "Mínimo 2 caracteres",
+    "loginButton": "Iniciar sesión",
+    "loginButtonLoading": "Iniciando sesión...",
+    "forgotPassword": "¿Olvidaste tu contraseña?",
+    "noAccount": "¿No tienes cuenta?",
+    "registerHere": "Regístrate aquí",
+    "required": "Este campo es obligatorio",
+    "invalidEmail": "Ingresa un formato de correo válido"
+  },
+  "videosList": {
+    "pillEasy": "Fácil",
+    "pillMedium": "Intermedio",
+    "pillHard": "Avanzado",
+    "loading": "Cargando videos...",
+    "noVideos": "No hay vídeos disponibles para este nivel de dificultad."
+  }
+}

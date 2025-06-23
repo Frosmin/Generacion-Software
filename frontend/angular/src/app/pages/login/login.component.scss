@@ -9,9 +9,9 @@
 }
 
 .login-card {
-  background: rgba(30, 30, 46, 0.95);
+  background: #1b1724;
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid #382440;
   border-radius: 20px;
   padding: 40px;
   width: 100%;
@@ -33,7 +33,7 @@
 }
 
 .login-subtitle {
-  color: #b0b0c3;
+  color: #ddd;
   font-size: 14px;
   margin: 0;
 }
@@ -58,7 +58,7 @@
 
 .form-input {
   background: rgba(255, 255, 255, 0.05);
-  border: 2px solid rgba(255, 255, 255, 0.1);
+  border: 2px solid #382440;
   border-radius: 12px;
   padding: 14px 16px;
   color: #ffffff;
@@ -71,7 +71,7 @@
 
   &:focus {
     outline: none;
-    border-color: #4a9eff;
+    border-color: #4346ff;
     background: rgba(255, 255, 255, 0.08);
     box-shadow: 0 0 0 3px rgba(74, 158, 255, 0.1);
   }
@@ -129,8 +129,8 @@
   cursor: pointer;
 
   &:checked + .checkbox-custom {
-    background: #4a9eff;
-    border-color: #4a9eff;
+    background: #4346ff;
+    border-color: #4346ff;
 
     &::after {
       display: block;
@@ -161,19 +161,22 @@
 }
 
 .submit-button {
-  background: orange;
-  color: white;
-  border: none;
-  border-radius: 12px;
-  padding: 16px;
-  font-size: 16px;
-  font-weight: 600;
+  padding: 15px 30px;
+  font-size: 1.1rem;
+  color: #fff;
+  border: 3px solid transparent;
+  border-radius: 15px;
   cursor: pointer;
-  transition: all 0.3s ease;
-  margin-top: 10px;
+  position: relative;
+  transition: all 0.3s ease-in-out;
+  background-image: linear-gradient(#1b1724, #1b1724),
+    linear-gradient(to right, #4346ff, #ff6a81);
+  background-origin: padding-box, border-box;
+  background-clip: padding-box, border-box;
 
   &:hover:not(:disabled) {
-    background: rgb(228, 149, 3);
+    background-image: linear-gradient(#2d1d34, #2d1d34),
+      linear-gradient(to right, #4346ff, #ff6a81);
   }
 
   &:disabled {
@@ -194,7 +197,7 @@
 }
 
 .forgot-password {
-  color: #4a9eff;
+  color: #4346ff;
   text-decoration: none;
   font-size: 14px;
   display: block;
@@ -213,7 +216,7 @@
   margin: 0;
 
   a {
-    color: #4a9eff;
+    color: #4346ff;
     text-decoration: none;
     transition: color 0.3s ease;
 
@@ -244,13 +247,13 @@ button.submit-button {
     background-color: #ccc;
     cursor: not-allowed;
   }
-  
+
   &.loading {
     position: relative;
     color: transparent;
-    
+
     &::after {
-      content: '';
+      content: "";
       position: absolute;
       width: 20px;
       height: 20px;
@@ -282,57 +285,51 @@ button.submit-button {
   }
 }
 
-
-/* prueba mia */
-
-
 /* Section styles */
-    section {
-      position: relative;
-      width: 100vw;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 2px;
-      flex-wrap: wrap;
-      overflow: hidden;
-    }
+section {
+  background: #302236;
+  position: relative;
+  width: 100vw;
+  height: 100dvh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2px;
+  flex-wrap: wrap;
+  overflow: hidden;
+}
 
-    /* Animated gradient effect */
-    section::before {
-      content: '';
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(#000000, #ffa500, #ffffff);
-      animation: animate 5s linear infinite;
-    }
+/* Animated gradient effect */
+section::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to right, #4346ff, #ff6a81);
+  animation: animate 5s linear infinite;
+}
 
-    /* Animation keyframes */
-    @keyframes animate {
-      0% {
-        transform: translateY(-100%);
-      }
-      100% {
-        transform: translateY(100%);
-      }
-    }
+/* Animation keyframes */
+@keyframes animate {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(100%);
+  }
+}
 
-
-    
 section span:not(.button-text) {
   position: relative;
   display: block;
   width: calc(6.25vw - 2px);
-  height: calc(6.25vw - 2px);
-  background: #181818;
+  height: 12.5dvh;
+  background: #15111c;
   z-index: 2;
   transition: 1.5s;
 }
 
 section span:not(.button-text):hover {
-  background: #ffa500;
+  background: transparent;
   transition: 0s;
 }
-
