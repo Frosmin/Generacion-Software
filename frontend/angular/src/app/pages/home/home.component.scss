@@ -291,11 +291,20 @@
 @media screen and (max-width: 720px) {
   #banner {
     flex-direction: column-reverse;
-    align-items: center;
-    margin: 0;
+    .banner-text {
+      max-width: 90%;
+      text-align: center;
+      margin: 0 auto;
+      .intro {
+        font-size: 3rem;
+        p{
+          margin: 0 auto;
+        }
+      }
+    }
     .imgBanner {
       margin: 0;
-      max-width: 50vw;
+      max-width: 60vw;
     }
   }
 
