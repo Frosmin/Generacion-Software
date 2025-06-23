@@ -8,11 +8,7 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [
-        AppComponent,
-        RouterTestingModule,
-        TranslateModule.forRoot(),
-      ],
+      imports: [AppComponent, RouterTestingModule, TranslateModule.forRoot()],
       providers: [
         TranslateService,
         {

@@ -1,8 +1,8 @@
 @use "sass:color";
 
 // Variables de color
-$primary-color: #df881d; // naranja dorado
-$secondary-color: #8a63d2; // lavanda intensa
+$primary-color: #4346ff; // naranja dorado
+$secondary-color: #ff6a81; // lavanda intensa
 $background-dark: #000000; // fondo negro total
 $background-light: #272149; // morado oscuro
 $text-light: #ffffff;
@@ -14,14 +14,13 @@ $success-color: #4caf50;
 
 .create-course-container {
   min-height: 100vh;
-  background: linear-gradient(135deg, $background-dark 0%, $background-light 100%);
   color: $text-light;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   padding-bottom: 60px;
 }
 
 .hero-section {
-  padding: 40px 120px 20px;
+  padding: 20px;
 
   @media (max-width: 768px) {
     padding: 30px 20px 15px;
@@ -29,7 +28,9 @@ $success-color: #4caf50;
 
   .hero-content {
     text-align: center;
-
+    align-items: center;
+    display: flex;
+    flex-direction: column;
     h1 {
       font-size: 2.5rem;
       margin-bottom: 1rem;
@@ -39,8 +40,8 @@ $success-color: #4caf50;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
+      width: fit-content;
     }
-
     .welcome-message {
       font-size: 1.1rem;
       opacity: 0.9;
@@ -112,7 +113,9 @@ $success-color: #4caf50;
   }
 }
 
-.form-input, .form-textarea, .form-select {
+.form-input,
+.form-textarea,
+.form-select {
   width: 100%;
   padding: 12px 16px;
   background: rgba(255, 255, 255, 0.1);
@@ -150,7 +153,7 @@ $success-color: #4caf50;
   border: 1px solid $card-border;
   border-radius: 8px;
   color: $text-light;
-  font-family: 'Courier New', monospace;
+  font-family: "Courier New", monospace;
   font-size: 0.9rem;
   line-height: 1.4;
   resize: vertical;
@@ -174,7 +177,9 @@ $success-color: #4caf50;
 }
 
 // Botones
-.add-button, .add-sub-button, .add-example-button {
+.add-button,
+.add-sub-button,
+.add-example-button {
   background: linear-gradient(45deg, $primary-color, $secondary-color);
   color: white;
   border: none;
@@ -202,12 +207,15 @@ $success-color: #4caf50;
   }
 }
 
-.add-sub-button, .add-example-button {
+.add-sub-button,
+.add-example-button {
   font-size: 0.85rem;
   padding: 8px 16px;
 }
 
-.remove-button, .remove-sub-button, .remove-example-button {
+.remove-button,
+.remove-sub-button,
+.remove-example-button {
   background: rgba(255, 82, 82, 0.1); // rojo translúcido sobre fondo oscuro
   color: $error-color;
   border: 1px solid rgba(244, 67, 54, 0.5);
@@ -422,7 +430,7 @@ $success-color: #4caf50;
   width: 100%;
   border: none;
   background: rgba(0, 0, 0, 0.6);
-  font-family: 'Courier New', monospace;
+  font-family: "Courier New", monospace;
   padding: 0.75rem;
   resize: vertical;
   min-height: 120px;
@@ -525,7 +533,7 @@ $success-color: #4caf50;
     border-radius: 8px;
     padding: 20px;
     color: $text-light;
-    font-family: 'Courier New', monospace;
+    font-family: "Courier New", monospace;
     font-size: 0.85rem;
     line-height: 1.4;
     max-height: 400px;
@@ -538,8 +546,9 @@ $success-color: #4caf50;
 @media (max-width: 576px) {
   .form-actions {
     flex-direction: column;
-    
-    .cancel-button, .submit-button {
+
+    .cancel-button,
+    .submit-button {
       width: 100%;
     }
   }

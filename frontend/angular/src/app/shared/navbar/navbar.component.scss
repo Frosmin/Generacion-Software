@@ -35,7 +35,7 @@
   margin: 0;
   font-size: 2rem;
   font-weight: 500;
-  color:#fd8799;
+  color: #fd8799;
   text-decoration: none;
 
   span {
@@ -213,94 +213,78 @@
 @media screen and (max-width: 940px) {
   .menu-toggle {
     display: block;
+    position: absolute;
+    z-index: 200;
+    right: 12vw;
   }
-
-  #nav-logo h1 {
-    font-size: 1rem;
-  }
-
   .main-nav {
     position: absolute;
-    top: 70px;
-    left: 0;
-    right: 0;
-    background-color: #040504;
-    height: 0;
+    top: 10dvh;
+    left: 45vw;
+    right: 10px;
+    background-color: #1b1724;
     overflow: hidden;
     transition: height 0.3s ease;
     z-index: 100;
+    max-width: 40vw;
+    border-radius: 20px;
+    height: 0;
   }
-
   .main-nav.active {
     height: auto;
-    padding: 1rem 0;
     box-shadow: 0 5px 8px rgba(0, 0, 0, 0.3);
   }
-
   .main-nav ul {
     flex-direction: column;
     width: 100%;
   }
-
   .main-nav li {
     margin: 0;
-    text-align: center;
-    padding: 0.8rem 0;
+    padding: 5px 0;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   }
-
-  .main-nav li:last-child {
-    border-bottom: none;
-  }
-
   .main-nav a {
     display: block;
-    padding: 0.5rem 0;
+    padding: 5px 0;
     border-bottom: none !important;
   }
-
   .main-nav a.active,
   .main-nav a:hover {
     border-bottom: none !important;
     color: #ddd;
     transition: color 0.3s;
   }
-
   .language-selector {
-    width: 100%;
-  }
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+    position: relative;
 
-  .nav-item a {
-    margin-right: 0;
+    button.language-toggle {
+      background: transparent;
+      border: none;
+      color: white;
+      font-size: 1.2rem;
+      cursor: pointer;
+    }
   }
-
   .language-dropdown {
-    position: static;
-    opacity: 1;
-    visibility: visible;
-    transform: none;
-    box-shadow: none;
-    border: none;
-    background: transparent;
-    margin-top: 0.5rem;
-  }
-
-  .language-dropdown.active {
-    display: block;
-  }
-
-  .language-dropdown:not(.active) {
-    display: none;
-  }
-
-  .language-option {
-    justify-content: center;
-    background: rgba(18, 14, 35, 0.8);
-    margin: 0.2rem 1rem;
+    position: absolute;
+    top: 10dvh;
+    background-color: rgba(27, 23, 36, 0.95);
     border-radius: 5px;
-    border-bottom: none;
+    display: none;
+    flex-direction: column;
+    z-index: 300;
   }
-
+  .language-dropdown.active {
+    display: flex;
+  }
+  .language-option {
+    background: rgba(18, 14, 35, 0.8);
+    border-radius: 5px;
+    color: white;
+  }
   .language-option:hover {
     background: rgba(165, 214, 255, 0.2);
   }

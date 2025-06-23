@@ -169,7 +169,7 @@
   cursor: pointer;
   position: relative;
   transition: all 0.3s ease-in-out;
-  background-image: linear-gradient(#15111c, #15111c),
+  background-image: linear-gradient(#1b1724, #1b1724),
     linear-gradient(to right, #4346ff, #ff6a81);
   background-origin: padding-box, border-box;
   background-clip: padding-box, border-box;
@@ -287,6 +287,7 @@ button.submit-button {
 
 /* Section styles */
 section {
+  background: #302236;
   position: relative;
   width: 100vw;
   height: 100dvh;
