@@ -9,9 +9,9 @@
 }
 
 .login-card {
-  background: rgba(30, 30, 46, 0.95);
+  background: #1b1724;
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid #382440;
   border-radius: 20px;
   padding: 40px;
   width: 100%;
@@ -33,7 +33,7 @@
 }
 
 .login-subtitle {
-  color: #b0b0c3;
+  color: #ddd;
   font-size: 14px;
   margin: 0;
 }
@@ -58,7 +58,7 @@
 
 .form-input {
   background: rgba(255, 255, 255, 0.05);
-  border: 2px solid rgba(255, 255, 255, 0.1);
+  border: 2px solid #382440;
   border-radius: 12px;
   padding: 14px 16px;
   color: #ffffff;
@@ -71,7 +71,7 @@
 
   &:focus {
     outline: none;
-    border-color: #4a9eff;
+    border-color: #4346ff;
     background: rgba(255, 255, 255, 0.08);
     box-shadow: 0 0 0 3px rgba(74, 158, 255, 0.1);
   }
@@ -129,8 +129,8 @@
   cursor: pointer;
 
   &:checked + .checkbox-custom {
-    background: #4a9eff;
-    border-color: #4a9eff;
+    background: #4346ff;
+    border-color: #4346ff;
 
     &::after {
       display: block;
@@ -161,19 +161,22 @@
 }
 
 .submit-button {
-  background: orange;
-  color: white;
-  border: none;
-  border-radius: 12px;
-  padding: 16px;
-  font-size: 16px;
-  font-weight: 600;
+  padding: 15px 30px;
+  font-size: 1.1rem;
+  color: #fff;
+  border: 3px solid transparent;
+  border-radius: 15px;
   cursor: pointer;
-  transition: all 0.3s ease;
-  margin-top: 10px;
+  position: relative;
+  transition: all 0.3s ease-in-out;
+  background-image: linear-gradient(#15111c, #15111c),
+    linear-gradient(to right, #4346ff, #ff6a81);
+  background-origin: padding-box, border-box;
+  background-clip: padding-box, border-box;
 
   &:hover:not(:disabled) {
-    background: rgb(228, 149, 3);
+    background-image: linear-gradient(#2d1d34, #2d1d34),
+      linear-gradient(to right, #4346ff, #ff6a81);
   }
 
   &:disabled {
@@ -194,7 +197,7 @@
 }
 
 .forgot-password {
-  color: #4a9eff;
+  color: #4346ff;
   text-decoration: none;
   font-size: 14px;
   display: block;
@@ -213,7 +216,7 @@
   margin: 0;
 
   a {
-    color: #4a9eff;
+    color: #4346ff;
     text-decoration: none;
     transition: color 0.3s ease;
 
@@ -301,7 +304,7 @@ section::before {
   position: absolute;
   width: 100%;
   height: 100%;
-  background: linear-gradient(#000000, #ffa500, #ffffff);
+  background: linear-gradient(to right, #4346ff, #ff6a81);
   animation: animate 5s linear infinite;
 }
 
@@ -320,12 +323,12 @@ section span:not(.button-text) {
   display: block;
   width: calc(6.25vw - 2px);
   height: 12.5dvh;
-  background: #181818;
+  background: #15111c;
   z-index: 2;
   transition: 1.5s;
 }
 
 section span:not(.button-text):hover {
-  background: #ffa500;
+  background: transparent;
   transition: 0s;
 }

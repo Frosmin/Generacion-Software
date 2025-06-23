@@ -288,71 +288,7 @@
   margin-bottom: 40px;
 }
 
-@media screen and (max-width: 720px) {
-  #banner {
-    flex-direction: column-reverse;
-    .banner-text {
-      max-width: 90%;
-      text-align: center;
-      margin: 0 auto;
-      .intro {
-        font-size: 3rem;
-        p {
-          margin: 0 auto;
-        }
-      }
-    }
-    .imgBanner {
-      margin: 0;
-      max-width: 60vw;
-    }
-  }
-
-  .contenedorBotones {
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-  .text {
-    text-align: center;
-  }
-  .beneficios-cards {
-    flex-direction: column;
-    align-items: center;
-  }
-  .beneficios-card {
-    width: 100%;
-    max-width: 500px;
-    margin-bottom: 15px;
-  }
-  .home-section {
-    margin-top: 1rem;
-    margin-bottom: 3rem;
-    align-items: center;
-    justify-content: center;
-  }
-  #porque-python {
-    padding: 40px 15px;
-    .porque-python-titulo {
-      margin-bottom: 40px;
-    }
-    .porque-python-columna {
-      gap: 30px;
-      .porque-python-section {
-        gap: 20px;
-        .numero {
-          min-width: 70px;
-          height: 70px;
-          border-radius: 16px;
-        }
-      }
-    }
-    .imgPython {
-      display: none;
-    }
-  }
-}
-
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 500px) {
   .home-section {
     min-height: 90dvh;
     margin-bottom: 10px;
