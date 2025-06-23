@@ -31,7 +31,7 @@
     }
     .contenedorBotones {
       display: flex;
-      gap: 2rem;
+      gap: 1.5rem;
       button,
       .boton-banner-home {
         padding: 15px 30px;
@@ -297,7 +297,7 @@
       margin: 0 auto;
       .intro {
         font-size: 3rem;
-        p{
+        p {
           margin: 0 auto;
         }
       }
@@ -353,87 +353,48 @@
 }
 
 @media screen and (max-width: 480px) {
-  .content {
-    padding: 0;
-    width: 100%;
+  .home-section {
+    min-height: 90dvh;
+    margin-bottom: 10px;
+    padding: 0 10px;
   }
-  .home-section h1 {
-    font-size: 2.5rem;
-    margin: 0;
-  }
-  .home-section h2 {
-    font-size: 1.2rem;
-  }
-  .banner-text {
-    max-width: 100%;
-  }
-  .intro2 {
-    margin-bottom: 1rem;
-  }
-  .contenedorBotones {
-    flex-direction: row;
-    justify-content: start;
-    gap: 1rem;
-    margin-top: 30px;
-    margin-bottom: 40px;
-    .text {
-      text-align: center;
-      font-size: 1.2rem;
-    }
-  }
-  .beneficios {
-    padding: 30px 20px;
-    h2 {
-      margin: 15px 0;
-    }
-    .beneficios-titulo {
-      margin-bottom: 30px;
-    }
-    .beneficios-cards {
-      flex-direction: column;
-      align-items: center;
-      gap: 0;
-      .card-row {
-        gap: 0;
+  #banner {
+    .banner-text {
+      .contenedorBotones {
+        button,
+        .boton-banner-home {
+          padding: 12px 25px;
+        }
       }
-      .beneficios-card {
-        padding: 10px 15px;
-        .icono {
-          display: flex;
-          flex-direction: row;
-          align-items: center;
-          height: 20px;
-          margin-top: 10px;
-          h1 {
-            font-size: 2rem;
-            width: 10%;
-          }
-          h2 {
-            width: 70%;
-            margin-left: 10px;
+    }
+  }
+  #beneficios {
+    padding: 0;
+    .beneficios-cards {
+      gap: 5px;
+      .card-row {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        align-items: center;
+        .beneficios-card {
+          width: 90%;
+          text-align: center;
+          .icono {
+            display: flex;
+            justify-content: center;
+            h1 {
+              margin-right: 10px;
+            }
           }
         }
       }
-      p {
-        font-size: 1.1rem;
-      }
     }
   }
-  #banner {
-    padding: 0 20px;
-  }
   #porque-python {
-    padding: 0 20px;
     margin: 0;
     .porque-python-titulo {
       margin-bottom: 20px;
-      h1 {
-        font-size: 2.5rem;
-      }
-      h2 {
-        font-size: 1.2rem;
-        font-weight: 600;
-      }
     }
     .porque-python-section {
       flex-direction: row;
@@ -442,34 +403,11 @@
       .numero {
         max-width: 2rem;
         max-height: 2rem;
-        h2 {
-          font-size: 1.5rem;
-        }
       }
     }
   }
   #areas-trabajo {
-    padding: 20px;
-    margin-top: 50px;
-    h1 {
-      font-size: 2.5rem;
-    }
-    h2 {
-      font-size: 1.2rem;
-      margin-bottom: 20px;
-    }
-    .scroll-contenedor {
-      flex-direction: column;
-      align-items: center;
-      gap: 10px;
-    }
-    .work-areas-card {
-      width: 100%;
-      max-width: 300px;
-      height: 200px;
-      p {
-        font-size: 1.2rem;
-      }
-    }
+    padding: 0 20px;
+    min-height: 50dvh;
   }
 }
