@@ -261,7 +261,7 @@ export class CreateCourseComponent implements OnInit {
           this.addContent(); // Agregar contenido inicial
           
           // Opcional: Navegar a la lista de cursos o a ver el curso creado
-          // this.router.navigate(['/courses']);
+          this.router.navigate(['/cursos']);
           
           this.isSubmitting = false;
         },
@@ -283,6 +283,7 @@ export class CreateCourseComponent implements OnInit {
       this.courseForm.reset();
       this.contents.clear();
       this.addContent(); // Agregar contenido inicial
+      this.router.navigate(['/cursos'])
     }
   }
 
