@@ -18,6 +18,8 @@
   box-shadow: 0 0 20px #000000 inset;
   width: 100%;
   justify-content: space-between;
+  height: 7dvh;
+
 }
 
 .pill-radio-container input {
@@ -93,7 +95,7 @@ label[for="pill-premium"]:hover {
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 2rem;
   padding: 2rem;
-  min-height: 74dvh;
+  height: 73dvh;
 }
 
 .video-card {
@@ -127,4 +129,8 @@ label[for="pill-premium"]:hover {
   .videos-container {
     grid-template-columns: auto;
   }
+}
+
+.videos-list-container {
+  min-height: 80dvh;
 }

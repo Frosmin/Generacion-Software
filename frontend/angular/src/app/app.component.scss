@@ -1,9 +1,9 @@
 .container {
-  background: linear-gradient(to right, #36213E 0%, #2E2143 50%, #181335 100%);
-  height: 100vh;
+  background: #15111c;
+  height: 100dvh;
   display: grid;
   grid-template-rows: auto 1fr auto;
-  grid-template-areas: 
+  grid-template-areas:
     "header"
     "content"
     "footer";
@@ -12,10 +12,12 @@
 .navbar-container {
   grid-area: header;
 }
+.navbar-placeholder {
+  height: 10dvh;
+}
 
 .content-container {
   grid-area: content;
-  // overflow-y: auto;
 }
 
 .footer-container {
