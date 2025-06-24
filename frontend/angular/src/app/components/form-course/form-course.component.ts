@@ -16,7 +16,9 @@ interface ContentData {
   title: string;
   paragraph: string[];
   subcontent: SubcontentData[];
-  next: string | null; 
+  next: string | null;
+  maxResourceConsumption: number;
+  maxProcessingTime: number;
 }
 
 interface SubcontentData {
@@ -27,14 +29,14 @@ interface SubcontentData {
 
 interface ExampleData {
   code: string;
-  maxResourceConsumption: number;
-  maxProcessingTime: number;
 }
 
 interface FormContentValue {
   title: string;
   paragraph: string;
   subcontent: FormSubcontentValue[];
+  maxResourceConsumption: number;
+  maxProcessingTime: number;
 }
 
 interface FormSubcontentValue {
@@ -45,8 +47,6 @@ interface FormSubcontentValue {
 
 interface FormExampleValue {
   code: string;
-  maxResourceConsumption: number;
-  maxProcessingTime: number;
 }
 
 interface FormValue {
@@ -119,17 +119,25 @@ export class FormCourseComponent implements OnInit, OnChanges {
     });
   }
 
-  private createExampleFormGroup(example?: ExampleData): FormGroup {
+  private createContentFormGroup(content?: ContentData): FormGroup {
     return this.fb.group({
-      code: [example?.code || '', Validators.required],
+      title: [content?.title || '', Validators.required],
+      paragraph: [content?.paragraph?.join('\n') || '', Validators.required],
       maxResourceConsumption: [
-        example?.maxResourceConsumption || '', 
+        content?.maxResourceConsumption || '', 
         [Validators.required, positiveIntegerValidator]
       ],
       maxProcessingTime: [
-        example?.maxProcessingTime || '', 
+        content?.maxProcessingTime || '', 
         [Validators.required, positiveIntegerValidator]
-      ]
+      ],
+      subcontent: this.fb.array([])
+    });
+  }
+
+  private createExampleFormGroup(example?: ExampleData): FormGroup {
+    return this.fb.group({
+      code: [example?.code || '', Validators.required]
     });
   }
 
@@ -145,11 +153,7 @@ export class FormCourseComponent implements OnInit, OnChanges {
 
     // Cargar contenidos
     data.contents.forEach(content => {
-      const contentGroup = this.fb.group({
-        title: [content.title, Validators.required],
-        paragraph: [content.paragraph.join('\n'), Validators.required],
-        subcontent: this.fb.array([])
-      });
+      const contentGroup = this.createContentFormGroup(content);
 
       // Cargar subcontenidos
       content.subcontent.forEach(subcontent => {
@@ -187,12 +191,7 @@ export class FormCourseComponent implements OnInit, OnChanges {
   // Métodos para manejar contenidos
   addContent(): void {
     if (this.contents.length < 20) {
-      const contentGroup = this.fb.group({
-        title: ['', Validators.required],
-        paragraph: ['', Validators.required],
-        subcontent: this.fb.array([])
-      });
-
+      const contentGroup = this.createContentFormGroup();
       this.contents.push(contentGroup);
       
       // Agregar el primer subcontenido automáticamente
@@ -275,12 +274,12 @@ export class FormCourseComponent implements OnInit, OnChanges {
           example: sub.example
             .filter((ex: FormExampleValue) => ex.code.trim() !== '')
             .map((ex: FormExampleValue) => ({
-              code: ex.code,
-              maxResourceConsumption: Number(ex.maxResourceConsumption),
-              maxProcessingTime: Number(ex.maxProcessingTime)
+              code: ex.code
             }))
         })),
-        next: null // Inicializar next como null por defecto
+        next: null, // Inicializar next como null por defecto
+        maxResourceConsumption: Number(content.maxResourceConsumption),
+        maxProcessingTime: Number(content.maxProcessingTime)
       };
 
       // Agregar "next" automáticamente si no es el último contenido
@@ -327,9 +326,7 @@ export class FormCourseComponent implements OnInit, OnChanges {
       for (let j = 0; j < subcontents.length; j++) {
         const examples = this.getExamples(i, j);
         const validExamples = examples.controls.filter(ex => 
-          ex.get('code')?.value.trim() !== '' && 
-          ex.get('maxResourceConsumption')?.valid &&
-          ex.get('maxProcessingTime')?.valid
+          ex.get('code')?.value.trim() !== ''
         );
         if (validExamples.length === 0) {
           alert(`El subcontenido ${j + 1} del contenido ${i + 1} debe tener al menos un ejemplo válido`);
@@ -390,8 +387,8 @@ export class FormCourseComponent implements OnInit, OnChanges {
   }
 
   // Métodos auxiliares para obtener mensajes de error
-  getResourceConsumptionError(contentIndex: number, subcontentIndex: number, exampleIndex: number): string {
-    const control = this.getExamples(contentIndex, subcontentIndex).at(exampleIndex).get('maxResourceConsumption');
+  getResourceConsumptionError(contentIndex: number): string {
+    const control = this.contents.at(contentIndex).get('maxResourceConsumption');
     if (control?.hasError('required')) {
       return 'El consumo máximo de recursos es requerido';
     }
@@ -401,8 +398,8 @@ export class FormCourseComponent implements OnInit, OnChanges {
     return '';
   }
 
-  getProcessingTimeError(contentIndex: number, subcontentIndex: number, exampleIndex: number): string {
-    const control = this.getExamples(contentIndex, subcontentIndex).at(exampleIndex).get('maxProcessingTime');
+  getProcessingTimeError(contentIndex: number): string {
+    const control = this.contents.at(contentIndex).get('maxProcessingTime');
     if (control?.hasError('required')) {
       return 'El tiempo máximo de procesamiento es requerido';
     }

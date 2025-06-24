@@ -17,7 +17,9 @@ interface ContentData {
   title: string;
   paragraph: string[];
   subcontent: SubcontentData[];
-  next: string | null; 
+  next: string | null;
+  maxResourceConsumption: number;
+  maxProcessingTime: number;
 }
 
 interface SubcontentData {
@@ -28,8 +30,6 @@ interface SubcontentData {
 
 interface ExampleData {
   code: string;
-  maxResourceConsumption: number;
-  maxProcessingTime: number;
 }
 
 @Component({
@@ -76,7 +76,7 @@ export class EditCourseComponent implements OnInit {
         throw new Error('ID del curso no encontrado');
       }
 
-      // AQUI CARGAR LOS DATOS DEL CURSO
+      // Cargar datos del curso
       this.initialCourseData = await this.fetchCourseData(this.courseId);
       this.currentCourseData = JSON.parse(JSON.stringify(this.initialCourseData)); // Deep copy
       
@@ -101,81 +101,61 @@ export class EditCourseComponent implements OnInit {
         if (success) {
           // Mock data basado en el formato JSON que proporcionaste
           const mockCourseData: CourseData = {
-              course: {
-                    title: "askfjsafkj",
-                    description: "kkjafsfakjkjfskjsfkj",
-                    goto: "askfjsafkj"
-                },
-                contents: [
+        course: {
+            title: "afsafasfa",
+            description: "safagsgsgsaggas",
+            goto: "afsafasfa"
+        },
+        contents: [
+            {
+            title: "agsgasagsgsag",
+            paragraph: [
+                "asgasgaasg"
+            ],
+            subcontent: [
+                {
+                subtitle: "afavvqeqveqve",
+                subparagraph: [
+                    "qvevqevqeqveqve"
+                ],
+                example: [
                     {
-                    title: "puebads",
-                    paragraph: [
-                        "ndjkgandga"
-                    ],
-                    subcontent: [
-                        {
-                        subtitle: "vkjadkjvnkjad",
-                        subparagraph: [
-                            "kjadavknjajdknj"
-                        ],
-                        example: [
-                            {
-                            code: "djvanjkdvnkja",
-                            maxResourceConsumption: 124,
-                            maxProcessingTime: 12531
-                            },
-                            {
-                            code: "scas",
-                            maxResourceConsumption: 124,
-                            maxProcessingTime: 214
-                            },
-                            {
-                            code: "39519",
-                            maxResourceConsumption: 8462,
-                            maxProcessingTime: 1358
-                            }
-                        ]
-                        },
-                        {
-                        subtitle: "adkjakjdgkj",
-                        subparagraph: [
-                            "kdgkjkjag"
-                        ],
-                        example: [
-                            {
-                            code: "akgjkajgkj",
-                            maxResourceConsumption: 853,
-                            maxProcessingTime: 8135
-                            }
-                        ]
-                        }
-                    ],
-                    next: "asgn"
+                    code: "142124dv"
                     },
                     {
-                    title: "asgn",
-                    paragraph: [
-                        "kdkjkjgnenkj"
-                    ],
-                    subcontent: [
-                        {
-                        subtitle: "agkjganjk",
-                        subparagraph: [
-                            "kjasgsag"
-                        ],
-                        example: [
-                            {
-                            code: "15",
-                            maxResourceConsumption: 215,
-                            maxProcessingTime: 4624
-                            }
-                        ]
-                        }
-                    ],
-                    next: null
+                    code: "dsvsdvdvsd112215"
                     }
                 ]
-                };
+                }
+            ],
+            next: "fqefqffqw",
+            maxResourceConsumption: 123,
+            maxProcessingTime: 421
+            },
+            {
+            title: "fqefqffqw",
+            paragraph: [
+                "12wfqfeveqvqqve"
+            ],
+            subcontent: [
+                {
+                subtitle: "qwrwqrqwr",
+                subparagraph: [
+                    "qwrwrqqwr"
+                ],
+                example: [
+                    {
+                    code: "qwrqw"
+                    }
+                ]
+                }
+            ],
+            next: null,
+            maxResourceConsumption: 124,
+            maxProcessingTime: 531
+            }
+        ]
+        };
           resolve(mockCourseData);
         } else {
           reject(new Error('No se pudo cargar el curso'));
@@ -237,7 +217,7 @@ export class EditCourseComponent implements OnInit {
       alert('¡Curso actualizado exitosamente!');
       
       // Opcionalmente redirigir
-      // this.router.navigate(['/courses']);
+      this.router.navigate(['/cursos']);
       
     } catch (error) {
       console.error('Error al actualizar el curso:', error);
@@ -272,7 +252,7 @@ export class EditCourseComponent implements OnInit {
       }
     }
 
-    this.router.navigate(['/courses']); // Ajusta la ruta según tu aplicación
+    this.router.navigate(['/cursos']); // Ajusta la ruta según tu aplicación
   }
 
   // Reintentar carga de datos

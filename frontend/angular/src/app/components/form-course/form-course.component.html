@@ -85,6 +85,39 @@
               rows="2"></textarea>
           </div>
 
+          <!-- Campos de consumo de recursos y tiempo de procesamiento -->
+          <div class="content-metrics">
+            <div class="form-group">
+              <label for="maxResourceConsumption-{{i}}">Consumo Máximo de Recursos (MB) *</label>
+              <input 
+                type="number" 
+                id="maxResourceConsumption-{{i}}"
+                formControlName="maxResourceConsumption"
+                placeholder="Ej: 256"
+                min="1"
+                step="1"
+                class="form-input">
+              <div class="error-message" *ngIf="content.get('maxResourceConsumption')?.invalid && content.get('maxResourceConsumption')?.touched">
+                {{ getResourceConsumptionError(i) }}
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="maxProcessingTime-{{i}}">Tiempo Máximo de Procesamiento (ms) *</label>
+              <input 
+                type="number" 
+                id="maxProcessingTime-{{i}}"
+                formControlName="maxProcessingTime"
+                placeholder="Ej: 5000"
+                min="1"
+                step="1"
+                class="form-input">
+              <div class="error-message" *ngIf="content.get('maxProcessingTime')?.invalid && content.get('maxProcessingTime')?.touched">
+                {{ getProcessingTimeError(i) }}
+              </div>
+            </div>
+          </div>
+
           <!-- Subcontenidos -->
           <div class="subcontent-section">
             <div class="subcontent-header">
@@ -182,39 +215,6 @@
                               rows="8"></textarea>
                             <div class="error-message" *ngIf="example.get('code')?.invalid && example.get('code')?.touched">
                               El código del ejemplo es requerido
-                            </div>
-                          </div>
-
-                          <!-- Campos adicionales en una fila -->
-                          <div class="example-metrics">
-                            <div class="form-group">
-                              <label for="maxResourceConsumption-{{i}}-{{j}}-{{k}}">Consumo Máximo de Recursos (MB) *</label>
-                              <input 
-                                type="number" 
-                                id="maxResourceConsumption-{{i}}-{{j}}-{{k}}"
-                                formControlName="maxResourceConsumption"
-                                placeholder="Ej: 256"
-                                min="1"
-                                step="1"
-                                class="form-input">
-                              <div class="error-message" *ngIf="example.get('maxResourceConsumption')?.invalid && example.get('maxResourceConsumption')?.touched">
-                                {{ getResourceConsumptionError(i, j, k) }}
-                              </div>
-                            </div>
-
-                            <div class="form-group">
-                              <label for="maxProcessingTime-{{i}}-{{j}}-{{k}}">Tiempo Máximo de Procesamiento (ms) *</label>
-                              <input 
-                                type="number" 
-                                id="maxProcessingTime-{{i}}-{{j}}-{{k}}"
-                                formControlName="maxProcessingTime"
-                                placeholder="Ej: 5000"
-                                min="1"
-                                step="1"
-                                class="form-input">
-                              <div class="error-message" *ngIf="example.get('maxProcessingTime')?.invalid && example.get('maxProcessingTime')?.touched">
-                                {{ getProcessingTimeError(i, j, k) }}
-                              </div>
                             </div>
                           </div>
                         </div>

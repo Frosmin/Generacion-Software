@@ -17,13 +17,19 @@ interface ContentData {
   title: string;
   paragraph: string[];
   subcontent: SubcontentData[];
-  next: string | null; 
+  next: string | null;
+  maxResourceConsumption: number;
+  maxProcessingTime: number;
 }
 
 interface SubcontentData {
   subtitle: string;
   subparagraph: string[];
-  example: string[];
+  example: ExampleData[];
+}
+
+interface ExampleData {
+  code: string;
 }
 
 @Component({
@@ -78,7 +84,7 @@ export class CreateCourseComponent {
       
       // Mostrar mensaje de éxito y redirigir
       alert('¡Curso creado exitosamente!');
-      this.router.navigate(['/courses']); // Ajusta la ruta según tu aplicación
+      this.router.navigate(['/cursos']); // Ajusta la ruta según tu aplicación
       
     } catch (error) {
       console.error('Error al crear el curso:', error);
@@ -115,7 +121,7 @@ export class CreateCourseComponent {
       }
     }
 
-    this.router.navigate(['/courses']); // Ajusta la ruta según tu aplicación
+    this.router.navigate(['/cursos']); // Ajusta la ruta según tu aplicación
   }
 
   // Método para obtener datos del curso (útil para debugging)
