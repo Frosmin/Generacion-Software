@@ -27,7 +27,7 @@ func GeminiHandler(c *gin.Context) {
 		return
 	}
 
-	promt := "El que te esta preguntado es un niño de 9 años, se te pasara un problema y un codigo que fue escrito por el niño, el codigo esta mal revisalo y dale pistas para que pueda arrglar solucionar su problema responde en 1 oracion nada mas, no le des la respuesta aqui esta el lo del niño:" + request.Prompt
+	prompt := "El que te esta preguntando es un niño de 10 años, se te pasara un problema y un codigo que fue escrito por el niño, el codigo esta mal revisalo y dale pistas para que pueda arrglar solucionar su problema responde en 1 oracion nada mas, no le des la respuesta aqui esta el lo del niño:" + request.Prompt
 	apiKey := os.Getenv("GEMINI_API_KEY")
 	if apiKey == "" {
 		log.Println("Error: GEMINI_API_KEY no está configurada en variables de entorno")
@@ -51,7 +51,7 @@ func GeminiHandler(c *gin.Context) {
 	result, err := client.Models.GenerateContent(
 		ctx,
 		"gemini-2.0-flash",
-		genai.Text(promt),
+		genai.Text(prompt),
 		nil,
 	)
 	if err != nil {
