@@ -80,7 +80,6 @@ export class EditCourseComponent implements OnInit {
       this.initialCourseData = await this.fetchCourseData(this.courseId);
       this.currentCourseData = JSON.parse(JSON.stringify(this.initialCourseData)); // Deep copy
       
-      console.log('Datos del curso cargados:', this.initialCourseData);
       
     } catch (error) {
       console.error('Error al cargar el curso:', error);
@@ -91,15 +90,14 @@ export class EditCourseComponent implements OnInit {
     }
   }
 
-  // Simular carga de datos del curso (reemplaza con tu lógica real)
   private async fetchCourseData(courseId: string): Promise<CourseData> {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         // Simular éxito o error
-        const success = Math.random() > 0.1; // 90% de probabilidad de éxito
+        const success = Math.random() > 0.1;
         
         if (success) {
-          // Mock data basado en el formato JSON que proporcionaste
+          // Mock data basado en el formato JSON
           const mockCourseData: CourseData = {
         course: {
             title: "afsafasfa",
@@ -168,13 +166,11 @@ export class EditCourseComponent implements OnInit {
   onFormDataChange(courseData: CourseData): void {
     this.currentCourseData = courseData;
     this.checkForChanges();
-    console.log('Datos del curso actualizados:', courseData);
   }
 
   // Manejar cambios en la validez del formulario
   onFormValidChange(isValid: boolean): void {
     this.isFormValid = isValid;
-    console.log('Estado de validez del formulario:', isValid);
   }
 
   // Verificar si hay cambios en el formulario
@@ -204,8 +200,6 @@ export class EditCourseComponent implements OnInit {
     this.isSubmitting = true;
 
     try {
-      console.log('Guardando cambios del curso:', this.currentCourseData);
-      
       // Simular una llamada asíncrona
       await this.updateCourse(this.courseId!, this.currentCourseData);
       
@@ -213,10 +207,7 @@ export class EditCourseComponent implements OnInit {
       this.initialCourseData = JSON.parse(JSON.stringify(this.currentCourseData));
       this.hasChanges = false;
       
-      // Mostrar mensaje de éxito
       alert('¡Curso actualizado exitosamente!');
-      
-      // Opcionalmente redirigir
       this.router.navigate(['/cursos']);
       
     } catch (error) {
@@ -227,12 +218,12 @@ export class EditCourseComponent implements OnInit {
     }
   }
 
-  // Simular actualización del curso (reemplaza con tu lógica real)
+  // Simular actualización del curso
   private async updateCourse(courseId: string, courseData: CourseData): Promise<void> {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         // Simular éxito o error
-        const success = Math.random() > 0.1; // 90% de probabilidad de éxito
+        const success = Math.random() > 0.1;
         
         if (success) {
           resolve();
@@ -252,7 +243,7 @@ export class EditCourseComponent implements OnInit {
       }
     }
 
-    this.router.navigate(['/cursos']); // Ajusta la ruta según tu aplicación
+    this.router.navigate(['/cursos']);
   }
 
   // Reintentar carga de datos
@@ -260,7 +251,7 @@ export class EditCourseComponent implements OnInit {
     this.loadCourseData();
   }
 
-  // Método para obtener datos del curso (útil para debugging)
+  // Método para obtener datos del curso pa debugging
   getCourseData(): CourseData | undefined {
     return this.currentCourseData;
   }

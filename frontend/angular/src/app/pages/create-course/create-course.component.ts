@@ -51,13 +51,11 @@ export class CreateCourseComponent {
   // Manejar cambios en los datos del formulario
   onFormDataChange(courseData: CourseData): void {
     this.currentCourseData = courseData;
-    console.log('Datos del curso actualizados:', courseData);
   }
 
   // Manejar cambios en la validez del formulario
   onFormValidChange(isValid: boolean): void {
     this.isFormValid = isValid;
-    console.log('Estado de validez del formulario:', isValid);
   }
 
   // Alternar vista previa del JSON
@@ -74,17 +72,12 @@ export class CreateCourseComponent {
 
     this.isSubmitting = true;
 
-    try {
-      // Aquí puedes implementar tu lógica de envío
-      // Por ejemplo, llamar a un servicio para guardar el curso
-      console.log('Enviando curso:', this.currentCourseData);
-      
+    try {      
       // Simular una llamada asíncrona
       await this.saveCourse(this.currentCourseData);
       
-      // Mostrar mensaje de éxito y redirigir
       alert('¡Curso creado exitosamente!');
-      this.router.navigate(['/cursos']); // Ajusta la ruta según tu aplicación
+      this.router.navigate(['/cursos']);
       
     } catch (error) {
       console.error('Error al crear el curso:', error);
@@ -94,12 +87,11 @@ export class CreateCourseComponent {
     }
   }
 
-  // Simular guardado del curso (reemplaza con tu lógica real)
   private async saveCourse(courseData: CourseData): Promise<void> {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         // Simular éxito o error
-        const success = Math.random() > 0.1; // 90% de probabilidad de éxito
+        const success = Math.random() > 0.1;
         
         if (success) {
           resolve();
@@ -121,10 +113,10 @@ export class CreateCourseComponent {
       }
     }
 
-    this.router.navigate(['/cursos']); // Ajusta la ruta según tu aplicación
+    this.router.navigate(['/cursos']);
   }
 
-  // Método para obtener datos del curso (útil para debugging)
+  // Método para obtener datos del curso pa debugging
   getCourseData(): CourseData | null {
     return this.currentCourseData;
   }
