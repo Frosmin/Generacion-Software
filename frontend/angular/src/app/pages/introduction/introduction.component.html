@@ -1,81 +1,123 @@
-<!--<div class="curso-selector">
-  @for (curso of cursosDisponibles; track curso.nombre) {
-    <button mat-button (click)="cambiarCurso(curso.mock)">
+<!-- Selector de cursos (opcional) -->
+<div class="curso-selector" *ngIf="cursosDisponibles.length > 1">
+  @for (curso of cursosDisponibles; track curso.id) {
+    <button 
+      mat-button 
+      [class.active]="currentGoto === curso.goto"
+      (click)="cambiarCurso(curso)">
       {{ curso.nombre }}
     </button>
   }
-</div> esto esta por si quieren mostrar los botones ahi arriba con mejor estilo claro-->
-
-<div class="intro-template">
-  <div class="intro-left">
-    @if (content) {
-    <h1>{{ content.title }}</h1>
-    @for (line of content.paragraph; track $index) {
-    <p>{{ line }}</p>
-    } @for (subcontent of content.subcontent; track $index) {
-    <h2>{{ subcontent.subtitle }}</h2>
-    @for (subpar of subcontent.subparagraph; track $index) {
-    <p>{{ subpar }}</p>
-    } @if (subcontent.example.length > 0) {
-    <div class="example-box">
-      <h3>Ejemplo</h3>
-      <div class="code-block">
-        <pre>{{ subcontent.example[0] }}</pre>
-      </div>
-    </div>
-    } } }
-  </div>
-
-  <div class="intro-right">
-    <div class="buttons-field">
-      <button
-        mat-button
-        class="btn"
-        [disabled]="initialSubject === 0"
-        (click)="goback()"
-      >
-        Anterior
-      </button>
-
-      <app-search
-        [courses]="allCursos"
-        [resetTrigger]="resetCnt"
-        (selectedIndex)="handleSelection($event)"
-      ></app-search>
-
-      <button
-        mat-button
-        class="btn"
-        [disabled]="initialSubject === totalSubjects"
-        (click)="gonext()"
-      >
-        Siguiente
-      </button>
-    </div>
-
-    <div class="editor-field">
-      <div class="editor-block">
-        <h3>Instrucciones del ejercicio</h3>
-        <p>
-          {{
-            content?.instrucciones ||
-              "Realiza el ejercicio según lo aprendido en esta lección."
-          }}
-        </p>
-      </div>
-
-      <app-editor-actividad
-        [base]="content?.codigo_incompleto ?? ''"
-        [solucion]="content?.solucion_correcta ?? ''"
-        (salidaCodigo)="salidaCodigo = $event"
-      ></app-editor-actividad>
-
-      <div class="editor-block">
-        <h3>Salida</h3>
-        <pre class="code-output">{{
-          salidaCodigo || "Ejecuta el código para ver el resultado."
-        }}</pre>
-      </div>
-    </div>
-  </div>
 </div>
+
+<!-- Loading state -->
+@if (loading) {
+  <div class="loading-container">
+    <p>Cargando curso...</p>
+  </div>
+}
+
+<!-- Error state -->
+@if (error && !loading) {
+  <div class="error-container">
+    <p>{{ error }}</p>
+    <button mat-button (click)="retry()">Reintentar</button>
+  </div>
+}
+
+<!-- Main content -->
+@if (!loading && !error && content) {
+  <div class="intro-template">
+    <div class="intro-left">
+      <h1>{{ content.title }}</h1>
+      
+      @for (line of content.paragraph; track $index) {
+        <p>{{ line }}</p>
+      }
+
+      @for (subcontent of content.subcontent; track $index) {
+        <h2>{{ subcontent.subtitle }}</h2>
+        
+        @for (subpar of subcontent.subparagraph; track $index) {
+          <p>{{ subpar }}</p>
+        }
+        
+        @if (subcontent.example && subcontent.example.length > 0) {
+          <div class="example-box">
+            <h3>Ejemplo</h3>
+            <div class="code-block">
+              <pre>{{ subcontent.example[0] }}</pre>
+            </div>
+          </div>
+        }
+      }
+    </div>
+
+    <div class="intro-right">
+      <div class="buttons-field">
+        <button 
+          mat-button
+          class="btn"
+          [disabled]="!hasPreviousTopic()" 
+          (click)="goback()"
+        >
+          Anterior
+        </button>
+
+        <app-search 
+          [courses]="allCursos"
+          [resetTrigger]="resetCnt"
+          (selectedIndex)="handleSelection($event)"    
+        ></app-search>
+
+        <button
+          mat-button
+          class="btn"
+          [disabled]="!hasNextTopic()"
+          (click)="gonext()"
+        >
+          Siguiente
+        </button>
+      </div>
+      
+      <div class="editor-field">
+        <div class="editor-block">
+          <h3>Instrucciones del ejercicio</h3>
+          <p>{{ content.instrucciones || 'Realiza el ejercicio según lo aprendido en esta lección.' }}</p>
+        </div>
+
+        <app-editor
+          mode="activity"
+          [initialCode]="content.codigo_incompleto || '# Escribe tu código aquí\n'"
+          [correctSolution]="content.solucion_correcta || ''"
+          [showChat]="false"
+          [showInputOutput]="false"
+          height="300px"
+          placeholder="Escribe tu código aquí..."
+          (codeOutput)="onCodeOutput($event)"
+          (solutionCheck)="onSolutionCheck($event)">
+        </app-editor>
+
+        @if (resultadoVerificacion) {
+          <div class="verification-result">
+            <p>{{ resultadoVerificacion }}</p>
+          </div>
+        }
+
+        @if (salidaCodigo) {
+          <div class="code-output">
+            <h4>Salida del código:</h4>
+            <pre>{{ salidaCodigo }}</pre>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+}
+
+<!-- Empty state -->
+@if (!loading && !error && !content) {
+  <div class="empty-state">
+    <p>No hay contenido disponible para mostrar.</p>
+  </div>
+}

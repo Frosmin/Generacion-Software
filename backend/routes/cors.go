@@ -22,6 +22,12 @@ func SetupRouter() *gin.Engine {
 		c.String(200, "Bienvenido a la API de Aprendizaje Python")
 	})
 
+	// Ruta LSP para WebSocket
+	r.GET("/lsp", LSPHandler)
+
+	// Ruta para verificar Python
+	r.GET("/verify", VerificarPythonHandler)
+
 	// Configurar rutas de API
 	api := r.Group("/api")
 

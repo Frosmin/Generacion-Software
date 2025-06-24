@@ -5,19 +5,27 @@ import (
 	"net/http"
 	"os/exec"
 
+	"github.com/gin-gonic/gin"
 	"github.com/gorilla/websocket"
 )
 
-var upgrader = websocket.Upgrader{}
+var upgrader = websocket.Upgrader{
+	CheckOrigin: func(r *http.Request) bool {
+		return true // Permitir todas las conexiones
+	},
+}
 
-func LspHandler(w http.ResponseWriter, r *http.Request) {
-	conn, err := upgrader.Upgrade(w, r, nil)
+// LSPHandler maneja las conexiones WebSocket para el Language Server Protocol
+func LSPHandler(c *gin.Context) {
+	// Obtener la conexión WebSocket desde Gin
+	conn, err := upgrader.Upgrade(c.Writer, c.Request, nil)
 	if err != nil {
 		log.Println("Error al actualizar a WebSocket:", err)
 		return
 	}
 	defer conn.Close()
 
+	// Iniciar el servidor Pyright
 	cmd := exec.Command("pyright-langserver", "--stdio")
 	stdin, err := cmd.StdinPipe()
 	if err != nil {
@@ -35,6 +43,7 @@ func LspHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	// Goroutine para leer mensajes del WebSocket y enviarlos a Pyright
 	go func() {
 		for {
 			_, message, err := conn.ReadMessage()
@@ -50,7 +59,8 @@ func LspHandler(w http.ResponseWriter, r *http.Request) {
 		}
 	}()
 
-	buf := make([]byte, 1024)
+	// Leer respuestas de Pyright y enviarlas al WebSocket
+	buf := make([]byte, 4096)
 	for {
 		n, err := stdout.Read(buf)
 		if err != nil {

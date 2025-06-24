@@ -1,13 +1,62 @@
+.editor-container:not(.activity-mode) {
+  .editor {
+    display: flex;
+
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+ 
+  .editor .cm-panel {
+    flex: 1 1 65%;    
+    min-width: 0;   
+  }
+
+
+  .editor .output-panel {
+    flex: 0 0 30%;    
+    max-width: 30%;   
+    display: flex;
+    flex-direction: column;
+  }
+}
 .editor-container {
   flex-direction: column;
   gap: 10px;
   height: 100%;
+  
+  &.activity-mode {
+    background: #1e1e1e;
+    color: white;
+    padding: 1rem;
+    border-radius: 10px;
+    height: auto;
+  }
+  
+  .instructions {
+    font-size: 1rem;
+    color: #dddddd;
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 4px;
+  }
+
+
   .editor {
     display: flex;
     flex-direction: row;
     gap: 1rem;
-    min-width: 100%;
     height: 70vh;
+    min-width: 100%;
+     //overflow-x: hidden;
+    &.activity-layout {
+      height: 300px;
+      .cm-panel {
+        width: 100%;
+      }
+    }
+    
     .cm-panel {
       border: 1px solid #ffffff32;
       border-radius: 12px;
@@ -15,20 +64,24 @@
       width: 70%;
       height: 100%;
     }
+    
     .output-panel {
       flex: 1;
       display: flex;
       flex-direction: column;
       height: 100%;
+      
       .section {
         flex: 1;
         display: flex;
         flex-direction: column;
         margin-bottom: 1rem;
         min-height: 0;
+        
         &:last-child {
           margin-bottom: 0;
         }
+        
         h3 {
           font-size: 1.2rem;
           margin-bottom: 0.5rem;
@@ -36,11 +89,13 @@
           color: #dddddd;
           flex-shrink: 0;
         }
+        
         .cm-panel {
           flex: 1;
           width: 100%;
           min-height: 0;
         }
+        
         pre {
           background: #181335;
           border: 1px solid #ffffff32;
@@ -55,6 +110,19 @@
       }
     }
   }
+
+  .botones {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin: 30px auto;
+    flex-shrink: 0;
+    
+    .activity-mode & {
+      margin: 1rem 0;
+    }
+  }
+  
   .btn-ejecutar {
     align-items: center;
     background-color: #df881d;
@@ -72,35 +140,288 @@
     white-space: nowrap;
     cursor: pointer;
     transition: all 0.3s;
-    margin: 30px auto;
     flex-shrink: 0;
-  }
-  button:active,
-  button:hover {
-    outline: 0;
-    color: white;
-  }
-  button span {
-    background-color: #2e2143;
-    padding: 16px 24px;
-    border-radius: 6px;
-    width: 100%;
-    height: 100%;
-    transition: 300ms;
+    
+    span {
+      background-color: #2e2143;
+      padding: 16px 24px;
+      border-radius: 6px;
+      width: 100%;
+      height: 100%;
+      transition: 300ms;
+    }
+
+    &:hover {
+      outline: 0;
+      color: white;
+      
+      span {
+        background: none;
+      }
+    }
+
+    &:active {
+      transform: scale(0.9);
+    }
   }
 
-  button:hover span {
-    background: none;
+  .btn-actividad {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+    
+    &.btn-enviar {
+      background-color: #4CAF50;
+      color: white;
+      
+      &:hover {
+        background-color: #45a049;
+      }
+    }
+    
+    &.btn-restablecer {
+      background-color: #f44336;
+      color: white;
+      
+      &:hover {
+        background-color: #da190b;
+      }
+    }
   }
 
-  button:active {
-    transform: scale(0.9);
+  .resultado {
+    font-weight: bold;
+    padding: 0.5rem;
+    border-radius: 4px;
+    text-align: center;
+    margin-top: 1rem;
+  }
+
+  .chat-section {
+    margin-top: 2rem;
+    
+    .section {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 1rem;
+      
+      h3 {
+        font-size: 1.2rem;
+        margin-bottom: 0.5rem;
+        margin-top: 0;
+        color: #dddddd;
+      }
+      
+      .cm-panel {
+        height: 150px;
+        width: 100%;
+      }
+      
+      pre {
+        background: #181335;
+        border: 1px solid #ffffff32;
+        border-radius: 4px;
+        color: #98c379;
+        padding: 1rem;
+        margin: 0;
+        overflow-y: auto;
+        min-height: 150px;
+      }
+    }
   }
 }
+
+
+.actividad-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  background: #1e1e1e;
+  color: white;
+  padding: 1rem;
+  border-radius: 10px;
+}
+
+.editor-panel {
+  border-radius: 8px;
+}
+
+
+.intro-template {
+  height: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas:
+    "left right"
+    "left right";
+  gap: 1rem;
+  background: #000;
+  color: white;
+}
+
+.intro-left {
+  grid-area: left;
+  padding: 1rem;
+  background: #000;
+
+  h1 {
+    color: #fff;
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    border-bottom: 2px solid #333;
+    padding-bottom: 0.5rem;
+    background: linear-gradient(135deg, #ff6ec4, #7873f5);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  h2 {
+    color: #ff6ec4;
+    font-size: 1.8rem;
+    margin: 1.5rem 0 1rem 0;
+  }
+
+  h3 {
+    color: #7873f5;
+    font-size: 1.3rem;
+    margin-bottom: 0.1rem;
+  }
+
+  p {
+    color: #ccc;
+    line-height: 1.6;
+    font-size: 1.1rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .example-box {
+    background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
+    border: 1px solid #444;
+    border-radius: 0.8rem;
+    padding: 1rem;
+    margin: 1rem 0;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    border-left: 4px solid #ff6ec4;
+
+    h3 {
+      color: #ff6ec4;
+      margin-top: 0;
+      margin-bottom: 0.5rem;
+    }
+  }
+
+  .code-block {
+    background: #0d1117;
+    border: 1px solid #30363d;
+    border-radius: 0.5rem;
+    padding: 1.2rem;
+    margin: 0.5rem 0;
+    overflow-x: auto;
+    position: relative;
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #ff6ec4, #7873f5);
+      border-radius: 0.5rem 0.5rem 0 0;
+    }
+
+    pre {
+      color: #c9d1d9;
+      font-family: "Courier New", monospace;
+      margin: 0;
+      white-space: pre-wrap;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+  }
+}
+
+.intro-right {
+  grid-area: right;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  background: #000;
+
+  .buttons-field {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+  }
+
+  .editor-field {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    min-height: 0;
+  }
+
+  .verification-result {
+    padding: 0.8rem;
+    border-radius: 0.5rem;
+    border-left: 4px solid #ff6ec4;
+    background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
+    color: #ccc;
+    font-weight: 500;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+
+    p {
+      margin: 0;
+      font-size: 1rem;
+    }
+  }
+}
+
+.editor-block {
+  background: linear-gradient(135deg, #2c2c2c, #3a3a3a);
+  padding: 1.5rem;
+  border-radius: 8px;
+  border: 1px solid #444;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+
+  h3 {
+    color: #ff6ec4;
+    margin-top: 0;
+    margin-bottom: 0.8rem;
+    font-size: 1.2rem;
+    background: linear-gradient(135deg, #ff6ec4, #7873f5);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  p {
+    color: #ccc;
+    line-height: 1.6;
+    margin: 0;
+    font-size: 1rem;
+  }
+}
+
+.btn {
+  border: 1px solid white;
+  color: white !important;
+}
+
 .cm-s-material.CodeMirror {
   background: #181335;
   color: #abb2bf;
 }
+
 ::ng-deep .CodeMirror {
   background-color: #181335 !important;
   color: #abb2bf !important;
@@ -108,40 +429,143 @@
   border-radius: 8px;
   height: 100%;
 }
+
 ::ng-deep .CodeMirror-gutters {
   background-color: #181335 !important;
   border-right: 1px solid #ffffff32;
 }
+
 ::ng-deep .CodeMirror-linenumber {
   color: #abb2bf !important;
 }
+
 ::ng-deep .CodeMirror-cursor {
   border-left: 2px solid #df881d !important;
 }
+
 ::ng-deep .CodeMirror-placeholder {
   color: #abb2bf !important;
 }
 
-@media screen and (max-width: 768px) {
-  .editor-container {
+// Estilos para el autocompletado
+::ng-deep .CodeMirror-hints {
+  position: absolute;
+  z-index: 10;
+  overflow: hidden;
+  list-style: none;
+  margin: 0;
+  padding: 2px;
+  border-radius: 4px;
+  border: 1px solid #ffffff32;
+  background: #181335;
+  font-size: 90%;
+  max-height: 20em;
+  overflow-y: auto;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, #ff6ec4, #7873f5);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.dark-panel {
+  background: #1e1e1e;
+  color: white;
+  padding: 1rem;
+  border-radius: 10px;
+}
+
+.highlight-border {
+  border-left: 4px solid #ff6ec4;
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .intro-template {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "left"
+      "right";
     height: auto;
-    h2 {
-      font-size: 1.2rem;
+  }
+  
+  .intro-left {
+    max-height: 50vh;
+    
+    h1 {
+      font-size: 2rem;
     }
-    .editor {
+    
+    h2 {
+      font-size: 1.5rem;
+    }
+  }
+  
+  .intro-right {
+    .buttons-field {
       flex-direction: column;
-      height: auto;
-      .cm-panel {
+      gap: 0.5rem;
+      
+      button, app-search {
         width: 100%;
-        height: 300px;
       }
-      .output-panel {
-        width: 100%;
-        height: auto;
-        .section {
-          margin-bottom: 1rem;
-        }
+    }
+  }
+  
+  .editor {
+    flex-direction: column;
+    height: auto;
+    
+    .cm-panel {
+      width: 100%;
+      height: 300px;
+    }
+  }
+}
+.CodeMirror,
+ngx-codemirror,
+.cm-panel {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+@media (max-width: 480px) {
+  .intro-left {
+    padding: 0.5rem;
+    
+    h1 {
+      font-size: 1.8rem;
+    }
+    
+    .example-box {
+      padding: 0.8rem;
+      margin: 0.8rem 0;
+    }
+    
+    .code-block {
+      padding: 1rem;
+      
+      pre {
+        font-size: 0.85rem;
       }
+    }
+  }
+  
+  .intro-right {
+    padding: 0.5rem;
+  }
+  
+  .editor-block {
+    padding: 1rem;
+    
+    h3 {
+      font-size: 1.1rem;
+    }
+    
+    p {
+      font-size: 0.9rem;
     }
   }
 }

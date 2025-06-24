@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
-import { EditorActividadComponent } from '../../components/editor-actividad/editor-actividad.component';
 import { SearchComponent } from '../../components/search/search.component';
+import { EditorComponent } from '../../shared/editor/editor.component'; 
 import { CommonModule } from '@angular/common';
 import { CoursesService } from '../../services/courses.service';
 
@@ -42,7 +42,7 @@ interface CursoDisponible {
 
 @Component({
   selector: 'app-introduction',
-  imports: [MatButtonModule, EditorActividadComponent, SearchComponent, CommonModule],
+  imports: [MatButtonModule, EditorComponent, SearchComponent, CommonModule],
   templateUrl: './introduction.component.html',
   styleUrl: './introduction.component.scss',
 })
@@ -50,6 +50,7 @@ export class IntroductionComponent implements OnInit {
   curso: CourseData | null = null;
   resetCnt = 0;
   salidaCodigo = '';
+  resultadoVerificacion = '';
   currentMock: ContenidoCurso[] = [];
   initialSubject = 0;
   totalSubjects = 0;
@@ -154,6 +155,19 @@ export class IntroductionComponent implements OnInit {
   handleSelection(index: number): void {
     this.initialSubject = index;
     this.update();
+  }
+
+  onCodeOutput(output: string): void {
+    this.salidaCodigo = output;
+  }
+
+  onSolutionCheck(result: {correct: boolean, output: string}): void {
+    if (result.correct) {
+      this.resultadoVerificacion = '¡Correcto! ✅';
+    } else {
+      this.resultadoVerificacion = 'Incorrecto. Inténtalo de nuevo. ❌';
+    }
+    this.salidaCodigo = result.output;
   }
 
   cambiarCurso(cursoDisponible: CursoDisponible): void {

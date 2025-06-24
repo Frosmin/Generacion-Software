@@ -1,14 +1,20 @@
-<div class="editor-container">
-  <h2>Editor de Código Python</h2>
+<div class="editor-container" [ngClass]="{'activity-mode': mode === 'activity'}">
+  
+  <!-- Título condicional -->
+  <h2 *ngIf="mode === 'full'">Editor de Código Python</h2>
 
-  <div class="editor">
+  <div class="editor" [ngClass]="{'activity-layout': mode === 'activity'}">
+    <!-- Editor principal -->
     <ngx-codemirror
+      #codeEditor
       class="cm-panel"
       [(ngModel)]="codigo"
       [options]="cmOptions"
       (editorInitialized)="onEditorInit($event)">
     </ngx-codemirror>
-    <div class="output-panel">
+    
+    <!-- Panel de Input/Output (solo en modo full o cuando showInputOutput es true) -->
+    <div class="output-panel" *ngIf="mode === 'full' && showInputOutput">
       <div class="section">
         <h3>Input:</h3>
         <ngx-codemirror
@@ -24,27 +30,58 @@
     </div>
   </div>
 
-  <button class="btn-ejecutar" (click)="ejecutarCodigo()">
-    <span>Ejecutar</span>
-  </button>
+  <!-- Botones según el modo -->
+  <div class="botones">
+    <!-- Modo normal -->
+    <button 
+      *ngIf="mode === 'full' || mode === 'activity'" 
+      class="btn-ejecutar" 
+      (click)="ejecutarCodigo()">
+      <span>Ejecutar</span>
+    </button>
+    <!-- Modo actividad -->
+    <ng-container *ngIf="mode === 'activity'">
+      <button 
+        class="btn-actividad btn-enviar" 
+        (click)="verificarSolucion()">
+        Enviar Respuesta
+      </button>
+      <button 
+        class="btn-actividad btn-restablecer" 
+        (click)="restablecerCodigo()">
+        Restablecer
+      </button>
+    </ng-container>
 
-    <button class="btn-ejecutar" (click)="chat()">
-    <span>chat</span>
-  </button>
+    <!-- Botón de chat (condicional) -->
+    <button 
+      *ngIf="mode === 'full' && showChat" 
+      class="btn-ejecutar" 
+      (click)="chat()">
+      <span>Chat</span>
+    </button>
+  </div>
 
+  <!-- Output para modo actividad -->
+  <div *ngIf="mode === 'activity'" class="section">
+    <h3>Output:</h3>
+    <pre>{{ output || 'Ejecuta el código para ver el resultado.' }}</pre>
+  </div>
 
-<!-- parte de simon  -->
-  <div class="section">
-        <h3>Input:</h3>
-        <ngx-codemirror
-          class="cm-panel"
-          [(ngModel)]="inputChat"
-          [options]="inputOptions">
-        </ngx-codemirror>
-      </div>
+  <!-- Sección de chat (solo en modo full) -->
+  <div *ngIf="mode === 'full' && showChat" class="chat-section">
+    <div class="section">
+      <h3>Chat Input:</h3>
+      <ngx-codemirror
+        class="cm-panel"
+        [(ngModel)]="inputChat"
+        [options]="inputOptions">
+      </ngx-codemirror>
+    </div>
 
-  <div class="section">
-        <h3>Output:</h3>
-        <pre>{{ outputChat }}</pre>
-      </div>
+    <div class="section">
+      <h3>Chat Output:</h3>
+      <pre>{{ outputChat }}</pre>
+    </div>
+  </div>
 </div>

@@ -29,9 +29,6 @@ func main() {
 	// Obtener el router configurado con CORS y rutas
 	r := routes.SetupRouter()
 
-	// No es necesario configurar rutas aquí, ya están en SetupRouter()
-	// ¡Elimina estas líneas!
-
 	log.Println("Servidor escuchando en :8080")
 	log.Fatal(r.Run(":8080"))
 }

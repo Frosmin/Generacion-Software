@@ -34,12 +34,15 @@
               "node_modules/codemirror/lib/codemirror.css",
               "node_modules/codemirror/theme/material.css",
               "node_modules/codemirror/addon/lint/lint.css",
+              "node_modules/codemirror/addon/hint/show-hint.css",
               "src/styles.scss"
             ],
             "scripts": [
               "node_modules/codemirror/lib/codemirror.js",
               "node_modules/codemirror/mode/python/python.js",
-              "node_modules/codemirror/addon/display/placeholder.js"
+              "node_modules/codemirror/addon/display/placeholder.js",
+              "node_modules/codemirror/addon/hint/show-hint.js",
+              "node_modules/codemirror/addon/hint/anyword-hint.js"
             ]
           },
           "configurations": {
