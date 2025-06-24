@@ -21,6 +21,8 @@ type Content struct {
     Paragraph   GormStrings  `json:"paragraph" gorm:"type:jsonb"`
     Subcontent  []Subcontent `json:"subcontent" gorm:"foreignKey:ContentID"`
     Next        string       `json:"next,omitempty"` 
+	MaxResourceConsumption int            `json:"maxResourceConsumption"`
+    MaxProcessingTime      int            `json:"maxProcessingTime"`
 }
 type Subcontent struct {
 	ID           uint        `json:"id" gorm:"primaryKey"`

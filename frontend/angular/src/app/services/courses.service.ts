@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Observable, map, catchError, throwError, of, switchMap } from 'rxjs';
 import { ICardCurso } from '../shared/interfaces/interfaces';
 
@@ -26,6 +26,8 @@ interface ContenidoCurso {
   paragraph: string[];
   subcontent: SubContent[];
   next?: string;
+  maxResourceConsumption?: number;
+  maxProcessingTime?: number;
   instrucciones?: string;
   codigo_incompleto?: string;
   solucion_correcta?: string;
@@ -63,19 +65,53 @@ interface CreateCourseContent {
   paragraph: string[];
   subcontent: CreateSubContent[];
   next: string | null;
+  maxResourceConsumption: number;
+  maxProcessingTime: number;
 }
 
 interface CreateSubContent {
   subtitle: string;
   subparagraph: string[];
-  example: string[];
+  example: CreateExampleContent[];
 }
 
-// Interface para la respuesta de creación
-interface CreateCourseResponse {
-  id: number;
+interface CreateExampleContent {
+  code: string;
+}
+
+// Interface para actualizar un curso
+interface UpdateCourseRequest {
+  course: {
+    title: string;
+    description: string;
+    goto: string;
+  };
+  contents: UpdateCourseContent[];
+}
+
+interface UpdateCourseContent {
+  title: string;
+  paragraph: string[];
+  subcontent: UpdateSubContent[];
+  next: string | null;
+  maxResourceConsumption: number;
+  maxProcessingTime: number;
+}
+
+interface UpdateSubContent {
+  subtitle: string;
+  subparagraph: string[];
+  example: UpdateExampleContent[];
+}
+
+interface UpdateExampleContent {
+  code: string;
+}
+
+// Interface para la respuesta de creación/actualización
+interface CourseResponse {
   message: string;
-  course?: CourseData;
+  course_id: number;
 }
 
 @Injectable({
@@ -94,9 +130,124 @@ export class CoursesService {
 
   constructor(private http: HttpClient) {}
 
-  // NUEVA FUNCIÓN: Crear un nuevo curso
-  createCourse(courseData: CreateCourseRequest): Observable<CreateCourseResponse> {
-    return this.http.post<CreateCourseResponse>(`${this.baseUrl}/courses`, courseData).pipe(
+  // Crear headers HTTP apropiados
+  private getHttpHeaders(): HttpHeaders {
+    return new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    });
+  }
+
+  // Crear un nuevo curso
+  createCourse(courseData: CreateCourseRequest): Observable<CourseResponse> {
+    console.log('Enviando datos de creación de curso:', JSON.stringify(courseData, null, 2));
+    
+    return this.http.post<CourseResponse>(`${this.baseUrl}/courses`, courseData, {
+      headers: this.getHttpHeaders()
+    }).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  // Actualizar un curso existente (usando PATCH para actualizaciones parciales)
+  updateCourse(courseId: number, courseData: UpdateCourseRequest): Observable<CourseResponse> {
+    console.log(`Actualizando curso ID ${courseId}:`, JSON.stringify(courseData, null, 2));
+    
+    // Validar datos antes de enviar
+    if (!this.validateUpdateCourseData(courseData)) {
+      return throwError(() => new Error('Datos de curso inválidos para actualización'));
+    }
+    
+    return this.http.patch<CourseResponse>(`${this.baseUrl}/courses/${courseId}`, courseData, {
+      headers: this.getHttpHeaders()
+    }).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  // Validar datos de actualización de curso
+  private validateUpdateCourseData(courseData: UpdateCourseRequest): boolean {
+    if (!courseData || !courseData.course || !courseData.contents) {
+      console.error('Estructura de datos de curso inválida');
+      return false;
+    }
+
+    const { course, contents } = courseData;
+
+    // Validar campos del curso
+    if (!course.title?.trim() || !course.description?.trim() || !course.goto?.trim()) {
+      console.error('Campos requeridos del curso faltantes o vacíos');
+      return false;
+    }
+
+    // Validar contenidos
+    if (!Array.isArray(contents) || contents.length === 0) {
+      console.error('Contenidos del curso deben ser un array no vacío');
+      return false;
+    }
+
+    // Validar cada contenido
+    for (const content of contents) {
+      if (!content.title?.trim()) {
+        console.error('Título del contenido requerido');
+        return false;
+      }
+
+      if (!Array.isArray(content.paragraph)) {
+        console.error('Los párrafos deben ser un array');
+        return false;
+      }
+
+      if (!Array.isArray(content.subcontent)) {
+        console.error('Los subcontenidos deben ser un array');
+        return false;
+      }
+
+      if (typeof content.maxResourceConsumption !== 'number' || content.maxResourceConsumption < 0) {
+        console.error('maxResourceConsumption debe ser un número no negativo');
+        return false;
+      }
+
+      if (typeof content.maxProcessingTime !== 'number' || content.maxProcessingTime < 0) {
+        console.error('maxProcessingTime debe ser un número no negativo');
+        return false;
+      }
+
+      // Validar subcontenidos
+      for (const sub of content.subcontent) {
+        if (!sub.subtitle?.trim()) {
+          console.error('Subtítulo del subcontenido requerido');
+          return false;
+        }
+
+        if (!Array.isArray(sub.subparagraph)) {
+          console.error('Los subpárrafos deben ser un array');
+          return false;
+        }
+
+        if (!Array.isArray(sub.example)) {
+          console.error('Los ejemplos deben ser un array');
+          return false;
+        }
+
+        // Validar ejemplos
+        for (const example of sub.example) {
+          if (!example.code || typeof example.code !== 'string') {
+            console.error('Cada ejemplo debe tener un código válido');
+            return false;
+          }
+        }
+      }
+    }
+
+    return true;
+  }
+
+  // Eliminar un curso
+  deleteCourse(courseId: number): Observable<{ message: string }> {
+    return this.http.delete<{ message: string }>(`${this.baseUrl}/courses/${courseId}`, {
+      headers: this.getHttpHeaders()
+    }).pipe(
       catchError(this.handleError)
     );
   }
@@ -233,23 +384,48 @@ export class CoursesService {
 
   private handleError = (error: HttpErrorResponse): Observable<never> => {
     let errorMessage = 'Ha ocurrido un error desconocido';
+    
+    console.error('Error HTTP completo:', error);
+    
     if (error.error instanceof ErrorEvent) {
+      // Error del lado del cliente
       errorMessage = `Error: ${error.error.message}`;
     } else {
+      // Error del lado del servidor
       switch (error.status) {
+        case 400:
+          errorMessage = 'Datos inválidos enviados al servidor';
+          if (error.error && error.error.message) {
+            errorMessage += `: ${error.error.message}`;
+          }
+          break;
         case 404:
           errorMessage = 'Curso no encontrado';
           break;
+        case 422:
+          errorMessage = 'Datos no válidos o incompletos';
+          if (error.error && error.error.message) {
+            errorMessage += `: ${error.error.message}`;
+          }
+          break;
         case 500:
           errorMessage = 'Error interno del servidor';
+          if (error.error && error.error.message) {
+            errorMessage += `: ${error.error.message}`;
+          }
+          console.error('Detalles del error 500:', error.error);
           break;
         case 0:
           errorMessage = 'No se puede conectar con el servidor. Verifica tu conexión.';
           break;
         default:
           errorMessage = `Error del servidor: ${error.status} - ${error.message}`;
+          if (error.error && error.error.message) {
+            errorMessage += ` (${error.error.message})`;
+          }
       }
     }
+    
     console.error('Error en CoursesService:', errorMessage, error);
     return throwError(() => new Error(errorMessage));
   }
