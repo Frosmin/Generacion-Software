@@ -1,25 +1,69 @@
+@use "sass:color"; // solo necesario si usás funciones como color.adjust
+
+// Variables locales de color (copiadas de tu diseño original)
+$primary-color: #4346ff;
+$secondary-color: #ff6a81;
+$background-dark: #000000;
+$background-light: #272149;
+$text-light: #ffffff;
+$text-muted: rgba(255, 255, 255, 0.8);
+$card-bg: rgba(255, 255, 255, 0.05);
+$card-border: rgba(255, 255, 255, 0.1);
+$error-color: #f44336;
+
 .card {
-  background-color: #222;
+  background-color: $card-bg;
+  border: 1px solid $card-border;
   border-radius: 12px;
-  color: #ccc;
-  padding: 1rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 100%;
-  width: 100%; 
-  box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+  padding: 20px;
+  position: relative;
+  transition: all 0.3s ease;
+  color: $text-light;
+
+  &:hover {
+    background-color: rgba($primary-color, 0.05);
+  }
+
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .card-title {
+    font-size: 1.5rem;
+    margin: 0;
+    background: linear-gradient(45deg, $primary-color, $secondary-color);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .card-description {
+    margin-top: 12px;
+    font-size: 1rem;
+    color: $text-muted;
+  }
+
+  .edit-button {
+    background: transparent;
+    border: none;
+    color: $primary-color;
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 6px;
+    border-radius: 50%;
+    transition: background 0.3s;
+
+    &:hover {
+      background: rgba($primary-color, 0.15);
+    }
+
+    i {
+      pointer-events: none;
+    }
+  }
 }
 
-.card-title {
-  font-size: 1.2rem;
-  margin: 0;
-}
-
-.card-description {
-  font-size: 0.9rem;
-  margin: 0;
-}
 
 
 //poner buenos estilos :v 
