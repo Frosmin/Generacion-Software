@@ -13,6 +13,7 @@ import { CursosComponent } from './pages/cursos/cursos.component';
 import { IntroductionComponent } from './pages/introduction/introduction.component';
 import { ChatComponent } from './pages/chat/chat.component';
 import { CreateCourseComponent } from './pages/create-course/create-course.component';
+import { EditCourseComponent } from './pages/edit-course/edit-course.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -29,6 +30,7 @@ export const routes: Routes = [
   { path: 'lista-cursos', component: CoursesListComponent },
   { path: 'terminal', component: TerminalComponent },
   { path: 'cursos/:id', component: IntroductionComponent },
+  { path: 'editar-curso/:id', component: EditCourseComponent },
   { path: 'chat', component: ChatComponent },
   { path: 'crear-curso', component: CreateCourseComponent },
 

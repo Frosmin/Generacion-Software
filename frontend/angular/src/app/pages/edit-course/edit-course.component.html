@@ -1,0 +1,38 @@
+<div class="edit-course-container">
+  <div class="hero-section">
+    <div class="hero-content">
+      <h1>Editar Curso</h1>
+      <p class="welcome-message">Modifica y perfecciona tu curso de programación</p>
+    </div>
+  </div>
+
+  <app-form-course 
+    [showPreview]="showPreview"
+    [initialData]="initialCourseData"
+    (formDataChange)="onFormDataChange($event)"
+    (formValidChange)="onFormValidChange($event)">
+  </app-form-course>
+    
+  <div class="form-actions">
+    <button type="button" class="cancel-button" (click)="onCancel()">
+      Cancelar
+    </button>
+    <button 
+      type="button" 
+      class="preview-button" 
+      (click)="togglePreview()"
+      [class.active]="showPreview">
+      {{ showPreview ? '👁️ Ocultar Vista Previa' : '👁️ Vista Previa' }}
+    </button>
+    <button 
+      type="button" 
+      class="submit-button" 
+      [disabled]="!isFormValid || isSubmitting || !hasChanges"
+      (click)="onSubmit()">
+      <span *ngIf="!isSubmitting">Guardar Cambios</span>
+      <span *ngIf="isSubmitting">
+        ⏳ Guardando...
+      </span>
+    </button>
+  </div>
+</div>

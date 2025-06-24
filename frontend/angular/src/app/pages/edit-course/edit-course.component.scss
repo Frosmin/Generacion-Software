@@ -1,0 +1,217 @@
+@use "sass:color";
+
+// Variables de color
+$primary-color: #4346ff; // azul vibrante
+$secondary-color: #ff6a81; // rosa coral
+$background-dark: #000000; // fondo negro total
+$background-light: #272149; // morado oscuro
+$text-light: #ffffff;
+$text-muted: rgba(255, 255, 255, 0.8);
+$card-bg: rgba(255, 255, 255, 0.05);
+$card-border: rgba(255, 255, 255, 0.1);
+$error-color: #f44336;
+$success-color: #4caf50;
+$warning-color: #ff9800;
+
+.edit-course-container {
+  min-height: 100vh;
+  color: $text-light;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  padding-bottom: 60px;
+}
+
+.hero-section {
+  padding: 20px;
+
+  @media (max-width: 768px) {
+    padding: 30px 20px 15px;
+  }
+
+  .hero-content {
+    text-align: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      font-weight: 700;
+      color: $text-light;
+      background: linear-gradient(45deg, $primary-color, $secondary-color);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      width: fit-content;
+    }
+    
+    .welcome-message {
+      font-size: 1.1rem;
+      opacity: 0.9;
+      color: $text-muted;
+    }
+  }
+}
+
+// Acciones del formulario
+.form-actions {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 40px;
+  padding: 0 120px;
+
+  @media (max-width: 768px) {
+    padding: 0 20px;
+    flex-direction: column;
+  }
+}
+
+.cancel-button {
+  background: transparent;
+  color: $text-muted;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 14px 32px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: $text-light;
+    border-color: rgba(255, 255, 255, 0.5);
+  }
+}
+
+.preview-button {
+  background: rgba(255, 255, 255, 0.1);
+  color: $text-light;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 14px 32px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.5);
+  }
+
+  &.active {
+    background: linear-gradient(45deg, rgba($primary-color, 0.2), rgba($secondary-color, 0.2));
+    border-color: $primary-color;
+    color: $primary-color;
+  }
+}
+
+.submit-button {
+  background: linear-gradient(45deg, $primary-color, $secondary-color);
+  color: white;
+  border: none;
+  padding: 14px 32px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 180px;
+
+  &:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba($primary-color, 0.4);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+    background: rgba(255, 255, 255, 0.1);
+    color: $text-muted;
+  }
+}
+
+// Loading state
+.loading-state {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+  color: $text-muted;
+  font-size: 1.1rem;
+
+  .spinner {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: $primary-color;
+    animation: spin 1s ease-in-out infinite;
+    margin-right: 10px;
+  }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+// Error state
+.error-state {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+  color: $error-color;
+  text-align: center;
+  padding: 20px;
+
+  .error-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+
+  .error-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+
+  .error-message {
+    color: $text-muted;
+    margin-bottom: 1.5rem;
+  }
+
+  .retry-button {
+    background: $error-color;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background: color.adjust($error-color, $lightness: -10%);
+    }
+  }
+}
+
+// Responsive
+@media (max-width: 576px) {
+  .form-actions {
+    flex-direction: column;
+
+    .cancel-button,
+    .preview-button,
+    .submit-button {
+      width: 100%;
+    }
+  }
+
+  .hero-section .hero-content h1 {
+    font-size: 2rem;
+  }
+}
