@@ -1,4 +1,16 @@
 <div class="card" [routerLink]="['/cursos', content.goto]">
-  <h3 class="card-title">{{ content.title }}</h3>
+  <div class="card-header">
+    <h3 class="card-title">{{ content.title }}</h3>
+
+    <!-- Botón de editar -->
+    <button
+      class="edit-button"
+      (click)="onEdit($event)"
+      title="Editar curso"
+    >
+      <i class="fas fa-edit"></i>
+    </button>
+  </div>
+
   <p class="card-description">{{ content.description }}</p>
 </div>

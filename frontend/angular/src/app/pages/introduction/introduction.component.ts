@@ -249,4 +249,20 @@ export class IntroductionComponent implements OnInit {
   getCurrentCourseInfo(): CursoDisponible | null {
     return this.coursesService.getCourseInfoByGoto(this.currentGoto);
   }
+  getExampleCode(example: string | { code?: string } | object): string {
+  if (typeof example === 'string') {
+    return example;
+  }
+
+  if (example && typeof example === 'object' && 'code' in example) {
+    return (example as { code: string }).code;
+  }
+
+  if (example && typeof example === 'object') {
+    return JSON.stringify(example, null, 2);
+  }
+
+  return 'Código no disponible';
+}
+
 }

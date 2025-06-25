@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-// EditorComponent.ts - Versión con límites usando Web Workers
+// EditorComponent.ts - Versión con límites funcionando correctamente
 import { Component, OnInit, AfterViewInit, ViewChild, OnDestroy, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -96,7 +96,7 @@ export class EditorComponent implements OnInit, AfterViewInit, OnDestroy, OnChan
   
   // Nuevos inputs para límites de ejecución
   @Input() timeoutSeconds = 5; // Límite de tiempo en segundos
-  @Input() memoryLimitMB = 50; // Límite de memoria en MB
+  @Input() memoryLimitMB = 30; // Límite de memoria en MB
   @Input() maxOutputLines = 1000; // Límite de líneas de output
   
   // Outputs para comunicación con el componente padre - CORREGIDOS
@@ -200,8 +200,8 @@ export class EditorComponent implements OnInit, AfterViewInit, OnDestroy, OnChan
   codeEditor: any;
   private lspSubscription: Subscription | null = null;
   private completionItems: { label: string }[] = [];
-  private executionWorker: Worker | null = null;
   private executionTimeoutHandle: any = null;
+  private executionStartTime = 0;
 
   constructor(
     private http: HttpClient,
@@ -353,101 +353,80 @@ export class EditorComponent implements OnInit, AfterViewInit, OnDestroy, OnChan
     if (this.lspSubscription) {
       this.lspSubscription.unsubscribe();
     }
-    if (this.executionWorker) {
-      this.executionWorker.terminate();
-    }
     if (this.executionTimeoutHandle) {
       clearTimeout(this.executionTimeoutHandle);
     }
   }
 
   private createSecurePythonCode(code: string): string {
-    // Código de seguridad que se inyecta para limitar ejecución
+    // Sistema de límites simplificado y más efectivo
     const secureWrapper = `
 import sys
 import time
-import threading
+import signal
 from io import StringIO
 
-# Límites de seguridad
+# Configuración de límites
 MAX_OUTPUT_LINES = ${this.maxOutputLines}
-MAX_MEMORY_MB = ${this.memoryLimitMB}
 TIMEOUT_SECONDS = ${this.timeoutSeconds}
 
 # Variables de control
 _output_lines = 0
 _start_time = time.time()
-_original_stdout = sys.stdout
-_string_io = StringIO()
 _execution_stopped = False
+_original_stdout = sys.stdout
 
-class LimitedStringIO(StringIO):
+class SecurityStringIO(StringIO):
     def write(self, s):
         global _output_lines, _execution_stopped
+        
         if _execution_stopped:
-            return
+            return len(s)
+        
+        # Verificar timeout
+        if time.time() - _start_time > TIMEOUT_SECONDS:
+            raise TimeoutError("TIMEOUT_EXCEEDED")
         
         # Contar líneas
         _output_lines += s.count('\\n')
         if _output_lines > MAX_OUTPUT_LINES:
-            _execution_stopped = True
-            super().write(f"\\n\\n Límite de output excedido ({MAX_OUTPUT_LINES} líneas)\\n")
-            raise Exception("Output limit exceeded")
-        
-        # Verificar tiempo
-        if time.time() - _start_time > TIMEOUT_SECONDS:
-            _execution_stopped = True
-            super().write(f"\\n\\n Tiempo de ejecución excedido ({TIMEOUT_SECONDS}s)\\n")
-            raise Exception("Timeout exceeded")
+            raise RuntimeError("OUTPUT_LIMIT_EXCEEDED")
         
         return super().write(s)
 
-# Reemplazar stdout
-sys.stdout = LimitedStringIO()
-
-# Función de trace para monitorear ejecución línea por línea
-def trace_calls(frame, event, arg):
-    global _execution_stopped
-    if _execution_stopped:
-        raise Exception("Execution stopped")
-    
-    # Verificar timeout en cada línea
+# Función trace para detectar bucles infinitos
+def trace_execution(frame, event, arg):
     if time.time() - _start_time > TIMEOUT_SECONDS:
-        _execution_stopped = True
-        raise Exception("Timeout exceeded")
-    
-    return trace_calls
+        raise TimeoutError("TIMEOUT_EXCEEDED")
+    return trace_execution
 
-# Activar trace
-sys.settrace(trace_calls)
+# Configurar captura de salida
+sys.stdout = SecurityStringIO()
+
+# Activar trazado
+sys.settrace(trace_execution)
 
 try:
-    # Ejecutar código del usuario
+    # Código del usuario
 ${code.split('\n').map(line => '    ' + line).join('\n')}
-    
-except KeyboardInterrupt:
-    print("\\n\\n Ejecución interrumpida")
-except Exception as e:
-    if "Timeout exceeded" in str(e):
-        print(f"\\n\\n Tiempo de ejecución excedido ({TIMEOUT_SECONDS}s)")
-    elif "Output limit exceeded" in str(e):
-        print(f"\\n\\n Límite de output excedido ({MAX_OUTPUT_LINES} líneas)")
-    elif "Execution stopped" in str(e):
-        print("\\n\\n Ejecución detenida")
-    else:
-        print(f"\\n\\nError: {e}")
+
+except TimeoutError as e:
+    if "TIMEOUT_EXCEEDED" in str(e):
+        raise Exception("TIMEOUT_EXCEEDED")
+    raise
+except RuntimeError as e:
+    if "OUTPUT_LIMIT_EXCEEDED" in str(e):
+        raise Exception("OUTPUT_LIMIT_EXCEEDED")
+    raise
+except MemoryError:
+    raise Exception("MEMORY_LIMIT_EXCEEDED")
 finally:
-    # Limpiar
     sys.settrace(None)
-    
-    # Obtener output
-    output_content = sys.stdout.getvalue() if hasattr(sys.stdout, 'getvalue') else ''
-    
-    # Restaurar stdout
-    sys.stdout = _original_stdout
-    
-    # Imprimir resultado
-    print(output_content, end='')
+    if not _execution_stopped:
+        output_content = sys.stdout.getvalue()
+        sys.stdout = _original_stdout
+        if output_content:
+            print(output_content, end='')
 `;
     return secureWrapper;
   }
@@ -525,25 +504,29 @@ finally:
 
   // Método para detener ejecución
   stopExecution(): void {
-    if (this.executionWorker) {
-      this.executionWorker.terminate();
-      this.executionWorker = null;
-    }
     if (this.executionTimeoutHandle) {
       clearTimeout(this.executionTimeoutHandle);
       this.executionTimeoutHandle = null;
     }
     this.isExecuting = false;
-    this.output += '\n\n⏹️ Ejecución detenida por el usuario';
+    this.output = 'Ejecución detenida por el usuario';
     this.codeOutput.emit(this.output);
   }
 
-  // Método privado para ejecutar código Python con límites estrictos
+  // Método principal para ejecutar código con límites efectivos
   private async executeCodeWithLimits(code: string): Promise<string> {
-    return new Promise<string>((resolve, reject) => {
+    return new Promise<string>((resolve) => {
       this.isExecuting = true;
+      this.executionStartTime = Date.now();
       let output = '';
       
+      // Timeout de JavaScript como respaldo
+      this.executionTimeoutHandle = setTimeout(() => {
+        this.isExecuting = false;
+        this.executionTimeout.emit();
+        resolve('Se excedió el tiempo de ejecución');
+      }, this.timeoutSeconds * 1000);
+
       // Configurar captura de stdout
       this.pyodide.setStdout({
         batched: (text: string) => {
@@ -559,13 +542,6 @@ finally:
       // Crear código seguro
       const secureCode = this.createSecurePythonCode(code);
 
-      // Timeout de JavaScript como respaldo
-      this.executionTimeoutHandle = setTimeout(() => {
-        this.isExecuting = false;
-        this.executionTimeout.emit();
-        reject(new Error(`⏱️ Timeout de JavaScript: excedió ${this.timeoutSeconds} segundos`));
-      }, this.timeoutSeconds * 1000);
-
       // Ejecutar código
       this.pyodide.runPythonAsync(secureCode)
         .then(() => {
@@ -579,20 +555,66 @@ finally:
           
           const errorMessage = error.message || error.toString();
           
-          if (errorMessage.includes('Timeout exceeded') || errorMessage.includes('timeout')) {
+          // Manejo específico de límites
+          if (errorMessage.includes('TIMEOUT_EXCEEDED')) {
             this.executionTimeout.emit();
-            reject(new Error(`⏱️ Tiempo de ejecución excedido (${this.timeoutSeconds}s)`));
-          } else if (errorMessage.includes('Output limit exceeded')) {
+            resolve('Se excedió el tiempo de ejecución');
+          } else if (errorMessage.includes('OUTPUT_LIMIT_EXCEEDED')) {
             this.outputLimitExceeded.emit();
-            reject(new Error(`⚠️ Límite de output excedido (${this.maxOutputLines} líneas)`));
-          } else if (errorMessage.includes('Memory limit') || errorMessage.includes('MemoryError')) {
+            resolve('Se excedió el límite de salida');
+          } else if (errorMessage.includes('MEMORY_LIMIT_EXCEEDED')) {
             this.memoryExceeded.emit();
-            reject(new Error(`💾 Límite de memoria excedido (${this.memoryLimitMB}MB)`));
+            resolve('Se excedió el límite de memoria');
           } else {
-            reject(error);
+            // Error normal del código del usuario
+            if (output.trim()) {
+              resolve(`${output}\nError: ${this.extractUserFriendlyError(errorMessage)}`);
+            } else {
+              resolve(`Error: ${this.extractUserFriendlyError(errorMessage)}`);
+            }
           }
         });
     });
+  }
+
+  private extractUserFriendlyError(errorMessage: string): string {
+    // Extraer el error más relevante del traceback
+    const lines = errorMessage.split('\n');
+    
+    // Buscar la línea que contiene el error real
+    for (let i = lines.length - 1; i >= 0; i--) {
+      const line = lines[i].trim();
+      if (line && !line.startsWith('File ') && !line.startsWith('Traceback') && 
+          !line.includes('During handling') && line !== '^') {
+        // Limpiar errores comunes
+        if (line.includes('SyntaxError:')) {
+          return line.replace('SyntaxError:', 'Error de sintaxis:');
+        } else if (line.includes('NameError:')) {
+          return line.replace('NameError:', 'Error de nombre:');
+        } else if (line.includes('TypeError:')) {
+          return line.replace('TypeError:', 'Error de tipo:');
+        } else if (line.includes('ValueError:')) {
+          return line.replace('ValueError:', 'Error de valor:');
+        } else if (line.includes('IndentationError:')) {
+          return line.replace('IndentationError:', 'Error de indentación:');
+        } else if (line.includes('ZeroDivisionError:')) {
+          return 'Error: División por cero';
+        } else if (line.includes('IndexError:')) {
+          return line.replace('IndexError:', 'Error de índice:');
+        } else if (line.includes('KeyError:')) {
+          return line.replace('KeyError:', 'Error de clave:');
+        }
+        return line;
+      }
+    }
+    
+    // Si no encontramos nada específico, devolver el mensaje original limpio
+    return errorMessage.split('\n').filter(line => 
+      line.trim() && 
+      !line.includes('File ') && 
+      !line.includes('Traceback') &&
+      !line.includes('During handling')
+    ).pop() || 'Error desconocido';
   }
 
   async ejecutarCodigo(): Promise<void> {
@@ -607,6 +629,12 @@ finally:
       return;
     }
 
+    if (!this.codigo.trim()) {
+      this.output = 'No hay código para ejecutar.';
+      this.codeOutput.emit(this.output);
+      return;
+    }
+
     try {
       this.output = '';
       this.output = await this.executeCodeWithLimits(this.codigo);
@@ -617,13 +645,13 @@ finally:
       
     } catch (error: any) {
       const errorMessage = String(error.message || error);
-      this.output = `Error: ${errorMessage}`;
+      this.output = `Error inesperado: ${errorMessage}`;
       this.codeOutput.emit(this.output);
       this.codeExecuted.emit({code: this.codigo, output: this.output});
     }
   }
 
-  // Nueva función para verificar solución (modo actividad) con límites
+  // Función para verificar solución (modo actividad) con límites
   async verificarSolucion(): Promise<void> {
     if (!this.correctSolution) {
       console.warn('No se ha proporcionado una solución correcta');
@@ -642,12 +670,31 @@ finally:
       const userOutput = await this.executeCodeWithLimits(this.codigo);
       this.output = userOutput;
       
+      // Si el output contiene mensajes de límite excedido, marcar como incorrecto
+      const isLimitExceeded = userOutput.includes('Se excedió el tiempo') ||
+                              userOutput.includes('Se excedió el límite') ||
+                              userOutput.includes('Ejecución detenida');
+      
+      if (isLimitExceeded) {
+        this.codeOutput.emit(this.output);
+        this.solutionCheck.emit({correct: false, output: this.output});
+        return;
+      }
+      
       // Ejecutar la solución correcta (también con límites por seguridad)
       const correctOutput = await this.executeCodeWithLimits(this.correctSolution);
       
       // Comparar salidas (normalizar espacios en blanco)
-      const normalizeOutput = (str: string) => str.trim().replace(/\s+/g, ' ');
-      const isCorrect = normalizeOutput(userOutput) === normalizeOutput(correctOutput);
+      const normalizeOutput = (str: string) => {
+        return str.trim()
+                  .replace(/\s+/g, ' ')
+                  .replace(/\n\s*\n/g, '\n'); // Normalizar saltos de línea múltiples
+      };
+      
+      const normalizedUserOutput = normalizeOutput(userOutput);
+      const normalizedCorrectOutput = normalizeOutput(correctOutput);
+      
+      const isCorrect = normalizedUserOutput === normalizedCorrectOutput;
       
       // Emitir eventos
       this.codeOutput.emit(this.output);

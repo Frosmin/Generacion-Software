@@ -1,8 +1,8 @@
 @use "sass:color";
 
 // Variables de color
-$primary-color: #4346ff; // naranja dorado
-$secondary-color: #ff6a81; // lavanda intensa
+$primary-color: #4346ff; // azul vibrante
+$secondary-color: #ff6a81; // rosa coral
 $background-dark: #000000; // fondo negro total
 $background-light: #272149; // morado oscuro
 $text-light: #ffffff;
@@ -11,8 +11,9 @@ $card-bg: rgba(255, 255, 255, 0.05);
 $card-border: rgba(255, 255, 255, 0.1);
 $error-color: #f44336;
 $success-color: #4caf50;
+$warning-color: #ff9800;
 
-.create-course-container {
+.edit-course-container {
   min-height: 100vh;
   color: $text-light;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
@@ -31,6 +32,7 @@ $success-color: #4caf50;
     align-items: center;
     display: flex;
     flex-direction: column;
+    
     h1 {
       font-size: 2.5rem;
       margin-bottom: 1rem;
@@ -42,6 +44,7 @@ $success-color: #4caf50;
       background-clip: text;
       width: fit-content;
     }
+    
     .welcome-message {
       font-size: 1.1rem;
       opacity: 0.9;
@@ -77,6 +80,29 @@ $success-color: #4caf50;
   &:hover {
     background: rgba(255, 255, 255, 0.1);
     color: $text-light;
+    border-color: rgba(255, 255, 255, 0.5);
+  }
+}
+
+.preview-button {
+  background: rgba(255, 255, 255, 0.1);
+  color: $text-light;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 14px 32px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.5);
+  }
+
+  &.active {
+    background: linear-gradient(45deg, rgba($primary-color, 0.2), rgba($secondary-color, 0.2));
+    border-color: $primary-color;
+    color: $primary-color;
   }
 }
 
@@ -89,52 +115,87 @@ $success-color: #4caf50;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  min-width: 150px;
+  min-width: 180px;
 
   &:hover:not(:disabled) {
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(223, 136, 29, 0.4);
+    box-shadow: 0 6px 20px rgba($primary-color, 0.4);
   }
 
   &:disabled {
-    opacity: 0.7;
+    opacity: 0.5;
     cursor: not-allowed;
     transform: none;
-  }
-
-  .fa-spinner {
-    margin-right: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    color: $text-muted;
   }
 }
 
-// Vista previa
-.preview-section {
-  max-width: 1200px;
-  margin: 40px auto 0;
-  padding: 0 120px;
+// Loading state
+.loading-state {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+  color: $text-muted;
+  font-size: 1.1rem;
 
-  @media (max-width: 768px) {
-    padding: 0 20px;
+  .spinner {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: $primary-color;
+    animation: spin 1s ease-in-out infinite;
+    margin-right: 10px;
+  }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+// Error state
+.error-state {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+  color: $error-color;
+  text-align: center;
+  padding: 20px;
+
+  .error-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
   }
 
-  h3 {
-    color: $text-light;
-    margin-bottom: 15px;
-    font-size: 1.2rem;
+  .error-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
   }
 
-  .json-preview {
-    background: rgba(0, 0, 0, 0.6);
-    border: 1px solid $card-border;
-    border-radius: 8px;
-    padding: 20px;
-    color: $text-light;
-    font-family: "Courier New", monospace;
-    font-size: 0.85rem;
-    line-height: 1.4;
-    max-height: 400px;
-    overflow-y: auto;
-    white-space: pre-wrap;
+  .error-message {
+    color: $text-muted;
+    margin-bottom: 1.5rem;
+  }
+
+  .retry-button {
+    background: $error-color;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background: color.adjust($error-color, $lightness: -10%);
+    }
   }
 }
 
@@ -144,15 +205,13 @@ $success-color: #4caf50;
     flex-direction: column;
 
     .cancel-button,
+    .preview-button,
     .submit-button {
       width: 100%;
     }
   }
 
-  .section-header {
-    .add-button {
-      width: 100%;
-      justify-content: center;
-    }
+  .hero-section .hero-content h1 {
+    font-size: 2rem;
   }
 }

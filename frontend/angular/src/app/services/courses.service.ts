@@ -26,6 +26,8 @@ interface ContenidoCurso {
   paragraph: string[];
   subcontent: SubContent[];
   next?: string;
+  maxResourceConsumption?: number;
+  maxProcessingTime?: number;
   instrucciones?: string;
   codigo_incompleto?: string;
   solucion_correcta?: string;
@@ -63,19 +65,53 @@ interface CreateCourseContent {
   paragraph: string[];
   subcontent: CreateSubContent[];
   next: string | null;
+  maxResourceConsumption: number;
+  maxProcessingTime: number;
 }
 
 interface CreateSubContent {
   subtitle: string;
   subparagraph: string[];
-  example: string[];
+  example: CreateExampleContent[];
 }
 
-// Interface para la respuesta de creación
-interface CreateCourseResponse {
-  id: number;
+interface CreateExampleContent {
+  code: string;
+}
+
+// Interface para actualización completa (PUT) - ÚNICA INTERFACE DE ACTUALIZACIÓN
+interface UpdateCourseRequest {
+  course: {
+    title: string;
+    description: string;
+    goto: string;
+  };
+  contents: UpdateCourseContent[];
+}
+
+interface UpdateCourseContent {
+  title: string;
+  paragraph: string[];
+  subcontent: UpdateSubContent[];
+  next: string | null;
+  maxResourceConsumption: number;
+  maxProcessingTime: number;
+}
+
+interface UpdateSubContent {
+  subtitle: string;
+  subparagraph: string[];
+  example: UpdateExampleContent[];
+}
+
+interface UpdateExampleContent {
+  code: string;
+}
+
+// Interface para la respuesta de creación/actualización
+interface CourseResponse {
   message: string;
-  course?: CourseData;
+  course_id: number;
 }
 
 @Injectable({
@@ -94,9 +130,26 @@ export class CoursesService {
 
   constructor(private http: HttpClient) {}
 
-  // NUEVA FUNCIÓN: Crear un nuevo curso
-  createCourse(courseData: CreateCourseRequest): Observable<CreateCourseResponse> {
-    return this.http.post<CreateCourseResponse>(`${this.baseUrl}/courses`, courseData).pipe(
+  // Crear un nuevo curso
+  createCourse(courseData: CreateCourseRequest): Observable<CourseResponse> {
+    return this.http.post<CourseResponse>(`${this.baseUrl}/courses`, courseData).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  // Actualización completa (PUT) - ÚNICA FUNCIÓN DE ACTUALIZACIÓN
+  updateCourse(courseId: number, courseData: UpdateCourseRequest): Observable<CourseResponse> {
+    console.log('Sending PUT request to:', `${this.baseUrl}/courses/${courseId}`);
+    console.log('Data:', JSON.stringify(courseData, null, 2));
+    
+    return this.http.put<CourseResponse>(`${this.baseUrl}/courses/${courseId}`, courseData).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  // Eliminar un curso
+  deleteCourse(courseId: number): Observable<{ message: string }> {
+    return this.http.delete<{ message: string }>(`${this.baseUrl}/courses/${courseId}`).pipe(
       catchError(this.handleError)
     );
   }
@@ -233,15 +286,27 @@ export class CoursesService {
 
   private handleError = (error: HttpErrorResponse): Observable<never> => {
     let errorMessage = 'Ha ocurrido un error desconocido';
+    
+    console.error('HTTP Error:', error);
+    
     if (error.error instanceof ErrorEvent) {
       errorMessage = `Error: ${error.error.message}`;
     } else {
       switch (error.status) {
+        case 400:
+          errorMessage = 'Datos inválidos enviados al servidor';
+          if (error.error && error.error.details) {
+            errorMessage += `: ${error.error.details}`;
+          }
+          break;
         case 404:
           errorMessage = 'Curso no encontrado';
           break;
         case 500:
           errorMessage = 'Error interno del servidor';
+          if (error.error && error.error.details) {
+            errorMessage += `: ${error.error.details}`;
+          }
           break;
         case 0:
           errorMessage = 'No se puede conectar con el servidor. Verifica tu conexión.';
@@ -249,7 +314,18 @@ export class CoursesService {
         default:
           errorMessage = `Error del servidor: ${error.status} - ${error.message}`;
       }
+      
+      // Agregar detalles adicionales si están disponibles
+      if (error.error && typeof error.error === 'object') {
+        if (error.error.error) {
+          errorMessage += ` - ${error.error.error}`;
+        }
+        if (error.error.message && error.error.message !== error.error.error) {
+          errorMessage += ` - ${error.error.message}`;
+        }
+      }
     }
+    
     console.error('Error en CoursesService:', errorMessage, error);
     return throwError(() => new Error(errorMessage));
   }

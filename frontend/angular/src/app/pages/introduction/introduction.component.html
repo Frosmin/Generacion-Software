@@ -1,4 +1,4 @@
-<!-- Selector de cursos (opcional) -->
+<!-- Selector de cursos (opcional) 
 <div class="curso-selector" *ngIf="cursosDisponibles.length > 1">
   @for (curso of cursosDisponibles; track curso.id) {
     <button 
@@ -8,7 +8,7 @@
       {{ curso.nombre }}
     </button>
   }
-</div>
+</div>-->
 
 <!-- Loading state -->
 @if (loading) {
@@ -46,7 +46,7 @@
           <div class="example-box">
             <h3>Ejemplo</h3>
             <div class="code-block">
-              <pre>{{ subcontent.example[0] }}</pre>
+              <pre>{{ getExampleCode(subcontent.example[0]) }}</pre>
             </div>
           </div>
         }
