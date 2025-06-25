@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Router, ActivatedRoute } from '@angular/router';
-
+import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { EditCourseComponent } from './edit-course.component';
 
 describe('EditCourseComponent', () => {
@@ -18,7 +18,7 @@ describe('EditCourseComponent', () => {
     };
 
     await TestBed.configureTestingModule({
-      imports: [EditCourseComponent],
+      imports: [EditCourseComponent,HttpClientTestingModule],
       providers: [
         { provide: Router, useValue: routerSpy },
         { provide: ActivatedRoute, useValue: activatedRouteSpy }
