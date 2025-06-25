@@ -4,6 +4,9 @@ import { CommonModule } from '@angular/common';
 import { FormCourseComponent } from '../../components/form-course/form-course.component';
 import { CoursesService } from '../../services/courses.service';
 
+import { HttpErrorResponse } from '@angular/common/http';
+
+
 // Interfaces para el tipado de datos
 interface CourseData {
   course: {
@@ -35,36 +38,7 @@ interface ExampleData {
   code: string;
 }
 
-// Interface para actualización parcial (campos opcionales)
-interface PartialUpdateCourseRequest {
-  course?: {
-    title?: string;
-    description?: string;
-    goto?: string;
-  };
-  contents?: PartialUpdateContentData[];
-}
-
-interface PartialUpdateContentData {
-  title?: string;
-  paragraph?: string[];
-  subcontent?: PartialUpdateSubcontentData[];
-  next?: string | null;
-  maxResourceConsumption?: number;
-  maxProcessingTime?: number;
-}
-
-interface PartialUpdateSubcontentData {
-  subtitle?: string;
-  subparagraph?: string[];
-  example?: PartialUpdateExampleData[];
-}
-
-interface PartialUpdateExampleData {
-  code?: string;
-}
-
-// Interface completa (para compatibilidad con el servicio actual)
+// Interface para actualización completa (PUT) - ÚNICA INTERFACE DE ACTUALIZACIÓN
 interface UpdateCourseRequest {
   course: {
     title: string;
@@ -93,6 +67,12 @@ interface UpdateExampleData {
   code: string;
 }
 
+// Interface para el resultado de validación
+interface ValidationResult {
+  isValid: boolean;
+  errors: string[];
+}
+
 @Component({
   selector: 'app-edit-course',
   standalone: true,
@@ -114,9 +94,6 @@ export class EditCourseComponent implements OnInit {
   courseId: string | null = null;
   initialCourseData: CourseData | undefined = undefined;
   currentCourseData: CourseData | undefined = undefined;
-
-  // Configuración para actualizaciones parciales
-  enablePartialUpdates = true;
 
   constructor(
     private router: Router,
@@ -160,50 +137,56 @@ export class EditCourseComponent implements OnInit {
     }
   }
 
-  private async fetchCourseData(courseId: number): Promise<CourseData> {
-    return new Promise((resolve, reject) => {
-      this.coursesService.getCourseById(courseId).subscribe({
-        next: (courseData) => {
-          const transformedData: CourseData = {
-            course: {
-              id: courseData.course.id,
-              title: courseData.course.title,
-              description: courseData.course.description,
-              goto: courseData.course.goto
-            },
-            contents: courseData.contents.map(content => ({
-              id: content.id,
-              title: content.title,
-              paragraph: Array.isArray(content.paragraph) ? content.paragraph : [],
-              subcontent: Array.isArray(content.subcontent) ? content.subcontent.map(sub => ({
-                subtitle: sub.subtitle || '',
-                subparagraph: Array.isArray(sub.subparagraph) ? sub.subparagraph : [],
-                example: Array.isArray(sub.example) ? sub.example.map((ex: any) => {
-                  if (typeof ex === 'string') {
-                    return { code: ex };
-                  } else if (typeof ex === 'object' && ex !== null) {
-                    return { code: ex.code || String(ex) };
-                  } else {
-                    return { code: String(ex) };
-                  }
-                }) : []
-              })) : [],
-              next: content.next || null,
-              maxResourceConsumption: content.maxResourceConsumption || 100,
-              maxProcessingTime: content.maxProcessingTime || 5000
-            }))
-          };
-          
-          console.log('Datos transformados:', transformedData);
-          resolve(transformedData);
-        },
-        error: (error) => {
-          console.error('Error al obtener el curso:', error);
-          reject(new Error('No se pudo cargar el curso: ' + error.message));
-        }
-      });
-    });
-  }
+  
+
+private async fetchCourseData(courseId: number): Promise<CourseData> {
+ return new Promise((resolve, reject) => {
+this.coursesService.getCourseById(courseId).subscribe({
+ next: (courseData) => {
+ const transformedData: CourseData = {
+course: {
+id: courseData.course.id,
+title: courseData.course.title,
+description: courseData.course.description,
+goto: courseData.course.goto
+},
+contents: courseData.contents.map(content => ({
+id: content.id,
+title: content.title,
+ paragraph: Array.isArray(content.paragraph) ? content.paragraph : [],
+subcontent: Array.isArray(content.subcontent) ? content.subcontent.map(sub => ({
+ subtitle: sub.subtitle || '',
+ subparagraph: Array.isArray(sub.subparagraph) ? sub.subparagraph : [],
+example: Array.isArray(sub.example)
+? sub.example.map((ex: string | { code?: string } | object) => {
+if (typeof ex === 'string') {
+return { code: ex };
+ } else if (typeof ex === 'object' && ex !== null && 'code' in ex) {
+ return { code: (ex as { code?: string }).code || String(ex) };
+} else {
+ return { code: JSON.stringify(ex) };
+}
+})
+: []
+})) : [],
+next: content.next || null,
+maxResourceConsumption: content.maxResourceConsumption || 100,
+maxProcessingTime: content.maxProcessingTime || 5000
+ }))
+};
+
+ console.log('Datos transformados:', transformedData);
+resolve(transformedData);
+ },
+error: (error) => {
+console.error('Error al obtener el curso:', error);
+reject(new Error('No se pudo cargar el curso: ' + error.message));
+}
+ });
+});
+}
+
+
 
   // Manejar cambios en los datos del formulario
   onFormDataChange(courseData: CourseData): void {
@@ -228,324 +211,243 @@ export class EditCourseComponent implements OnInit {
     this.hasChanges = initialJson !== currentJson;
   }
 
-  // Detectar cambios específicos para actualizaciones parciales
-  private detectChanges(): PartialUpdateCourseRequest {
-    if (!this.initialCourseData || !this.currentCourseData) {
-      return {};
-    }
-
-    const changes: PartialUpdateCourseRequest = {};
-
-    // Verificar cambios en el curso
-    const courseChanges: any = {};
-    if (this.initialCourseData.course.title !== this.currentCourseData.course.title) {
-      courseChanges.title = this.currentCourseData.course.title.trim();
-    }
-    if (this.initialCourseData.course.description !== this.currentCourseData.course.description) {
-      courseChanges.description = this.currentCourseData.course.description.trim();
-    }
-    if (this.initialCourseData.course.goto !== this.currentCourseData.course.goto) {
-      courseChanges.goto = this.currentCourseData.course.goto.trim();
-    }
-
-    if (Object.keys(courseChanges).length > 0) {
-      changes.course = courseChanges;
-    }
-
-    // Verificar cambios en contenidos
-    const initialContentsJson = JSON.stringify(this.initialCourseData.contents);
-    const currentContentsJson = JSON.stringify(this.currentCourseData.contents);
-
-    if (initialContentsJson !== currentContentsJson) {
-      // Para simplificar, si hay cambios en contenidos, enviamos todos
-      // En una implementación más avanzada, podrías detectar cambios específicos por contenido
-      changes.contents = this.transformContentsForUpdate(this.currentCourseData.contents);
-    }
-
-    return changes;
-  }
-
   // Alternar vista previa del JSON
   togglePreview(): void {
     this.showPreview = !this.showPreview;
   }
 
-  // Enviar formulario con actualizaciones parciales o completas
-  async onSubmit(): Promise<void> {
-    if (!this.isFormValid || !this.currentCourseData || !this.hasChanges) {
-      console.error('Formulario inválido, sin datos o sin cambios', {
-        isFormValid: this.isFormValid,
-        hasData: !!this.currentCourseData,
-        hasChanges: this.hasChanges
-      });
-      return;
-    }
-
-    this.isSubmitting = true;
-
-    try {
-      let updateRequest: UpdateCourseRequest;
-
-      if (this.enablePartialUpdates) {
-        // Detectar solo los cambios y crear un request parcial
-        const partialChanges = this.detectChanges();
-        console.log('Cambios detectados:', JSON.stringify(partialChanges, null, 2));
-
-        // Convertir a formato completo para el servicio actual
-        updateRequest = this.convertPartialToFull(partialChanges);
-      } else {
-        // Enviar todos los datos (comportamiento anterior)
-        updateRequest = this.transformCourseDataForUpdate(this.currentCourseData);
-      }
-
-      // Validar datos antes de enviar
-      if (!this.validateCourseData(this.currentCourseData)) {
-        throw new Error('Datos del curso inválidos');
-      }
-
-      console.log('Datos que se enviarán al servidor:', JSON.stringify(updateRequest, null, 2));
-
-      await this.updateCourse(parseInt(this.courseId!, 10), updateRequest);
-      
-      // Actualizar datos iniciales después del guardado exitoso
-      this.initialCourseData = JSON.parse(JSON.stringify(this.currentCourseData));
-      this.hasChanges = false;
-      
-      alert('¡Curso actualizado exitosamente!');
-      this.router.navigate(['/cursos']);
-      
-    } catch (error) {
-      console.error('Error al actualizar el curso:', error);
-      const errorMessage = error instanceof Error ? error.message : 'Error desconocido';
-      alert(`Error al actualizar el curso: ${errorMessage}`);
-    } finally {
-      this.isSubmitting = false;
-    }
-  }
-
-  // Convertir cambios parciales a formato completo (para compatibilidad con API actual)
-  private convertPartialToFull(partialChanges: PartialUpdateCourseRequest): UpdateCourseRequest {
-  if (!this.currentCourseData) {
-    throw new Error('No hay datos del curso actual');
-  }
-
-  return {
-    course: {
-      title: partialChanges.course?.title ?? this.currentCourseData.course.title,
-      description: partialChanges.course?.description ?? this.currentCourseData.course.description,
-      goto: partialChanges.course?.goto ?? this.currentCourseData.course.goto
-    },
-    contents: partialChanges.contents 
-      ? this.convertPartialContentsToFull(partialChanges.contents)
-      : this.transformContentsForUpdate(this.currentCourseData.contents)
-  };
-}
-
-// Helper method to convert partial contents to full contents
-private convertPartialContentsToFull(partialContents: PartialUpdateContentData[]): UpdateContentData[] {
-  if (!this.currentCourseData) {
-    throw new Error('No hay datos del curso actual');
-  }
-
-  return partialContents.map((partialContent, index) => {
-    const currentContent = this.currentCourseData!.contents[index];
-    
-    if (!currentContent) {
-      throw new Error(`Contenido en índice ${index} no encontrado`);
-    }
-
-    return {
-      title: partialContent.title ?? currentContent.title,
-      paragraph: partialContent.paragraph ?? currentContent.paragraph,
-      subcontent: partialContent.subcontent 
-        ? this.convertPartialSubcontentsToFull(partialContent.subcontent, currentContent.subcontent)
-        : currentContent.subcontent.map(sub => ({
-            subtitle: sub.subtitle,
-            subparagraph: sub.subparagraph,
-            example: sub.example.map(ex => ({ code: ex.code }))
-          })),
-      next: partialContent.next !== undefined ? partialContent.next : currentContent.next,
-      maxResourceConsumption: partialContent.maxResourceConsumption ?? currentContent.maxResourceConsumption,
-      maxProcessingTime: partialContent.maxProcessingTime ?? currentContent.maxProcessingTime
-    };
-  });
-}
-
-// Helper method to convert partial subcontents to full subcontents
-private convertPartialSubcontentsToFull(
-  partialSubcontents: PartialUpdateSubcontentData[], 
-  currentSubcontents: SubcontentData[]
-): UpdateSubcontentData[] {
-  return partialSubcontents.map((partialSub, index) => {
-    const currentSub = currentSubcontents[index];
-    
-    if (!currentSub) {
-      throw new Error(`Subcontenido en índice ${index} no encontrado`);
-    }
-
-    return {
-      subtitle: partialSub.subtitle ?? currentSub.subtitle,
-      subparagraph: partialSub.subparagraph ?? currentSub.subparagraph,
-      example: partialSub.example 
-        ? partialSub.example.map((partialEx, exIndex) => ({
-            code: partialEx.code ?? currentSub.example[exIndex]?.code ?? ''
-          }))
-        : currentSub.example.map(ex => ({ code: ex.code }))
-    };
-  });
-}
-
-  // Transformar contenidos para actualización
-  private transformContentsForUpdate(contents: ContentData[]): UpdateContentData[] {
-    return contents.map(content => ({
-      title: content.title.trim(),
-      paragraph: content.paragraph.filter(p => p.trim() !== ''),
-      subcontent: content.subcontent.map(sub => ({
-        subtitle: sub.subtitle.trim(),
-        subparagraph: sub.subparagraph.filter(sp => sp.trim() !== ''),
-        example: sub.example.map(ex => ({
-          code: ex.code.trim()
-        }))
-      })),
-      next: content.next?.trim() || null,
-      maxResourceConsumption: Number(content.maxResourceConsumption) || 100,
-      maxProcessingTime: Number(content.maxProcessingTime) || 5000
-    }));
-  }
-
-  // Validar datos del curso
-  private validateCourseData(courseData: CourseData): boolean {
-    if (!courseData.course) {
-      console.error('Datos del curso faltantes');
-      return false;
-    }
-
-    if (!courseData.course.title || !courseData.course.description || !courseData.course.goto) {
-      console.error('Campos requeridos del curso faltantes');
-      return false;
-    }
-
-    if (!Array.isArray(courseData.contents) || courseData.contents.length === 0) {
-      console.error('Contenidos del curso faltantes o vacíos');
-      return false;
-    }
-
-    // Validar cada contenido
-    for (const content of courseData.contents) {
-      if (!content.title) {
-        console.error('Título del contenido faltante');
-        return false;
-      }
-
-      if (!Array.isArray(content.paragraph)) {
-        console.error('Párrafos del contenido deben ser un array');
-        return false;
-      }
-
-      if (!Array.isArray(content.subcontent)) {
-        console.error('Subcontenidos deben ser un array');
-        return false;
-      }
-
-      // Validar subcontenidos
-      for (const sub of content.subcontent) {
-        if (!sub.subtitle || !Array.isArray(sub.subparagraph) || !Array.isArray(sub.example)) {
-          console.error('Estructura de subcontenido inválida');
-          return false;
-        }
-      }
-    }
-
-    return true;
-  }
-
-  // Transformar datos para la actualización (método legacy)
-  private transformCourseDataForUpdate(courseData: CourseData): UpdateCourseRequest {
-    return {
-      course: {
-        title: courseData.course.title.trim(),
-        description: courseData.course.description.trim(),
-        goto: courseData.course.goto.trim()
-      },
-      contents: this.transformContentsForUpdate(courseData.contents)
-    };
-  }
-
-  // Actualizar curso usando el coursesService
-  private async updateCourse(courseId: number, courseData: UpdateCourseRequest): Promise<void> {
-    return new Promise((resolve, reject) => {
-      this.coursesService.updateCourse(courseId, courseData).subscribe({
-        next: (response) => {
-          console.log('Curso actualizado exitosamente:', response);
-          resolve();
-        },
-        error: (error) => {
-          console.error('Error detallado del servidor:', error);
-          
-          // Proporcionar más información sobre el error
-          let errorMessage = 'Error interno del servidor';
-          if (error.error && typeof error.error === 'object') {
-            errorMessage = error.error.message || error.error.error || errorMessage;
-          } else if (error.message) {
-            errorMessage = error.message;
-          }
-          
-          reject(new Error(errorMessage));
-        }
-      });
-    });
-  }
-
-  // Alternar modo de actualización
-  togglePartialUpdates(): void {
-    this.enablePartialUpdates = !this.enablePartialUpdates;
-    console.log('Actualizaciones parciales:', this.enablePartialUpdates ? 'Habilitadas' : 'Deshabilitadas');
-  }
-
-  // Cancelar edición
+  // Cancelar edición y volver a la lista de cursos
   onCancel(): void {
+    // Si hay cambios sin guardar, mostrar confirmación
     if (this.hasChanges) {
-      const confirmLeave = confirm('¿Estás seguro de que quieres cancelar? Se perderán todos los cambios no guardados.');
-      if (!confirmLeave) {
-        return;
+      const confirmCancel = confirm(
+        'Tienes cambios sin guardar. ¿Estás seguro de que quieres salir sin guardar?'
+      );
+      
+      if (!confirmCancel) {
+        return; // El usuario decidió no cancelar
       }
     }
 
+    // Navegar de vuelta a la lista de cursos
     this.router.navigate(['/cursos']);
   }
 
-  // Reintentar carga de datos
-  onRetry(): void {
-    this.loadCourseData();
+ 
+
+  // FUNCIÓN DE ENVÍO DE FORMULARIO - SOLO USA PUT
+ // FUNCIÓN DE ENVÍO DE FORMULARIO MEJORADA - SOLO USA PUT
+async onSubmit(): Promise<void> {
+  // Validación previa al envío
+  const validation = this.preSubmitValidation();
+  if (!validation.isValid) {
+    console.error('Validación previa falló:', validation.errors);
+    alert(`No se puede enviar el formulario:\n${validation.errors.join('\n')}`);
+    return;
   }
 
-  // Método para obtener datos del curso para debugging
-  getCourseData(): CourseData | undefined {
-    return this.currentCourseData;
+  this.isSubmitting = true;
+
+  try {
+    const courseId = parseInt(this.courseId!, 10);
+    
+    // Transformar datos para el formato requerido por el backend
+    const fullUpdateData = this.transformCourseDataForUpdate(this.currentCourseData!);
+    
+    console.log('=== DATOS ENVIADOS AL BACKEND ===');
+    console.log('Course ID:', courseId);
+    console.log('Datos completos (PUT):', JSON.stringify(fullUpdateData, null, 2));
+
+    // Usar únicamente actualización completa (PUT)
+    await this.updateCourse(courseId, fullUpdateData);
+    
+    // Actualizar datos iniciales después del guardado exitoso
+    this.initialCourseData = JSON.parse(JSON.stringify(this.currentCourseData));
+    this.hasChanges = false;
+    
+    alert('¡Curso actualizado exitosamente!');
+    this.router.navigate(['/cursos']);
+    
+  } catch (error) {
+    console.error('Error al actualizar el curso:', error);
+    const errorMessage = this.handleNetworkError(error);
+    alert(`Error al actualizar el curso: ${errorMessage}`);
+  } finally {
+    this.isSubmitting = false;
+  }
+}
+
+// TRANSFORMACIÓN MEJORADA PARA PUT
+private transformCourseDataForUpdate(courseData: CourseData): UpdateCourseRequest {
+  console.log('=== TRANSFORMANDO DATOS ===');
+  console.log('Datos originales:', courseData);
+  
+  const transformed = {
+    course: {
+      title: courseData.course.title.trim(),
+      description: courseData.course.description.trim(),  
+      goto: courseData.course.goto.trim()
+    },
+    contents: courseData.contents.map((content, index) => {
+      console.log(`Procesando contenido ${index + 1}:`, content);
+      
+      return {
+        title: content.title.trim(),
+        paragraph: content.paragraph
+          .filter(p => p && p.trim() !== '')
+          .map(p => p.trim()),
+        subcontent: content.subcontent.map((sub, subIndex) => {
+          console.log(`  Procesando subcontenido ${subIndex + 1}:`, sub);
+          
+          return {
+            subtitle: sub.subtitle.trim(),
+            subparagraph: sub.subparagraph
+              .filter(sp => sp && sp.trim() !== '')
+              .map(sp => sp.trim()),
+            example: sub.example.map((ex, exIndex) => {
+              console.log(`    Procesando ejemplo ${exIndex + 1}:`, ex);
+              return {
+                code: (ex.code || '').trim()
+              };
+            })
+          };
+        }),
+        next: content.next && content.next.trim() !== '' ? content.next.trim() : null,
+        maxResourceConsumption: Number(content.maxResourceConsumption) || 100,
+        maxProcessingTime: Number(content.maxProcessingTime) || 5000
+      };
+    })
+  };
+  
+  console.log('Datos transformados:', transformed);
+  return transformed;
+}
+
+// VALIDACIÓN PREVIA MEJORADA
+private preSubmitValidation(): ValidationResult {
+  const errors: string[] = [];
+
+  // Verificar que los datos actuales existan
+  if (!this.currentCourseData) {
+    errors.push('No hay datos del curso para validar');
+    return { isValid: false, errors };
   }
 
-  // Obtener cambios detectados para debugging
-  getDetectedChanges(): PartialUpdateCourseRequest {
-    return this.detectChanges();
+  console.log('=== VALIDANDO DATOS ===');
+  console.log('Datos a validar:', this.currentCourseData);
+
+  // Validar datos del curso
+  const course = this.currentCourseData.course;
+  if (!course.title || course.title.trim().length === 0) {
+    errors.push('El título del curso es requerido');
+  }
+  if (!course.description || course.description.trim().length === 0) {
+    errors.push('La descripción del curso es requerida');
+  }
+  if (!course.goto || course.goto.trim().length === 0) {
+    errors.push('La URL del curso (goto) es requerida');
   }
 
-  // Verificar si hay cambios pendientes
-  get hasPendingChanges(): boolean {
-    return this.hasChanges;
+  // Validar contenidos
+  if (!this.currentCourseData.contents || this.currentCourseData.contents.length === 0) {
+    errors.push('El curso debe tener al menos un contenido');
+  } else {
+    this.currentCourseData.contents.forEach((content, index) => {
+      if (!content.title || content.title.trim().length === 0) {
+        errors.push(`El contenido ${index + 1} debe tener un título`);
+      }
+      if (!content.paragraph || content.paragraph.length === 0 || 
+          content.paragraph.every(p => !p || p.trim() === '')) {
+        errors.push(`El contenido ${index + 1} debe tener al menos un párrafo válido`);
+      }
+      if (!content.maxResourceConsumption || content.maxResourceConsumption <= 0) {
+        errors.push(`El contenido ${index + 1} debe tener un consumo máximo de recursos válido`);
+      }
+      if (!content.maxProcessingTime || content.maxProcessingTime <= 0) {
+        errors.push(`El contenido ${index + 1} debe tener un tiempo máximo de procesamiento válido`);
+      }
+
+      // Validar subcontenidos si existen
+      if (content.subcontent && content.subcontent.length > 0) {
+        content.subcontent.forEach((subcontent, subIndex) => {
+          if (!subcontent.subtitle || subcontent.subtitle.trim().length === 0) {
+            errors.push(`El subcontenido ${subIndex + 1} del contenido ${index + 1} debe tener un subtítulo`);
+          }
+        });
+      }
+    });
   }
 
-  // Obtener estado de carga
-  get isLoadingData(): boolean {
-    return this.isLoading;
+  // Verificar que el formulario sea válido según el componente hijo
+  if (!this.isFormValid) {
+    errors.push('El formulario contiene errores de validación');
   }
 
-  // Obtener estado de error
-  get hasLoadingError(): boolean {
-    return this.hasError;
+  // Verificar que haya cambios para guardar
+  if (!this.hasChanges) {
+    errors.push('No hay cambios para guardar');
   }
 
-  // Obtener modo de actualización
-  get isPartialUpdateMode(): boolean {
-    return this.enablePartialUpdates;
+  console.log('Errores de validación:', errors);
+  
+  return {
+    isValid: errors.length === 0,
+    errors
+  };
+}
+
+// LLAMADA AL SERVICIO MEJORADA
+private async updateCourse(courseId: number, courseData: UpdateCourseRequest): Promise<void> {
+  return new Promise((resolve, reject) => {
+    console.log('=== ENVIANDO SOLICITUD PUT ===');
+    console.log('URL:', `courses/${courseId}`);
+    console.log('Datos:', JSON.stringify(courseData, null, 2));
+    
+    this.coursesService.updateCourse(courseId, courseData).subscribe({
+      next: (response) => {
+        console.log('=== RESPUESTA EXITOSA ===');
+        console.log('Respuesta del servidor:', response);
+        resolve();
+      },
+      error: (error) => {
+        console.error('=== ERROR EN SOLICITUD ===');
+        console.error('Error completo:', error);
+        console.error('Status:', error.status);
+        console.error('Message:', error.message);
+        console.error('Error body:', error.error);
+        reject(error);
+      }
+    });
+  });
+}
+
+  // Manejar errores de red
+  private handleNetworkError(error: unknown): string {
+    if (error instanceof HttpErrorResponse) {
+      if (error?.error?.message) {
+      return error.error.message;
+    }
+    if (error?.message) {
+      return error.message;
+    }
+    if (error?.status) {
+      switch (error.status) {
+        case 400:
+          return 'Datos inválidos enviados al servidor';
+        case 401:
+          return 'No autorizado - verifica tu sesión';
+        case 403:
+          return 'No tienes permisos para realizar esta acción';
+        case 404:
+          return 'Curso no encontrado';
+        case 500:
+          return 'Error interno del servidor';
+        default:
+          return `Error del servidor (${error.status})`;
+      }
+    }
+    }
+    
+    return 'Error de conexión con el servidor';
   }
 }

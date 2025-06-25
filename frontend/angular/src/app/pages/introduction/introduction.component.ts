@@ -249,23 +249,20 @@ export class IntroductionComponent implements OnInit {
   getCurrentCourseInfo(): CursoDisponible | null {
     return this.coursesService.getCourseInfoByGoto(this.currentGoto);
   }
-  getExampleCode(example: any): string {
-  // Si example es un string, devolverlo directamente
+  getExampleCode(example: string | { code?: string } | object): string {
   if (typeof example === 'string') {
     return example;
   }
-  
-  // Si example es un objeto con propiedad 'code'
-  if (example && typeof example === 'object' && example.code) {
-    return example.code;
+
+  if (example && typeof example === 'object' && 'code' in example) {
+    return (example as { code: string }).code;
   }
-  
-  // Si example es un objeto, convertirlo a JSON formateado
+
   if (example && typeof example === 'object') {
     return JSON.stringify(example, null, 2);
   }
-  
-  // Fallback
+
   return 'Código no disponible';
 }
+
 }

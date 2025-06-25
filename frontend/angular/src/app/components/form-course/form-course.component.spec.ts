@@ -9,8 +9,7 @@ describe('FormCourseComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ReactiveFormsModule],
-      declarations: [FormCourseComponent]
+      imports: [ReactiveFormsModule,FormCourseComponent],
     }).compileComponents();
 
     fixture = TestBed.createComponent(FormCourseComponent);

@@ -79,7 +79,7 @@ interface CreateExampleContent {
   code: string;
 }
 
-// Interface para actualizar un curso
+// Interface para actualización completa (PUT) - ÚNICA INTERFACE DE ACTUALIZACIÓN
 interface UpdateCourseRequest {
   course: {
     title: string;
@@ -137,14 +137,17 @@ export class CoursesService {
     );
   }
 
-  // NUEVO: Actualizar un curso existente
+  // Actualización completa (PUT) - ÚNICA FUNCIÓN DE ACTUALIZACIÓN
   updateCourse(courseId: number, courseData: UpdateCourseRequest): Observable<CourseResponse> {
+    console.log('Sending PUT request to:', `${this.baseUrl}/courses/${courseId}`);
+    console.log('Data:', JSON.stringify(courseData, null, 2));
+    
     return this.http.put<CourseResponse>(`${this.baseUrl}/courses/${courseId}`, courseData).pipe(
       catchError(this.handleError)
     );
   }
 
-  // NUEVO: Eliminar un curso
+  // Eliminar un curso
   deleteCourse(courseId: number): Observable<{ message: string }> {
     return this.http.delete<{ message: string }>(`${this.baseUrl}/courses/${courseId}`).pipe(
       catchError(this.handleError)
@@ -283,18 +286,27 @@ export class CoursesService {
 
   private handleError = (error: HttpErrorResponse): Observable<never> => {
     let errorMessage = 'Ha ocurrido un error desconocido';
+    
+    console.error('HTTP Error:', error);
+    
     if (error.error instanceof ErrorEvent) {
       errorMessage = `Error: ${error.error.message}`;
     } else {
       switch (error.status) {
         case 400:
           errorMessage = 'Datos inválidos enviados al servidor';
+          if (error.error && error.error.details) {
+            errorMessage += `: ${error.error.details}`;
+          }
           break;
         case 404:
           errorMessage = 'Curso no encontrado';
           break;
         case 500:
           errorMessage = 'Error interno del servidor';
+          if (error.error && error.error.details) {
+            errorMessage += `: ${error.error.details}`;
+          }
           break;
         case 0:
           errorMessage = 'No se puede conectar con el servidor. Verifica tu conexión.';
@@ -302,7 +314,18 @@ export class CoursesService {
         default:
           errorMessage = `Error del servidor: ${error.status} - ${error.message}`;
       }
+      
+      // Agregar detalles adicionales si están disponibles
+      if (error.error && typeof error.error === 'object') {
+        if (error.error.error) {
+          errorMessage += ` - ${error.error.error}`;
+        }
+        if (error.error.message && error.error.message !== error.error.error) {
+          errorMessage += ` - ${error.error.message}`;
+        }
+      }
     }
+    
     console.error('Error en CoursesService:', errorMessage, error);
     return throwError(() => new Error(errorMessage));
   }

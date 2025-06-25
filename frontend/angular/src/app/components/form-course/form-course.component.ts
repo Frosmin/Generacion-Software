@@ -2,6 +2,8 @@ import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChange
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
+import { AbstractControl, ValidationErrors } from '@angular/forms';
+
 
 interface CourseData {
   course: {
@@ -56,19 +58,20 @@ interface FormValue {
 }
 
 // Custom validators
-function positiveIntegerValidator(control: any) {
+function positiveIntegerValidator(control: AbstractControl): ValidationErrors | null {
   const value = control.value;
   if (value === null || value === undefined || value === '') {
     return null; // Let required validator handle empty values
   }
-  
+
   const numValue = Number(value);
   if (!Number.isInteger(numValue) || numValue <= 0) {
     return { positiveInteger: true };
   }
-  
+
   return null;
 }
+
 
 @Component({
   selector: 'app-form-course',
