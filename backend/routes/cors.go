@@ -11,7 +11,7 @@ func SetupRouter() *gin.Engine {
 
 	// Configuración de CORS
 	config := cors.DefaultConfig()
-	config.AllowOrigins = []string{"http://localhost:4200"} // Tu aplicación Angular
+	config.AllowOrigins = []string{"*"} // Tu aplicación Angular
 	config.AllowMethods = []string{"GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"}
 	config.AllowHeaders = []string{"Origin", "Content-Type", "Accept", "Authorization"}
 
@@ -56,7 +56,7 @@ func SetupRouter() *gin.Engine {
 	api.GET("/courses/:id", GetCourse)
 	api.POST("/courses", CreateCourse)
 	api.GET("/course/:goto", GetCourseIDByGoto)
-	api.PUT("/courses/:id", UpdateCourse)     
- 	api.DELETE("/courses/:id", DeleteCourse) 
+	api.PUT("/courses/:id", UpdateCourse)
+	api.DELETE("/courses/:id", DeleteCourse)
 	return r
 }

@@ -1,4 +1,4 @@
-FROM golang:1.21-alpine AS build
+FROM golang:1.23-alpine AS builder
 
 WORKDIR /app
 
@@ -10,21 +10,18 @@ RUN go mod download
 COPY . .
 
 # Compilar la aplicación
-RUN CGO_ENABLED=0 GOOS=linux go build -o main .
+RUN go build -o main .
 
 # Crear una imagen final más pequeña
 FROM alpine:latest
 
 WORKDIR /app
 
-# Instalar certificados para HTTPS
-RUN apk --no-cache add ca-certificates
+# # Copiar el binario compilado desde la etapa anterior
+COPY --from=builder /app/main .
 
-# Copiar el binario compilado desde la etapa anterior
-COPY --from=build /app/main .
-
-# Puerto que expondrá la aplicación
+# # Puerto que expondrá la aplicación
 EXPOSE 8080
 
-# Comando para ejecutar la aplicación
-CMD ["/app/main"]
+# # Comando para ejecutar la aplicación
+CMD ["./main"]
