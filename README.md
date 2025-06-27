@@ -14,7 +14,7 @@ Incluye módulos de aprendizaje en niveles básico, intermedio y avanzado, ejerc
 ## Tecnologías Utilizadas
 
 - Frontend: Angular
-- Backend: golang/air/gorilla
+- Backend: golang/air/gin
 - Contenedores: Docker
 - Orquestación: Docker Compose
 
