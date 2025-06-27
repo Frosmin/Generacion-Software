@@ -25,8 +25,8 @@ export class NavbarComponent implements OnInit {
   languages: Language[] = [
     { code: 'es', name: 'Español', flag: '🇪🇸' },
     { code: 'en', name: 'English', flag: '🇺🇸' },
-    { code: 'qu', name: 'Runasimi', flag: '🇵🇪' },
-  ];
+    { code: 'qu', name: 'Runasimi', flag: '🇧🇴' },
+   ];  
 
   constructor(private translate: TranslateService) {
     this.translate.setDefaultLang('es');
